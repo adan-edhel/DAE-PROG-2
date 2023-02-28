@@ -32,6 +32,7 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AmrothStructs.h" />
     <ClInclude Include="AmrothUtils.h" />
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Delegate.h" />
@@ -145,6 +146,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <TreatWarningAsError>false</TreatWarningAsError>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>

@@ -28,7 +28,7 @@ void Knight::Draw() const
 		break;
 	}
 
-	m_Sheet.Draw(Point2f{}, slice);
+	m_Sheet.Draw(m_Transform.position.ToPoint2f(), slice);
 
 	Actor::Draw();
 }
