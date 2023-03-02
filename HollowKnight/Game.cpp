@@ -9,13 +9,11 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	m_PlayerInput = new InputHandler();
 	knight = new Knight();
 }
 
 void Game::End( )
 {
-	delete m_PlayerInput;
 	delete knight;
 }
 
@@ -52,13 +50,39 @@ void Game::ClearBackground( ) const
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	//m_PlayerInput->OnKeydown(e);
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+
+	switch (e.keysym.sym)
+	{
+	case SDLK_w:			// UP
+		break;
+	case SDLK_s:			// DOWN
+		break;
+	case SDLK_a:			// LEFT
+		knight->gameObject->transform->position.x -= 50;
+		break;
+	case SDLK_d:			// RIGHT
+		knight->gameObject->transform->position.x += 50;
+		break;
+	case SDLK_SPACE:		// JUMP
+		break;
+	case SDLK_RSHIFT:		// ATTACK
+		break;
+	case SDLK_LSHIFT:		// DASH
+		break;
+	case SDLK_e:			// FOCUS / CAST
+		break;
+	case SDLK_r:			// DREAM NAIL
+		break;
+	case SDLK_ESCAPE:		// MENU
+		break;
+	default:
+		break;
+	}
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
-	//m_PlayerInput->OnKeyUp(e);
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	//switch ( e.keysym.sym )
 	//{

@@ -3,7 +3,7 @@
 
 Knight::Knight() : Actor(5, "HollowKnight/Knight.png")
 {
-	
+
 }
 
 void Knight::Draw() const
@@ -28,9 +28,14 @@ void Knight::Draw() const
 		break;
 	}
 
-	m_Sheet.Draw(m_Transform.position.ToPoint2f(), slice);
+	m_Sheet.Draw(transform->position, slice);
 
 	Actor::Draw();
+}
+
+void Knight::Update(float deltaTime)
+{
+	Actor::Update(deltaTime);
 }
 
 void Knight::OnDeath()

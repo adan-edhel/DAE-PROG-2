@@ -9,6 +9,7 @@ class Knight : public Actor
 public:
 	Knight();
 	void Draw() const override;
+	void Update(float deltaTime) override;
 	void OnDeath() override;
 	~Knight();
 

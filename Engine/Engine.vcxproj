@@ -32,7 +32,6 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AmrothStructs.h" />
     <ClInclude Include="AmrothUtils.h" />
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Delegate.h" />

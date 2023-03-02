@@ -6,9 +6,9 @@
 class InputHandler
 {
 public:
-	//void OnKeyUp(const SDL_KeyboardEvent& e);
-	//void OnKeydown(const SDL_KeyboardEvent& e);
-	//void OnKeyHeld(const SDL_KeyboardEvent& e);
+	void OnKeyUp(const SDL_KeyboardEvent& e);
+	void OnKeydown(const SDL_KeyboardEvent& e);
+	void OnKeyHeld(const SDL_KeyboardEvent& e);
 
 private:
 	//float HorizontalInput();
