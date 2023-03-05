@@ -19,11 +19,17 @@
     <Filter Include="Header Files\Subclasses">
       <UniqueIdentifier>{23132356-e500-4497-918f-1a4640ccd2b5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Subclasses\Framework">
-      <UniqueIdentifier>{4e95c971-7e41-4844-8344-715798772d5b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Subclasses\Framework">
-      <UniqueIdentifier>{857e90a3-cdf5-4546-99ea-52116a35e82e}</UniqueIdentifier>
+      <UniqueIdentifier>{c1f8b746-cdd3-49cb-afcd-4b877fdbd7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Subclasses\Framework">
+      <UniqueIdentifier>{391e02eb-2cc6-42c7-b644-6556a51e1347}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Subclasses\Framework\Components">
+      <UniqueIdentifier>{7e2ab71c-f206-4b30-8bf0-ea8ef1ff378c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Subclasses\Framework\Components">
+      <UniqueIdentifier>{782941f4-2364-4cff-9f0c-a1e7274e7214}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,17 +54,20 @@
     <ClCompile Include="Sprite2D.cpp">
       <Filter>Source Files\Subclasses</Filter>
     </ClCompile>
-    <ClCompile Include="IComponent.cpp">
+    <ClCompile Include="Object.cpp">
       <Filter>Source Files\Subclasses\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Subclasses\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="Renderer.cpp">
+    <ClCompile Include="Behavior.cpp">
       <Filter>Source Files\Subclasses\Framework</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Subclasses\Framework</Filter>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Source Files\Subclasses\Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Source Files\Subclasses\Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -80,17 +89,20 @@
     <ClInclude Include="Sprite2D.h">
       <Filter>Header Files\Subclasses</Filter>
     </ClInclude>
-    <ClInclude Include="IComponent.h">
+    <ClInclude Include="Object.h">
       <Filter>Header Files\Subclasses\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Subclasses\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="Behavior.h">
       <Filter>Header Files\Subclasses\Framework</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Subclasses\Framework</Filter>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Header Files\Subclasses\Framework\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Header Files\Subclasses\Framework\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "Actor.h"
 
-Actor::Actor(const int& maxHealth, const std::string& sheetDirectory) :
-	GameObject(),
+Actor::Actor(const int& maxHealth, const std::string& sheetDirectory) : Behavior(),
 	m_MaxHealth{ maxHealth },
 	m_Sheet{ sheetDirectory }
 {
@@ -23,12 +22,12 @@ void Actor::Draw() const
 	
 }
 
-void Actor::Update(float deltaTime)
-{
-	GameObject::Update(deltaTime);
-}
-
 void Actor::OnDeath()
 {
 	// Do death stuff
+}
+
+Actor::~Actor()
+{
+
 }

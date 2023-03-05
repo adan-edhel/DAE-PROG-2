@@ -9,11 +9,12 @@ class Knight : public Actor
 public:
 	Knight();
 	void Draw() const override;
-	void Update(float deltaTime) override;
+	void Update(const float& deltaTime) override;
 	void OnDeath() override;
 	~Knight();
 
 private:
+
 	enum class AnimState
 	{
 		Idle,

@@ -1,7 +1,9 @@
 #pragma once
+class Transform;
+
 class IComponent
 {
 public:
-	virtual void Update(float deltaTime) = 0;
+	Transform* m_Transform;
+	virtual void Update(const float& deltaTime) = 0;
 };
-

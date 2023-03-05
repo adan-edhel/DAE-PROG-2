@@ -1,7 +1,5 @@
 #pragma once
 #include "BaseGame.h"
-#include "Knight.h"
-
 class Game : public BaseGame
 {
 public:
@@ -13,7 +11,7 @@ public:
 	// http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rh-override
 	~Game();
 
-	void Update( float deltaTime ) override;
+	void Update( float elapsedSec ) override;
 	void Draw( ) const override;
 
 	// Event handling
@@ -24,8 +22,6 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
 private:
-	Knight* knight;
-	Vector2 mousePos{};
 
 	// FUNCTIONS
 	void Start();

@@ -1,14 +1,15 @@
 #pragma once
-#include "GameObject.h"
+#include "Behavior.h"
 #include "Texture.h"
 
 /**
  * \brief A base class for non-static objects within the game.
  */
-class Actor : public GameObject
+class Actor : public AmrothFramework::Behavior
 {
 public:
 	Actor(const int& maxHealth, const std::string& sheetDirectory);
+	~Actor();
 
 	// Getters
 	int Health() const { return m_Health; }
@@ -17,8 +18,6 @@ public:
 	virtual void OnDamage(const int& damage);
 	virtual void Draw() const;
 
-	GameObject* gameObject{ GetReference() };
-
 private:
 	int m_MaxHealth;
 	int m_Health{ m_MaxHealth };
@@ -26,6 +25,5 @@ private:
 protected:
 	Texture m_Sheet;
 	virtual void OnDeath();
-	virtual void Update(float deltaTime) override;
 };
 

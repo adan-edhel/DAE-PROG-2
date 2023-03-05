@@ -24,7 +24,7 @@ private:
 	const int m_Rows;
 	float m_Scale;
 
-	float AnimationSpeed{0.15f}; // Move to SpriteRenderer
+	float AnimationSpeed{0.15f}; // Move to SpriteSpriteRenderer
 
 	void Update(const float& elapsedSec);
 	void Draw() const;

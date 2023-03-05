@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ComponentSystem">
+      <UniqueIdentifier>{ff3a4671-5779-4c58-87c1-22ad7f483111}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseGame.cpp">
@@ -88,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="Vector3.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HollowKnight\GameStructs.h">
+      <Filter>ComponentSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HollowKnight\IComponent.h">
+      <Filter>ComponentSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,17 +9,16 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	knight = new Knight();
+	
 }
 
 void Game::End( )
 {
-	delete knight;
+
 }
 
-void Game::Update( float deltaTime )
+void Game::Update( float elapsedSec )
 {
-	knight->Update(deltaTime);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -36,8 +35,6 @@ void Game::Update( float deltaTime )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-
-	knight->Draw();
 }
 
 void Game::ClearBackground( ) const
@@ -47,39 +44,10 @@ void Game::ClearBackground( ) const
 }
 
 #pragma region Input Events
-#pragma region Keyboard
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
-
-	switch (e.keysym.sym)
-	{
-	case SDLK_w:			// UP
-		break;
-	case SDLK_s:			// DOWN
-		break;
-	case SDLK_a:			// LEFT
-		knight->gameObject->transform->Translate(-50,0);
-		break;
-	case SDLK_d:			// RIGHT
-		knight->gameObject->transform->Translate(50,0);
-		break;
-	case SDLK_SPACE:		// JUMP
-		break;
-	case SDLK_RSHIFT:		// ATTACK
-		break;
-	case SDLK_LSHIFT:		// DASH
-		break;
-	case SDLK_e:			// FOCUS / CAST
-		break;
-	case SDLK_r:			// DREAM NAIL
-		break;
-	case SDLK_ESCAPE:		// MENU
-		break;
-	default:
-		break;
-	}
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
@@ -100,19 +68,13 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 	//}
 }
 
-#pragma endregion Keyboard
-#pragma region Mouse
-
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
 	//std::cout << "MOUSEMOTION event: " << e.x << ", " << e.y << std::endl;
-	mousePos = Vector2(e.x, e.y);
 }
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	knight->gameObject->position = mousePos;
-
 	//std::cout << "MOUSEBUTTONDOWN event: ";
 	//switch ( e.button )
 	//{
@@ -146,7 +108,6 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 	//}
 }
 
-#pragma endregion Mouse
 #pragma endregion Input Events
 
 Game::~Game()
