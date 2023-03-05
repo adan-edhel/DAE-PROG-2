@@ -1,74 +1,54 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include <memory>
 
 template <typename... Args>
 class Delegate
 {
-    using Function = std::function<void(Args...)>;
-    struct FunctionWrapper
+    template <typename T>
+    struct MemberFunction
     {
-        std::weak_ptr<void> instance;
+        using Function = void(T::*)(Args...);
+        T* object;
         Function function;
 
-        template<typename T>
-        void Set(T* object, void (T::* memberFunction)(Args...))
+        MemberFunction(T* obj, Function func)
+            : object(obj), function(func)
         {
-            instance = object->shared_from_this();
-            function = [object, memberFunction](Args... args)
-            {
-                if (auto shared = instance.lock())
-                {
-                    (object->*memberFunction)(args...);
-                }
-            };
-        }
-
-        bool IsEmpty() const
-        {
-            return function == nullptr;
         }
 
         void operator()(Args... args) const
         {
-            function(args...);
+            (object->*function)(args...);
+        }
+
+        bool operator==(const MemberFunction& other) const
+        {
+            return object == other.object && function == other.function;
         }
     };
-    std::vector<FunctionWrapper> functions;
+
+    std::vector<std::function<void(Args...)>> functions;
 
 public:
-    template<typename T>
-    void Add(T* object, void (T::* memberFunction)(Args...))
+    template <typename T>
+    void Connect(T* obj, void (T::* func)(Args...))
     {
-        FunctionWrapper wrapper;
-        wrapper.Set(object, memberFunction);
-        functions.push_back(wrapper);
+        functions.emplace_back(MemberFunction<T>(obj, func));
     }
 
-    template<typename T>
-    void Remove(T* object, void (T::* memberFunction)(Args...))
+    template <typename T>
+    void Disconnect(T* obj, void (T::* func)(Args...))
     {
-        auto it = std::remove_if(functions.begin(), functions.end(),
-            [object, memberFunction](const FunctionWrapper& wrapper)
-            {
-                if (auto shared = wrapper.instance.lock())
-                {
-                    return shared.get() == object && wrapper.function.target<void(T::*)(Args...)>() == memberFunction;
-                }
-        return false;
-            });
-        functions.erase(it, functions.end());
+        auto memberFunction = MemberFunction<T>(obj, func);
+        functions.erase(std::remove(functions.begin(), functions.end(), memberFunction), functions.end());
     }
 
-    void operator()(Args... args)
+    void Invoke(Args... args)
     {
-        for (auto& f : functions)
+        for (const auto& f : functions)
         {
-            if (!f.IsEmpty())
-            {
-                f(args...);
-            }
+            f(args...);
         }
     }
 };

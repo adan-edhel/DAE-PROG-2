@@ -1,15 +1,22 @@
 #include "pch.h"
 #include "Game.h"
 
+#include <iostream>
+
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
 {
 	Start();
 }
 
+Delegate<float> Game::myDelegate;
+
 void Game::Start( )
 {
-	
+	myDelegate.Connect(this, &Game::TestFunction);
+	player = new Character{};
+	npc = new Character{};
+
 }
 
 void Game::End( )
@@ -19,6 +26,7 @@ void Game::End( )
 
 void Game::Update( float elapsedSec )
 {
+	myDelegate.Invoke(elapsedSec);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -30,6 +38,11 @@ void Game::Update( float elapsedSec )
 	//{
 	//	std::cout << "Left and up arrow keys are down\n";
 	//}
+}
+
+void Game::TestFunction(float testValue)
+{
+	std::cout << "this works too!";
 }
 
 void Game::Draw( ) const
@@ -113,4 +126,7 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 Game::~Game()
 {
 	End();
+
+	delete player;
+	delete npc;
 }

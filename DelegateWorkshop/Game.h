@@ -1,5 +1,8 @@
 #pragma once
 #include "BaseGame.h"
+#include "Character.h"
+#include "Delegate.h"
+
 class Game : public BaseGame
 {
 public:
@@ -21,7 +24,12 @@ public:
 	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e ) override;
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
+	static Delegate<float> myDelegate;
 private:
+	Character* player;
+	Character* npc;
+
+	void TestFunction(float testValue);
 
 	// FUNCTIONS
 	void Start();
