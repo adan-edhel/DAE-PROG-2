@@ -1,13 +1,8 @@
 #include "pch.h"
 #include "Transform.h"
 
-#include "Rigidbody2D.h"
-#include "SpriteRenderer.h"
-
 Transform::Transform()
 {
-	AddComponent(new SpriteRenderer(this));
-	AddComponent(new Rigidbody2D(this));
 }
 
 void Transform::Translate(const Vector2& displacement)

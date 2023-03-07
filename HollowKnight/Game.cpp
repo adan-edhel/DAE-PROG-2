@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "Game.h"
+#include "Delegates.h"
+
+
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -19,6 +22,8 @@ void Game::End( )
 
 void Game::Update( float deltaTime )
 {
+	Delegates::UpdateObjects.Invoke(deltaTime);
+
 	knight->Update(deltaTime);
 
 	// Check keyboard state
@@ -36,8 +41,7 @@ void Game::Update( float deltaTime )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-
-	knight->Draw();
+	Delegates::DrawObjects.Invoke();
 }
 
 void Game::ClearBackground( ) const
@@ -66,6 +70,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 		knight->gameObject->transform->Translate(50,0);
 		break;
 	case SDLK_SPACE:		// JUMP
+		knight->gameObject->SetActive(!knight->gameObject->isActive());
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -111,7 +116,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	knight->gameObject->position = mousePos;
+	knight->gameObject->transform->position = mousePos;
 
 	//std::cout << "MOUSEBUTTONDOWN event: ";
 	//switch ( e.button )

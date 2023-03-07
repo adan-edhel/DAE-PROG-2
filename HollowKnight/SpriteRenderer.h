@@ -8,7 +8,7 @@ class Transform;
 class SpriteRenderer : public IComponent
 {
 private:
-	Texture* m_Sprite{};
+	Texture* m_Sprite;
 
 public:
 

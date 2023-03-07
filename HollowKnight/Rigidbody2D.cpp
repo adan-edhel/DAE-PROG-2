@@ -1,12 +1,9 @@
 #include "pch.h"
 #include "Rigidbody2D.h"
-
 #include "AmrothUtils.h"
 
-Rigidbody2D::Rigidbody2D(Transform* transform) :
-m_Transform{transform}
+Rigidbody2D::Rigidbody2D()
 {
-	
 }
 
 void Rigidbody2D::Update(const float& deltaTime)
@@ -32,5 +29,4 @@ void Rigidbody2D::SimulateGravity(const float& deltaTime)
 
 Rigidbody2D::~Rigidbody2D()
 {
-	m_Transform = nullptr;
 }

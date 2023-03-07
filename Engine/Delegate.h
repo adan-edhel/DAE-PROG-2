@@ -59,14 +59,28 @@ public:
     void Disconnect(T* obj, void (T::* func)(Args...))
     {
         auto memberFunction = MemberFunction<T>(obj, func);
-        functions.erase(std::remove(functions.begin(), functions.end(), memberFunction), functions.end());
+        functions.erase(std::remove_if(functions.begin(), functions.end(),
+            [&memberFunction](const std::function<void(Args...)>& f) {
+                if constexpr (std::is_same_v<decltype(f), MemberFunction<T>>) {
+                    return f == memberFunction;
+                }
+        return false;
+            }),
+            functions.end());
     }
 
     template <typename T>
     void Disconnect(T* obj, void (T::* func)(Args...) const)
     {
         auto memberFunction = MemberFunction<T>(obj, func);
-        functions.erase(std::remove(functions.begin(), functions.end(), memberFunction), functions.end());
+        functions.erase(std::remove_if(functions.begin(), functions.end(),
+            [&memberFunction](const std::function<void(Args...)>& f) {
+                if constexpr (std::is_same_v<decltype(f), MemberFunction<T>>) {
+                    return f == memberFunction;
+                }
+        return false;
+            }),
+            functions.end());
     }
 
     void Invoke(Args... args)

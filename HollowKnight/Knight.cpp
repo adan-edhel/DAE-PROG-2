@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "Knight.h"
+#include "Delegates.h"
 
 Knight::Knight() : Actor(5, "HollowKnight/Knight.png")
 {
-
+	Delegates::DrawObjects.Connect(this, &Knight::Draw);
 }
 
 void Knight::Draw() const

@@ -29,5 +29,5 @@ void SpriteRenderer::Update(const float& deltaTime)
 }
 SpriteRenderer::~SpriteRenderer()
 {
-	
+	delete m_Sprite;
 }

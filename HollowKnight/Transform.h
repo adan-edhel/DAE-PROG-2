@@ -7,9 +7,8 @@
 
 class Transform
 {
-protected:
-	Transform();
 public:
+	Transform();
 	Tag tag{Tag::Default};
 
 	Vector2 position{};
@@ -18,6 +17,10 @@ public:
 
 	void Translate(const Vector2& displacement);
 	void Translate(const float& x, const float& y);
+
+	void Update(const float& deltaTime);
+
+	~Transform();
 
 #pragma region Components
 	// Adds new component
@@ -64,11 +67,8 @@ public:
 		return nullptr;
 	}
 
-protected:
+private:
 	// List of added components
 	std::vector<IComponent*> components{};
 #pragma endregion Components
-
-	virtual void Update(const float& deltaTime);
-	~Transform();
 };
