@@ -16,19 +16,21 @@ class Delegate
             ConstFunction constFunction;
         };
 
+        bool isConstFunction;
+
         MemberFunction(T* obj, Function func)
-            : object(obj), function(func)
+            : object(obj), function(func), isConstFunction(false)
         {
         }
 
         MemberFunction(T* obj, ConstFunction func)
-            : object(obj), constFunction(func)
+            : object(obj), constFunction(func), isConstFunction(true)
         {
         }
 
         void operator()(Args... args) const
         {
-            if (function)
+            if (!isConstFunction)
                 (object->*function)(args...);
             else
                 (object->*constFunction)(args...);
@@ -36,7 +38,8 @@ class Delegate
 
         bool operator==(const MemberFunction& other) const
         {
-            return object == other.object && function == other.function && constFunction == other.constFunction;
+            return object == other.object && isConstFunction == other.isConstFunction &&
+                ((isConstFunction && constFunction == other.constFunction) || (!isConstFunction && function == other.function));
         }
     };
 
@@ -83,11 +86,16 @@ public:
             functions.end());
     }
 
+    void DisconnectAll()
+    {
+        functions.clear();
+    }
+
     void Invoke(Args... args)
     {
-        for (const auto& f : functions)
+        for (const auto& function : functions)
         {
-            f(args...);
+            function(args...);
         }
     }
 };
