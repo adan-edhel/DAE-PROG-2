@@ -6,18 +6,17 @@ namespace AmrothFramework
 	class Object
 	{
 	public:
-		Transform* transform;
+		Transform transform{};
 
 		Object();
+		bool isActive() const;
+		void SetActive(const bool& active);
 		~Object();
 
-		void Update(const float& deltaTime);
-		void SetActive(const bool& active);
-
-		bool isActive() const { return m_Active; }
-
 	private:
-		// Properties
 		bool m_Active{ true };
+
+		void Update(const float& deltaTime);
+		void Draw() const;
 	};
 }

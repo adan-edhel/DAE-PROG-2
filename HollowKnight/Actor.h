@@ -7,23 +7,20 @@
  */
 class Actor : public AmrothFramework::Behavior
 {
-public:
-	Actor(const int& maxHealth, const std::string& sheetDirectory);
-	~Actor();
-
-	// Getters
-	int Health() const { return m_Health; }
-
-	// Virtual functions
-	virtual void OnDamage(const int& damage);
-	virtual void Draw() const;
-
 private:
 	int m_MaxHealth;
-	int m_Health{ m_MaxHealth };
+	int m_Health;
+
+public:
+	int GetHealth() const { return m_Health; }
+	virtual void OnDamage(const int& damage);
 
 protected:
 	Texture m_Sheet;
-	virtual void OnDeath();
+
+	Actor(const int& maxHealth, const std::string& sheetDirectory);
+	virtual void OnDeath() = 0;
+	virtual void Draw() const;
+	virtual ~Actor() = default;
 };
 

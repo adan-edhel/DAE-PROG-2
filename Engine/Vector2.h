@@ -60,7 +60,6 @@ struct Vector2 final
 	// float angle = u.AngleWith(v);
 	float AngleWith(const Vector2& other) const;
 
-
 	// Returns normalized form of a vector
 	// Vector2 n = v.Normalized();
 	Vector2 Normalized(float epsilon = 0.001f) const;

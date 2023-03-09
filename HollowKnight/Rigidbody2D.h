@@ -1,22 +1,27 @@
 #pragma once
 #include "Transform.h"
 
-class Rigidbody2D : public IComponent
+
+namespace AmrothFramework
 {
-public:
-	bool m_IsStatic{ false };
+	class Rigidbody2D : public IComponent
+	{
+	public:
+		bool m_IsStatic{ false };
+		Vector2 m_Velocity{};
 
-	Rigidbody2D();
-	void Update(const float& deltaTime) override;
-	~Rigidbody2D();
+		Rigidbody2D();
+		void Update(const float& deltaTime) override;
+		void SetVelocity(const Vector2& velocity);
+		void AddForce(const Vector2& force);
+		~Rigidbody2D() override = default;
 
-private:
-	Vector2 m_Velocity{};
+	private:
+		float m_GravityModifier{};
+		float m_Bounciness{ -0.75f };
+		float m_Friction{0};
 
-	float m_GravityModifier{};
-	float m_Bounciness{-0.75f};
-
-protected:
-	void SimulateGravity(const float& deltaTime);
-};
-
+		void VelocityDecay(const float& deltaTime);
+		void SimulateGravity(const float& deltaTime);
+	};
+}

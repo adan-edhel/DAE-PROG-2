@@ -4,14 +4,14 @@
 /**
  * \brief A class for the titular character of the game.
  */
-class Knight : public Actor
+class Knight final : public Actor
 {
 public:
 	Knight();
 	void Draw() const override;
-	void Update(const float& deltaTime) override;
+	void Update(const float& deltaTime);
 	void OnDeath() override;
-	~Knight();
+	~Knight() override = default;
 
 private:
 

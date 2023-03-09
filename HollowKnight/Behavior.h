@@ -6,11 +6,7 @@ namespace AmrothFramework
 	class Behavior
 	{
 	public:
-		Object* gameObject;
-
+		Object gameObject{};
 		Behavior();
-		~Behavior();
-
-		virtual void Update(const float& deltaTime);
 	};
 }

@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "Game.h"
-#include "Delegates.h"
-
-
+#include "Global.h"
+#include "Rigidbody2D.h"
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -17,14 +16,13 @@ void Game::Start( )
 
 void Game::End( )
 {
+	Global::CleanUpDelegates();
 	delete knight;
 }
 
 void Game::Update( float deltaTime )
 {
-	Delegates::UpdateObjects.Invoke(deltaTime);
-
-	knight->Update(deltaTime);
+	Global::UpdateObjects.Invoke(deltaTime);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -41,7 +39,13 @@ void Game::Update( float deltaTime )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	Delegates::DrawObjects.Invoke();
+
+	Global::DrawBackground.Invoke();
+	Global::DrawPlayground.Invoke();
+	Global::DrawForeground.Invoke();
+	Global::DrawUserInterface.Invoke();
+
+	knight->Draw();
 }
 
 void Game::ClearBackground( ) const
@@ -57,6 +61,11 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
 
+	Global::OnKeyDown.Invoke(e);
+
+	using AmrothFramework::Rigidbody2D;
+	Rigidbody2D* pRigidbody{ knight->gameObject.transform.GetComponent<Rigidbody2D>() };
+
 	switch (e.keysym.sym)
 	{
 	case SDLK_w:			// UP
@@ -64,19 +73,20 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	case SDLK_s:			// DOWN
 		break;
 	case SDLK_a:			// LEFT
-		knight->gameObject->transform->Translate(-50,0);
+		pRigidbody->AddForce(Vector2(-15,0));
 		break;
 	case SDLK_d:			// RIGHT
-		knight->gameObject->transform->Translate(50,0);
+		pRigidbody->AddForce(Vector2(15, 0));
 		break;
 	case SDLK_SPACE:		// JUMP
-		knight->gameObject->SetActive(!knight->gameObject->isActive());
+		pRigidbody->AddForce(Vector2(0, 5));
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
 	case SDLK_LSHIFT:		// DASH
 		break;
 	case SDLK_e:			// FOCUS / CAST
+		knight->gameObject.SetActive(!knight->gameObject.isActive());
 		break;
 	case SDLK_r:			// DREAM NAIL
 		break;
@@ -89,6 +99,8 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
+	Global::OnKeyUp.Invoke(e);
+
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	//switch ( e.keysym.sym )
 	//{
@@ -116,7 +128,14 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	knight->gameObject->transform->position = mousePos;
+	knight->gameObject.transform.position = mousePos;
+
+	switch (e.type)
+	{
+	case SDL_MOUSEBUTTONUP:
+		std::cout << "Button up\n";
+		break;
+	}
 
 	//std::cout << "MOUSEBUTTONDOWN event: ";
 	//switch ( e.button )
@@ -136,6 +155,13 @@ void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 {
+	switch (e.type)
+	{
+	case SDL_MOUSEBUTTONDOWN:
+		std::cout << "Button down\n";
+		break;
+	}
+
 	//std::cout << "MOUSEBUTTONUP event: ";
 	//switch ( e.button )
 	//{

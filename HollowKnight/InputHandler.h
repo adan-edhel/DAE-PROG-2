@@ -1,21 +1,19 @@
 #pragma once
+#include "InputActions.h"
+#include "Object.h"
 
-/**
- * \brief A class that handles player inputs.
- */
-class InputHandler
+using AmrothFramework::Object;
+
+class InputHandler : public InputActions
 {
 public:
-	void OnKeyUp(const SDL_KeyboardEvent& e);
-	void OnKeydown(const SDL_KeyboardEvent& e);
-	void OnKeyHeld(const SDL_KeyboardEvent& e);
+	InputHandler(Object& player);
+	~InputHandler() override;
 
 private:
-	//float HorizontalInput();
-	//float VerticalInput();
-
-	//void Interact();
-	//void Attack();
-	//void Jump();
+	void OnKeyDown(const SDL_KeyboardEvent& e);
+	void OnKeyUp(const SDL_KeyboardEvent& e);
+	void OnMouseMoved(const SDL_MouseMotionEvent& e);
+	void OnMouseDown(const SDL_MouseButtonEvent& e);
+	void OnMouseUp(const SDL_MouseButtonEvent& e);
 };
-

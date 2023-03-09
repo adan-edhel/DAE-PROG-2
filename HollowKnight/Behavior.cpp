@@ -4,20 +4,8 @@
 
 namespace AmrothFramework
 {
-	Behavior::Behavior() :
-	gameObject{new Object()}
+	Behavior::Behavior()
 	{
-		//gameObject->transform->AddComponent(new SpriteRenderer());
-	}
-
-	void Behavior::Update(const float& deltaTime)
-	{
-		gameObject->Update(deltaTime);
-	}
-
-
-	Behavior::~Behavior()
-	{
-		delete gameObject;
+		gameObject.transform.AddComponent(new SpriteRenderer());
 	}
 }

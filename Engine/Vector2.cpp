@@ -1,7 +1,5 @@
-#include "base.h"
 #include <cmath>
 #include <string>
-#include <iostream>
 #include <sstream>
 #include <iomanip>
 #include "Vector2.h"

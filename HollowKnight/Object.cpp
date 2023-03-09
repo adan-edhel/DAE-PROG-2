@@ -1,13 +1,17 @@
 #include "pch.h"
+#include "Global.h"
 #include "Object.h"
-#include "Delegates.h"
 
 namespace AmrothFramework
 {
-	Object::Object() :
-	transform{new Transform()}
+	Object::Object()
 	{
-		Delegates::UpdateObjects.Connect(this, &Object::Update);
+		Global::UpdateObjects.Connect(this, &Object::Update);
+	}
+
+	bool Object::isActive() const
+	{
+		return m_Active;
 	}
 
 	void Object::SetActive(const bool& active)
@@ -18,13 +22,15 @@ namespace AmrothFramework
 	void Object::Update(const float& deltaTime)
 	{
 		if (!m_Active) return;
+		transform.Update(deltaTime);
+	}
 
-		transform->Update(deltaTime);
+	void Object::Draw() const
+	{
 	}
 
 	Object::~Object()
 	{
-		Delegates::UpdateObjects.Disconnect(this, &Object::Update);
-		delete transform;
+		Global::UpdateObjects.Disconnect(this, &Object::Update);
 	}
 }

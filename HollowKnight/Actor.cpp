@@ -2,12 +2,13 @@
 #include "Actor.h"
 #include "Rigidbody2D.h"
 
-
-Actor::Actor(const int& maxHealth, const std::string& sheetDirectory) : Behavior(),
+Actor::Actor(const int& maxHealth, const std::string& sheetDirectory) :
+	Behavior(),
 	m_MaxHealth{ maxHealth },
+	m_Health{m_MaxHealth},
 	m_Sheet{ sheetDirectory }
 {
-	gameObject->transform->AddComponent(new Rigidbody2D());
+	gameObject.transform.AddComponent(new AmrothFramework::Rigidbody2D());
 }
 
 void Actor::OnDamage(const int& damage)
@@ -27,9 +28,4 @@ void Actor::Draw() const
 void Actor::OnDeath()
 {
 	// Do death stuff
-}
-
-Actor::~Actor()
-{
-
 }
