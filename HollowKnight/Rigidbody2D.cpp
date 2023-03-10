@@ -6,6 +6,7 @@ namespace AmrothFramework
 {
 	Rigidbody2D::Rigidbody2D()
 	{
+
 	}
 
 	void Rigidbody2D::Update(const float& deltaTime)

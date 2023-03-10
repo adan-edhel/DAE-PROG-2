@@ -1,7 +1,6 @@
 #pragma once
 #include "Transform.h"
 
-
 namespace AmrothFramework
 {
 	class Rigidbody2D : public IComponent

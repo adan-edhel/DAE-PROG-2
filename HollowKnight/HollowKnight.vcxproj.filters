@@ -72,14 +72,14 @@
     <ClCompile Include="Behavior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Source Files\Subclasses\Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Level.cpp">
       <Filter>Source Files\Subclasses</Filter>
     </ClCompile>
     <ClCompile Include="InputActions.cpp">
       <Filter>Source Files\Subclasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Source Files\Subclasses\Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,14 +119,14 @@
     <ClInclude Include="Behavior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>Header Files\Subclasses\Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Header Files\Subclasses</Filter>
     </ClInclude>
     <ClInclude Include="InputActions.h">
       <Filter>Header Files\Subclasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Header Files\Subclasses\Framework\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

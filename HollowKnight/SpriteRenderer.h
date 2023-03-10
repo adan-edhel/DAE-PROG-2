@@ -1,12 +1,9 @@
 #pragma once
-#include "IComponent.h"
+#include "Transform.h"
 #include "Texture.h"
-#include "Vector2.h"
 
 namespace AmrothFramework
 {
-	class Transform;
-
 	class SpriteRenderer : public IComponent
 	{
 	public:
