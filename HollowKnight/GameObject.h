@@ -3,15 +3,15 @@
 
 namespace AmrothFramework
 {
-	class Object
+	class GameObject
 	{
 	public:
 		Transform transform{};
 
-		Object();
+		GameObject();
 		bool isActive() const;
 		void SetActive(const bool& active);
-		~Object();
+		~GameObject();
 
 	private:
 		bool m_Active{ true };

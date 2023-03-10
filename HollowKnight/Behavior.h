@@ -1,12 +1,12 @@
 #pragma once
-#include "Object.h"
+#include "GameObject.h"
 
 namespace AmrothFramework
 {
 	class Behavior
 	{
 	public:
-		Object gameObject{};
+		GameObject gameGameObject{};
 		Behavior();
 	};
 }

@@ -54,7 +54,7 @@
     <ClCompile Include="Sprite2D.cpp">
       <Filter>Source Files\Subclasses</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Subclasses\Framework</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
@@ -101,7 +101,7 @@
     <ClInclude Include="Sprite2D.h">
       <Filter>Header Files\Subclasses</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
+    <ClInclude Include="GameObject.h">
       <Filter>Header Files\Subclasses\Framework</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">

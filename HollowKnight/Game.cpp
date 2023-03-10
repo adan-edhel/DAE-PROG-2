@@ -22,7 +22,7 @@ void Game::End( )
 
 void Game::Update( float deltaTime )
 {
-	Global::UpdateObjects.Invoke(deltaTime);
+	Global::UpdateGameObjects.Invoke(deltaTime);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -62,7 +62,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	Global::OnKeyDown.Invoke(e);
 
 	using AmrothFramework::Rigidbody2D;
-	Rigidbody2D* pRigidbody{ knight->gameObject.transform.GetComponent<Rigidbody2D>() };
+	Rigidbody2D* pRigidbody{ knight->gameGameObject.transform.GetComponent<Rigidbody2D>() };
 
 	switch (e.keysym.sym)
 	{
@@ -84,7 +84,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	case SDLK_LSHIFT:		// DASH
 		break;
 	case SDLK_e:			// FOCUS / CAST
-		knight->gameObject.SetActive(!knight->gameObject.isActive());
+		knight->gameGameObject.SetActive(!knight->gameGameObject.isActive());
 		break;
 	case SDLK_r:			// DREAM NAIL
 		break;
@@ -126,7 +126,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	knight->gameObject.transform.position = mousePos;
+	knight->gameGameObject.transform.position = mousePos;
 
 	switch (e.type)
 	{

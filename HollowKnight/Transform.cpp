@@ -7,9 +7,9 @@ namespace AmrothFramework
 	{
 	}
 
-	//Transform::Transform(Object* gameObject, Delegate<const float&>& updateDelegate)
+	//Transform::Transform(GameObject* gameGameObject, Delegate<const float&>& updateDelegate)
 	//{
-	//	updateDelegate.Connect(gameObject , &Transform::Update);
+	//	updateDelegate.Connect(gameGameObject , &Transform::Update);
 	//}
 
 	void Transform::Translate(const Vector2& displacement)

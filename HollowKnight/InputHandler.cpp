@@ -2,7 +2,7 @@
 #include "Global.h"
 #include "InputHandler.h"
 
-InputHandler::InputHandler(Object& player)
+InputHandler::InputHandler(GameObject& player)
 {
 	Global::OnKeyDown.Connect(this, &InputHandler::OnKeyDown);
 	Global::OnKeyUp.Connect(this, &InputHandler::OnKeyUp);

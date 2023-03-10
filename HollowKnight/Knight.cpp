@@ -5,8 +5,8 @@
 
 Knight::Knight() : Actor(5, "HollowKnight/Knight.png")
 {
-	gameObject.transform.AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12));
-	m_SpriteRenderer = gameObject.transform.GetComponent<SpriteRenderer>();
+	gameGameObject.transform.AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12));
+	m_SpriteRenderer = gameGameObject.transform.GetComponent<SpriteRenderer>();
 
 	Global::DrawPlayground.Connect(this, &Knight::Draw);
 }

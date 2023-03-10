@@ -11,7 +11,7 @@ public:
 	static Delegate<> DrawUserInterface;
 
 	// Updating
-	static Delegate<const float&> UpdateObjects;
+	static Delegate<const float&> UpdateGameObjects;
 
 	// User Inputs
 	static Delegate<const SDL_KeyboardEvent&> OnKeyDown;

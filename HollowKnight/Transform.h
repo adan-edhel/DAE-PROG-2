@@ -19,7 +19,7 @@ namespace AmrothFramework
 		Vector2 scale{};
 
 		Transform();
-		//Transform(Object* gameObject, Delegate<const float&>& updateDelegate);
+		//Transform(GameObject* gameGameObject, Delegate<const float&>& updateDelegate);
 		void Translate(const Vector2& displacement);
 		void Translate(const float& x, const float& y);
 		void Update(const float& deltaTime) const;

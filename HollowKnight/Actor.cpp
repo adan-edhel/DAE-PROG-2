@@ -8,7 +8,7 @@ Actor::Actor(const int& maxHealth, const std::string& sheetDirectory) :
 	m_Health{m_MaxHealth},
 	m_Sheet{ sheetDirectory }
 {
-	gameObject.transform.AddComponent(new AmrothFramework::Rigidbody2D());
+	gameGameObject.transform.AddComponent(new AmrothFramework::Rigidbody2D());
 }
 
 void Actor::OnDamage(const int& damage)

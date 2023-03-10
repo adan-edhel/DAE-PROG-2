@@ -8,7 +8,7 @@ Delegate<> Global::DrawForeground;
 Delegate<> Global::DrawUserInterface;
 
 // Updating
-Delegate<const float&> Global::UpdateObjects;
+Delegate<const float&> Global::UpdateGameObjects;
 
 // User Inputs
 Delegate<const SDL_KeyboardEvent&> Global::OnKeyDown;
@@ -25,7 +25,7 @@ void Global::CleanUpDelegates()
 	DrawForeground.DisconnectAll();
 	DrawUserInterface.DisconnectAll();
 
-	UpdateObjects.DisconnectAll();
+	UpdateGameObjects.DisconnectAll();
 
 	OnKeyDown.DisconnectAll();
 	OnKeyUp.DisconnectAll();

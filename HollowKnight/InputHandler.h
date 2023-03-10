@@ -1,13 +1,13 @@
 #pragma once
 #include "InputActions.h"
-#include "Object.h"
+#include "GameObject.h"
 
-using AmrothFramework::Object;
+using AmrothFramework::GameObject;
 
 class InputHandler : public InputActions
 {
 public:
-	InputHandler(Object& player);
+	InputHandler(GameObject& player);
 	~InputHandler() override;
 
 private:
