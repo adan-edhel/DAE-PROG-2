@@ -44,8 +44,6 @@ void Game::Draw( ) const
 	Global::DrawPlayground.Invoke();
 	Global::DrawForeground.Invoke();
 	Global::DrawUserInterface.Invoke();
-
-	knight->Draw();
 }
 
 void Game::ClearBackground( ) const

@@ -1,8 +1,14 @@
 #include "pch.h"
 #include "Knight.h"
+#include "Global.h"
+#include "SpriteRenderer.h"
 
 Knight::Knight() : Actor(5, "HollowKnight/Knight.png")
 {
+	gameObject.transform.AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12));
+	m_SpriteRenderer = gameObject.transform.GetComponent<SpriteRenderer>();
+
+	Global::DrawPlayground.Connect(this, &Knight::Draw);
 }
 
 void Knight::Draw() const
@@ -10,26 +16,7 @@ void Knight::Draw() const
 	const float spriteSize{ 80 };
 	Rectf slice{0, spriteSize, spriteSize, spriteSize };
 
-	switch (m_AnimState)
-	{
-	case AnimState::Idle:
-		slice.left = 0;
-		break;
-	case AnimState::Walking:
-		break;
-	case AnimState::Attacking:
-		break;
-	case AnimState::Jumping:
-		break;
-	case AnimState::Hurt:
-		break;
-	case AnimState::Dying:
-		break;
-	}
-
-	m_Sheet.Draw(gameObject.transform.position.ToPoint2f(), slice);
-
-	Actor::Draw();
+	m_SpriteRenderer->Draw();
 }
 
 void Knight::Update(const float& deltaTime)

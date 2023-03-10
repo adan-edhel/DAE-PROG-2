@@ -1,5 +1,8 @@
 #pragma once
 #include "Actor.h"
+#include "SpriteRenderer.h"
+
+using AmrothFramework::SpriteRenderer;
 
 /**
  * \brief A class for the titular character of the game.
@@ -14,6 +17,7 @@ public:
 	~Knight() override = default;
 
 private:
+	SpriteRenderer* m_SpriteRenderer;
 
 	enum class AnimState
 	{
