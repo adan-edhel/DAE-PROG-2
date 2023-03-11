@@ -13,90 +13,93 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ComponentSystem">
-      <UniqueIdentifier>{ff3a4671-5779-4c58-87c1-22ad7f483111}</UniqueIdentifier>
+    <Filter Include="Header Files\Amroth">
+      <UniqueIdentifier>{eeb23bac-bc8c-41d0-a83a-f1ac2ca37683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Base">
+      <UniqueIdentifier>{ecad1f49-1aba-4ae9-96a1-11c4e4b58710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Base">
+      <UniqueIdentifier>{7449fda8-27a1-4283-8e9f-c504ebbbae17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Amroth">
+      <UniqueIdentifier>{dbfb7c33-cc99-421a-b54e-fd36aa9b58ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseGame.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Matrix2x3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="SoundEffect.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="SoundStream.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="structs.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="SVGParser.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AmrothUtils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="AmrothUtils.cpp">
+      <Filter>Source Files\Amroth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseGame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix2x3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundEffect.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundStream.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SVGParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Delegate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AmrothUtils.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Amroth</Filter>
     </ClInclude>
     <ClInclude Include="Vector3.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\HollowKnight\GameStructs.h">
-      <Filter>ComponentSystem</Filter>
+    <ClInclude Include="base.h">
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="..\HollowKnight\IComponent.h">
-      <Filter>ComponentSystem</Filter>
+    <ClInclude Include="BaseGame.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x3.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundEffect.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundStream.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="structs.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="SVGParser.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Header Files\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>Header Files\Amroth</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

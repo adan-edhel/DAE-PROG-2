@@ -32,8 +32,6 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\HollowKnight\GameStructs.h" />
-    <ClInclude Include="..\HollowKnight\IComponent.h" />
     <ClInclude Include="AmrothUtils.h" />
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Delegate.h" />
