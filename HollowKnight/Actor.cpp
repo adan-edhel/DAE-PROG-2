@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Actor.h"
-#include "Global.h"
+#include "DelegateRegistry.h"
 #include "Rigidbody2D.h"
 
 Actor::Actor(const int& maxHealth) :
@@ -8,8 +8,8 @@ Actor::Actor(const int& maxHealth) :
 	m_MaxHealth{ maxHealth },
 	m_Health{m_MaxHealth}
 {
-	m_Rigidbody = dynamic_cast<Rigidbody2D*>(AddComponent(new Rigidbody2D()));
-	Global::DrawPlayground.Connect(this, &Actor::Draw);
+	m_pRigidbody = dynamic_cast<Rigidbody2D*>(AddComponent(new Rigidbody2D()));
+	DelegateRegistry::drawPlayground.Connect(this, &Actor::Draw);
 }
 
 void Actor::OnDamage(const int& damage)

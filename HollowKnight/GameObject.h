@@ -6,7 +6,7 @@ namespace AmrothFramework
 	class GameObject
 	{
 	public:
-		Transform transform{};
+		Transform transform{m_IsActive};
 
 		GameObject();
 		bool isActive() const;
@@ -25,7 +25,7 @@ namespace AmrothFramework
 #pragma endregion
 
 	private:
-		bool m_Active{ true };
+		bool m_IsActive{ true };
 
 		void Update(const float& deltaTime);
 		void Draw() const;

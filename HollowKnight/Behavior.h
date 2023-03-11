@@ -10,20 +10,20 @@ namespace AmrothFramework
 	class Behavior
 	{
 	public:
-		GameObject gameObject{};
-		Transform* transform;
+		GameObject m_GameObject{};
+		Transform* m_pTransform;
 		Behavior();
 
 	protected:
 #pragma region Components
 		IComponent* AddComponent(IComponent* component)
 		{
-			gameObject.AddComponent(component);
+			m_GameObject.AddComponent(component);
 			return component;
 		}
-		void RemoveComponent(const IComponent* component) { gameObject.transform.RemoveComponent(component); }
+		void RemoveComponent(const IComponent* component) { m_GameObject.transform.RemoveComponent(component); }
 		template<typename T>
-		T* GetComponent() { return gameObject.transform.GetComponent<T>(); }
+		T* GetComponent() { return m_GameObject.transform.GetComponent<T>(); }
 #pragma endregion
 	};
 }

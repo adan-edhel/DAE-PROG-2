@@ -1,5 +1,6 @@
 #pragma once
-#include "Transform.h"
+#include "IComponent.h"
+#include "Vector2.h"
 #include "Texture.h"
 
 namespace AmrothFramework
@@ -10,7 +11,7 @@ namespace AmrothFramework
 		SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
 		SpriteRenderer(const std::string& spritePath = "default_sprite.png");
 
-		void Draw() const override;
+		void Draw() const;
 
 		bool IsFlipped() const;
 		Vector2 Bounds() const;
@@ -19,7 +20,7 @@ namespace AmrothFramework
 		~SpriteRenderer() override;
 
 	private:
-		Texture* m_Sprite;
+		Texture* m_pSprite;
 		bool m_isFlipped{ false };
 
 		const int m_Rows;

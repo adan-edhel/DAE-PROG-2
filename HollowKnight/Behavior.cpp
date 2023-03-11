@@ -4,7 +4,7 @@
 namespace AmrothFramework
 {
 	Behavior::Behavior() :
-	transform{&gameObject.transform}
+	m_pTransform{&m_GameObject.transform}
 	{
 	}
 }

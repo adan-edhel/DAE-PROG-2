@@ -1,9 +1,9 @@
 #pragma once
 #include "Behavior.h"
 
+using AmrothFramework::Behavior;
 using AmrothFramework::SpriteRenderer;
 using AmrothFramework::Rigidbody2D;
-using AmrothFramework::Behavior;
 using AmrothFramework::Animator;
 
 class Actor : public Behavior
@@ -13,7 +13,7 @@ private:
 	int m_Health;
 
 protected:
-	Rigidbody2D* m_Rigidbody;
+	Rigidbody2D* m_pRigidbody;
 
 	Actor(const int& maxHealth);
 	virtual void OnDeath() = 0;

@@ -1,28 +1,27 @@
 #include "pch.h"
-#include "Global.h"
+#include "DelegateRegistry.h"
 #include "GameObject.h"
 
 namespace AmrothFramework
 {
 	GameObject::GameObject()
 	{
-		Global::UpdateGameObjects.Connect(this, &GameObject::Update);
+		DelegateRegistry::regularUpdate.Connect(this, &GameObject::Update);
 	}
 
 	bool GameObject::isActive() const
 	{
-		return m_Active;
+		return m_IsActive;
 	}
 
 	void GameObject::SetActive(const bool& active)
 	{
-		m_Active = active;
+		m_IsActive = active;
 	}
 
 	void GameObject::Update(const float& deltaTime)
 	{
-		if (!m_Active) return;
-		transform.Update(deltaTime);
+		if (!m_IsActive) return;
 	}
 
 	void GameObject::Draw() const
@@ -31,6 +30,6 @@ namespace AmrothFramework
 
 	GameObject::~GameObject()
 	{
-		Global::UpdateGameObjects.Disconnect(this, &GameObject::Update);
+		DelegateRegistry::regularUpdate.Disconnect(this, &GameObject::Update);
 	}
 }

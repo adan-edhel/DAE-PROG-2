@@ -3,14 +3,10 @@
 
 namespace AmrothFramework
 {
-	Transform::Transform()
+	Transform::Transform(bool& isActive) :
+	m_pIsActive{&isActive}
 	{
 	}
-
-	//Transform::Transform(GameObject* gameGameObject, Delegate<const float&>& updateDelegate)
-	//{
-	//	updateDelegate.Connect(gameGameObject , &Transform::Update);
-	//}
 
 	void Transform::Translate(const Vector2& displacement)
 	{
@@ -20,14 +16,6 @@ namespace AmrothFramework
 	void Transform::Translate(const float& x, const float& y)
 	{
 		Translate(Vector2(x, y));
-	}
-
-	void Transform::Update(const float& deltaTime) const
-	{
-		for (auto const component : components)
-		{
-			component->Update(deltaTime);
-		}
 	}
 
 	Transform::~Transform()

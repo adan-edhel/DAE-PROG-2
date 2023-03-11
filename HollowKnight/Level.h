@@ -4,7 +4,7 @@
 class Level
 {
 public:
-	Knight* m_Knight;
+	Knight* m_pKnight;
 
 	Level(Knight& knight);
 	void Setup();

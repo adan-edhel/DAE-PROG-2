@@ -1,20 +1,24 @@
 #include "pch.h"
+#include "Transform.h"
+#include "SpriteRenderer.h"
 #include "Animator.h"
 
 namespace AmrothFramework
 {
 	Animator::Animator() :
-	m_SpriteRenderer{m_Transform->GetComponent<SpriteRenderer>()},
-	m_Sprite{m_SpriteRenderer->GetSprite()}
+	m_pSpriteRenderer{m_pTransform->GetComponent<SpriteRenderer>()},
+	m_Sprite{m_pSpriteRenderer->GetSprite()}
 	{
-		if (m_SpriteRenderer == nullptr)
+		if (m_pSpriteRenderer == nullptr)
 		{
 			std::cout << "No SpriteRenderer attached to object. \n";
 		}
 	}
 
-	void Animator::Draw(Animation& anim) const
+	void Animator::Draw() const
 	{
-		m_SpriteRenderer->Draw();
+		if (!m_pIsActive) return;
+
+		m_pSpriteRenderer->Draw();
 	}
 }

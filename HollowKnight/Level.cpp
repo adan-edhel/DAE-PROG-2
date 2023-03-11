@@ -2,7 +2,7 @@
 #include "Level.h"
 
 Level::Level(Knight& knight) :
-m_Knight{&knight}
+m_pKnight{&knight}
 {
 	Setup();
 }

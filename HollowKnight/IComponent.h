@@ -7,9 +7,8 @@ namespace AmrothFramework
 	class IComponent
 	{
 	public:
-		Transform* m_Transform;
-		virtual void Update(const float& deltaTime){}
-		virtual void Draw() const{};
+		bool* m_pIsActive;
+		Transform* m_pTransform;
 		virtual ~IComponent() = default;
 	};
 }

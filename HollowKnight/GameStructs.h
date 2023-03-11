@@ -10,7 +10,7 @@ enum class Tag
 
 struct Animation
 {
-	Texture* m_Sprite;
+	Texture* m_pSprite;
 
 	int m_NumFrames;
 
@@ -23,7 +23,7 @@ struct Animation
 
 
 	//Animation(Texture& sprite, ) :
-	//m_Sprite{&sprite},
+	//m_pSprite{&sprite},
 	//m_RowPos{ rowPosition },
 	//m_ColumnPos{ columnPosition },
 	//m_NumFrames{ numberOfFrames },

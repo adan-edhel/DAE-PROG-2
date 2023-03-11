@@ -1,7 +1,9 @@
 #pragma once
 #include "BaseGame.h"
-#include "Knight.h"
-#include "Level.h"
+#include "Vector2.h"
+
+class Knight;
+class Level;
 
 class Game : public BaseGame
 {
@@ -17,16 +19,18 @@ public:
 	void Update( float deltaTime ) override;
 	void Draw( ) const override;
 
+#pragma region Input
 	// Event handling
 	void ProcessKeyDownEvent( const SDL_KeyboardEvent& e ) override;
 	void ProcessKeyUpEvent( const SDL_KeyboardEvent& e ) override;
 	void ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e ) override;
 	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e ) override;
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
+#pragma endregion
 
 private:
-	Level* m_KingsPass;
-	Knight* m_Player;
+	Knight* m_pKnight;
+	Level* m_pKingsPass;
 
 	Vector2 mousePos{};
 

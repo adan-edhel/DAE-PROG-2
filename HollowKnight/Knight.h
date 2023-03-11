@@ -8,10 +8,10 @@ public:
 	~Knight() override = default;
 
 private:
-	SpriteRenderer* m_SpriteRenderer;
+	SpriteRenderer* m_pSpriteRenderer;
 
-	void Draw() const override;
 	void Update(const float& deltaTime);
+	void Draw() const override;
 	void OnDeath() override;
 
 	enum class AnimState

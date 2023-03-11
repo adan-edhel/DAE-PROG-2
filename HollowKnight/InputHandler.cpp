@@ -1,14 +1,14 @@
 #include "pch.h"
-#include "Global.h"
+#include "DelegateRegistry.h"
 #include "InputHandler.h"
 
 InputHandler::InputHandler(GameObject& player)
 {
-	Global::OnKeyDown.Connect(this, &InputHandler::OnKeyDown);
-	Global::OnKeyUp.Connect(this, &InputHandler::OnKeyUp);
-	Global::OnMouseMoved.Connect(this, &InputHandler::OnMouseMoved);
-	Global::OnMouseDown.Connect(this, &InputHandler::OnMouseDown);
-	Global::OnMouseUp.Connect(this, &InputHandler::OnMouseUp);
+	DelegateRegistry::onKeyDown.Connect(this, &InputHandler::OnKeyDown);
+	DelegateRegistry::onKeyUp.Connect(this, &InputHandler::OnKeyUp);
+	DelegateRegistry::onMouseMoved.Connect(this, &InputHandler::OnMouseMoved);
+	DelegateRegistry::onMouseDown.Connect(this, &InputHandler::OnMouseDown);
+	DelegateRegistry::onMouseUp.Connect(this, &InputHandler::OnMouseUp);
 }
 
 void InputHandler::OnKeyDown(const SDL_KeyboardEvent& e)
@@ -90,9 +90,9 @@ void InputHandler::OnMouseUp(const SDL_MouseButtonEvent& e)
 
 InputHandler::~InputHandler()
 {
-	Global::OnKeyDown.Disconnect(this, &InputHandler::OnKeyDown);
-	Global::OnKeyUp.Disconnect(this, &InputHandler::OnKeyUp);
-	Global::OnMouseMoved.Disconnect(this, &InputHandler::OnMouseMoved);
-	Global::OnMouseDown.Disconnect(this, &InputHandler::OnMouseDown);
-	Global::OnMouseUp.Disconnect(this, &InputHandler::OnMouseUp);
+	DelegateRegistry::onKeyDown.Disconnect(this, &InputHandler::OnKeyDown);
+	DelegateRegistry::onKeyUp.Disconnect(this, &InputHandler::OnKeyUp);
+	DelegateRegistry::onMouseMoved.Disconnect(this, &InputHandler::OnMouseMoved);
+	DelegateRegistry::onMouseDown.Disconnect(this, &InputHandler::OnMouseDown);
+	DelegateRegistry::onMouseUp.Disconnect(this, &InputHandler::OnMouseUp);
 }

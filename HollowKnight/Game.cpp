@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "Game.h"
-#include "Global.h"
+#include "DelegateRegistry.h"
 #include "Rigidbody2D.h"
+
+#include "Knight.h"
+#include "Level.h"
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -11,20 +14,21 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	m_Player = new Knight();
-	m_KingsPass = new Level(*m_Player);
+	m_pKnight = new Knight();
+	m_pKingsPass = new Level(*m_pKnight);
 }
 
 void Game::End( )
 {
-	Global::CleanUpDelegates();
-	delete m_KingsPass;
-	delete m_Player;
+	DelegateRegistry::CleanUpDelegates();
+
+	delete m_pKingsPass;
+	delete m_pKnight;
 }
 
 void Game::Update( float deltaTime )
 {
-	Global::UpdateGameObjects.Invoke(deltaTime);
+	DelegateRegistry::regularUpdate.Invoke(deltaTime);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -42,10 +46,10 @@ void Game::Draw( ) const
 {
 	ClearBackground( );
 
-	Global::DrawBackground.Invoke();
-	Global::DrawPlayground.Invoke();
-	Global::DrawForeground.Invoke();
-	Global::DrawUserInterface.Invoke();
+	DelegateRegistry::drawBackground.Invoke();
+	DelegateRegistry::drawPlayground.Invoke();
+	DelegateRegistry::drawForeground.Invoke();
+	DelegateRegistry::drawUI.Invoke();
 }
 
 void Game::ClearBackground( ) const
@@ -61,10 +65,10 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
 
-	Global::OnKeyDown.Invoke(e);
+	DelegateRegistry::onKeyDown.Invoke(e);
 
 	using AmrothFramework::Rigidbody2D;
-	Rigidbody2D* pRigidbody{ m_Player->gameObject.GetComponent<Rigidbody2D>() };
+	Rigidbody2D* pRigidbody{ m_pKnight->m_GameObject.GetComponent<Rigidbody2D>() };
 
 	switch (e.keysym.sym)
 	{
@@ -86,7 +90,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	case SDLK_LSHIFT:		// DASH
 		break;
 	case SDLK_e:			// FOCUS / CAST
-		m_Player->gameObject.SetActive(!m_Player->gameObject.isActive());
+		m_pKnight->m_GameObject.SetActive(!m_pKnight->m_GameObject.isActive());
 		break;
 	case SDLK_r:			// DREAM NAIL
 		break;
@@ -99,7 +103,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
-	Global::OnKeyUp.Invoke(e);
+	DelegateRegistry::onKeyUp.Invoke(e);
 
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	//switch ( e.keysym.sym )
@@ -117,7 +121,7 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 	//}
 }
 
-#pragma endregion Keyboard
+#pragma endregion
 #pragma region Mouse
 
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
@@ -128,7 +132,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	m_Player->gameObject.transform.position = mousePos;
+	m_pKnight->m_GameObject.transform.position = mousePos;
 
 	switch (e.type)
 	{
@@ -177,8 +181,8 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 	//}
 }
 
-#pragma endregion Mouse
-#pragma endregion Input Events
+#pragma endregion
+#pragma endregion
 
 Game::~Game()
 {

@@ -1,18 +1,18 @@
 #pragma once
-#include "SpriteRenderer.h"
 
 namespace AmrothFramework
 {
+	class SpriteRenderer;
+
 	class Animator : public IComponent
 	{
-	private:
-		SpriteRenderer* m_SpriteRenderer;
-		const Texture* m_Sprite;
-
 	public:
 		Animator();
+		void Draw() const;
 
-		void Draw(Animation& anim) const;
+	private:
+		SpriteRenderer* m_pSpriteRenderer;
+		const Texture* m_Sprite;
 	};
 }
 

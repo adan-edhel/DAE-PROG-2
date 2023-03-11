@@ -18,18 +18,17 @@ namespace AmrothFramework
 		Vector2 rotation{};
 		Vector2 scale{};
 
-		Transform();
-		//Transform(GameObject* gameObject, Delegate<const float&>& updateDelegate);
+		Transform(bool& isActive);
 		void Translate(const Vector2& displacement);
 		void Translate(const float& x, const float& y);
-		void Update(const float& deltaTime) const;
 		~Transform();
 
 #pragma region Components
 		// Adds new component
 		IComponent* AddComponent(IComponent* component)
 		{
-			component->m_Transform = this;
+			component->m_pTransform = this;
+			component->m_pIsActive = this->m_pIsActive;
 			components.push_back(component);
 			return component;
 		}
@@ -71,10 +70,13 @@ namespace AmrothFramework
 			return nullptr;
 		}
 
-	private:
-		// List of added components
-		std::vector<IComponent*> components{};
+
 #pragma endregion Components
 
+	private:
+		bool* m_pIsActive;
+
+		// List of added components
+		std::vector<IComponent*> components{};
 	};
 }
