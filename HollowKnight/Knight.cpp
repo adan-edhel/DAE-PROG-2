@@ -3,19 +3,16 @@
 #include "Global.h"
 #include "SpriteRenderer.h"
 
-Knight::Knight() : Actor(5, "HollowKnight/Knight.png")
+Knight::Knight() : Actor(5)
 {
-	gameGameObject.transform.AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12));
-	m_SpriteRenderer = gameGameObject.GetComponent<SpriteRenderer>();
+	m_SpriteRenderer = dynamic_cast<SpriteRenderer*>
+	(AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12)));
 
-	Global::DrawPlayground.Connect(this, &Knight::Draw);
+	transform->position = Vector2(400, 0);
 }
 
 void Knight::Draw() const
 {
-	const float spriteSize{ 80 };
-	Rectf slice{0, spriteSize, spriteSize, spriteSize };
-
 	m_SpriteRenderer->Draw();
 }
 

@@ -4,5 +4,15 @@
 Level::Level(Knight& knight) :
 m_Knight{&knight}
 {
+	Setup();
+}
+
+void Level::Setup()
+{
+	
+}
+
+Level::~Level()
+{
 	
 }

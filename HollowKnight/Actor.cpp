@@ -1,14 +1,15 @@
 #include "pch.h"
 #include "Actor.h"
+#include "Global.h"
 #include "Rigidbody2D.h"
 
-Actor::Actor(const int& maxHealth, const std::string& sheetDirectory) :
+Actor::Actor(const int& maxHealth) :
 	Behavior(),
 	m_MaxHealth{ maxHealth },
-	m_Health{m_MaxHealth},
-	m_Sheet{ sheetDirectory }
+	m_Health{m_MaxHealth}
 {
-	gameGameObject.transform.AddComponent(new AmrothFramework::Rigidbody2D());
+	m_Rigidbody = dynamic_cast<Rigidbody2D*>(AddComponent(new Rigidbody2D()));
+	Global::DrawPlayground.Connect(this, &Actor::Draw);
 }
 
 void Actor::OnDamage(const int& damage)
@@ -18,14 +19,4 @@ void Actor::OnDamage(const int& damage)
 	{
 		OnDeath();
 	}
-}
-
-void Actor::Draw() const
-{
-	
-}
-
-void Actor::OnDeath()
-{
-	// Do death stuff
 }

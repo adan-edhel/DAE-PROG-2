@@ -3,7 +3,8 @@
 
 namespace AmrothFramework
 {
-	Behavior::Behavior()
+	Behavior::Behavior() :
+	transform{&gameObject.transform}
 	{
 	}
 }

@@ -11,13 +11,15 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	knight = new Knight();
+	m_Player = new Knight();
+	m_KingsPass = new Level(*m_Player);
 }
 
 void Game::End( )
 {
 	Global::CleanUpDelegates();
-	delete knight;
+	delete m_KingsPass;
+	delete m_Player;
 }
 
 void Game::Update( float deltaTime )
@@ -62,7 +64,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	Global::OnKeyDown.Invoke(e);
 
 	using AmrothFramework::Rigidbody2D;
-	Rigidbody2D* pRigidbody{ knight->gameGameObject.GetComponent<Rigidbody2D>() };
+	Rigidbody2D* pRigidbody{ m_Player->gameObject.GetComponent<Rigidbody2D>() };
 
 	switch (e.keysym.sym)
 	{
@@ -84,7 +86,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	case SDLK_LSHIFT:		// DASH
 		break;
 	case SDLK_e:			// FOCUS / CAST
-		knight->gameGameObject.SetActive(!knight->gameGameObject.isActive());
+		m_Player->gameObject.SetActive(!m_Player->gameObject.isActive());
 		break;
 	case SDLK_r:			// DREAM NAIL
 		break;
@@ -126,7 +128,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	knight->gameGameObject.transform.position = mousePos;
+	m_Player->gameObject.transform.position = mousePos;
 
 	switch (e.type)
 	{

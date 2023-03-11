@@ -19,7 +19,7 @@ namespace AmrothFramework
 		Vector2 scale{};
 
 		Transform();
-		//Transform(GameObject* gameGameObject, Delegate<const float&>& updateDelegate);
+		//Transform(GameObject* gameObject, Delegate<const float&>& updateDelegate);
 		void Translate(const Vector2& displacement);
 		void Translate(const float& x, const float& y);
 		void Update(const float& deltaTime) const;
@@ -27,10 +27,11 @@ namespace AmrothFramework
 
 #pragma region Components
 		// Adds new component
-		void AddComponent(IComponent* component)
+		IComponent* AddComponent(IComponent* component)
 		{
 			component->m_Transform = this;
 			components.push_back(component);
+			return component;
 		}
 
 		// Removes existing component

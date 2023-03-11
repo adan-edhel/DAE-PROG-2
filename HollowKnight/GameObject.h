@@ -14,8 +14,12 @@ namespace AmrothFramework
 		~GameObject();
 
 #pragma region Components
-		void AddComponent(IComponent& component) { transform.AddComponent(&component); }
-		void RemoveComponent(const IComponent& component) { transform.RemoveComponent(&component); }
+		IComponent* AddComponent(IComponent* component)
+		{
+			transform.AddComponent(component);
+			return component;
+		}
+		void RemoveComponent(const IComponent* component) { transform.RemoveComponent(component); }
 		template<typename T>
 		T* GetComponent() { return transform.GetComponent<T>(); }
 #pragma endregion
