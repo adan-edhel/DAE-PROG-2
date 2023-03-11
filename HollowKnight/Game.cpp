@@ -62,7 +62,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	Global::OnKeyDown.Invoke(e);
 
 	using AmrothFramework::Rigidbody2D;
-	Rigidbody2D* pRigidbody{ knight->gameGameObject.transform.GetComponent<Rigidbody2D>() };
+	Rigidbody2D* pRigidbody{ knight->gameGameObject.GetComponent<Rigidbody2D>() };
 
 	switch (e.keysym.sym)
 	{

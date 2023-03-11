@@ -13,6 +13,13 @@ namespace AmrothFramework
 		void SetActive(const bool& active);
 		~GameObject();
 
+#pragma region Components
+		void AddComponent(IComponent& component) { transform.AddComponent(&component); }
+		void RemoveComponent(const IComponent& component) { transform.RemoveComponent(&component); }
+		template<typename T>
+		T* GetComponent() { return transform.GetComponent<T>(); }
+#pragma endregion
+
 	private:
 		bool m_Active{ true };
 
