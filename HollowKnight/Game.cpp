@@ -20,7 +20,7 @@ void Game::Start( )
 
 void Game::End( )
 {
-	EventSystem::CleanUpDelegates();
+	EventSystem::CleanUp();
 
 	delete m_pKingsPass;
 	delete m_pKnight;

@@ -19,7 +19,7 @@ Event<const SDL_MouseButtonEvent&> EventSystem::onMouseDown;
 Event<const SDL_MouseButtonEvent&> EventSystem::onMouseUp;
 
 // Functions
-void EventSystem::CleanUpDelegates()
+void EventSystem::CleanUp()
 {
 	drawBackground.DisconnectAll();
 	drawPlayground.DisconnectAll();

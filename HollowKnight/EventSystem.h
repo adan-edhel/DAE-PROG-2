@@ -1,26 +1,26 @@
 #pragma once
-#include "Delegate.h"
+#include "Event.h"
 
 class EventSystem final
 {
 public:
 	// Rendering
-	static Delegate<> drawBackground;
-	static Delegate<> drawPlayground;
-	static Delegate<> drawForeground;
-	static Delegate<> drawUI;
+	static Event<> drawBackground;
+	static Event<> drawPlayground;
+	static Event<> drawForeground;
+	static Event<> drawUI;
 
 	// Updating
-	static Delegate<const float&> regularUpdate;
-	static Delegate<const float&> fixedUpdate; //Not implemented
+	static Event<const float&> regularUpdate;
+	static Event<const float&> fixedUpdate; //Not implemented
 
 	// User Inputs
-	static Delegate<const SDL_KeyboardEvent&> onKeyDown;
-	static Delegate<const SDL_KeyboardEvent&> onKeyUp;
-	static Delegate<const SDL_MouseMotionEvent&> onMouseMoved;
-	static Delegate<const SDL_MouseButtonEvent&> onMouseDown;
-	static Delegate<const SDL_MouseButtonEvent&> onMouseUp;
+	static Event<const SDL_KeyboardEvent&> onKeyDown;
+	static Event<const SDL_KeyboardEvent&> onKeyUp;
+	static Event<const SDL_MouseMotionEvent&> onMouseMoved;
+	static Event<const SDL_MouseButtonEvent&> onMouseDown;
+	static Event<const SDL_MouseButtonEvent&> onMouseUp;
 
 	// Functions
-	static void CleanUpDelegates();
+	static void CleanUp();
 };
