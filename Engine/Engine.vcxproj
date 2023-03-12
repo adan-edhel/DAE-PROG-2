@@ -34,7 +34,7 @@
   <ItemGroup>
     <ClInclude Include="AmrothUtils.h" />
     <ClInclude Include="BaseGame.h" />
-    <ClInclude Include="Delegate.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="Matrix2x3.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="SoundEffect.h" />

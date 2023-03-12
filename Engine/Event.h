@@ -3,7 +3,7 @@
 #include <functional>
 
 template <typename... Args>
-class Delegate
+class Event
 {
     template <typename T>
     struct MemberFunction

@@ -98,7 +98,7 @@
     <ClInclude Include="Vector2.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Delegate.h">
+    <ClInclude Include="Event.h">
       <Filter>Header Files\Amroth</Filter>
     </ClInclude>
   </ItemGroup>

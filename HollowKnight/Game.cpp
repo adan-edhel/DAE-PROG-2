@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Game.h"
-#include "DelegateRegistry.h"
+#include "EventSystem.h"
 #include "Rigidbody2D.h"
 
 #include "Knight.h"
@@ -20,7 +20,7 @@ void Game::Start( )
 
 void Game::End( )
 {
-	DelegateRegistry::CleanUpDelegates();
+	EventSystem::CleanUpDelegates();
 
 	delete m_pKingsPass;
 	delete m_pKnight;
@@ -28,7 +28,7 @@ void Game::End( )
 
 void Game::Update( float deltaTime )
 {
-	DelegateRegistry::regularUpdate.Invoke(deltaTime);
+	EventSystem::regularUpdate.Invoke(deltaTime);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -46,10 +46,10 @@ void Game::Draw( ) const
 {
 	ClearBackground( );
 
-	DelegateRegistry::drawBackground.Invoke();
-	DelegateRegistry::drawPlayground.Invoke();
-	DelegateRegistry::drawForeground.Invoke();
-	DelegateRegistry::drawUI.Invoke();
+	EventSystem::drawBackground.Invoke();
+	EventSystem::drawPlayground.Invoke();
+	EventSystem::drawForeground.Invoke();
+	EventSystem::drawUI.Invoke();
 }
 
 void Game::ClearBackground( ) const
@@ -65,7 +65,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
 
-	DelegateRegistry::onKeyDown.Invoke(e);
+	EventSystem::onKeyDown.Invoke(e);
 
 	using AmrothFramework::Rigidbody2D;
 	Rigidbody2D* pRigidbody{ m_pKnight->m_GameObject.GetComponent<Rigidbody2D>() };
@@ -103,7 +103,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
-	DelegateRegistry::onKeyUp.Invoke(e);
+	EventSystem::onKeyUp.Invoke(e);
 
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	//switch ( e.keysym.sym )

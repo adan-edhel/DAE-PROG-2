@@ -2,14 +2,14 @@
 #include "Transform.h"
 #include "Rigidbody2D.h"
 #include "AmrothUtils.h"
-#include "DelegateRegistry.h"
+#include "EventSystem.h"
 
 
 namespace AmrothFramework
 {
 	Rigidbody2D::Rigidbody2D()
 	{
-		DelegateRegistry::regularUpdate.Connect(this, &Rigidbody2D::Update);
+		EventSystem::regularUpdate.Connect(this, &Rigidbody2D::Update);
 	}
 
 	void Rigidbody2D::SetVelocity(const Vector2& velocity)	{ m_Velocity = velocity; }
@@ -53,6 +53,6 @@ namespace AmrothFramework
 
 	Rigidbody2D::~Rigidbody2D()
 	{
-		DelegateRegistry::regularUpdate.Disconnect(this, &Rigidbody2D::Update);
+		EventSystem::regularUpdate.Disconnect(this, &Rigidbody2D::Update);
 	}
 }

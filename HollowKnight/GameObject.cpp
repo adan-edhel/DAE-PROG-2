@@ -1,12 +1,12 @@
 #include "pch.h"
-#include "DelegateRegistry.h"
+#include "EventSystem.h"
 #include "GameObject.h"
 
 namespace AmrothFramework
 {
 	GameObject::GameObject()
 	{
-		DelegateRegistry::regularUpdate.Connect(this, &GameObject::Update);
+		EventSystem::regularUpdate.Connect(this, &GameObject::Update);
 	}
 
 	bool GameObject::isActive() const
@@ -30,6 +30,6 @@ namespace AmrothFramework
 
 	GameObject::~GameObject()
 	{
-		DelegateRegistry::regularUpdate.Disconnect(this, &GameObject::Update);
+		EventSystem::regularUpdate.Disconnect(this, &GameObject::Update);
 	}
 }

@@ -152,7 +152,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="DelegateRegistry.cpp" />
+    <ClCompile Include="EventSystem.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="InputActions.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -171,7 +171,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameStructs.h" />
-    <ClInclude Include="DelegateRegistry.h" />
+    <ClInclude Include="EventSystem.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="IComponent.h" />
     <ClInclude Include="InputActions.h" />

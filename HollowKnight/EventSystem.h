@@ -1,7 +1,7 @@
 #pragma once
 #include "Delegate.h"
 
-class DelegateRegistry final
+class EventSystem final
 {
 public:
 	// Rendering

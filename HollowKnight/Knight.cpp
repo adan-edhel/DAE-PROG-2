@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Knight.h"
-#include "DelegateRegistry.h"
+#include "EventSystem.h"
 #include "SpriteRenderer.h"
 
 Knight::Knight() : Actor(5)

@@ -9,7 +9,7 @@ Game::Game( const Window& window )
 	Start();
 }
 
-Delegate<float> Game::myDelegate;
+Event<float> Game::myDelegate;
 
 void Game::Start( )
 {
