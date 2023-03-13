@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
+#include <iostream>
 
 template <typename... Args>
 class Event
@@ -39,23 +40,38 @@ class Event
         bool operator==(const MemberFunction& other) const
         {
             return object == other.object && isConstFunction == other.isConstFunction &&
-                ((isConstFunction && constFunction == other.constFunction) || (!isConstFunction && function == other.function));
+                ((isConstFunction && constFunction == other.constFunction) ||
+                    (!isConstFunction && function == other.function));
         }
+
     };
 
     std::vector<std::function<void(Args...)>> functions;
+
+    template <typename T, typename Func>
+    void ConnectImpl(T* obj, Func func)
+    {
+        using Function = void(T::*)(Args...);
+        using ConstFunction = void(T::*)(Args...) const;
+        if constexpr (std::is_same_v<Func, Function>) {
+            functions.emplace_back(MemberFunction<T>(obj, func));
+        }
+        else if constexpr (std::is_same_v<Func, ConstFunction>) {
+            functions.emplace_back(MemberFunction<T>(obj, func));
+        }
+    }
 
 public:
     template <typename T>
     void Connect(T* obj, void (T::* func)(Args...))
     {
-        functions.emplace_back(MemberFunction<T>(obj, func));
+        ConnectImpl(obj, static_cast<void(T::*)(Args...)>(func));
     }
 
     template <typename T>
     void Connect(T* obj, void (T::* func)(Args...) const)
     {
-        functions.emplace_back(MemberFunction<T>(obj, func));
+        ConnectImpl(obj, static_cast<void(T::*)(Args...) const>(func));
     }
 
     template <typename T>
@@ -65,9 +81,13 @@ public:
         functions.erase(std::remove_if(functions.begin(), functions.end(),
             [&memberFunction](const std::function<void(Args...)>& f) {
                 if constexpr (std::is_same_v<decltype(f), MemberFunction<T>>) {
+                    std::cout << "reached\n";
                     return f == memberFunction;
                 }
-        return false;
+                else {
+                    std::cout << "not reached\n";
+                    return false;
+                }
             }),
             functions.end());
     }
@@ -75,16 +95,21 @@ public:
     template <typename T>
     void Disconnect(T* obj, void (T::* func)(Args...) const)
     {
-        auto memberFunction = MemberFunction<T>(obj, func);
+        auto memberFunction = MemberFunction<const T>(obj, func);
         functions.erase(std::remove_if(functions.begin(), functions.end(),
             [&memberFunction](const std::function<void(Args...)>& f) {
-                if constexpr (std::is_same_v<decltype(f), MemberFunction<T>>) {
+                if constexpr (std::is_same_v<decltype(f), MemberFunction<T>> ||
+                    std::is_same_v<decltype(f), MemberFunction<const T>>) {
                     return f == memberFunction;
                 }
-        return false;
+                else {
+                    return false;
+                }
             }),
             functions.end());
     }
+
+
 
     void DisconnectAll()
     {
