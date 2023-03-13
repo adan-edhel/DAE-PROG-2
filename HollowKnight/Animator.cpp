@@ -3,22 +3,19 @@
 #include "SpriteRenderer.h"
 #include "Animator.h"
 
-namespace AmrothFramework
+Animator::Animator() :
+	m_pSpriteRenderer{ m_pTransform->GetComponent<SpriteRenderer>() },
+	m_Sprite{ m_pSpriteRenderer->GetSprite() }
 {
-	Animator::Animator() :
-	m_pSpriteRenderer{m_pTransform->GetComponent<SpriteRenderer>()},
-	m_Sprite{m_pSpriteRenderer->GetSprite()}
+	if (m_pSpriteRenderer == nullptr)
 	{
-		if (m_pSpriteRenderer == nullptr)
-		{
-			std::cout << "No SpriteRenderer attached to object. \n";
-		}
+		std::cout << "No SpriteRenderer attached to object. \n";
 	}
+}
 
-	void Animator::Draw() const
-	{
-		if (!m_pIsActive) return;
+void Animator::Draw() const
+{
+	if (!m_pIsActive) return;
 
-		m_pSpriteRenderer->Draw();
-	}
+	m_pSpriteRenderer->Draw();
 }

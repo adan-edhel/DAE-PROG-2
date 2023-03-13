@@ -3,28 +3,24 @@
 #include "Vector2.h"
 #include "Texture.h"
 
-namespace AmrothFramework
+class SpriteRenderer : public IComponent
 {
-	class SpriteRenderer : public IComponent
-	{
-	public:
-		SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
-		SpriteRenderer(const std::string& spritePath = "default_sprite.png");
+public:
+	SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
+	SpriteRenderer(const std::string& spritePath = "default_sprite.png");
 
-		void Draw() const;
+	void Draw() const;
 
-		bool IsFlipped() const;
-		Vector2 Bounds() const;
-		const Texture* GetSprite() const;
+	bool IsFlipped() const;
+	Vector2 Bounds() const;
+	const Texture* GetSprite() const;
 
-		~SpriteRenderer() override;
+	~SpriteRenderer() override;
 
-	private:
-		Texture* m_pSprite;
-		bool m_isFlipped{ false };
+private:
+	Texture* m_pSprite;
+	bool m_isFlipped{ false };
 
-		const int m_Rows;
-		const int m_Columns;
-	};
-
-}
+	const int m_Rows;
+	const int m_Columns;
+};

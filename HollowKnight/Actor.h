@@ -1,11 +1,6 @@
 #pragma once
 #include "Behavior.h"
 
-using AmrothFramework::Behavior;
-using AmrothFramework::SpriteRenderer;
-using AmrothFramework::Rigidbody2D;
-using AmrothFramework::Animator;
-
 class Actor : public Behavior
 {
 private:

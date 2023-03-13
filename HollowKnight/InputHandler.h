@@ -2,8 +2,6 @@
 #include "InputActions.h"
 #include "GameObject.h"
 
-using AmrothFramework::GameObject;
-
 class InputHandler : public InputActions
 {
 public:
