@@ -1,7 +1,8 @@
 #pragma once
+#include "InputActions.h"
 #include "Actor.h"
 
-class Knight final : public Actor
+class Knight final : public Actor, public InputActions
 {
 public:
 	Knight();

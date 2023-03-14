@@ -32,8 +32,6 @@ private:
 	Knight* m_pKnight;
 	Level* m_pKingsPass;
 
-	Vector2 mousePos{};
-
 	// FUNCTIONS
 	void Start();
 	void End( );

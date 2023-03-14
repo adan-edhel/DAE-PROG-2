@@ -20,13 +20,13 @@ void InputHandler::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_s:			// DOWN
 		break;
 	case SDLK_a:			// LEFT
-		Walk();
+		//Walk();
 		break;
 	case SDLK_d:			// RIGHT
-		Walk();
+		//Walk();
 		break;
 	case SDLK_SPACE:		// JUMP
-		Jump();
+		//Jump();
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -56,7 +56,7 @@ void InputHandler::OnKeyUp(const SDL_KeyboardEvent& e)
 	case SDLK_d:			// RIGHT
 		break;
 	case SDLK_SPACE:		// JUMP
-		CutJump();
+		//CutJump();
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -75,7 +75,7 @@ void InputHandler::OnKeyUp(const SDL_KeyboardEvent& e)
 
 void InputHandler::OnMouseMoved(const SDL_MouseMotionEvent& e)
 {
-	m_MousePos = Vector2(e.x, e.y);
+	//m_MousePos = Vector2(e.x, e.y);
 }
 
 void InputHandler::OnMouseDown(const SDL_MouseButtonEvent& e)

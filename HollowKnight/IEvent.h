@@ -10,17 +10,20 @@ public:
 	}
 
 	template<typename... Args>
-	static void Invoke(void(IEvent::* method)(Args...), Args&&... args)
+	static void Invoke(void(IEvent::* function)(Args...), Args&&... args)
 	{
 		for (IEvent* eventPtr : m_EventPtrs)
-			(eventPtr->*method)(std::forward<Args>(args)...);
+			(eventPtr->*function)(std::forward<Args>(args)...);
 	}
 
-protected:
-    virtual void OnKeyDown() {}
-    virtual void OnKeyUp() {}
+    virtual void OnKeyDown(const SDL_KeyboardEvent& e)		{}
+    virtual void OnKeyUp(const SDL_KeyboardEvent& e)		{}
+	virtual void OnMouseMotion(const SDL_MouseMotionEvent& e){}
+	virtual void OnMouseDown(const SDL_MouseButtonEvent& e)	{}
+	virtual void OnMouseUp(const SDL_MouseButtonEvent& e)	{}
 
-	~IEvent()
+protected:
+	virtual ~IEvent()
 	{
 		m_EventPtrs.erase(std::remove(m_EventPtrs.begin(), m_EventPtrs.end(), this), m_EventPtrs.end());
 	}

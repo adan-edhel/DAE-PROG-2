@@ -3,7 +3,7 @@
 #include "EventSystem.h"
 #include "SpriteRenderer.h"
 
-Knight::Knight() : Actor(5)
+Knight::Knight() : Actor(5), InputActions(m_GameObject)
 {
 	m_pSpriteRenderer = dynamic_cast<SpriteRenderer*>
 	(AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12)));

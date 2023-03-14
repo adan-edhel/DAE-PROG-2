@@ -2,11 +2,11 @@
 #include "InputActions.h"
 #include "GameObject.h"
 
-class InputHandler : public InputActions
+class InputHandler
 {
 public:
 	InputHandler(GameObject& player);
-	~InputHandler() override;
+	~InputHandler();
 
 private:
 	void OnKeyDown(const SDL_KeyboardEvent& e);
