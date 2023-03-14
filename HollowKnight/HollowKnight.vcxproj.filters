@@ -37,9 +37,6 @@
     <Filter Include="Source Files\Sub\Actors">
       <UniqueIdentifier>{04db4d14-3a99-48f6-88c5-cf434dc95d52}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Example">
-      <UniqueIdentifier>{637b4dbd-c230-4b9c-a0fd-8e6e7f4dbaa8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Base\Unity">
       <UniqueIdentifier>{d4d8cf89-11b6-4713-a7dd-53f25bc2658f}</UniqueIdentifier>
     </Filter>
@@ -61,6 +58,9 @@
     <Filter Include="Source Files\Base\Unity\Transform">
       <UniqueIdentifier>{beb29ac6-b05d-468a-8a08-4cd6bbe95f4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sub\Events">
+      <UniqueIdentifier>{6f07820a-2b37-4d08-9630-1e39a74dcf6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Level.cpp">
@@ -69,16 +69,10 @@
     <ClCompile Include="InputActions.cpp">
       <Filter>Source Files\Sub\Input</Filter>
     </ClCompile>
-    <ClCompile Include="InputHandler.cpp">
-      <Filter>Source Files\Sub\Input</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="EventSystem.cpp">
       <Filter>Source Files\Base</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -108,12 +102,6 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Source Files\Sub\Actors</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite2D.cpp">
-      <Filter>Example</Filter>
-    </ClCompile>
-    <ClCompile Include="IEvent.cpp">
-      <Filter>Source Files\Sub\Input</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Level.h">
@@ -122,13 +110,7 @@
     <ClInclude Include="InputActions.h">
       <Filter>Header Files\Sub\Input</Filter>
     </ClInclude>
-    <ClInclude Include="InputHandler.h">
-      <Filter>Header Files\Sub\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="EventSystem.h">
       <Filter>Header Files\Base</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
@@ -164,11 +146,17 @@
     <ClInclude Include="Knight.h">
       <Filter>Header Files\Sub\Actors</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite2D.h">
-      <Filter>Example</Filter>
+    <ClInclude Include="GameSettings.h">
+      <Filter>Header Files\Base</Filter>
     </ClInclude>
-    <ClInclude Include="IEvent.h">
-      <Filter>Header Files\Sub\Input</Filter>
+    <ClInclude Include="IDrawEvent.h">
+      <Filter>Header Files\Sub\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputEvent.h">
+      <Filter>Header Files\Sub\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IUpdateEvent.h">
+      <Filter>Header Files\Sub\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

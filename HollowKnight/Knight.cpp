@@ -16,7 +16,7 @@ void Knight::Update(const float& deltaTime)
 
 }
 
-void Knight::Draw() const
+void Knight::DrawMidground() const
 {
 	m_pSpriteRenderer->Draw();
 }

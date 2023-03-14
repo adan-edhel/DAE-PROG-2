@@ -9,7 +9,7 @@ public:
 	GameObject();
 	bool isActive() const;
 	void SetActive(const bool& active);
-	~GameObject();
+	~GameObject() = default;
 
 #pragma region Components
 	IComponent* AddComponent(IComponent* component)

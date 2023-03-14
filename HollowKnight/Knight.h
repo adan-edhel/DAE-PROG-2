@@ -12,7 +12,7 @@ private:
 	SpriteRenderer* m_pSpriteRenderer;
 
 	void Update(const float& deltaTime);
-	void Draw() const override;
+	void DrawMidground() const override;
 	void OnDeath() override;
 
 	enum class AnimState

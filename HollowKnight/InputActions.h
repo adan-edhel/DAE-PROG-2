@@ -1,11 +1,11 @@
 #pragma once
-#include "IEvent.h"
+#include "IInputEvent.h"
 #include "Vector2.h"
 
 class GameObject;
 class Rigidbody2D;
 
-class InputActions : public IEvent
+class InputActions : public IInputEvent
 {
 protected:
 	Vector2 m_MousePos{};

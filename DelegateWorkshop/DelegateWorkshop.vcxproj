@@ -147,12 +147,18 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\HollowKnight\EventSystem.cpp" />
+    <ClCompile Include="..\HollowKnight\InputHandler.cpp" />
+    <ClCompile Include="..\HollowKnight\Sprite2D.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\HollowKnight\EventSystem.h" />
+    <ClInclude Include="..\HollowKnight\InputHandler.h" />
+    <ClInclude Include="..\HollowKnight\Sprite2D.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="pch.h" />

@@ -2,11 +2,9 @@
 #include "Transform.h"
 #include "Rigidbody2D.h"
 #include "AmrothUtils.h"
-#include "EventSystem.h"
 
 Rigidbody2D::Rigidbody2D()
 {
-	EventSystem::regularUpdate.Connect(this, &Rigidbody2D::Update);
 }
 
 void Rigidbody2D::SetVelocity(const Vector2& velocity) { m_Velocity = velocity; }
@@ -51,9 +49,4 @@ void Rigidbody2D::SimulateGravity(const float& deltaTime)
 	}
 
 	m_pTransform->position += m_Velocity;
-}
-
-Rigidbody2D::~Rigidbody2D()
-{
-	EventSystem::regularUpdate.Disconnect(this, &Rigidbody2D::Update);
 }

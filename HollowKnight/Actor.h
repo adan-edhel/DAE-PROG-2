@@ -1,7 +1,8 @@
 #pragma once
 #include "Behavior.h"
+#include "IDrawEvent.h"
 
-class Actor : public Behavior
+class Actor : public Behavior, public IDrawEvent
 {
 private:
 	int m_MaxHealth;
@@ -12,8 +13,8 @@ protected:
 
 	Actor(const int& maxHealth);
 	virtual void OnDeath() = 0;
-	virtual void Draw() const = 0;
-	virtual ~Actor() = default;
+	virtual void DrawMidground() const override = 0;
+	virtual ~Actor() override = default;
 
 public:
 	int GetHealth() const { return m_Health; }

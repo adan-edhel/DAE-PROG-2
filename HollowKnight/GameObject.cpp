@@ -4,7 +4,6 @@
 
 GameObject::GameObject()
 {
-	EventSystem::regularUpdate.Connect(this, &GameObject::Update);
 }
 
 bool GameObject::isActive() const
@@ -24,9 +23,4 @@ void GameObject::Update(const float& deltaTime)
 
 void GameObject::Draw() const
 {
-}
-
-GameObject::~GameObject()
-{
-	EventSystem::regularUpdate.Disconnect(this, &GameObject::Update);
 }

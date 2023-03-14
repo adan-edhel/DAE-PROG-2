@@ -16,7 +16,7 @@ public:
 
 	void Run( );
 
-	virtual void Update(float elapsedSec)
+	virtual void Update( const float& deltaTime)
 	{
 		
 	}

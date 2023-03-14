@@ -1,11 +1,9 @@
 #include "pch.h"
 #include "Game.h"
-#include "EventSystem.h"
-#include "Rigidbody2D.h"
-
 #include "Knight.h"
 #include "Level.h"
-#include "IEvent.h"
+#include "IInputEvent.h"
+#include "IUpdateEvent.h"
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -21,15 +19,15 @@ void Game::Start( )
 
 void Game::End( )
 {
-	EventSystem::CleanUp();
-
 	delete m_pKingsPass;
 	delete m_pKnight;
 }
 
-void Game::Update( float deltaTime )
+void Game::Update(const float& deltaTime )
 {
-	EventSystem::regularUpdate.Invoke(deltaTime);
+	//EventSystem::regularUpdate.Invoke(deltaTime);
+
+	IUpdateEvent::Invoke(&IUpdateEvent::Update, deltaTime);
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -47,10 +45,10 @@ void Game::Draw( ) const
 {
 	ClearBackground( );
 
-	EventSystem::drawBackground.Invoke();
-	EventSystem::drawPlayground.Invoke();
-	EventSystem::drawForeground.Invoke();
-	EventSystem::drawUI.Invoke();
+	IDrawEvent::Invoke(&IDrawEvent::DrawBackground);
+	IDrawEvent::Invoke(&IDrawEvent::DrawMidground);
+	IDrawEvent::Invoke(&IDrawEvent::DrawForeground);
+	IDrawEvent::Invoke(&IDrawEvent::DrawUserInterface);
 }
 
 void Game::ClearBackground( ) const
@@ -63,26 +61,26 @@ void Game::ClearBackground( ) const
 #pragma region Keyboard
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	IEvent::Invoke(&IEvent::OnKeyDown, e);
+	IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
 }
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
-	IEvent::Invoke(&IEvent::OnKeyUp, e);
+	IInputEvent::Invoke(&IInputEvent::OnKeyUp, e);
 }
 #pragma endregion
 #pragma region Mouse
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
-	IEvent::Invoke(&IEvent::OnMouseMotion, e);
+	IInputEvent::Invoke(&IInputEvent::OnMouseMotion, e);
 }
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	IEvent::Invoke(&IEvent::OnMouseDown, e);
+	IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
 
 }
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 {
-	IEvent::Invoke(&IEvent::OnMouseUp, e);
+	IInputEvent::Invoke(&IInputEvent::OnMouseUp, e);
 }
 #pragma endregion
 #pragma endregion

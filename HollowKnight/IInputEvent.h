@@ -1,18 +1,13 @@
 #pragma once
 #include <vector>
 
-class IEvent
+class IInputEvent
 {
 public:
-	IEvent()
-	{
-		m_EventPtrs.push_back(this);
-	}
-
 	template<typename... Args>
-	static void Invoke(void(IEvent::* function)(Args...), Args&&... args)
+	static void Invoke(void(IInputEvent::* function)(Args...), Args&&... args)
 	{
-		for (IEvent* eventPtr : m_EventPtrs)
+		for (IInputEvent* eventPtr : m_pEvents)
 			(eventPtr->*function)(std::forward<Args>(args)...);
 	}
 
@@ -23,11 +18,15 @@ public:
 	virtual void OnMouseUp(const SDL_MouseButtonEvent& e)	{}
 
 protected:
-	virtual ~IEvent()
+	IInputEvent()
 	{
-		m_EventPtrs.erase(std::remove(m_EventPtrs.begin(), m_EventPtrs.end(), this), m_EventPtrs.end());
+		m_pEvents.push_back(this);
+	}
+	virtual ~IInputEvent()
+	{
+		m_pEvents.erase(std::remove(m_pEvents.begin(), m_pEvents.end(), this), m_pEvents.end());
 	}
 
 private:
-	inline static std::vector<IEvent*> m_EventPtrs {};
+	inline static std::vector<IInputEvent*> m_pEvents {};
 };

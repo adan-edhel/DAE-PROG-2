@@ -1,6 +1,5 @@
 #pragma once
 #include "BaseGame.h"
-#include "Vector2.h"
 
 class Knight;
 class Level;
@@ -16,7 +15,7 @@ public:
 	// http://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#Rh-override
 	~Game() override;
 
-	void Update( float deltaTime ) override;
+	void Update( const float& deltaTime ) override;
 	void Draw( ) const override;
 
 #pragma region Input
