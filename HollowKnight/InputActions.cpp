@@ -1,12 +1,16 @@
 #include "pch.h"
+#include "Transform.h"
 #include "GameObject.h"
 #include "Rigidbody2D.h"
 #include "InputActions.h"
 
-InputActions::InputActions(GameObject& player) :
-	m_pGameObject{ &player },
-	m_pRigidbody{m_pGameObject->GetComponent<Rigidbody2D>()}
+InputActions::InputActions() : Component("Input Actions"),
+	m_pRigidbody{nullptr}
 {
+	if (m_GameObject != nullptr)
+	{
+		//m_pRigidbody = m_GameObject->GetComponent<Rigidbody2D>();
+	}
 }
 
 #pragma region Override
@@ -32,7 +36,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_LSHIFT:		// DASH
 		break;
 	case SDLK_e:			// FOCUS / CAST
-		m_pGameObject->SetActive(!m_pGameObject->isActive());
+		m_GameObject->SetActive(!m_GameObject->Active());
 		break;
 	case SDLK_r:			// DREAM NAIL
 		break;
@@ -50,7 +54,7 @@ void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 
 void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
 {
-	m_pGameObject->transform.position = m_MousePos;
+	//m_GameObject->m_Transform->position = m_MousePos;
 }
 
 void InputActions::OnMouseUp(const SDL_MouseButtonEvent& e)
@@ -60,19 +64,19 @@ void InputActions::OnMouseUp(const SDL_MouseButtonEvent& e)
 
 void InputActions::OnMouseMotion(const SDL_MouseMotionEvent& e)
 {
-	m_MousePos = Vector2(e.x, e.y);
+	//m_MousePos = Vector2(e.x, e.y);
 }
 #pragma endregion
 
 #pragma region Actions
 void InputActions::Walk(const float& speed)
 {
-	m_pRigidbody->AddForce(Vector2(speed, 0));
+	//m_pRigidbody->AddForce(Vector2(speed, 0));
 }
 
 void InputActions::Jump(const float& force)
 {
-	m_pRigidbody->AddForce(Vector2(0, force));
+	//m_pRigidbody->AddForce(Vector2(0, force));
 }
 
 void InputActions::CutJump()

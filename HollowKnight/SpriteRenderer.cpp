@@ -4,6 +4,7 @@
 #include "SpriteRenderer.h"
 
 SpriteRenderer::SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns) :
+	Component("SpriteRenderer"),
 	m_pSprite{ new Texture(spritePath) },
 	m_Rows{ rows },
 	m_Columns{ columns }
@@ -13,17 +14,15 @@ SpriteRenderer::SpriteRenderer(const std::string& spritePath, const int& rows, c
 SpriteRenderer::SpriteRenderer(const std::string& spritePath) :
 	SpriteRenderer(spritePath, 1, 1) {}
 
-void SpriteRenderer::Draw() const
+void SpriteRenderer::DrawMidground() const
 {
-	if (!m_pIsActive) return;
-
 	Rectf sliceRect{};
 	sliceRect.width = m_pSprite->GetWidth() / float(m_Rows);
 	sliceRect.height = m_pSprite->GetHeight() / float(m_Columns);
 	sliceRect.left = 0;
 	sliceRect.bottom = sliceRect.height;
 
-	const Point2f drawPos{ m_pTransform->position.x - sliceRect.width / 2, m_pTransform->position.y };
+	const Point2f drawPos{ m_Transform->position.x - sliceRect.width / 2, m_Transform->position.y };
 
 	m_pSprite->Draw(drawPos, sliceRect);
 }

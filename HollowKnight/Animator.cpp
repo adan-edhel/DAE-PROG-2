@@ -1,11 +1,8 @@
 #include "pch.h"
-#include "Transform.h"
 #include "SpriteRenderer.h"
 #include "Animator.h"
 
-Animator::Animator() :
-	m_pSpriteRenderer{ m_pTransform->GetComponent<SpriteRenderer>() },
-	m_Sprite{ m_pSpriteRenderer->GetSprite() }
+Animator::Animator() : Component("Animator")
 {
 	if (m_pSpriteRenderer == nullptr)
 	{
@@ -15,7 +12,5 @@ Animator::Animator() :
 
 void Animator::Draw() const
 {
-	if (!m_pIsActive) return;
-
-	m_pSpriteRenderer->Draw();
+	//m_pSpriteRenderer->Draw();
 }

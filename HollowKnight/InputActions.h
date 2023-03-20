@@ -1,20 +1,19 @@
 #pragma once
+#include "Component.h"
 #include "IInputEvent.h"
-#include "Vector2.h"
 
-class GameObject;
 class Rigidbody2D;
 
-class InputActions : public IInputEvent
+class InputActions final : public Component, public IInputEvent
 {
-protected:
-	Vector2 m_MousePos{};
+public:
+	InputActions();
+	~InputActions() override = default;
 
-	InputActions(GameObject& player);
-	virtual ~InputActions() override = default;
+//protected:
+//	Vector2 m_MousePos{};
 
 private:
-	GameObject* m_pGameObject;
 	Rigidbody2D* m_pRigidbody;
 
 	const float walkSpeed{ 15 };

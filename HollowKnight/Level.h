@@ -1,13 +1,17 @@
 #pragma once
-#include "Knight.h"
 
-class Level
+class GameObject;
+
+class Level final
 {
 public:
-	Knight* m_pKnight;
-
-	Level(Knight& knight);
-	void Setup();
+	Level(const std::string& levelName);
+	void Update(const float& deltaTime);
+	void Draw() const;
 	~Level();
-};
 
+private:
+	GameObject* m_KnightPtr{ nullptr };
+
+	void Start();
+};

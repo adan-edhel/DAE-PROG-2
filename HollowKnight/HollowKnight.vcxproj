@@ -157,8 +157,11 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Rigidbody2D.cpp" />
+    <ClCompile Include="Component.cpp" />
+    <ClCompile Include="SpriteManager.cpp" />
     <ClCompile Include="SpriteRenderer.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -168,15 +171,17 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSettings.h" />
-    <ClInclude Include="GameStructs.h" />
+    <ClInclude Include="SpriteManager.h" />
+    <ClInclude Include="UnityStructs.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="IComponent.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="IDrawEvent.h" />
     <ClInclude Include="IInputEvent.h" />
     <ClInclude Include="InputActions.h" />
     <ClInclude Include="IUpdateEvent.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Knight.h" />
+    <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Rigidbody2D.h" />
     <ClInclude Include="SpriteRenderer.h" />

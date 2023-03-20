@@ -2,7 +2,7 @@
 
 class SpriteRenderer;
 
-class Animator : public IComponent
+class Animator final: public Component
 {
 public:
 	Animator();

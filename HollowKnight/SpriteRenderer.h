@@ -1,15 +1,16 @@
 #pragma once
-#include "IComponent.h"
+#include "Component.h"
+#include "IDrawEvent.h"
 #include "Vector2.h"
 #include "Texture.h"
 
-class SpriteRenderer : public IComponent
+class SpriteRenderer final : public Component, public IDrawEvent
 {
 public:
 	SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
 	SpriteRenderer(const std::string& spritePath = "default_sprite.png");
 
-	void Draw() const;
+	void DrawMidground() const override;
 
 	bool IsFlipped() const;
 	Vector2 Bounds() const;

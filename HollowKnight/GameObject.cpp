@@ -1,12 +1,14 @@
 #include "pch.h"
-#include "EventSystem.h"
 #include "GameObject.h"
 
-GameObject::GameObject()
+#include "Transform.h"
+
+GameObject::GameObject(const std::string& name) : Object(&name)
 {
+	m_Transform = AddComponent(new Transform());
 }
 
-bool GameObject::isActive() const
+bool GameObject::Active() const
 {
 	return m_IsActive;
 }
@@ -19,8 +21,20 @@ void GameObject::SetActive(const bool& active)
 void GameObject::Update(const float& deltaTime)
 {
 	if (!m_IsActive) return;
+
+	for ( const auto component : components)
+	{
+		component->Update(deltaTime);
+	}
 }
 
-void GameObject::Draw() const
+GameObject::~GameObject()
 {
+	//TODO: Make this work
+
+	for ( const auto* component : components)
+	{
+		if (component != nullptr)
+			Destroy(component);
+	}
 }

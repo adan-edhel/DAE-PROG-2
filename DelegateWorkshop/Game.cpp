@@ -24,7 +24,7 @@ void Game::End( )
 
 }
 
-void Game::Update( float elapsedSec )
+void Game::Update( const float& elapsedSec )
 {
 	myDelegate.Invoke(elapsedSec);
 

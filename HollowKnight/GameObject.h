@@ -1,30 +1,60 @@
 #pragma once
-#include "Transform.h"
+#include <vector>
+#include "Object.h"
 
-class GameObject
+#include "Component.h"
+
+class GameObject final : public Object
 {
 public:
-	Transform transform{ m_IsActive };
+	Transform* m_Transform;
 
-	GameObject();
-	bool isActive() const;
+	GameObject(const std::string& name);
+	bool Active() const;
 	void SetActive(const bool& active);
-	~GameObject() = default;
+	~GameObject() override;
 
 #pragma region Components
-	IComponent* AddComponent(IComponent* component)
+private:
+	void RemoveComponent(Component* component)
 	{
-		transform.AddComponent(component);
+		components.erase(std::remove(components.begin(), components.end(), component), components.end());
+	}
+
+public:
+	template<class T>
+	std::enable_if_t<std::is_base_of_v<Component, T>, T*>
+	AddComponent(T* component)
+	{
+		auto* castComponentPtr{ dynamic_cast<Component*>(component) };
+
+		castComponentPtr->m_GameObject = this;
+		castComponentPtr->m_Transform = m_Transform;
+
+		components.push_back(component);
 		return component;
 	}
-	void RemoveComponent(const IComponent* component) { transform.RemoveComponent(component); }
-	template<typename T>
-	T* GetComponent() { return transform.GetComponent<T>(); }
+
+	template <class T>
+	std::enable_if_t<std::is_base_of_v<Component, T>, T*>
+	GetComponent()
+	{
+		for (auto* componentPtr : components)
+		{
+			T* castComponent{ dynamic_cast<T*>(componentPtr) };
+			if (castComponent != nullptr)
+				return castComponent;
+		}
+
+		return nullptr;
+	}
 #pragma endregion
 
 private:
+	friend Component;
+
 	bool m_IsActive{ true };
+	std::vector<Component*> components{};
 
 	void Update(const float& deltaTime);
-	void Draw() const;
 };

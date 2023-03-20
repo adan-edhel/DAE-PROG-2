@@ -1,162 +1,144 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Unity Framework">
+      <UniqueIdentifier>{37cbb832-1276-43b2-bb1c-4377fbb9a63d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Game">
+      <UniqueIdentifier>{5ab49b75-3b2b-4219-910b-23dd75ae2f95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Base">
+      <UniqueIdentifier>{7ff2f6c7-3974-4424-b6b8-39ccb2b32a6e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Base">
-      <UniqueIdentifier>{ddf6116a-e2c3-43dc-bd2e-ce5175efdac5}</UniqueIdentifier>
+    <Filter Include="Base\Headers">
+      <UniqueIdentifier>{c835a440-01e5-404a-84df-6ca6ab0617c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Sub">
-      <UniqueIdentifier>{23132356-e500-4497-918f-1a4640ccd2b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sub\Input">
-      <UniqueIdentifier>{2e6db84e-efa8-4400-8ffc-4b15e55f681d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sub\Actors">
-      <UniqueIdentifier>{4f704731-7f14-4cad-a431-5896a17c9691}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Base">
-      <UniqueIdentifier>{85c2449c-9e32-4bbf-87a2-a49aa5254970}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sub">
-      <UniqueIdentifier>{98f2c3fe-328b-41c9-ada9-63c3cd4fe01d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sub\Input">
-      <UniqueIdentifier>{6f0d4046-c0ad-4a6e-8efd-10329499b389}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sub\Actors">
-      <UniqueIdentifier>{04db4d14-3a99-48f6-88c5-cf434dc95d52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base\Unity">
-      <UniqueIdentifier>{d4d8cf89-11b6-4713-a7dd-53f25bc2658f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base\Unity\Components">
-      <UniqueIdentifier>{a482ad1d-76c4-480a-baf3-e2e44c37c7af}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base\Unity\Components\Base">
-      <UniqueIdentifier>{24ee9f4b-a28f-42d0-979e-f08ba5ef7e83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Base\Unity\Transform">
-      <UniqueIdentifier>{52dbbd60-c229-4d64-bec6-7ea7083ad5c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Base\Unity">
-      <UniqueIdentifier>{d807d40b-b854-47ca-941a-999483d4dd72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Base\Unity\Components">
-      <UniqueIdentifier>{c9c5e124-b663-484a-92d6-778e46ceb6c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Base\Unity\Transform">
-      <UniqueIdentifier>{beb29ac6-b05d-468a-8a08-4cd6bbe95f4b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sub\Events">
+    <Filter Include="Base\Headers\Events">
       <UniqueIdentifier>{6f07820a-2b37-4d08-9630-1e39a74dcf6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Headers">
+      <UniqueIdentifier>{161a921a-30b1-4731-9436-3fd15e77aa5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unity Framework\Headers">
+      <UniqueIdentifier>{d4d8cf89-11b6-4713-a7dd-53f25bc2658f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unity Framework\Components">
+      <UniqueIdentifier>{c9c5e124-b663-484a-92d6-778e46ceb6c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Unity Framework\Components\Headers">
+      <UniqueIdentifier>{74a44367-f33f-4cd6-86b1-f6c0858ff65b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Level.cpp">
-      <Filter>Source Files\Sub</Filter>
-    </ClCompile>
-    <ClCompile Include="InputActions.cpp">
-      <Filter>Source Files\Sub\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files\Base</Filter>
-    </ClCompile>
     <ClCompile Include="Animator.cpp">
-      <Filter>Source Files\Base\Unity\Components</Filter>
+      <Filter>Unity Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>Source Files\Base\Unity\Components</Filter>
+      <Filter>Unity Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Source Files\Base\Unity\Components</Filter>
+      <Filter>Unity Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="Behavior.cpp">
-      <Filter>Source Files\Base\Unity\Transform</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files\Base\Unity\Transform</Filter>
+      <Filter>Unity Framework\Components</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Base\Unity\Transform</Filter>
+      <Filter>Unity Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>Source Files\Sub\Actors</Filter>
+      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Knight.cpp">
-      <Filter>Source Files\Sub\Actors</Filter>
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Unity Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Unity Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Unity Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="InputActions.cpp">
+      <Filter>Unity Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Level.h">
-      <Filter>Header Files\Sub</Filter>
-    </ClInclude>
-    <ClInclude Include="InputActions.h">
-      <Filter>Header Files\Sub\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>Header Files\Base\Unity\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Rigidbody2D.h">
-      <Filter>Header Files\Base\Unity\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Header Files\Base\Unity\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStructs.h">
-      <Filter>Header Files\Base\Unity\Components\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponent.h">
-      <Filter>Header Files\Base\Unity\Components\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files\Base\Unity\Transform</Filter>
-    </ClInclude>
-    <ClInclude Include="Behavior.h">
-      <Filter>Header Files\Base\Unity\Transform</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Header Files\Base\Unity\Transform</Filter>
+      <Filter>Unity Framework\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Header Files\Sub\Actors</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>Header Files\Sub\Actors</Filter>
+    <ClInclude Include="Object.h">
+      <Filter>Unity Framework\Headers</Filter>
     </ClInclude>
     <ClInclude Include="GameSettings.h">
-      <Filter>Header Files\Base</Filter>
+      <Filter>Base\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawEvent.h">
-      <Filter>Header Files\Sub\Events</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Base\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="IInputEvent.h">
-      <Filter>Header Files\Sub\Events</Filter>
+    <ClInclude Include="pch.h">
+      <Filter>Base\Headers</Filter>
     </ClInclude>
     <ClInclude Include="IUpdateEvent.h">
-      <Filter>Header Files\Sub\Events</Filter>
+      <Filter>Base\Headers\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawEvent.h">
+      <Filter>Base\Headers\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputEvent.h">
+      <Filter>Base\Headers\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteManager.h">
+      <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityStructs.h">
+      <Filter>Unity Framework\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Unity Framework\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Unity Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>Unity Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="InputActions.h">
+      <Filter>Unity Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Unity Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Unity Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Unity Framework\Components\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

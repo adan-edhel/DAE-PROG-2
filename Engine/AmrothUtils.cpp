@@ -193,7 +193,7 @@ float GetSpeedByAcceleration(const float& initialVelocity, const float& accelera
 void Print(const std::string& text, const TextColor& color)
 {
 	SetConsoleTextAttribute(g_HConsole, 0 | static_cast<int>(color));
-	std::cout << text << '\n';
+	std::cout << text;
 	SetConsoleTextAttribute(g_HConsole, 0 | static_cast<int>(TextColor::White));
 }
 #pragma endregion ConsoleFunctions

@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseGame.h"
 
+class GameObject;
 class Knight;
 class Level;
 
@@ -28,8 +29,7 @@ public:
 #pragma endregion
 
 private:
-	Knight* m_pKnight;
-	Level* m_pKingsPass;
+	Level* m_pKingsPass{nullptr};
 
 	// FUNCTIONS
 	void Start();

@@ -1,9 +1,8 @@
 #pragma once
-#include "IComponent.h"
-#include "IUpdateEvent.h"
+#include "Component.h"
 #include "Vector2.h"
 
-class Rigidbody2D : public IComponent, public IUpdateEvent
+class Rigidbody2D final : public Component
 {
 public:
 	bool m_IsStatic{ false };

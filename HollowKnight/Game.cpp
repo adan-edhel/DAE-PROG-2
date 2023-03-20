@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "Game.h"
-#include "Knight.h"
-#include "Level.h"
+
 #include "IInputEvent.h"
-#include "IUpdateEvent.h"
+
+#include "Level.h"
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -13,22 +13,18 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	m_pKnight = new Knight();
-	m_pKingsPass = new Level(*m_pKnight);
+	m_pKingsPass = new Level("King's Pass");
 }
 
 void Game::End( )
 {
 	delete m_pKingsPass;
-	delete m_pKnight;
+	m_pKingsPass = nullptr;
 }
 
 void Game::Update(const float& deltaTime )
 {
-	//EventSystem::regularUpdate.Invoke(deltaTime);
-
-	IUpdateEvent::Invoke(&IUpdateEvent::Update, deltaTime);
-
+	m_pKingsPass->Update(deltaTime);
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -44,11 +40,7 @@ void Game::Update(const float& deltaTime )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-
-	IDrawEvent::Invoke(&IDrawEvent::DrawBackground);
-	IDrawEvent::Invoke(&IDrawEvent::DrawMidground);
-	IDrawEvent::Invoke(&IDrawEvent::DrawForeground);
-	IDrawEvent::Invoke(&IDrawEvent::DrawUserInterface);
+	m_pKingsPass->Draw();
 }
 
 void Game::ClearBackground( ) const
@@ -76,7 +68,6 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
 	IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
-
 }
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 {

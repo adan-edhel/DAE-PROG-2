@@ -3,7 +3,7 @@
 #include "Rigidbody2D.h"
 #include "AmrothUtils.h"
 
-Rigidbody2D::Rigidbody2D()
+Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {
 }
 
@@ -16,8 +16,6 @@ void Rigidbody2D::AddForce(const Vector2& force)
 
 void Rigidbody2D::Update(const float& deltaTime)
 {
-	if (!m_pIsActive) return;
-
 	if (!m_IsStatic)
 	{
 		VelocityDecay(deltaTime);
@@ -32,7 +30,7 @@ void Rigidbody2D::VelocityDecay(const float& deltaTime)
 
 void Rigidbody2D::SimulateGravity(const float& deltaTime)
 {
-	float& PositionY = m_pTransform->position.y;
+	float& PositionY = m_Transform->position.y;
 
 	m_GravityModifier += GRAVITY * deltaTime;
 	if (PositionY > 0)
@@ -48,5 +46,5 @@ void Rigidbody2D::SimulateGravity(const float& deltaTime)
 		PositionY = 0;
 	}
 
-	m_pTransform->position += m_Velocity;
+	m_Transform->position += m_Velocity;
 }
