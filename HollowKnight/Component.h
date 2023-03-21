@@ -1,15 +1,13 @@
 #pragma once
 #include "Object.h"
 
-#include "IUpdateEvent.h"
-
-class Component : public Object, public IUpdateEvent
+class Component : public Object
 {
 public:
-	GameObject* m_GameObject;
-	Transform* m_Transform;
+	GameObject* m_GameObject{nullptr};
+	Transform* m_Transform{nullptr};
 
-	virtual void Update(const float& deltaTime) override;
+	virtual void Update(const float& deltaTime);
 	virtual ~Component() override;
 
 protected:
@@ -17,4 +15,6 @@ protected:
 
 private:
 	friend GameObject;
+
+	void AssignGameObject(GameObject& object);
 };

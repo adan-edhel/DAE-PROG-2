@@ -29,9 +29,9 @@ void Level::Start()
 	m_KnightPtr->AddComponent(new SpriteRenderer("HollowKnight/Knight.png", 12, 12));
 
 	//TODO: Fix delete errors
-	//m_KnightPtr->AddComponent(new Knight());
-	//m_KnightPtr->AddComponent(new Rigidbody2D());
-	//m_KnightPtr->AddComponent(new InputActions());
+	m_KnightPtr->AddComponent(new Knight());
+	m_KnightPtr->AddComponent(new Rigidbody2D());
+	m_KnightPtr->AddComponent(new InputActions());
 
 	m_KnightPtr->m_Transform->position = Vector2(600, 600);
 }

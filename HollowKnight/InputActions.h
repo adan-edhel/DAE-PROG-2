@@ -1,4 +1,5 @@
 #pragma once
+#include "../Engine/Vector2.h"
 #include "Component.h"
 #include "IInputEvent.h"
 
@@ -10,11 +11,11 @@ public:
 	InputActions();
 	~InputActions() override = default;
 
-//protected:
-//	Vector2 m_MousePos{};
+protected:
+	Vector2 m_MousePos{};
 
 private:
-	Rigidbody2D* m_pRigidbody;
+	Rigidbody2D* m_pRigidbody{nullptr};
 
 	const float walkSpeed{ 15 };
 	const float jumpForce{ 5 };

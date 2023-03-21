@@ -2,9 +2,11 @@
 #include <vector>
 #include "Object.h"
 
+#include "IUpdateEvent.h"
+
 #include "Component.h"
 
-class GameObject final : public Object
+class GameObject final : public Object, public IUpdateEvent
 {
 public:
 	Transform* m_Transform;
@@ -28,8 +30,8 @@ public:
 	{
 		auto* castComponentPtr{ dynamic_cast<Component*>(component) };
 
-		castComponentPtr->m_GameObject = this;
-		castComponentPtr->m_Transform = m_Transform;
+		component->m_GameObject = this;
+		component->m_Transform = m_Transform;
 
 		components.push_back(component);
 		return component;
@@ -56,5 +58,5 @@ private:
 	bool m_IsActive{ true };
 	std::vector<Component*> components{};
 
-	void Update(const float& deltaTime);
+	void Update(const float& deltaTime) override;
 };

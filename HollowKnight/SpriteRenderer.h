@@ -1,6 +1,8 @@
 #pragma once
 #include "Component.h"
+
 #include "IDrawEvent.h"
+
 #include "Vector2.h"
 #include "Texture.h"
 
