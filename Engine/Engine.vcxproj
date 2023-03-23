@@ -32,6 +32,9 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\HollowKnight\IDrawEvent.h" />
+    <ClInclude Include="..\HollowKnight\IInputEvent.h" />
+    <ClInclude Include="..\HollowKnight\IUpdateEvent.h" />
     <ClInclude Include="AmrothUtils.h" />
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Event.h" />

@@ -14,3 +14,8 @@ void Animator::Draw() const
 {
 	//m_pSpriteRenderer->Draw();
 }
+
+void Animator::Update(const float& deltaTime)
+{
+
+}

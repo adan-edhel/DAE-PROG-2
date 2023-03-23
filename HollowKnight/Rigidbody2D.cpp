@@ -8,7 +8,11 @@ Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {
 }
 
-void Rigidbody2D::SetVelocity(const Vector2& velocity) { m_Velocity = velocity; }
+void Rigidbody2D::SetVelocity(const Vector2& velocity)
+{
+	m_Velocity = velocity;
+}
+
 void Rigidbody2D::AddForce(const Vector2& force)
 {
 	std::abs(force.x) > 0 ? m_Velocity.x += force.x : 0;

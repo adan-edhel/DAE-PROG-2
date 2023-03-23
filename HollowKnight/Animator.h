@@ -1,4 +1,6 @@
 #pragma once
+#include <iostream>
+#include <map>
 
 class SpriteRenderer;
 
@@ -9,6 +11,12 @@ public:
 	void Draw() const;
 
 private:
-	SpriteRenderer* m_pSpriteRenderer;
+	std::map<Animation, std::string> animations;
+
 	const Texture* m_Sprite;
+	SpriteRenderer* m_pSpriteRenderer;
+
+	float m_AccumulatedTime{};
+
+	void Update(const float& deltaTime) override;
 };

@@ -13,9 +13,6 @@
     <Filter Include="Base\Headers">
       <UniqueIdentifier>{c835a440-01e5-404a-84df-6ca6ab0617c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base\Headers\Events">
-      <UniqueIdentifier>{6f07820a-2b37-4d08-9630-1e39a74dcf6d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Headers">
       <UniqueIdentifier>{161a921a-30b1-4731-9436-3fd15e77aa5d}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     <ClCompile Include="InputActions.cpp">
       <Filter>Unity Framework\Components</Filter>
     </ClCompile>
+    <ClCompile Include="AnimLibrary.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -94,15 +94,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Base\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="IUpdateEvent.h">
-      <Filter>Base\Headers\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="IDrawEvent.h">
-      <Filter>Base\Headers\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="IInputEvent.h">
-      <Filter>Base\Headers\Events</Filter>
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Game\Headers</Filter>
@@ -139,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Unity Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimLibrary.h">
+      <Filter>Game\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

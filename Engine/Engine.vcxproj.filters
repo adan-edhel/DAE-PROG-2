@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Amroth">
       <UniqueIdentifier>{dbfb7c33-cc99-421a-b54e-fd36aa9b58ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{0810cc56-aa9f-484e-a25e-92a49fb0ead5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseGame.cpp">
@@ -100,6 +103,15 @@
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Amroth</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HollowKnight\IDrawEvent.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HollowKnight\IInputEvent.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\HollowKnight\IUpdateEvent.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

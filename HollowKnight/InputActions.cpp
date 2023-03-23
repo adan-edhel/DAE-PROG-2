@@ -1,4 +1,5 @@
 #include "pch.h"
+
 #include "Transform.h"
 #include "GameObject.h"
 #include "Rigidbody2D.h"
@@ -6,7 +7,6 @@
 
 InputActions::InputActions() : Component("Input Actions")
 {
-
 }
 
 #pragma region Override
@@ -48,7 +48,8 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 
 void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 {
-	
+	if (m_pRigidbody == nullptr)
+		m_pRigidbody = m_GameObject->GetComponent<Rigidbody2D>();
 }
 
 void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
@@ -71,7 +72,6 @@ void InputActions::OnMouseMotion(const SDL_MouseMotionEvent& e)
 #pragma region Actions
 void InputActions::Walk(const float& speed)
 {
-	std::cout << m_pRigidbody->m_Name << std::endl;
 	m_pRigidbody->AddForce(Vector2(speed, 0));
 }
 

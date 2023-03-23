@@ -1,7 +1,8 @@
 #pragma once
+#include "IInputEvent.h"
+
 #include "../Engine/Vector2.h"
 #include "Component.h"
-#include "IInputEvent.h"
 
 class Rigidbody2D;
 

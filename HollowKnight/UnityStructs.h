@@ -10,16 +10,41 @@ enum class Tag
 
 struct Animation
 {
+	std::string clipName;
+
+	Animation(Texture& sprite, int numFrames, int columns, int rows) :
+		m_pSprite{&sprite}
+	{
+		
+	}
+
+	Animation(Texture& sprite) :
+		Animation(sprite, 1, 1, 1)
+	{
+		
+	}
+
 	Texture* m_pSprite;
 
+	int m_CurrentFrame{1};
 	int m_NumFrames;
 
 	int m_RowPos;
 	int m_ColumnPos;
 
-	int m_CurrentFrame;
-	float m_FrameDuration;
-	bool m_Loop;
+	float m_FrameDuration{1};
+	bool m_Loop{true};
+
+	float m_AccumulatedTime{};
+
+	void Update(const float& deltaTime)
+	{
+		m_AccumulatedTime += deltaTime;
+
+		const int iteration{ int(m_AccumulatedTime / m_FrameDuration) };
+
+		m_CurrentFrame = iteration % m_NumFrames;
+	}
 
 
 	//Animation(Texture& sprite, ) :

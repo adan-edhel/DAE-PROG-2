@@ -1,7 +1,10 @@
 #include "pch.h"
 #include <iostream>
+
 #include "Transform.h"
 #include "SpriteRenderer.h"
+
+#include "AmrothUtils.h"
 
 SpriteRenderer::SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns) :
 	Component("SpriteRenderer"),
@@ -35,11 +38,14 @@ Vector2 SpriteRenderer::Bounds() const
 	{
 		return Vector2(m_pSprite->GetWidth(), m_pSprite->GetHeight());
 	}
-	std::cout << ">>Warning<< No sprite has been loaded.\n";
+	Print(">>Warning<< No sprite has been loaded.\n", TextColor::Red);
 	return Vector2{};
 }
 
-const Texture* SpriteRenderer::GetSprite() const { return m_pSprite; }
+const Texture* SpriteRenderer::GetSprite() const
+{
+	return m_pSprite;
+}
 
 SpriteRenderer::~SpriteRenderer()
 {

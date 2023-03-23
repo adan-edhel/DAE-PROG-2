@@ -150,6 +150,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AnimLibrary.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -168,6 +169,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="AnimLibrary.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSettings.h" />
@@ -175,10 +177,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="UnityStructs.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="IDrawEvent.h" />
-    <ClInclude Include="IInputEvent.h" />
     <ClInclude Include="InputActions.h" />
-    <ClInclude Include="IUpdateEvent.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Knight.h" />
     <ClInclude Include="Object.h" />
