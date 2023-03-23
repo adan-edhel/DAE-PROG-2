@@ -30,7 +30,7 @@ void GameObject::Update(const float& deltaTime)
 
 GameObject::~GameObject()
 {
-	//TODO: Make this work
+	//UNDONE: Fix component removal at Destroy
 
 	for ( const auto* component : components)
 	{

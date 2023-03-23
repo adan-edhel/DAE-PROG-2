@@ -15,7 +15,8 @@ void Component::Update(const float& deltaTime)
 
 Component::~Component()
 {
-	//TODO: this causes issues with access violation
+	//UNDONE: Causes issues with access violation
+
 	//if (m_GameObject != nullptr)
 	//	m_GameObject->RemoveComponent(this);
 }

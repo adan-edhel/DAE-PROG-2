@@ -3,8 +3,8 @@
 class GameSettings
 {
 public:
-	inline static bool debugMode{ true };
+	inline static bool s_DebugMode{ true };
 
-	inline static float musicVolume{ 10 };
-	inline static float soundVolume{ 10 };
+	inline static float s_MusicVolume{ 10 };
+	inline static float s_SoundVolume{ 10 };
 };

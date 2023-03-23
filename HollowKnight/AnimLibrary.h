@@ -5,22 +5,27 @@
 
 enum class CharacterType;
 
+using std::map;
+using std::string;
+
 class AnimLibrary
 {
 public:
 	static void Setup();
 	static void Cleanup();
 
-	static Animation* GetAnimation(CharacterType actor, const std::string& clipName);
+	static Animation* GetAnimation(CharacterType character, const string& clipName);
 
 private:
 	static Texture* m_KnightSheetPtr;
 	static Texture* m_CrawlidSheetPtr;
 	static Texture* m_VengeflySheetPtr;
 
-	static std::map<Animation*, std::string> m_knightClips;
-	static std::map<Animation*, std::string> m_CrawlidClips;
-	static std::map<Animation*, std::string> m_VengeflyClips;
+	static map<string, Animation*> m_KnightClips;
+	static map<string, Animation*> m_CrawlidClips;
+	static map<string, Animation*> m_VengeflyClips;
+
+	static void PrintInfo(const string& characterName, map<string, Animation*>& dictionary);
 
 	static void KnightSetup();
 	static void CrawlidSetup();

@@ -8,9 +8,9 @@ Texture* AnimLibrary::m_KnightSheetPtr;
 Texture* AnimLibrary::m_CrawlidSheetPtr;
 Texture* AnimLibrary::m_VengeflySheetPtr;
 
-std::map<Animation*, std::string> AnimLibrary::m_knightClips;
-std::map<Animation*, std::string> AnimLibrary::m_CrawlidClips;
-std::map<Animation*, std::string> AnimLibrary::m_VengeflyClips;
+map<string, Animation*> AnimLibrary::m_KnightClips;
+map<string, Animation*> AnimLibrary::m_CrawlidClips;
+map<string, Animation*> AnimLibrary::m_VengeflyClips;
 
 void AnimLibrary::Setup()
 {
@@ -22,60 +22,83 @@ void AnimLibrary::Setup()
 	CrawlidSetup();
 	VengeflySetup();
 
-	if (GameSettings::debugMode)
+	// Print information in the console
+	if (GameSettings::s_DebugMode) 
 	{
 		Print("############## Animation Library ##############\n", TextColor::Darkgray);
 
+		//TODO: Test animation clips
 		Print("--Animations aren't yet implemented--\n", TextColor::LightcyaN);
 
-		std::map<Animation*, std::string>::iterator it;
+		PrintInfo("Hollow Knight", m_KnightClips);
+		PrintInfo("Crawlid", m_CrawlidClips);
+		PrintInfo("Vengefly", m_VengeflyClips);
 
-		Print("Hollow Knight ", TextColor::Yellow);
-		Print("[" + std::to_string(m_knightClips.size()) + "]" + '\n', TextColor::Lightgray);
-
-		for (it = m_knightClips.begin(); it != m_knightClips.end(); ++it)
-			Print(it->first->clipName + '\n', TextColor::Brown);
-
-		Print("Crawlid ", TextColor::Yellow);
-		Print("[" + std::to_string(m_CrawlidClips.size()) + "]" + '\n', TextColor::Lightgray);
-
-		for (it = m_CrawlidClips.begin(); it != m_CrawlidClips.end(); ++it)
-			Print(it->first->clipName + '\n', TextColor::Brown);
-
-		Print("Vengefly ", TextColor::Yellow);
-		Print("[" + std::to_string(m_VengeflyClips.size()) + "]" + '\n', TextColor::Lightgray);
-
-		for (it = m_VengeflyClips.begin(); it != m_VengeflyClips.end(); ++it)
-			Print(it->first->clipName + '\n', TextColor::Brown);
 		Print("###############################################\n", TextColor::Darkgray);
 	}
 }
 
-Animation* AnimLibrary::GetAnimation(CharacterType actor, const std::string& clipName)
+void AnimLibrary::Cleanup()
 {
-	std::map<Animation*, std::string>::iterator it;
+	map<string, Animation*>::iterator it;
 
-	switch (actor)
+	for (it = m_KnightClips.begin(); it != m_KnightClips.end(); ++it)
+		delete it->second;
+
+	for (it = m_CrawlidClips.begin(); it != m_CrawlidClips.end(); ++it)
+		delete it->second;
+
+	for (it = m_VengeflyClips.begin(); it != m_VengeflyClips.end(); ++it)
+		delete it->second;
+
+	m_KnightClips.clear();
+	m_CrawlidClips.clear();
+	m_VengeflyClips.clear();
+
+	delete m_KnightSheetPtr;
+	delete m_CrawlidSheetPtr;
+	delete m_VengeflySheetPtr;
+}
+
+Animation* AnimLibrary::GetAnimation(CharacterType character, const string& clipName)
+{
+	map<string, Animation*>::iterator it;
+
+	switch (character)
 	{
 	case CharacterType::Knight:
-		for (it = m_knightClips.begin(); it != m_knightClips.end(); ++it)
-			if (it->second == clipName)
-				return it->first;
+		it = m_KnightClips.find(clipName);
 		break;
 	case CharacterType::Crawlid:
-		for (it = m_CrawlidClips.begin(); it != m_CrawlidClips.end(); ++it)
-			if (it->second == clipName)
-				return it->first;
+		it = m_CrawlidClips.find(clipName);
 		break;
 	case CharacterType::Vengefly:
-		for (it = m_VengeflyClips.begin(); it != m_VengeflyClips.end(); ++it)
-			if (it->second == clipName)
-				return it->first;
+		it = m_VengeflyClips.find(clipName);
 		break;
 	}
 
-	Print("Animation clip doesn't exist.\n");
-	return nullptr;
+	return it->first.empty() ? nullptr : it->second;
+}
+
+void AnimLibrary::PrintInfo(const string& characterName, map<string, Animation*>& dictionary)
+{
+	// Print Character name and clip number
+	Print(characterName, TextColor::Yellow);
+	Print(" [" + std::to_string(dictionary.size()) + "]" + '\n', TextColor::Lightgray);
+
+	// Print clip names
+	if (!dictionary.empty())
+	{
+		for (auto it = dictionary.begin(); it != dictionary.end(); ++it)
+		{
+			if (!it->second->clipName.empty())
+			{
+				Print(it->second->clipName + '\n', TextColor::Brown);
+
+			}
+			else Print(">>Clip not set up<<\n", TextColor::Brown);
+		}
+	}
 }
 
 void AnimLibrary::KnightSetup()
@@ -88,7 +111,7 @@ void AnimLibrary::KnightSetup()
 	currentClip->m_ColumnPos	= 0;
 	currentClip->m_NumFrames	= 7;
 
-	m_knightClips[currentClip] = currentClip->clipName;
+	m_KnightClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_KnightSheetPtr);
 
@@ -98,7 +121,7 @@ void AnimLibrary::KnightSetup()
 	currentClip->m_ColumnPos = 0;
 	currentClip->m_NumFrames = 9;
 
-	m_knightClips[currentClip] = currentClip->clipName;
+	m_KnightClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_KnightSheetPtr);
 
@@ -108,7 +131,7 @@ void AnimLibrary::KnightSetup()
 	currentClip->m_ColumnPos = 0;
 	currentClip->m_NumFrames = 9;
 
-	m_knightClips[currentClip] = currentClip->clipName;
+	m_KnightClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_KnightSheetPtr);
 
@@ -118,7 +141,7 @@ void AnimLibrary::KnightSetup()
 	currentClip->m_ColumnPos = 0;
 	currentClip->m_NumFrames = 9;
 
-	m_knightClips[currentClip] = currentClip->clipName;
+	m_KnightClips[currentClip->clipName] = currentClip;
 }
 
 void AnimLibrary::CrawlidSetup()
@@ -127,41 +150,41 @@ void AnimLibrary::CrawlidSetup()
 
 	// Idle clip
 	currentClip->clipName = "Walking";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 0;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 4;
 
-	m_CrawlidClips[currentClip] = currentClip->clipName;
+	m_CrawlidClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_CrawlidSheetPtr);
 
 	// Idle clip
 	currentClip->clipName = "Turning";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 1;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 2;
 
-	m_CrawlidClips[currentClip] = currentClip->clipName;
+	m_CrawlidClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_CrawlidSheetPtr);
 
 	// Idle clip
 	currentClip->clipName = "Dying";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 2;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 3;
 
-	m_CrawlidClips[currentClip] = currentClip->clipName;
+	m_CrawlidClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_CrawlidSheetPtr);
 
 	// Idle clip
 	currentClip->clipName = "Dead";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 3;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 2;
 
-	m_CrawlidClips[currentClip] = currentClip->clipName;
+	m_CrawlidClips[currentClip->clipName] = currentClip;
 }
 
 void AnimLibrary::VengeflySetup()
@@ -170,71 +193,49 @@ void AnimLibrary::VengeflySetup()
 
 	// Idle clip
 	currentClip->clipName = "Flying";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 0;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 5;
 
-	m_VengeflyClips[currentClip] = currentClip->clipName;
+	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_VengeflySheetPtr);
 
 	// Idle clip
 	currentClip->clipName = "Turning";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 1;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 2;
 
-	m_VengeflyClips[currentClip] = currentClip->clipName;
+	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_VengeflySheetPtr);
 
 	// Idle clip
 	currentClip->clipName = "Attacking";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 2;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 4;
 
-	m_VengeflyClips[currentClip] = currentClip->clipName;
+	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_VengeflySheetPtr);
 
 	// Idle clip
-	currentClip->clipName = "Charging";
-	currentClip->m_RowPos = 9;
+	currentClip->clipName = "Chasing";
+	currentClip->m_RowPos = 3;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 4;
 
-	m_VengeflyClips[currentClip] = currentClip->clipName;
+	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation(*m_VengeflySheetPtr);
 
 	// Idle clip
 	currentClip->clipName = "Dying";
-	currentClip->m_RowPos = 9;
+	currentClip->m_RowPos = 4;
 	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 7;
+	currentClip->m_NumFrames = 3;
 
-	m_VengeflyClips[currentClip] = currentClip->clipName;
-}
-
-void AnimLibrary::Cleanup()
-{
-	std::map<Animation*, std::string>::iterator it;
-
-	for (it = m_knightClips.begin(); it != m_knightClips.end(); ++it)
-			delete it->first;
-
-	for (it = m_CrawlidClips.begin(); it != m_CrawlidClips.end(); ++it)
-		delete it->first;
-
-	for (it = m_VengeflyClips.begin(); it != m_VengeflyClips.end(); ++it)
-		delete it->first;
-
-	m_knightClips.clear();
-	m_CrawlidClips.clear();
-	m_VengeflyClips.clear();
-
-	delete m_KnightSheetPtr;
-	delete m_CrawlidSheetPtr;
-	delete m_VengeflySheetPtr;
+	m_VengeflyClips[currentClip->clipName] = currentClip;
 }
