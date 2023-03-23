@@ -1,19 +1,18 @@
 #include "pch.h"
-#include "AnimLibrary.h"
+#include "AnimLib.h"
 
 #include "AmrothUtils.h"
 #include "GameSettings.h"
 
-Texture* AnimLibrary::m_KnightSheetPtr;
-Texture* AnimLibrary::m_CrawlidSheetPtr;
-Texture* AnimLibrary::m_VengeflySheetPtr;
+//TODO: Test animation clips
 
-map<string, Animation*> AnimLibrary::m_KnightClips;
-map<string, Animation*> AnimLibrary::m_CrawlidClips;
-map<string, Animation*> AnimLibrary::m_VengeflyClips;
-
-void AnimLibrary::Setup()
+void AnimLib::Setup()
 {
+	if (GameSettings::s_DebugMode)
+	{
+		Print("Animation Library Being Setup...\n", TextColor::Lightgray);
+	}
+
 	m_KnightSheetPtr = new Texture("HollowKnight/Knight.png");
 	m_CrawlidSheetPtr = new Texture("HollowKnight/Enemies/Crawlid.png");
 	m_VengeflySheetPtr = new Texture("HollowKnight/Enemies/Vengefly.png");
@@ -22,13 +21,12 @@ void AnimLibrary::Setup()
 	CrawlidSetup();
 	VengeflySetup();
 
+	m_HasBeenSetup = true;
+
 	// Print information in the console
-	if (GameSettings::s_DebugMode) 
+	if (GameSettings::s_DebugMode && m_DebugInfo)
 	{
 		Print("############## Animation Library ##############\n", TextColor::Darkgray);
-
-		//TODO: Test animation clips
-		Print("--Animations aren't yet implemented--\n", TextColor::LightcyaN);
 
 		PrintInfo("Hollow Knight", m_KnightClips);
 		PrintInfo("Crawlid", m_CrawlidClips);
@@ -38,30 +36,30 @@ void AnimLibrary::Setup()
 	}
 }
 
-void AnimLibrary::Cleanup()
+void AnimLib::Cleanup()
 {
-	map<string, Animation*>::iterator it;
-
-	for (it = m_KnightClips.begin(); it != m_KnightClips.end(); ++it)
-		delete it->second;
-
-	for (it = m_CrawlidClips.begin(); it != m_CrawlidClips.end(); ++it)
-		delete it->second;
-
-	for (it = m_VengeflyClips.begin(); it != m_VengeflyClips.end(); ++it)
-		delete it->second;
-
-	m_KnightClips.clear();
-	m_CrawlidClips.clear();
-	m_VengeflyClips.clear();
+	DeleteClips(m_KnightClips);
+	DeleteClips(m_CrawlidClips);
+	DeleteClips(m_VengeflyClips);
 
 	delete m_KnightSheetPtr;
 	delete m_CrawlidSheetPtr;
 	delete m_VengeflySheetPtr;
+
+	if (GameSettings::s_DebugMode)
+	{
+		Print("Animation Library Cleanup Complete...\n", TextColor::Lightgray);
+	}
 }
 
-Animation* AnimLibrary::GetAnimation(CharacterType character, const string& clipName)
+Animation* AnimLib::GetAnimation(CharacterType character, const string& clipName)
 {
+	if (!m_HasBeenSetup)
+	{
+		Print("Animation Library has not been set up!", TextColor::Red);
+		return nullptr;
+	}
+
 	map<string, Animation*>::iterator it;
 
 	switch (character)
@@ -80,7 +78,7 @@ Animation* AnimLibrary::GetAnimation(CharacterType character, const string& clip
 	return it->first.empty() ? nullptr : it->second;
 }
 
-void AnimLibrary::PrintInfo(const string& characterName, map<string, Animation*>& dictionary)
+void AnimLib::PrintInfo(const string& characterName, map<string, Animation*>& dictionary)
 {
 	// Print Character name and clip number
 	Print(characterName, TextColor::Yellow);
@@ -101,7 +99,17 @@ void AnimLibrary::PrintInfo(const string& characterName, map<string, Animation*>
 	}
 }
 
-void AnimLibrary::KnightSetup()
+void AnimLib::DeleteClips(map<string, Animation*>& dictionary)
+{
+	// Delete animations
+	for (auto it = dictionary.begin(); it != dictionary.end(); ++it)
+		delete it->second;
+
+	// Clean dictionary
+	dictionary.clear();
+}
+
+void AnimLib::KnightSetup()
 {
 	auto* currentClip = new Animation(*m_KnightSheetPtr);
 
@@ -144,7 +152,7 @@ void AnimLibrary::KnightSetup()
 	m_KnightClips[currentClip->clipName] = currentClip;
 }
 
-void AnimLibrary::CrawlidSetup()
+void AnimLib::CrawlidSetup()
 {
 	auto* currentClip = new Animation(*m_CrawlidSheetPtr);
 
@@ -187,7 +195,7 @@ void AnimLibrary::CrawlidSetup()
 	m_CrawlidClips[currentClip->clipName] = currentClip;
 }
 
-void AnimLibrary::VengeflySetup()
+void AnimLib::VengeflySetup()
 {
 	auto* currentClip = new Animation(*m_VengeflySheetPtr);
 

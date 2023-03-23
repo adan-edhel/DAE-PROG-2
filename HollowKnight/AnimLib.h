@@ -8,7 +8,10 @@ enum class CharacterType;
 using std::map;
 using std::string;
 
-class AnimLibrary
+/**
+ * \brief Animation Library
+ */
+class AnimLib
 {
 public:
 	static void Setup();
@@ -17,15 +20,19 @@ public:
 	static Animation* GetAnimation(CharacterType character, const string& clipName);
 
 private:
-	static Texture* m_KnightSheetPtr;
-	static Texture* m_CrawlidSheetPtr;
-	static Texture* m_VengeflySheetPtr;
+	static const bool m_DebugInfo{ false };
+	inline static bool m_HasBeenSetup{false};
 
-	static map<string, Animation*> m_KnightClips;
-	static map<string, Animation*> m_CrawlidClips;
-	static map<string, Animation*> m_VengeflyClips;
+	inline static Texture* m_KnightSheetPtr;
+	inline static Texture* m_CrawlidSheetPtr;
+	inline static Texture* m_VengeflySheetPtr;
+
+	inline static map<string, Animation*> m_KnightClips;
+	inline static map<string, Animation*> m_CrawlidClips;
+	inline static map<string, Animation*> m_VengeflyClips;
 
 	static void PrintInfo(const string& characterName, map<string, Animation*>& dictionary);
+	static void DeleteClips(map<string, Animation*>& dictionary);
 
 	static void KnightSetup();
 	static void CrawlidSetup();

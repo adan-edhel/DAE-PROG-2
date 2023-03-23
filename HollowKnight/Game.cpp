@@ -3,7 +3,7 @@
 
 #include "IInputEvent.h"
 
-#include "AnimLibrary.h"
+#include "AnimLib.h"
 #include "Level.h"
 
 Game::Game( const Window& window ) 
@@ -14,7 +14,7 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	AnimLibrary::Setup();
+	AnimLib::Setup();
 
 	m_pKingsPass = new Level("King's Pass");
 }
@@ -23,7 +23,7 @@ void Game::End( )
 {
 	delete m_pKingsPass;
 
-	AnimLibrary::Cleanup();
+	AnimLib::Cleanup();
 }
 
 void Game::Update(const float& deltaTime )

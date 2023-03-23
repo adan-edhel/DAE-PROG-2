@@ -75,7 +75,7 @@
     <ClCompile Include="InputActions.cpp">
       <Filter>Unity Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="AnimLibrary.cpp">
+    <ClCompile Include="AnimLib.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -131,7 +131,7 @@
     <ClInclude Include="Transform.h">
       <Filter>Unity Framework\Components\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="AnimLibrary.h">
+    <ClInclude Include="AnimLib.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
   </ItemGroup>
