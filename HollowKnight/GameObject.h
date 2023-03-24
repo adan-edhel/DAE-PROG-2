@@ -2,11 +2,11 @@
 #include <vector>
 #include "Object.h"
 
-#include "IUpdateEvent.h"
+#include "IUpdatable.h"
 
 #include "Component.h"
 
-class GameObject final : public Object, public IUpdateEvent
+class GameObject final : public Object, public IUpdatable
 {
 public:
 	Transform* m_Transform;

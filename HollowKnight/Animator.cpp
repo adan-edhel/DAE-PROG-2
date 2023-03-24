@@ -10,9 +10,9 @@ Animator::Animator() : Component("Animator")
 	}
 }
 
-void Animator::Draw() const
+void Animator::Play(Animation*) const
 {
-	//m_pSpriteRenderer->Draw();
+	
 }
 
 void Animator::Update(const float& deltaTime)

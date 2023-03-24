@@ -25,6 +25,9 @@
     <Filter Include="Unity Framework\Components\Headers">
       <UniqueIdentifier>{74a44367-f33f-4cd6-86b1-f6c0858ff65b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Unity Framework\Events">
+      <UniqueIdentifier>{ea66b9c9-97a9-40b3-9e15-000e58a74de8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animator.cpp">
@@ -133,6 +136,15 @@
     </ClInclude>
     <ClInclude Include="AnimLib.h">
       <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawable.h">
+      <Filter>Unity Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputEvent.h">
+      <Filter>Unity Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IUpdatable.h">
+      <Filter>Unity Framework\Events</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

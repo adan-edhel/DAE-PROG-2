@@ -1,20 +1,22 @@
 #pragma once
 #include "Component.h"
 
-#include "IDrawEvent.h"
+#include "IDrawable.h"
 
 #include "Vector2.h"
 #include "Texture.h"
 
-class SpriteRenderer final : public Component, public IDrawEvent
+class SpriteRenderer final : public Component, public IDrawable
 {
 public:
+	bool m_FlipX{ false };
+	bool m_FlipY{ false };
+
 	SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
 	SpriteRenderer(const std::string& spritePath = "default_sprite.png");
 
-	void DrawMidground() const override;
+	void Draw() const override;
 
-	bool IsFlipped() const;
 	Vector2 Bounds() const;
 	const Texture* GetSprite() const;
 
@@ -22,7 +24,6 @@ public:
 
 private:
 	Texture* m_pSprite;
-	bool m_isFlipped{ false };
 
 	const int m_Rows;
 	const int m_Columns;

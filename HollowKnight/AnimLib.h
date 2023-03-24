@@ -20,7 +20,7 @@ public:
 	static Animation* GetAnimation(CharacterType character, const string& clipName);
 
 private:
-	static const bool m_DebugInfo{ false };
+	static const bool m_DebugInfo{ true };
 	inline static bool m_HasBeenSetup{false};
 
 	inline static Texture* m_KnightSheetPtr;

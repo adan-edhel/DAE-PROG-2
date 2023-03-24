@@ -8,6 +8,7 @@
 
 SpriteRenderer::SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns) :
 	Component("SpriteRenderer"),
+	IDrawable(s_MidLayer),
 	m_pSprite{ new Texture(spritePath) },
 	m_Rows{ rows },
 	m_Columns{ columns }
@@ -17,20 +18,22 @@ SpriteRenderer::SpriteRenderer(const std::string& spritePath, const int& rows, c
 SpriteRenderer::SpriteRenderer(const std::string& spritePath) :
 	SpriteRenderer(spritePath, 1, 1) {}
 
-void SpriteRenderer::DrawMidground() const
+void SpriteRenderer::Draw() const
 {
 	Rectf sliceRect{};
-	sliceRect.width = m_pSprite->GetWidth() / float(m_Rows);
-	sliceRect.height = m_pSprite->GetHeight() / float(m_Columns);
-	sliceRect.left = 0;
-	sliceRect.bottom = sliceRect.height;
+	sliceRect.width		= m_pSprite->GetWidth()  / float(m_Rows);
+	sliceRect.height	= m_pSprite->GetHeight() / float(m_Columns);
+	sliceRect.left		= 0;
+	sliceRect.bottom	= sliceRect.height;
 
-	const Point2f drawPos{ m_Transform->position.x - sliceRect.width / 2, m_Transform->position.y };
+	Rectf drawRect{};
+	drawRect.left	= m_Transform->position.x - sliceRect.width / 2;
+	drawRect.bottom = m_Transform->position.y;
+	drawRect.width	= sliceRect.width  * float(m_FlipX ? -1 : 1);
+	drawRect.height = sliceRect.height * float(m_FlipY ? -1 : 1);
 
-	m_pSprite->Draw(drawPos, sliceRect);
+	m_pSprite->Draw(drawRect, sliceRect);
 }
-
-bool SpriteRenderer::IsFlipped() const { return m_isFlipped; }
 
 Vector2 SpriteRenderer::Bounds() const
 {

@@ -173,6 +173,9 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSettings.h" />
+    <ClInclude Include="IDrawable.h" />
+    <ClInclude Include="IInputEvent.h" />
+    <ClInclude Include="IUpdatable.h" />
     <ClInclude Include="SpriteManager.h" />
     <ClInclude Include="UnityStructs.h" />
     <ClInclude Include="Game.h" />

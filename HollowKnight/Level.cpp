@@ -4,8 +4,8 @@
 #include "../Engine/AmrothUtils.h"
 
 // Interfaces
-#include "IDrawEvent.h"
-#include "IUpdateEvent.h"
+#include "IDrawable.h"
+#include "IUpdatable.h"
 #include "InputActions.h"
 
 // Components
@@ -13,6 +13,7 @@
 #include "Rigidbody2D.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "Animator.h"
 #include "Knight.h"
 
 Level::Level(const std::string& levelName)
@@ -26,27 +27,24 @@ Level::Level(const std::string& levelName)
 void Level::Start()
 {
 	m_KnightPtr = new GameObject("Hollow Knight");
-	m_KnightPtr->AddComponent(new Knight());
 	m_KnightPtr->AddComponent(new Rigidbody2D());
 	m_KnightPtr->AddComponent(new InputActions());
 	m_KnightPtr->AddComponent(new SpriteRenderer
 	("HollowKnight/Knight.png", 12, 12));
+	m_KnightPtr->AddComponent(new Animator());
+	m_KnightPtr->AddComponent(new Knight());
 
 	m_KnightPtr->m_Transform->position = Vector2(600, 600);
 }
 
 void Level::Update(const float& deltaTime)
 {
-	IUpdateEvent::Invoke(&IUpdateEvent::Update, deltaTime);
+	IUpdatable::Invoke(&IUpdatable::Update, deltaTime);
 }
 
 void Level::Draw() const
 {
-	IDrawEvent::Invoke(&IDrawEvent::DrawBackground);
-	IDrawEvent::Invoke(&IDrawEvent::DrawMidground);
-	IDrawEvent::Invoke(&IDrawEvent::DrawForeground);
-
-	IDrawEvent::Invoke(&IDrawEvent::DrawUserInterface);
+	IDrawable::Invoke(&IDrawable::Draw);
 }
 
 Level::~Level()
