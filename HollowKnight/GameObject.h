@@ -20,7 +20,9 @@ public:
 private:
 	void RemoveComponent(Component* component)
 	{
-		components.erase(std::remove(components.begin(), components.end(), component), components.end());
+		components.erase(std::remove(components.begin(), 
+									 components.end(), component), 
+									 components.end());
 	}
 
 public:

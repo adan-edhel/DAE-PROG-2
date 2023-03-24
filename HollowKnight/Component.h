@@ -15,6 +15,4 @@ protected:
 
 private:
 	friend GameObject;
-
-	void AssignGameObject(GameObject& object);
 };

@@ -32,6 +32,8 @@ GameObject::~GameObject()
 {
 	//UNDONE: Fix component removal at Destroy
 
+	if (components.empty()) return;
+
 	for ( const auto* component : components)
 	{
 		if (component != nullptr)

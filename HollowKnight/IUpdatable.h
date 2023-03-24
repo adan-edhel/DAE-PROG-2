@@ -7,7 +7,7 @@ public:
 	template<typename... Args>
 	static void Invoke(void(IUpdatable::* function)(Args...), Args&&... args)
 	{
-		for (IUpdatable* eventPtr : m_pEvents)
+		for (IUpdatable* eventPtr : m_EventPtrs)
 			(eventPtr->*function)(std::forward<Args>(args)...);
 	}
 
@@ -16,15 +16,15 @@ public:
 protected:
 	IUpdatable()
 	{
-		m_pEvents.push_back(this);
+		m_EventPtrs.push_back(this);
 	}
 
 	virtual ~IUpdatable()
 	{
-		m_pEvents.erase(std::remove(m_pEvents.begin(), m_pEvents.end(), this), m_pEvents.end());
+		m_EventPtrs.erase(std::remove(m_EventPtrs.begin(), m_EventPtrs.end(), this), m_EventPtrs.end());
 	}
 
 private:
-	inline static std::vector<IUpdatable*> m_pEvents{};
+	inline static std::vector<IUpdatable*> m_EventPtrs{};
 };
 
