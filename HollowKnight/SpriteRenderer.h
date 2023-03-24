@@ -13,7 +13,7 @@ public:
 	bool m_FlipY{ false };
 
 	SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
-	SpriteRenderer(const std::string& spritePath = "default_sprite.png");
+	SpriteRenderer(const std::string& spritePath = "default_circle.png");
 
 	void Draw() const override;
 
