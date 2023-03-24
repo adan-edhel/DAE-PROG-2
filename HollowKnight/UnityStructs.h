@@ -12,17 +12,17 @@ struct Animation
 {
 	std::string clipName;
 
-	Animation(Texture& sprite, int numFrames, int columns, int rows) :
+	Animation(const Texture& sprite, int numFrames, int columns, int rows) :
 		m_pSprite{&sprite}
 	{
 	}
 
-	Animation(Texture& sprite) :
+	Animation(const Texture& sprite) :
 		Animation(sprite, 1, 1, 1)
 	{
 	}
 
-	Texture* m_pSprite;
+	const Texture* m_pSprite;
 
 	int m_NumFrames;
 

@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "Game.h"
 
+#include "SpriteLibrary.h"
+#include "AnimLibrary.h"
+
 #include "IInputEvent.h"
 
-#include "AnimLib.h"
 #include "Level.h"
 
 Game::Game( const Window& window ) 
@@ -14,7 +16,8 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	AnimLib::Setup();
+	SpriteLibrary::Setup();
+	AnimLibrary::Setup();
 
 	m_pKingsPass = new Level("King's Pass");
 }
@@ -23,7 +26,8 @@ void Game::End( )
 {
 	delete m_pKingsPass;
 
-	AnimLib::Cleanup();
+	AnimLibrary::Cleanup();
+	SpriteLibrary::Cleanup();
 }
 
 void Game::Update(const float& deltaTime )

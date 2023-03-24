@@ -5,6 +5,9 @@
 #include "Rigidbody2D.h"
 #include "InputActions.h"
 
+#include "SpriteLibrary.h"
+#include "SpriteRenderer.h"
+
 InputActions::InputActions() : Component("Input Actions")
 {
 }
@@ -29,6 +32,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		break;
 	case SDLK_SPACE:		// JUMP
 		Jump(jumpForce);
+		m_GameObject->GetComponent<SpriteRenderer>()->m_SpritePtr = SpriteLibrary::GetSprite(SpriteLibrary::Type::Knight);
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;

@@ -30,7 +30,6 @@ void Level::Start()
 	m_KnightPtr->AddComponent(new Rigidbody2D());
 	m_KnightPtr->AddComponent(new InputActions());
 	m_KnightPtr->AddComponent(new SpriteRenderer());
-	//("HollowKnight/Knight.png", 12, 12));
 	m_KnightPtr->AddComponent(new Animator());
 	m_KnightPtr->AddComponent(new Knight());
 

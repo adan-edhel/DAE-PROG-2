@@ -5,11 +5,12 @@
 #include "SpriteRenderer.h"
 
 #include "AmrothUtils.h"
+#include "SpriteLibrary.h"
 
 SpriteRenderer::SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns) :
 	Component("SpriteRenderer"),
 	IDrawable(s_MidLayer),
-	m_pSprite{ new Texture(spritePath) },
+	m_SpritePtr{ SpriteLibrary::GetSprite(SpriteLibrary::Type::Default)},
 	m_Rows{ rows },
 	m_Columns{ columns }
 {
@@ -21,8 +22,8 @@ SpriteRenderer::SpriteRenderer(const std::string& spritePath) :
 void SpriteRenderer::Draw() const
 {
 	Rectf sliceRect{};
-	sliceRect.width		= m_pSprite->GetWidth()  / float(m_Rows);
-	sliceRect.height	= m_pSprite->GetHeight() / float(m_Columns);
+	sliceRect.width		= m_SpritePtr->GetWidth()  / float(m_Rows);
+	sliceRect.height	= m_SpritePtr->GetHeight() / float(m_Columns);
 	sliceRect.left		= 0;
 	sliceRect.bottom	= sliceRect.height;
 
@@ -32,14 +33,14 @@ void SpriteRenderer::Draw() const
 	drawRect.width	= sliceRect.width  * float(m_FlipX ? -1 : 1);
 	drawRect.height = sliceRect.height * float(m_FlipY ? -1 : 1);
 
-	m_pSprite->Draw(drawRect, sliceRect);
+	m_SpritePtr->Draw(drawRect, sliceRect);
 }
 
 Vector2 SpriteRenderer::Bounds() const
 {
-	if (m_pSprite != nullptr)
+	if (m_SpritePtr != nullptr)
 	{
-		return Vector2(m_pSprite->GetWidth(), m_pSprite->GetHeight());
+		return Vector2(m_SpritePtr->GetWidth(), m_SpritePtr->GetHeight());
 	}
 	Print(">>Warning<< No sprite has been loaded.\n", TextColor::Red);
 	return Vector2{};
@@ -47,10 +48,5 @@ Vector2 SpriteRenderer::Bounds() const
 
 const Texture* SpriteRenderer::GetSprite() const
 {
-	return m_pSprite;
-}
-
-SpriteRenderer::~SpriteRenderer()
-{
-	delete m_pSprite;
+	return m_SpritePtr;
 }

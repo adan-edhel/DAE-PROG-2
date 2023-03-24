@@ -78,7 +78,10 @@
     <ClCompile Include="InputActions.cpp">
       <Filter>Unity Framework\Components</Filter>
     </ClCompile>
-    <ClCompile Include="AnimLib.cpp">
+    <ClCompile Include="AnimLibrary.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteLibrary.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -134,7 +137,7 @@
     <ClInclude Include="Transform.h">
       <Filter>Unity Framework\Components\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="AnimLib.h">
+    <ClInclude Include="AnimLibrary.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
     <ClInclude Include="IDrawable.h">
@@ -145,6 +148,12 @@
     </ClInclude>
     <ClInclude Include="IUpdatable.h">
       <Filter>Unity Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteLibrary.h">
+      <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Base\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

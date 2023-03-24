@@ -1,21 +1,18 @@
 #include "pch.h"
-#include "AnimLib.h"
+#include "AnimLibrary.h"
 
 #include "AmrothUtils.h"
 #include "GameSettings.h"
+#include "SpriteLibrary.h"
 
 //TODO: Test animation clips
 
-void AnimLib::Setup()
+void AnimLibrary::Setup()
 {
 	if (GameSettings::s_DebugMode)
 	{
 		Print("Animation Library Being Setup...\n", TextColor::Lightgray);
 	}
-
-	m_KnightSheetPtr = new Texture("HollowKnight/Knight.png");
-	m_CrawlidSheetPtr = new Texture("HollowKnight/Enemies/Crawlid.png");
-	m_VengeflySheetPtr = new Texture("HollowKnight/Enemies/Vengefly.png");
 
 	KnightSetup();
 	CrawlidSetup();
@@ -36,15 +33,11 @@ void AnimLib::Setup()
 	}
 }
 
-void AnimLib::Cleanup()
+void AnimLibrary::Cleanup()
 {
 	DeleteClips(m_KnightClips);
 	DeleteClips(m_CrawlidClips);
 	DeleteClips(m_VengeflyClips);
-
-	delete m_KnightSheetPtr;
-	delete m_CrawlidSheetPtr;
-	delete m_VengeflySheetPtr;
 
 	if (GameSettings::s_DebugMode)
 	{
@@ -52,7 +45,7 @@ void AnimLib::Cleanup()
 	}
 }
 
-Animation* AnimLib::GetAnimation(CharacterType character, const string& clipName)
+Animation* AnimLibrary::GetAnimation(Type character, const string& clipName)
 {
 	if (!m_HasBeenSetup)
 	{
@@ -64,13 +57,13 @@ Animation* AnimLib::GetAnimation(CharacterType character, const string& clipName
 
 	switch (character)
 	{
-	case CharacterType::Knight:
+	case Type::Knight:
 		it = m_KnightClips.find(clipName);
 		break;
-	case CharacterType::Crawlid:
+	case Type::Crawlid:
 		it = m_CrawlidClips.find(clipName);
 		break;
-	case CharacterType::Vengefly:
+	case Type::Vengefly:
 		it = m_VengeflyClips.find(clipName);
 		break;
 	}
@@ -78,7 +71,7 @@ Animation* AnimLib::GetAnimation(CharacterType character, const string& clipName
 	return it->first.empty() ? nullptr : it->second;
 }
 
-void AnimLib::PrintInfo(const string& characterName, map<string, Animation*>& dictionary)
+void AnimLibrary::PrintInfo(const string& characterName, map<string, Animation*>& dictionary)
 {
 	// Print Character name and clip number
 	Print(characterName, TextColor::Yellow);
@@ -99,7 +92,7 @@ void AnimLib::PrintInfo(const string& characterName, map<string, Animation*>& di
 	}
 }
 
-void AnimLib::DeleteClips(map<string, Animation*>& dictionary)
+void AnimLibrary::DeleteClips(map<string, Animation*>& dictionary)
 {
 	// Delete animations
 	for (auto it = dictionary.begin(); it != dictionary.end(); ++it)
@@ -109,9 +102,11 @@ void AnimLib::DeleteClips(map<string, Animation*>& dictionary)
 	dictionary.clear();
 }
 
-void AnimLib::KnightSetup()
+void AnimLibrary::KnightSetup()
 {
-	auto* currentClip = new Animation(*m_KnightSheetPtr);
+	const auto sprite = SpriteLibrary::GetSprite(SpriteLibrary::Type::Knight);
+
+	auto* currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName		= "Idle";
@@ -121,7 +116,7 @@ void AnimLib::KnightSetup()
 
 	m_KnightClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_KnightSheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Walking clip
 	currentClip->clipName = "Walking";
@@ -131,7 +126,7 @@ void AnimLib::KnightSetup()
 
 	m_KnightClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_KnightSheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Jumping clip
 	currentClip->clipName = "Jumping";
@@ -141,7 +136,7 @@ void AnimLib::KnightSetup()
 
 	m_KnightClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_KnightSheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Jumping clip
 	currentClip->clipName = "Attacking";
@@ -152,9 +147,11 @@ void AnimLib::KnightSetup()
 	m_KnightClips[currentClip->clipName] = currentClip;
 }
 
-void AnimLib::CrawlidSetup()
+void AnimLibrary::CrawlidSetup()
 {
-	auto* currentClip = new Animation(*m_CrawlidSheetPtr);
+	const auto sprite = SpriteLibrary::GetSprite(SpriteLibrary::Type::Crawlid);
+
+	auto* currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Walking";
@@ -164,7 +161,7 @@ void AnimLib::CrawlidSetup()
 
 	m_CrawlidClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_CrawlidSheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Turning";
@@ -174,7 +171,7 @@ void AnimLib::CrawlidSetup()
 
 	m_CrawlidClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_CrawlidSheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Dying";
@@ -184,7 +181,7 @@ void AnimLib::CrawlidSetup()
 
 	m_CrawlidClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_CrawlidSheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Dead";
@@ -195,9 +192,11 @@ void AnimLib::CrawlidSetup()
 	m_CrawlidClips[currentClip->clipName] = currentClip;
 }
 
-void AnimLib::VengeflySetup()
+void AnimLibrary::VengeflySetup()
 {
-	auto* currentClip = new Animation(*m_VengeflySheetPtr);
+	const auto sprite = SpriteLibrary::GetSprite(SpriteLibrary::Type::Knight);
+
+	auto* currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Flying";
@@ -207,7 +206,7 @@ void AnimLib::VengeflySetup()
 
 	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_VengeflySheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Turning";
@@ -217,7 +216,7 @@ void AnimLib::VengeflySetup()
 
 	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_VengeflySheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Attacking";
@@ -227,7 +226,7 @@ void AnimLib::VengeflySetup()
 
 	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_VengeflySheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Chasing";
@@ -237,7 +236,7 @@ void AnimLib::VengeflySetup()
 
 	m_VengeflyClips[currentClip->clipName] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*m_VengeflySheetPtr);
+	currentClip = new Animation(*sprite);
 
 	// Idle clip
 	currentClip->clipName = "Dying";

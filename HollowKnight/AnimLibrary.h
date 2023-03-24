@@ -11,21 +11,24 @@ using std::string;
 /**
  * \brief Animation Library
  */
-class AnimLib
+class AnimLibrary
 {
 public:
+	enum class Type
+	{
+		Knight,
+		Crawlid,
+		Vengefly
+	};
+
 	static void Setup();
 	static void Cleanup();
 
-	static Animation* GetAnimation(CharacterType character, const string& clipName);
+	static Animation* GetAnimation(Type character, const string& clipName);
 
 private:
 	static const bool m_DebugInfo{ true };
 	inline static bool m_HasBeenSetup{false};
-
-	inline static Texture* m_KnightSheetPtr;
-	inline static Texture* m_CrawlidSheetPtr;
-	inline static Texture* m_VengeflySheetPtr;
 
 	inline static map<string, Animation*> m_KnightClips;
 	inline static map<string, Animation*> m_CrawlidClips;
@@ -37,11 +40,4 @@ private:
 	static void KnightSetup();
 	static void CrawlidSetup();
 	static void VengeflySetup();
-};
-
-enum class CharacterType
-{
-	Knight,
-	Crawlid,
-	Vengefly
 };

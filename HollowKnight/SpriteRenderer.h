@@ -13,17 +13,17 @@ public:
 	bool m_FlipY{ false };
 
 	SpriteRenderer(const std::string& spritePath, const int& rows, const int& columns);
-	SpriteRenderer(const std::string& spritePath = "default_circle.png");
+	SpriteRenderer(const std::string& spritePath = "");
 
 	void Draw() const override;
 
 	Vector2 Bounds() const;
 	const Texture* GetSprite() const;
 
-	~SpriteRenderer() override;
+	~SpriteRenderer() override = default;
 
+	const Texture* m_SpritePtr;
 private:
-	Texture* m_pSprite;
 
 	const int m_Rows;
 	const int m_Columns;
