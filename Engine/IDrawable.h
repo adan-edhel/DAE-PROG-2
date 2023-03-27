@@ -13,7 +13,7 @@ private:
 	inline static std::array<vector<IDrawable*>, m_TotalLayerCount> m_ArrFunctionList{};
 
 protected:
-	inline const static int s_MidLayer{ (m_TotalLayerCount / 2 + 1) };
+	inline const static int s_MidLayer{ (m_TotalLayerCount / 2) };
 
 	IDrawable(const int& drawLayer) : m_Layer{ drawLayer }
 	{

@@ -1,13 +1,16 @@
-#include "pch.h"
-#include "SpriteRenderer.h"
 #include "Animator.h"
+
+#include "GameObject.h"
+#include "SpriteRenderer.h"
+
 
 Animator::Animator() : Component("Animator")
 {
-	if (m_pSpriteRenderer == nullptr)
-	{
-		std::cout << "No SpriteRenderer attached to object. \n";
-	}
+}
+
+void Animator::Awake()
+{
+	m_pSpriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
 void Animator::Play(Animation*) const

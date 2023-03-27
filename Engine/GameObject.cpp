@@ -1,9 +1,8 @@
-#include "pch.h"
 #include "GameObject.h"
 
 #include "Transform.h"
 
-GameObject::GameObject(const std::string& name) : Object(&name)
+GameObject::GameObject(const std::string& name) : Object(name)
 {
 	m_Transform = AddComponent(new Transform());
 }

@@ -5,9 +5,9 @@ class Knight final : public Actor
 {
 public:
 	Knight();
-	~Knight() override = default;
 
 private:
+	~Knight() override = default;
 
 	void OnDeath() override;
 

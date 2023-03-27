@@ -24,6 +24,43 @@ double WaveMovement	(double moved, double fullMovement)
 	return sin(angle);
 }
 
+void DrawCircle(float posX, float posY, float radius, int segments)
+{
+	const float theta = M_PI * 2 / float(segments);
+	const float tangetial_factor = tanf(theta);//calculate the tangential factor 
+
+	const float radial_factor = cosf(theta);//calculate the radial factor 
+
+	float x = radius;//we start at angle = 0 
+
+	float y = 0;
+	glLineWidth(2);
+	glBegin(GL_LINE_LOOP);
+	glPolygonMode(GL_FRONT, GL_FILL);
+	for (int ii = 0; ii < segments; ii++)
+	{
+		glVertex2f(x + posX, y + posY);//output vertex 
+
+		//calculate the tangential vector 
+		//remember, the radial vector is (x, y) 
+		//to get the tangential vector we flip those coordinates and negate one of them 
+
+		float tx = -y;
+		float ty = x;
+
+		//add the tangential vector 
+
+		x += tx * tangetial_factor;
+		y += ty * tangetial_factor;
+
+		//correct using the radial factor 
+
+		x *= radial_factor;
+		y *= radial_factor;
+	}
+	glEnd();
+}
+
 // Color Functions
 void SetColor(const Color& color, const float& alpha)
 {

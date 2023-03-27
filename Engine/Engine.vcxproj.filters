@@ -25,6 +25,21 @@
     <Filter Include="Source Files\Amroth">
       <UniqueIdentifier>{dbfb7c33-cc99-421a-b54e-fd36aa9b58ec}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Custom Framework">
+      <UniqueIdentifier>{7262caa6-02ca-4152-9e8e-76f832721a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Custom Framework\Headers">
+      <UniqueIdentifier>{a37d12e5-544e-4877-a870-d3d4b64d5059}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Custom Framework\Events">
+      <UniqueIdentifier>{19ff6b82-21d1-4a18-b4e5-c66d94b0d603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Custom Framework\Components">
+      <UniqueIdentifier>{5fbc9a30-d731-469a-89ce-e8519f756603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Custom Framework\Components\Headers">
+      <UniqueIdentifier>{3a96631f-0f0c-484d-974d-cbe28cd3fa82}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BaseGame.cpp">
@@ -59,6 +74,30 @@
     </ClCompile>
     <ClCompile Include="AmrothUtils.cpp">
       <Filter>Source Files\Amroth</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Custom Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Custom Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Custom Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Animator.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody2D.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRenderer.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Custom Framework\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +139,42 @@
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Amroth</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Custom Framework\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Custom Framework\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Custom Framework\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="IUpdatable.h">
+      <Filter>Custom Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawable.h">
+      <Filter>Custom Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="IInputEvent.h">
+      <Filter>Custom Framework\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Animator.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody2D.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRenderer.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="UnityStructs.h">
+      <Filter>Custom Framework\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,8 +1,7 @@
-#include "pch.h"
-
-#include "Transform.h"
 #include "Rigidbody2D.h"
+
 #include "AmrothUtils.h"
+#include "Transform.h"
 
 Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {

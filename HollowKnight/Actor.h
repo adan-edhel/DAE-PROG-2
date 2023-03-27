@@ -9,10 +9,12 @@ public:
 
 protected:
 	Actor(const int& maxHealth);
-	virtual void OnDeath() = 0;
 	virtual ~Actor() override = default;
+
+	virtual void OnDeath() = 0;
 
 private:
 	int m_MaxHealth;
 	int m_Health;
+
 };

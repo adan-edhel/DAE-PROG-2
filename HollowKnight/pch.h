@@ -18,3 +18,7 @@
 
 #pragma warning(default : 26812)
 #include "structs.h"
+#include <Vector2.h>
+#include <Vector3.h>
+#include <AmrothUtils.h>
+#include <UnityStructs.h>

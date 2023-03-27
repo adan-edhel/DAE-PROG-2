@@ -19,6 +19,8 @@ double	WaveMovement		(double moved, double fullMovement = 1.0);
 // WaveMovement(0.25);						// Percentage (out of 1.0)
 // WaveMovement(25);						// Out of 100
 
+void DrawCircle(float posX, float posY, float radius, int segments);
+
 // Color Functions
 enum class Color
 {
@@ -75,7 +77,7 @@ enum class TextColor
 	Darkgray,
 	Lightblue,
 	Lightgreen,
-	LightcyaN,
+	Lightcyan,
 	Lightred,
 	Lightmagenta,
 	Yellow,

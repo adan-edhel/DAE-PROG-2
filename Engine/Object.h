@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "UnityStructs.h"
 
 class GameObject;
@@ -15,6 +14,6 @@ public:
 	static void Destroy(const Object* objectPtr);
 
 protected:
-	Object(const std::string* name);
+	Object(const std::string& name);
 	virtual ~Object() = default;
 };

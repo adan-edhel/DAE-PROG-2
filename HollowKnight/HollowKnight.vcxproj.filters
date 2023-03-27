@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Unity Framework">
-      <UniqueIdentifier>{37cbb832-1276-43b2-bb1c-4377fbb9a63d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{5ab49b75-3b2b-4219-910b-23dd75ae2f95}</UniqueIdentifier>
     </Filter>
@@ -16,35 +13,11 @@
     <Filter Include="Game\Headers">
       <UniqueIdentifier>{161a921a-30b1-4731-9436-3fd15e77aa5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Unity Framework\Headers">
-      <UniqueIdentifier>{d4d8cf89-11b6-4713-a7dd-53f25bc2658f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Unity Framework\Components">
-      <UniqueIdentifier>{c9c5e124-b663-484a-92d6-778e46ceb6c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Unity Framework\Components\Headers">
-      <UniqueIdentifier>{74a44367-f33f-4cd6-86b1-f6c0858ff65b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Unity Framework\Events">
-      <UniqueIdentifier>{ea66b9c9-97a9-40b3-9e15-000e58a74de8}</UniqueIdentifier>
+    <Filter Include="Obsolete">
+      <UniqueIdentifier>{3de22330-fdfd-42c0-a392-b8940709e1d7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animator.cpp">
-      <Filter>Unity Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Rigidbody2D.cpp">
-      <Filter>Unity Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteRenderer.cpp">
-      <Filter>Unity Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Behavior.cpp">
-      <Filter>Unity Framework\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Unity Framework\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Base</Filter>
     </ClCompile>
@@ -63,35 +36,20 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteManager.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Unity Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Unity Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Unity Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="InputActions.cpp">
-      <Filter>Unity Framework\Components</Filter>
-    </ClCompile>
     <ClCompile Include="AnimLibrary.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="SpriteLibrary.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite2D.cpp">
+      <Filter>Obsolete</Filter>
+    </ClCompile>
+    <ClCompile Include="InputActions.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
-      <Filter>Unity Framework\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Unity Framework\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="GameSettings.h">
       <Filter>Base\Headers</Filter>
     </ClInclude>
@@ -110,50 +68,20 @@
     <ClInclude Include="Knight.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="SpriteManager.h">
-      <Filter>Game\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="UnityStructs.h">
-      <Filter>Unity Framework\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Unity Framework\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Animator.h">
-      <Filter>Unity Framework\Components\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Behavior.h">
-      <Filter>Unity Framework\Components\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="InputActions.h">
-      <Filter>Unity Framework\Components\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Rigidbody2D.h">
-      <Filter>Unity Framework\Components\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRenderer.h">
-      <Filter>Unity Framework\Components\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Unity Framework\Components\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="AnimLibrary.h">
       <Filter>Game\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="IDrawable.h">
-      <Filter>Unity Framework\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="IInputEvent.h">
-      <Filter>Unity Framework\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="IUpdatable.h">
-      <Filter>Unity Framework\Events</Filter>
     </ClInclude>
     <ClInclude Include="SpriteLibrary.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Base\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite2D.h">
+      <Filter>Obsolete</Filter>
+    </ClInclude>
+    <ClInclude Include="InputActions.h">
+      <Filter>Game\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

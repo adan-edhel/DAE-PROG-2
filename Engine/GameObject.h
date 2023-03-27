@@ -1,9 +1,8 @@
 #pragma once
-#include <vector>
 #include "Object.h"
-
 #include "IUpdatable.h"
 
+#include <vector>
 #include "Component.h"
 
 class GameObject final : public Object, public IUpdatable
@@ -32,8 +31,8 @@ public:
 	{
 		auto* castComponentPtr{ dynamic_cast<Component*>(component) };
 
-		component->m_GameObject = this;
-		component->m_Transform = m_Transform;
+		castComponentPtr->Initialize(this);
+		castComponentPtr->Awake();
 
 		components.push_back(component);
 		return component;
@@ -55,8 +54,6 @@ public:
 #pragma endregion
 
 private:
-	friend Component;
-
 	bool m_IsActive{ true };
 	std::vector<Component*> components{};
 
