@@ -27,7 +27,6 @@ public:
 	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e ) override;
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 #pragma endregion
-
 private:
 	Level* m_pKingsPass{nullptr};
 

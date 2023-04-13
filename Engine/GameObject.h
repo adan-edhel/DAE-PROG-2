@@ -2,8 +2,8 @@
 #include "Object.h"
 #include "IUpdatable.h"
 
-#include <vector>
 #include "Component.h"
+#include <vector>
 
 class GameObject final : public Object, public IUpdatable
 {

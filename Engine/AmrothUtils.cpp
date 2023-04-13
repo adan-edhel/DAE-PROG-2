@@ -124,16 +124,16 @@ int		Modulo(const int& a, const int& b)
 	return a - multipliedValue;
 }
 
-void	Clamp(float& value, const float& minValue, const float& maxValue)
+void	Clamp(float& value, const float& min, const float& max)
 {
-	if (value > maxValue) value = maxValue;
-	else if (value < minValue) value = minValue;
+	if (value > max) value = max;
+	else if (value < min) value = min;
 }
 
-void	Clamp(int& value, const int& minValue, const int& maxValue)
+void	Clamp(int& value, const int& min, const int& max)
 {
-	if (value > maxValue) value = maxValue;
-	else if (value < minValue) value = minValue;
+	if (value > max) value = max;
+	else if (value < min) value = min;
 }
 
 float	GetDistanceBetween(const Point2f& fromPoint, const Point2f& toPoint)

@@ -7,6 +7,11 @@ Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {
 }
 
+bool Rigidbody2D::isGrounded()
+{
+	return m_Transform->position.y < 0;
+}
+
 void Rigidbody2D::SetVelocity(const Vector2& velocity)
 {
 	m_Velocity = velocity;
@@ -34,20 +39,20 @@ void Rigidbody2D::VelocityDecay(const float& deltaTime)
 
 void Rigidbody2D::SimulateGravity(const float& deltaTime)
 {
-	float& PositionY = m_Transform->position.y;
+	//m_GravityModifier += GRAVITY * deltaTime;
+	//m_GravityModifier *= m_Bounciness;
 
-	m_GravityModifier += GRAVITY * deltaTime;
-	if (PositionY > 0)
+	if (!isGrounded())
 	{
 		AddForce(Vector2(0, GRAVITY * deltaTime));
+		if (isGrounded())
+		{
+			m_Velocity.y = 0;
+		}
 	}
-
-	// When on ground
-	if (PositionY <= 0)
+	else
 	{
-		m_GravityModifier *= m_Bounciness;
-		m_Velocity.y = 0;
-		PositionY = 0;
+		m_Transform->position.y = 0;
 	}
 
 	m_Transform->position += m_Velocity;

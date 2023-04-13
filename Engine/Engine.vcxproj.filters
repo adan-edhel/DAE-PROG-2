@@ -99,6 +99,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Custom Framework\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmrothUtils.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="UnityStructs.h">
       <Filter>Custom Framework\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

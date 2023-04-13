@@ -44,8 +44,8 @@ void	SetColor			(const Color& color, const float& alpha = 1);
 // Sum Functions
 bool	IsEven(const int& a);
 int		Modulo(const int& a, const int& b);
-void	Clamp(float& value, const float& minValue, const float& maxValue);
-void	Clamp(int& value, const int& minValue, const int& maxValue);
+void	Clamp(float& value, const float& min, const float& max);
+void	Clamp(int& value, const int& min, const int& max);
 float	GetDistanceBetween(const Point2f& fromPoint, const Point2f& toPoint);
 float	GetAngleDifference(const float& fromAngle, const float& toAngle);
 float	GetAngleToPoint(const Point2f& fromPoint, const Point2f& toPoint);

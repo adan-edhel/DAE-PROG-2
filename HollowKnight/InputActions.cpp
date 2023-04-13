@@ -20,6 +20,32 @@ void InputActions::Awake()
 	m_SpriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
+void InputActions::Update(const float& deltaTime)
+{
+	KBStatesPtr = SDL_GetKeyboardState(nullptr);
+
+	if (KBStatesPtr[SDL_SCANCODE_A])
+	{
+		Walk(-walkSpeed * deltaTime);
+		if (!KBStatesPtr[SDL_SCANCODE_D])
+		{
+			if (!m_SpriteRenderer->m_FlipX) m_SpriteRenderer->m_FlipX = true;
+		}
+	}
+	if (KBStatesPtr[SDL_SCANCODE_D])
+	{
+		Walk(walkSpeed * deltaTime);
+		if (!KBStatesPtr[SDL_SCANCODE_A])
+		{
+			if (m_SpriteRenderer->m_FlipX) m_SpriteRenderer->m_FlipX = false;
+		}
+	}
+	if (KBStatesPtr[SDL_SCANCODE_LEFT] && KBStatesPtr[SDL_SCANCODE_UP])
+	{
+		Print("Left and up arrow keys are down\n");
+	}
+}
+
 #pragma region Override
 void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 {
@@ -30,12 +56,8 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_s:			// DOWN
 		break;
 	case SDLK_a:			// LEFT
-		Walk(-walkSpeed);
-		m_SpriteRenderer->m_FlipX = true;
 		break;
 	case SDLK_d:			// RIGHT
-		Walk(walkSpeed);
-		m_SpriteRenderer->m_FlipX = false;
 		break;
 	case SDLK_SPACE:		// JUMP
 		Jump(jumpForce);
@@ -85,7 +107,10 @@ void InputActions::Walk(const float& speed)
 
 void InputActions::Jump(const float& force)
 {
-	m_pRigidbody->AddForce(Vector2(0, force));
+	if (m_pRigidbody->isGrounded())
+	{
+		m_pRigidbody->AddForce(Vector2(0, force));
+	}
 }
 
 void InputActions::CutJump()

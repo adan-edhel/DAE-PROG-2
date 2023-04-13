@@ -15,7 +15,7 @@ private:
 protected:
 	inline const static int s_MidLayer{ (m_TotalLayerCount / 2) };
 
-	IDrawable(const int& drawLayer) : m_Layer{ drawLayer }
+	IDrawable(const int& drawLayer = s_MidLayer) : m_Layer{ drawLayer }
 	{
 		m_ArrFunctionList[m_Layer].push_back(this);
 	}
@@ -47,4 +47,5 @@ public:
 	}
 
 	virtual void Draw()	const{}
+	virtual void Draw(){}
 };

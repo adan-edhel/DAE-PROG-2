@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <ctime>
 #include "Game.h"
+#include "GameSettings.h"
 
 void StartHeapControl();
 int CustomizeReportHook(int reportType, char* message, int* returnValue);
@@ -11,7 +12,7 @@ int SDL_main(int argv, char** args)
 
 	StartHeapControl();
 
-	Game* pGame{ new Game{ Window{ "Hollow Knight - Onmaz, 'Mort' Yasin - 1DAE12", 1280.f , 800.f } } };
+	Game* pGame{ new Game{ Window{ "Hollow Knight - Onmaz, 'Mort' Yasin - 1DAE12", GameSettings::s_Screen.x , GameSettings::s_Screen.y } } };
 	pGame->Run();
 	delete pGame;
 

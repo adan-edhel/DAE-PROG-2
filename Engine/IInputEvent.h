@@ -11,6 +11,7 @@ public:
 			(eventPtr->*function)(std::forward<Args>(args)...);
 	}
 
+	virtual void OnKeyHeld(const SDL_KeyboardEvent& e) {}
     virtual void OnKeyDown(const SDL_KeyboardEvent& e)		{}
     virtual void OnKeyUp(const SDL_KeyboardEvent& e)		{}
 	virtual void OnMouseMotion(const SDL_MouseMotionEvent& e){}

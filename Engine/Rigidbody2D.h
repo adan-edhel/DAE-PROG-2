@@ -9,6 +9,8 @@ public:
 	bool m_IsStatic{ false };
 	Vector2 m_Velocity{};
 
+	bool isGrounded();
+
 	Rigidbody2D();
 	void SetVelocity(const Vector2& velocity);
 	void AddForce(const Vector2& force);
