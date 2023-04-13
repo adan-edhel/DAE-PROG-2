@@ -12,8 +12,10 @@ public:
 	void Draw() const;
 
 private:
-	GameObject* m_CameraPtr;
+	Texture* levelRef;
+
 	GameObject* m_KnightPtr;
+	GameObject* m_LevelVisuals;
 
 	void Start();
 };

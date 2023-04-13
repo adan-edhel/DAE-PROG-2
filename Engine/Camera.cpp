@@ -9,7 +9,6 @@ Camera::Camera(const Vector2& screen) :
 	m_PixelHeight{ screen.y }
 {
 	if (m_MainPtr == nullptr) m_MainPtr = this;
-
 	if (m_MainPtr == nullptr) Print("Main camera not assigned.", TextColor::Red);
 }
 
@@ -25,16 +24,17 @@ void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
 
 Vector2 Camera::Track() const
 {
-	return Vector2(m_TargetPtr->position.x - m_PixelWidth/2, m_TargetPtr->position.y - m_PixelHeight/2);
+	return Vector2(m_TargetPtr->position.x - m_PixelWidth/2, 
+					m_TargetPtr->position.y - m_PixelHeight/2);
 }
 
-void Camera::Draw()
+void Camera::CameraDraw() const
 {
 	if (m_TargetPtr != nullptr)
 	{
 		Vector2 centerPos{ Track() };
 		Clamp(centerPos);
-		glTranslatef(centerPos.x, centerPos.y, 0);
+		glTranslatef(-centerPos.x, -centerPos.y, 0);
 	}
 }
 

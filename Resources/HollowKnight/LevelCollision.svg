@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg282"
+   xml:space="preserve"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="level.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview284"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.14866305"
+     inkscape:cx="396.87064"
+     inkscape:cy="632.30238"
+     inkscape:window-width="2560"
+     inkscape:window-height="1494"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs279" /><g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"><image
+       width="2645.8333"
+       height="1852.0834"
+       preserveAspectRatio="none"
+       xlink:href="HollowKnight%20Level.png"
+       id="image315"
+       x="-1222.2386"
+       y="-787.6095" /><path
+       style="fill:#000000;stroke-width:0.264583"
+       d="M -1222.2386,464.1343 H 373.72805 v 21.96041 h 84.66666 V 464.1343 h 352.95416 v 86.78333 H 1423.5947 V 1064.4739 H -1222.2386 Z M 755.25721,374.17596 h -83.60833 v -7.67292 H 264.9843 v 12.17084 H -406.79278 V 238.4447 h 663.04583 v -101.6 h 433.91666 v 75.40625 h 67.73333 v 65.61667 h 82.28542 v 116.94584 h -84.93125 z m -1267.09513,-88.53983 -121.35659,-725.48734 74.44618,-9.79368 121.44669,725.5651 -73.67082,9.79006 -0.86546,-0.0741 z M 766.10512,16.723862 H 312.87388 V -237.54073 H -8.0656986 v -96.8375 H 156.76972 v -29.36875 h 158.74999 v 12.17083 H 1423.5947 v 236.00834 236.00834 H 766.10512 Z M -665.81986,-513.50116 H -1222.2386 V -787.6095 h 2645.8333 v 148.69584 H 811.08429 V -659.022 h -994.30415 v 170.65626 h -482.6 z"
+       id="path319"
+       sodipodi:nodetypes="cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc" /></g></svg>

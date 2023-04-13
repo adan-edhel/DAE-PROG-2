@@ -11,8 +11,8 @@ public:
 	bool m_FlipX{ false };
 	bool m_FlipY{ false };
 
-	SpriteRenderer(const std::string& spritePath = "");
-	~SpriteRenderer() override;
+	SpriteRenderer(const Texture* sprite = nullptr, const int& rows = 1, const int& cols = 1);
+	~SpriteRenderer() override = default;
 
 	void AssignSprite(const Texture* sprite);
 	void Draw() const override;
@@ -21,8 +21,7 @@ public:
 	[[nodiscard]] const Texture* GetSprite() const;
 
 private:
-	const Texture* m_DefaultSpritePtr;
-	const Texture* m_SpritePtr;
+	const Texture* m_SpritePtr{nullptr};
 
 	const int m_Rows;
 	const int m_Columns;

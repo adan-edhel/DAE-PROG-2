@@ -12,9 +12,12 @@
 #include "SpriteRenderer.h"
 #include "Rigidbody2D.h"
 #include "GameObject.h"
+#include <Transform.h>
 #include "Animator.h"
 #include "Knight.h"
 #include "Camera.h"
+#include "SpriteLibrary.h"
+#include "SVGParser.h"
 
 Level::Level(const std::string& levelName)
 {
@@ -29,23 +32,33 @@ Level::Level(const std::string& levelName)
 
 void Level::Start()
 {
+	levelRef = new Texture("HollowKnight/LevelRef.png");
+
+	m_LevelVisuals = new GameObject("Level Visuals");
+	m_LevelVisuals->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Level)));
+	//m_LevelVisuals->m_Transform->position.x -= m_LevelVisuals->GetComponent<SpriteRenderer>()->GetSprite()->GetWidth() / 2;
+
 	// Set up camera
-	m_CameraPtr = new GameObject("Camera");
-	Camera* camera = m_CameraPtr->AddComponent(
-		new Camera(GameSettings::s_Screen));
+	auto* cam = new GameObject("Camera");
+	Camera* camera = cam->AddComponent(new Camera(GameSettings::s_Screen));
 
 	// Set up Knight
 	m_KnightPtr = new GameObject("Hollow Knight");
+	m_KnightPtr->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Knight), 12, 12));
 	m_KnightPtr->AddComponent(new Rigidbody2D());
-	m_KnightPtr->AddComponent(new SpriteRenderer());
 	m_KnightPtr->AddComponent(new Animator());
 
 	m_KnightPtr->AddComponent(new InputActions());
 	m_KnightPtr->AddComponent(new Knight());
 
+	SVGParser::GetVerticesFromSvgFile("HollowKnight/LevelCollision.svg", 
+		m_KnightPtr->GetComponent<Rigidbody2D>()->m_Vertices);
+
+	m_KnightPtr->m_Transform->position = Vector2{-2740, 1700};
+
 	// Assign camera target
 	camera->SetTarget(*m_KnightPtr->m_Transform);
-	camera->SetLevelBoundaries(Rectf(- 100, 0, 2000, 500));
+	camera->SetLevelBoundaries(Rectf(-10000, 0, 20000, 10000));
 }
 
 void Level::Update(const float& deltaTime)
@@ -55,11 +68,18 @@ void Level::Update(const float& deltaTime)
 
 void Level::Draw() const
 {
+	glPushMatrix();
+	IDrawable::Invoke(&IDrawable::CameraDraw);
+	levelRef->Draw(Point2f(-levelRef->GetWidth()/2, 0));
 	IDrawable::Invoke(&IDrawable::Draw);
+	glPopMatrix();
 }
 
 Level::~Level()
 {
+	delete levelRef;
+
 	delete m_KnightPtr;
-	delete m_CameraPtr;
+	delete m_LevelVisuals;
+	delete Camera::m_MainPtr->m_GameObject;
 }

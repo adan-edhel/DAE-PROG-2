@@ -15,12 +15,12 @@ public:
 	void SetLevelBoundaries(const Rectf& levelBoundaries);
 
 private:
-	Transform* m_TargetPtr;
+	Transform* m_TargetPtr{nullptr};
 	Rectf m_Boundaries;
 	float m_PixelWidth;
 	float m_PixelHeight;
 
 	Vector2 Track() const;
 	void Clamp(Vector2& bottomLeftPos) const;
-	void Draw() override;
+	void CameraDraw() const override;
 };

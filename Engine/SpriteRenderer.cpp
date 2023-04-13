@@ -3,31 +3,24 @@
 #include "AmrothUtils.h"
 #include "Transform.h"
 
-SpriteRenderer::SpriteRenderer(const std::string& spritePath) :
+SpriteRenderer::SpriteRenderer(const Texture* sprite, const int& rows, const int& cols) :
 	Component("SpriteRenderer"),
 	IDrawable(s_MidLayer),
-	m_DefaultSpritePtr{new Texture("default_circle.png")},
-	m_SpritePtr{ m_DefaultSpritePtr },
-	m_Rows{ 12 },
-	m_Columns{ 12 }
+	m_SpritePtr{ sprite },
+	m_Rows{ rows },
+	m_Columns{ cols }
 {
-}
-
-SpriteRenderer::~SpriteRenderer()
-{
-	delete m_DefaultSpritePtr;
 }
 
 void SpriteRenderer::AssignSprite(const Texture* sprite)
 {
-	if (m_SpritePtr != nullptr)
-	{
-		m_SpritePtr = sprite;
-	}
+	m_SpritePtr = sprite;
 }
 
 void SpriteRenderer::Draw() const
 {
+	if (m_SpritePtr == nullptr) return;
+
 	Rectf sliceRect{};
 	sliceRect.width		= m_SpritePtr->GetWidth()  / float(m_Rows);
 	sliceRect.height	= m_SpritePtr->GetHeight() / float(m_Columns);
@@ -41,8 +34,11 @@ void SpriteRenderer::Draw() const
 
 	m_SpritePtr->Draw(Point2f(-sliceRect.width / 2, 0), sliceRect);
 
-	glColor3f(1, 0, 0);
-	DrawCircle(0, 0, 3, 90);
+	if (s_Debug)
+	{
+		glColor3f(1, 0, 0);
+		DrawCircle(0, 0, 3, 90);
+	}
 
 	glPopMatrix();
 }

@@ -5,10 +5,11 @@
 
 void SpriteLibrary::Setup()
 {
-	LoadSprite(Type::Default, "default_circle.png");
-	LoadSprite(Type::Knight, "HollowKnight/Knight.png");
-	LoadSprite(Type::Crawlid, "HollowKnight/Enemies/Crawlid.png");
-	LoadSprite(Type::Vengelfy, "HollowKnight/Enemies/Vengefly.png");
+	LoadSprite(Sprite::Default, "default_circle.png");
+	LoadSprite(Sprite::Knight, "HollowKnight/Knight.png");
+	LoadSprite(Sprite::Crawlid, "HollowKnight/Enemies/Crawlid.png");
+	LoadSprite(Sprite::Vengelfy, "HollowKnight/Enemies/Vengefly.png");
+	LoadSprite(Sprite::Level, "HollowKnight/LevelVisual.png");
 }
 
 void SpriteLibrary::Cleanup()
@@ -20,12 +21,12 @@ void SpriteLibrary::Cleanup()
 	s_Sprites.clear();
 }
 
-const Texture* SpriteLibrary::GetSprite(const Type& type)
+const Texture* SpriteLibrary::GetSprite(const Sprite& type)
 {
 	return s_Sprites.find(type)->second;
 }
 
-void SpriteLibrary::LoadSprite(const Type& type, const string& path)
+void SpriteLibrary::LoadSprite(const Sprite& type, const string& path)
 {
 	s_Sprites[type] = new Texture(path);
 }

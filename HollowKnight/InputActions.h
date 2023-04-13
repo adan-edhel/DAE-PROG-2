@@ -19,7 +19,7 @@ private:
 	Rigidbody2D* m_pRigidbody{nullptr};
 	SpriteRenderer* m_SpriteRenderer{ nullptr };
 
-	const Uint8* KBStatesPtr;
+	const Uint8* KBStatesPtr{nullptr};
 
 	const float walkSpeed{ 1 };
 	const float jumpForce{ 5 };

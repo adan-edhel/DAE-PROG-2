@@ -104,7 +104,7 @@ void AnimLibrary::DeleteClips(map<string, Animation*>& dictionary)
 
 void AnimLibrary::KnightSetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(SpriteLibrary::Type::Knight);
+	const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
 
 	auto* currentClip = new Animation(*sprite);
 
@@ -149,7 +149,7 @@ void AnimLibrary::KnightSetup()
 
 void AnimLibrary::CrawlidSetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(SpriteLibrary::Type::Crawlid);
+	const auto sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
 
 	auto* currentClip = new Animation(*sprite);
 
@@ -194,7 +194,7 @@ void AnimLibrary::CrawlidSetup()
 
 void AnimLibrary::VengeflySetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(SpriteLibrary::Type::Knight);
+	const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
 
 	auto* currentClip = new Animation(*sprite);
 

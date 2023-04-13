@@ -7,6 +7,8 @@ class Transform;
 class Object
 {
 public:
+	inline static bool s_Debug{true};
+
 	std::string m_Name;
 	Tag tag{ Tag::Default };
 

@@ -3,9 +3,9 @@
 
 #include "Transform.h"
 #include "GameObject.h"
+#include "GameSettings.h"
 
 #include "Rigidbody2D.h"
-#include "SpriteLibrary.h"
 #include "SpriteRenderer.h"
 
 InputActions::InputActions() : Component("Input Actions")
@@ -40,9 +40,28 @@ void InputActions::Update(const float& deltaTime)
 			if (m_SpriteRenderer->m_FlipX) m_SpriteRenderer->m_FlipX = false;
 		}
 	}
-	if (KBStatesPtr[SDL_SCANCODE_LEFT] && KBStatesPtr[SDL_SCANCODE_UP])
+
+	if (GameSettings::s_DebugMode)
 	{
-		Print("Left and up arrow keys are down\n");
+		if (KBStatesPtr[SDL_SCANCODE_UP])
+		{
+			m_Transform->position.y += walkSpeed * 6;
+		}
+
+		if (KBStatesPtr[SDL_SCANCODE_DOWN])
+		{
+			m_Transform->position.y -= walkSpeed * 6;
+		}
+
+		if (KBStatesPtr[SDL_SCANCODE_LEFT])
+		{
+			m_Transform->position.x -= walkSpeed * 6;
+		}
+
+		if (KBStatesPtr[SDL_SCANCODE_RIGHT])
+		{
+			m_Transform->position.x += walkSpeed * 6;
+		}
 	}
 }
 
@@ -51,24 +70,15 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_w:			// UP
-		break;
-	case SDLK_s:			// DOWN
-		break;
-	case SDLK_a:			// LEFT
-		break;
-	case SDLK_d:			// RIGHT
-		break;
 	case SDLK_SPACE:		// JUMP
-		Jump(jumpForce);
+		//Jump(jumpForce);
+		Print(m_Transform->position.ToString() + "\n");
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
 	case SDLK_LSHIFT:		// DASH
 		break;
 	case SDLK_e:			// FOCUS / CAST
-		m_SpriteRenderer->AssignSprite(SpriteLibrary::GetSprite(SpriteLibrary::Type::Knight));
-		//m_GameObject->SetActive(!m_GameObject->Active());
 		break;
 	case SDLK_r:			// DREAM NAIL
 		break;
@@ -85,6 +95,7 @@ void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
 {
 	m_Transform->position = m_MousePos;
+	Print(m_Transform->position.ToString() + "\n");
 }
 
 void InputActions::OnMouseUp(const SDL_MouseButtonEvent& e)
