@@ -47,7 +47,7 @@ Vector2 SpriteRenderer::Bounds() const
 {
 	if (m_SpritePtr != nullptr)
 	{
-		return Vector2(m_SpritePtr->GetWidth(), m_SpritePtr->GetHeight());
+		return Vector2(m_SpritePtr->GetWidth() / m_Columns, m_SpritePtr->GetHeight() / m_Rows);
 	}
 	Print(">>Warning<< No sprite has been loaded.\n", TextColor::Red);
 	return Vector2{};

@@ -4,7 +4,6 @@
 #include "Transform.h"
 
 Camera::Camera(const Vector2& screen) :
-	m_TargetPtr{nullptr},
 	m_PixelWidth{ screen.x },
 	m_PixelHeight{ screen.y }
 {

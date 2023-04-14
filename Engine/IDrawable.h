@@ -48,4 +48,5 @@ public:
 
 	virtual void Draw()	const{}
 	virtual void CameraDraw() const{}
+	virtual void DebugDraw() const{}
 };

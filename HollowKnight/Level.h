@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 class GameObject;
 
@@ -12,6 +13,7 @@ public:
 	void Draw() const;
 
 private:
+
 	Texture* levelRef;
 
 	GameObject* m_KnightPtr;

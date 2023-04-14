@@ -17,7 +17,6 @@
 #include "Knight.h"
 #include "Camera.h"
 #include "SpriteLibrary.h"
-#include "SVGParser.h"
 
 Level::Level(const std::string& levelName)
 {
@@ -36,7 +35,7 @@ void Level::Start()
 
 	m_LevelVisuals = new GameObject("Level Visuals");
 	m_LevelVisuals->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Level)));
-	//m_LevelVisuals->m_Transform->position.x -= m_LevelVisuals->GetComponent<SpriteRenderer>()->GetSprite()->GetWidth() / 2;
+	m_LevelVisuals->m_Transform->position.x += m_LevelVisuals->GetComponent<SpriteRenderer>()->GetSprite()->GetWidth() / 2;
 
 	// Set up camera
 	auto* cam = new GameObject("Camera");
@@ -51,10 +50,8 @@ void Level::Start()
 	m_KnightPtr->AddComponent(new InputActions());
 	m_KnightPtr->AddComponent(new Knight());
 
-	SVGParser::GetVerticesFromSvgFile("HollowKnight/LevelCollision.svg", 
-		m_KnightPtr->GetComponent<Rigidbody2D>()->m_Vertices);
 
-	m_KnightPtr->m_Transform->position = Vector2{-2740, 1700};
+	m_KnightPtr->m_Transform->position = Vector2{ 2268, 2580 };
 
 	// Assign camera target
 	camera->SetTarget(*m_KnightPtr->m_Transform);
@@ -69,9 +66,13 @@ void Level::Update(const float& deltaTime)
 void Level::Draw() const
 {
 	glPushMatrix();
+
 	IDrawable::Invoke(&IDrawable::CameraDraw);
-	levelRef->Draw(Point2f(-levelRef->GetWidth()/2, 0));
+	levelRef->Draw(Point2f(0, 0));
 	IDrawable::Invoke(&IDrawable::Draw);
+	IDrawable::Invoke(&IDrawable::DebugDraw);
+
+
 	glPopMatrix();
 }
 

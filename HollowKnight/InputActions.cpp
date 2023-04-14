@@ -73,6 +73,8 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_SPACE:		// JUMP
 		//Jump(jumpForce);
 		Print(m_Transform->position.ToString() + "\n");
+		m_pRigidbody->m_IsStatic = !m_pRigidbody->m_IsStatic;
+		m_pRigidbody->m_Velocity.y = 0;
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -83,6 +85,10 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_r:			// DREAM NAIL
 		break;
 	case SDLK_ESCAPE:		// MENU
+		break;
+	case SDLK_F1:			// TOGGLE DEBUG
+		GameSettings::s_DebugMode = !GameSettings::s_DebugMode;
+		s_Debug = !s_Debug;
 		break;
 	}
 }

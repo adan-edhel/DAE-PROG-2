@@ -7,6 +7,7 @@ class Transform;
 class Object
 {
 public:
+	//TODO: disable
 	inline static bool s_Debug{true};
 
 	std::string m_Name;
