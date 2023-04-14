@@ -45,22 +45,26 @@ void InputActions::Update(const float& deltaTime)
 	{
 		if (KBStatesPtr[SDL_SCANCODE_UP])
 		{
-			m_Transform->position.y += walkSpeed * 6;
+			m_Transform->position.y += walkSpeed / 3;
+			m_pRigidbody->m_Velocity = Vector2{};
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_DOWN])
 		{
-			m_Transform->position.y -= walkSpeed * 6;
+			m_Transform->position.y -= walkSpeed / 3;
+			m_pRigidbody->m_Velocity = Vector2{};
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_LEFT])
 		{
-			m_Transform->position.x -= walkSpeed * 6;
+			m_Transform->position.x -= walkSpeed / 3;
+			m_pRigidbody->m_Velocity = Vector2{};
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_RIGHT])
 		{
-			m_Transform->position.x += walkSpeed * 6;
+			m_Transform->position.x += walkSpeed / 3;
+			m_pRigidbody->m_Velocity = Vector2{};
 		}
 	}
 }
@@ -71,10 +75,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_SPACE:		// JUMP
-		//Jump(jumpForce);
-		Print(m_Transform->position.ToString() + "\n");
-		m_pRigidbody->m_IsStatic = !m_pRigidbody->m_IsStatic;
-		m_pRigidbody->m_Velocity.y = 0;
+		Jump(jumpForce);
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -89,6 +90,10 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_F1:			// TOGGLE DEBUG
 		GameSettings::s_DebugMode = !GameSettings::s_DebugMode;
 		s_Debug = !s_Debug;
+	case SDLK_F2:
+		Print(m_Transform->position.ToString() + "\n");
+		m_pRigidbody->m_IsStatic = !m_pRigidbody->m_IsStatic;
+		m_pRigidbody->m_Velocity = Vector2{};
 		break;
 	}
 }
@@ -124,10 +129,7 @@ void InputActions::Walk(const float& speed)
 
 void InputActions::Jump(const float& force)
 {
-	if (m_pRigidbody->isGrounded())
-	{
-		m_pRigidbody->AddForce(Vector2(0, force));
-	}
+	m_pRigidbody->AddForce(Vector2(0, force));
 }
 
 void InputActions::CutJump()

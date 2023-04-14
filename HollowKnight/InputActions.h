@@ -21,8 +21,8 @@ private:
 
 	const Uint8* KBStatesPtr{nullptr};
 
-	const float walkSpeed{ 1 };
-	const float jumpForce{ 5 };
+	const float walkSpeed{ 25 };
+	const float jumpForce{ 6 };
 
 	void Awake() override;
 	void Update(const float& deltaTime) override;
