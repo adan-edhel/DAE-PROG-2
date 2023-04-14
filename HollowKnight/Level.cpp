@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "Level.h"
 
+// Misc
 #include "GameSettings.h"
+#include "CORE.h"
 
 // Interfaces
 #include "IDrawable.h"
@@ -16,11 +18,12 @@
 #include "Animator.h"
 #include "Knight.h"
 #include "Camera.h"
+#include "Collider.h"
 #include "SpriteLibrary.h"
 
 Level::Level(const std::string& levelName)
 {
-	if (GameSettings::s_DebugMode)
+	if (CORE::s_DebugMode)
 	{
 		Print("New Level: ", TextColor::Green);
 		Print(levelName + '\n', TextColor::Yellow);
@@ -35,7 +38,8 @@ void Level::Start()
 
 	m_LevelVisuals = new GameObject("Level Visuals");
 	m_LevelVisuals->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Level)));
-	m_LevelVisuals->m_Transform->position.x += m_LevelVisuals->GetComponent<SpriteRenderer>()->GetSprite()->GetWidth() / 2;
+	m_LevelVisuals->m_Transform->position.x += m_LevelVisuals->GetComponent<SpriteRenderer>()->Bounds().x / 2;
+	m_LevelVisuals->m_Transform->position.y += m_LevelVisuals->GetComponent<SpriteRenderer>()->Bounds().y / 2;
 
 	// Set up camera
 	auto* cam = new GameObject("Camera");
@@ -44,12 +48,11 @@ void Level::Start()
 	// Set up Knight
 	m_KnightPtr = new GameObject("Hollow Knight");
 	m_KnightPtr->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Knight), 12, 12));
-	m_KnightPtr->AddComponent(new Rigidbody2D());
 	m_KnightPtr->AddComponent(new Animator());
-
+	m_KnightPtr->AddComponent(new Collider());
+	m_KnightPtr->AddComponent(new Rigidbody2D());
 	m_KnightPtr->AddComponent(new InputActions());
 	m_KnightPtr->AddComponent(new Knight());
-
 
 	m_KnightPtr->m_Transform->position = Vector2{ 2268, 2580 };
 
@@ -70,8 +73,11 @@ void Level::Draw() const
 	IDrawable::Invoke(&IDrawable::CameraDraw);
 	levelRef->Draw(Point2f(0, 0));
 	IDrawable::Invoke(&IDrawable::Draw);
-	IDrawable::Invoke(&IDrawable::DebugDraw);
 
+	if (CORE::s_DebugMode)
+	{
+		IDrawable::Invoke(&IDrawable::DebugDraw);
+	}
 
 	glPopMatrix();
 }

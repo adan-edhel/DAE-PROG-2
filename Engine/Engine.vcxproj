@@ -24,6 +24,7 @@
     <ClCompile Include="BaseGame.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Matrix2x3.cpp" />
@@ -46,7 +47,9 @@
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CORE.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IDrawable.h" />

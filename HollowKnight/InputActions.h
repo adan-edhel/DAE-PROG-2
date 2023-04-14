@@ -16,13 +16,15 @@ protected:
 	Vector2 m_MousePos{};
 
 private:
-	Rigidbody2D* m_pRigidbody{nullptr};
+	Rigidbody2D* m_RigidbodyPtr{nullptr};
 	SpriteRenderer* m_SpriteRenderer{ nullptr };
 
 	const Uint8* KBStatesPtr{nullptr};
 
-	const float walkSpeed{ 25 };
-	const float jumpForce{ 6 };
+	const float walkSpeed{ 26 };
+	const float jumpForce{ 4 };
+	const int maxJumps{1};
+	const int jumpsLeft{maxJumps};
 
 	void Awake() override;
 	void Update(const float& deltaTime) override;
@@ -33,9 +35,9 @@ private:
 	void OnMouseUp(const SDL_MouseButtonEvent& e) override;
 	void OnMouseMotion(const SDL_MouseMotionEvent& e) override;
 
-	void Walk(const float& speed);
-	void Jump(const float& force);
-	void CutJump();
-	void Attack();
+	void Walk(const float& speed) const;
+	void Jump() const;
+	void CutJump() const;
+	void Attack() const;
 };
 

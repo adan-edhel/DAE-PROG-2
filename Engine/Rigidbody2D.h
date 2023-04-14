@@ -1,49 +1,58 @@
 #pragma once
+#include "IDrawable.h"
 #include "Component.h"
 
+#include "Vector2.h"
 #include <vector>
 
-#include "IDrawable.h"
-#include "Vector2.h"
+class Collider;
 
 class Rigidbody2D final : public Component, public IDrawable
 {
 public:
-	Rectf Collider{};
-
 	bool m_IsStatic{ false };
-	Vector2 m_Velocity{};
-	bool isGrounded{ false };
+
+	Collider* m_Collider{nullptr};
 
 	Rigidbody2D();
-	~Rigidbody2D() override = default;
-
+	void SetVelocity(const float& xVelocity, const float& yVelocity);
 	void SetVelocity(const Vector2& velocity);
+	void AddForce(const float& xForce, const float& yForce);
 	void AddForce(const Vector2& force);
 
+	bool isGrounded() const { return m_Grounded; }
+	Vector2 GetVelocity() const { return m_Velocity; }
+
 private:
-	std::vector<std::vector<Point2f>> m_Vertices;
+	std::vector<std::vector<Point2f>> m_LevelBoundaries;
+	Rectf m_PlayArea{};
 
-	float m_GravityModifier{};
-	float m_Bounciness{ -0.75f };
-	float m_Friction{ .9f };
+	bool m_Grounded{};
+	Vector2 m_Velocity{};
 
-	Rectf m_LevelBoundaries{};
-	bool isAgainstWall{false};
+	const float HorizontalDrag{ .9f };
+	const float m_Bounciness{ -0.75f };
+	const float m_CollisionTolerance{ 10 };
 
+	~Rigidbody2D() override = default;
 	void Awake() override;
 	void Update(const float& deltaTime) override;
-	void VelocityDecay(const float& deltaTime);
+	void DecayVelocity(const float& deltaTime);
 	void SimulateGravity(const float& deltaTime);
 
-	void UpdateCollider();
-	void HandleCollision();
-	bool IntersectsLine(const Rectf& rect, const Vector2& start, const Vector2& end, float& intersectMin, float& intersectMax);
-	bool IsOnGround(const Rectf& rect, const float floorPos, const float tolerance);
-	bool IsAgainstWall(const Rectf& rect, const float wallHeight, const float tolerance);
-	void HandleFloorCollision(Rectf& collider, Vector2& velocity, bool& grounded, const float floorPos);
-	void HandleWallCollision(Rectf& collider, Vector2& velocity, bool& againstWall, const float wallPos, const float wallHeight);
-	void HandleBoundaryCollision(Rectf& collider, Vector2& velocity, bool& againstWall) const;
+	// Collisions
+	void OnCollisionEnter();
+	void HandleFloorCollision(const Rectf& collider, Vector2& velocity, const float& floorPos);
+	void HandleCeilingCollision(const Rectf& collider, Vector2& velocity, const float& ceilingPos);
+	void HandleWallCollision(const Rectf& collider, Vector2& velocity, const float& wallPos, const float& wallHeight);
+	//void HandleBoundaryCollision(const Rectf& collider, Vector2& velocity) const; //TODO: Needs to be reworked
 
+	// Assist Functions
+	bool IntersectsLine(const Rectf& rect, const Vector2& start, const Vector2& end, float& intersectMin, float& intersectMax);
+	bool GroundCollision(const Rectf& rect, const float& floorPos, const float& tolerance) const;
+	bool CeilingCollision(const Rectf& rect, const float& ceilingPos, const float& tolerance) const;
+	bool WallCollision(const Rectf& rect, const float& wallHeight, const float& tolerance) const;
+
+	// Debug
 	void DebugDraw() const override;
 };

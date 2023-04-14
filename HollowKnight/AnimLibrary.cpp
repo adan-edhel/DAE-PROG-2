@@ -2,14 +2,14 @@
 #include "AnimLibrary.h"
 
 #include "AmrothUtils.h"
-#include "GameSettings.h"
+#include "CORE.h"
 #include "SpriteLibrary.h"
 
 //TODO: Test animation clips
 
 void AnimLibrary::Setup()
 {
-	if (GameSettings::s_DebugMode)
+	if (CORE::s_DebugMode)
 	{
 		Print("Animation Library Being Setup...\n", TextColor::Lightgray);
 	}
@@ -21,7 +21,7 @@ void AnimLibrary::Setup()
 	m_HasBeenSetup = true;
 
 	// Print information in the console
-	if (GameSettings::s_DebugMode && m_DebugInfo)
+	if (CORE::s_DebugMode && m_DebugInfo)
 	{
 		Print("############## Animation Library ##############\n", TextColor::Darkgray);
 
@@ -39,7 +39,7 @@ void AnimLibrary::Cleanup()
 	DeleteClips(m_CrawlidClips);
 	DeleteClips(m_VengeflyClips);
 
-	if (GameSettings::s_DebugMode)
+	if (CORE::s_DebugMode)
 	{
 		Print("Animation Library Cleanup Complete...\n", TextColor::Lightgray);
 	}

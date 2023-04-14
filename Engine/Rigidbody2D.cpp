@@ -1,11 +1,13 @@
 #include "Rigidbody2D.h"
 
 #include "AmrothUtils.h"
-#include "GameObject.h"
-#include "SpriteRenderer.h"
 #include "SVGParser.h"
-#include "Transform.h"
 #include "utils.h"
+
+#include "GameObject.h"
+#include "Transform.h"
+#include "Collider.h"
+#include "CORE.h"
 
 Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {
@@ -13,50 +15,49 @@ Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 
 void Rigidbody2D::Awake()
 {
-	m_LevelBoundaries = Rectf(0, 0, 10000, 7000);
-
-	const auto bounds = m_GameObject->GetComponent<SpriteRenderer>()->Bounds();
-	Collider = Rectf{0,0,bounds.x, bounds.y};
-
-	SVGParser::GetVerticesFromSvgFile("HollowKnight/LevelCollision.svg", m_Vertices);
+	m_PlayArea = Rectf(0, 0, 10000, 7000);
+	m_Collider = m_GameObject->GetComponent<Collider>();
+	SVGParser::GetVerticesFromSvgFile("HollowKnight/LevelCollision.svg", m_LevelBoundaries);
 }
 
 void Rigidbody2D::Update(const float& deltaTime)
 {
 	if (!m_IsStatic)
 	{
-		UpdateCollider();
-		HandleCollision();
+		OnCollisionEnter();
 
-		VelocityDecay(deltaTime);
+		DecayVelocity(deltaTime);
 
-		if (!isGrounded)
+		if (!m_Grounded)
 		{
 			SimulateGravity(deltaTime);
+		}
+		else
+		{
+			Print("Grounded!\n");
 		}
 
 		m_Transform->position += m_Velocity;
 	}
 }
 
-void Rigidbody2D::VelocityDecay(const float& deltaTime)
+void Rigidbody2D::DecayVelocity(const float& deltaTime)
 {
-	m_Velocity.x *= m_Friction;
+	m_Velocity.x *= HorizontalDrag;
 }
 
 void Rigidbody2D::SimulateGravity(const float& deltaTime)
 {
-	//m_GravityModifier += GRAVITY * deltaTime;
-	//m_GravityModifier *= m_Bounciness;
-
 	AddForce(Vector2(0, GRAVITY * deltaTime));
 }
 
+void Rigidbody2D::SetVelocity(const float& xVelocity, const float& yVelocity) { SetVelocity(Vector2(xVelocity, yVelocity)); }
 void Rigidbody2D::SetVelocity(const Vector2& velocity)
 {
 	m_Velocity = velocity;
 }
 
+void Rigidbody2D::AddForce(const float& xForce, const float& yForce) { AddForce(Vector2(xForce, yForce)); }
 void Rigidbody2D::AddForce(const Vector2& force)
 {
 	using std::abs;
@@ -66,23 +67,16 @@ void Rigidbody2D::AddForce(const Vector2& force)
 }
 
 #pragma region Collision
-void Rigidbody2D::UpdateCollider()
-{
-	Collider.left = m_Transform->position.x - Collider.width / 2;
-	Collider.bottom = m_Transform->position.y;
-}
+//----------------------------------------------------
 
-void Rigidbody2D::HandleCollision()
+#pragma region Handling
+void Rigidbody2D::OnCollisionEnter()
 {
 	// Initialize flags to false
-	isGrounded = false;
-	isAgainstWall = false;
-
-	// Check for collision with the level boundaries
-	HandleBoundaryCollision(Collider, m_Velocity, isAgainstWall);
+	m_Grounded = false;
 
 	// Check for collision with each shape in the level
-	for (const auto& shape : m_Vertices)
+	for (const auto& shape : m_LevelBoundaries)
 	{
 		// Check each line segment of the shape
 		for (size_t i = 0; i < shape.size(); i++)
@@ -99,15 +93,19 @@ void Rigidbody2D::HandleCollision()
 			float intersectMax{};
 
 			// Check if there is an intersection between the player shape and the line segment
-			if (IntersectsLine(Collider, start, end, intersectMin, intersectMax))
+			if (IntersectsLine(m_Collider->GetBounds(), start, end, intersectMin, intersectMax))
 			{
-				// Calculate the position of the floor at the intersection point
-				const float groundMin = start.y + intersectMin * pointDifference.y;
-				const float groundMax = start.y + intersectMax * pointDifference.y;
-				const float floorPos = std::max(groundMin, groundMax);
+				// Calculate the position of the line at the intersection point
+				const float lineMin = start.y + intersectMin * pointDifference.y;
+				const float lineMax = start.y + intersectMax * pointDifference.y;
+
+				// Handle ceiling collision
+				const float ceilingPos = std::min(lineMin, lineMax);
+				HandleCeilingCollision(m_Collider->GetBounds(), m_Velocity, ceilingPos);
 
 				// Handle floor collision
-				HandleFloorCollision(Collider, m_Velocity, isGrounded, floorPos);
+				const float floorPos = std::max(lineMin, lineMax);
+				HandleFloorCollision(m_Collider->GetBounds(), m_Velocity, floorPos);
 
 				// Check if the line segment is nearly horizontal (to avoid corner collision detection)
 				if (std::abs(pointDifference.y) < 2.f) continue;
@@ -121,11 +119,87 @@ void Rigidbody2D::HandleCollision()
 				const float wallPos = std::max(wallMin, wallMax);
 
 				// Handle wall collision
-				HandleWallCollision(Collider, m_Velocity, isAgainstWall, wallPos, wallHeight);
+				HandleWallCollision(m_Collider->GetBounds(), m_Velocity, wallPos, wallHeight);
 			}
 		}
 	}
 }
+
+void Rigidbody2D::HandleFloorCollision(const Rectf& collider, Vector2& velocity, const float& floorPos)
+{
+	if (GroundCollision(collider, floorPos, m_CollisionTolerance))
+	{
+		Clamp(velocity.y, 0, std::numeric_limits<float>::max());
+		m_Transform->position.y = floorPos + m_Collider->GetSize().y / 2;
+		m_Grounded = true;
+	}
+}
+
+void Rigidbody2D::HandleCeilingCollision(const Rectf& collider, Vector2& velocity, const float& ceilingPos)
+{
+	if (CeilingCollision(collider, ceilingPos, m_CollisionTolerance))
+	{
+		Clamp(velocity.y, std::numeric_limits<float>::min(), 0);
+		m_Transform->position.y = ceilingPos - m_Collider->GetSize().y / 2;
+	}
+}
+
+void Rigidbody2D::HandleWallCollision(const Rectf& collider, Vector2& velocity, const float& wallPos, const float& wallHeight)
+{
+	if (std::abs(velocity.x) > 0 && WallCollision(collider, wallHeight, m_CollisionTolerance))
+	{
+		Vector2 clampRange{};
+		if (wallPos > collider.left + collider.width / 2)
+		{
+			clampRange = Vector2(-std::numeric_limits<float>::max(), 0);
+		}
+		else if (wallPos < collider.left + collider.width / 2)
+		{
+			clampRange = Vector2(0, std::numeric_limits<float>::max());
+		}
+		Clamp(velocity.x, clampRange.x, clampRange.y);
+	}
+}
+//void Rigidbody2D::HandleBoundaryCollision(const Rectf& collider, Vector2& velocity) const
+//{
+//
+//	const Point2f topLeft{ collider.left, collider.bottom + collider.height };
+//	const Point2f topRight{ collider.left + collider.width, collider.bottom + collider.height };
+//
+//	if (!utils::IsPointInRect(topLeft, m_PlayArea))
+//	{
+//		if (topLeft.y >= m_PlayArea.height)
+//		{
+//			velocity.y = 0;
+//			m_Transform->position.y = m_PlayArea.height - collider.height;
+//
+//			if (collider.left <= 0)
+//			{
+//				velocity.x = 0;
+//				m_Transform->position.x = 0;
+//			}
+//
+//			if (m_Transform->position.x >= m_PlayArea.width - collider.width)
+//			{
+//				velocity.x = 0;
+//				m_Transform->position.y = m_PlayArea.width - collider.width;
+//			}
+//		}
+//		else
+//		{
+//			velocity.x = 0;
+//			m_Transform->position.x = 0;
+//		}
+//	}
+//	else if (!utils::IsPointInRect(topRight, m_PlayArea))
+//	{
+//		velocity.x = 0;
+//		m_Transform->position.x = m_PlayArea.width - collider.width;
+//	}
+//}
+#pragma endregion
+
+//---------------- Assisting Functions----------------
 
 bool Rigidbody2D::IntersectsLine(const Rectf& rect, const Vector2& start, const Vector2& end, float& intersectMin, float& intersectMax)
 {
@@ -134,109 +208,36 @@ bool Rigidbody2D::IntersectsLine(const Rectf& rect, const Vector2& start, const 
 	return true;
 }
 
-bool Rigidbody2D::IsOnGround(const Rectf& rect, const float floorPos, const float tolerance)
+bool Rigidbody2D::CeilingCollision(const Rectf& rect, const float& ceilingPos, const float& tolerance) const
+{
+	const float colliderTop = rect.bottom + rect.height;
+
+	const bool isBelowCeiling = colliderTop <= ceilingPos + tolerance;
+	const bool isAboveCeiling = rect.bottom <= ceilingPos;
+
+	return isBelowCeiling && isAboveCeiling;
+}
+
+bool Rigidbody2D::GroundCollision(const Rectf& rect, const float& floorPos, const float& tolerance) const
 {
 	return floorPos - rect.bottom < tolerance;
 }
 
-bool Rigidbody2D::IsAgainstWall(const Rectf& rect, const float wallHeight, const float tolerance)
+bool Rigidbody2D::WallCollision(const Rectf& rect, const float& wallHeight, const float& tolerance) const
 {
 	return wallHeight - rect.bottom >= tolerance;
 }
-
-void Rigidbody2D::HandleFloorCollision(Rectf& collider, Vector2& velocity, bool& grounded, const float floorPos)
-{
-	if (IsOnGround(collider, floorPos, 10))
-	{
-		Clamp(velocity.y, 0, std::numeric_limits<float>::max());
-		m_Transform->position.y = floorPos;
-		grounded = true;
-	}
-}
-
-void Rigidbody2D::HandleWallCollision(Rectf& collider, Vector2& velocity, bool& againstWall, const float wallPos, const float wallHeight)
-{
-	if (std::abs(velocity.x) > 0 && IsAgainstWall(collider, wallHeight, 10))
-	{
-		Vector2 clampRange{};
-		if (wallPos > collider.left + collider.width / 2)
-		{
-			clampRange = Vector2(-std::numeric_limits<float>::max(), 0);
-;		}
-		else if (wallPos < collider.left + collider.width / 2)
-		{
-			clampRange = Vector2(0, std::numeric_limits<float>::max());
-		}
-
-		Clamp(velocity.x, clampRange.x, clampRange.y);
-		againstWall = true;
-	}
-}
-
-void Rigidbody2D::HandleBoundaryCollision(Rectf& collider, Vector2& velocity, bool& againstWall) const
-{
-	const Point2f topLeft{ collider.left, collider.bottom + collider.height };
-	const Point2f topRight{ collider.left + collider.width, collider.bottom + collider.height };
-
-	if (!utils::IsPointInRect(topLeft, m_LevelBoundaries))
-	{
-		if (topLeft.y >= m_LevelBoundaries.height)
-		{
-			velocity.y = 0;
-			collider.bottom = m_LevelBoundaries.height - collider.height;
-
-			if (collider.left <= 0)
-			{
-				velocity.x = 0;
-				collider.left = 0;
-			}
-
-			if (collider.left >= m_LevelBoundaries.width - collider.width)
-			{
-				velocity.x = 0;
-				collider.left = m_LevelBoundaries.width - collider.width;
-			}
-		}
-		else
-		{
-			velocity.x = 0;
-			collider.left = 0;
-
-			againstWall = true;
-		}
-	}
-	else if (!utils::IsPointInRect(topRight, m_LevelBoundaries))
-	{
-		velocity.x = 0;
-		collider.left = m_LevelBoundaries.width - collider.width;
-
-		againstWall = true;
-	}
-}
-
+//----------------------------------------------------
 #pragma endregion
 
 void Rigidbody2D::DebugDraw() const
 {
-	if (s_Debug == false) return;
-
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glColor3f(0, 0, 1);
-	glLineWidth(2);
-
-	// Draw Collider
-	glBegin(GL_POLYGON);
-	glVertex2f(Collider.left, Collider.bottom);
-	glVertex2f(Collider.left, Collider.bottom + Collider.height);
-	glVertex2f(Collider.left + Collider.width, Collider.bottom + Collider.height);
-	glVertex2f(Collider.left + Collider.width, Collider.bottom);
-	glEnd();
-
 	glColor3f(1, 0, 0);
 	glLineWidth(10);
 
 	// Draw Level Colliders
-	for (const auto& collider : m_Vertices)
+	for (const auto& collider : m_LevelBoundaries)
 	{
 		glBegin(GL_POLYGON);
 		for (auto& point : collider)

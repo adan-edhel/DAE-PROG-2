@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "InputActions.h"
 
+#include "CORE.h"
 #include "Transform.h"
 #include "GameObject.h"
-#include "GameSettings.h"
 
 #include "Rigidbody2D.h"
 #include "SpriteRenderer.h"
@@ -14,8 +14,8 @@ InputActions::InputActions() : Component("Input Actions")
 
 void InputActions::Awake()
 {
-	if (m_pRigidbody == nullptr)
-		m_pRigidbody = m_GameObject->GetComponent<Rigidbody2D>();
+	if (m_RigidbodyPtr == nullptr)
+		m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
 
 	m_SpriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
 }
@@ -41,30 +41,30 @@ void InputActions::Update(const float& deltaTime)
 		}
 	}
 
-	if (GameSettings::s_DebugMode)
+	if (CORE::s_DebugMode)
 	{
 		if (KBStatesPtr[SDL_SCANCODE_UP])
 		{
 			m_Transform->position.y += walkSpeed / 3;
-			m_pRigidbody->m_Velocity = Vector2{};
+			m_RigidbodyPtr->SetVelocity(0,0);
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_DOWN])
 		{
 			m_Transform->position.y -= walkSpeed / 3;
-			m_pRigidbody->m_Velocity = Vector2{};
+			m_RigidbodyPtr->SetVelocity(0, 0);
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_LEFT])
 		{
 			m_Transform->position.x -= walkSpeed / 3;
-			m_pRigidbody->m_Velocity = Vector2{};
+			m_RigidbodyPtr->SetVelocity(0, 0);
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_RIGHT])
 		{
 			m_Transform->position.x += walkSpeed / 3;
-			m_pRigidbody->m_Velocity = Vector2{};
+			m_RigidbodyPtr->SetVelocity(0, 0);
 		}
 	}
 }
@@ -75,7 +75,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_SPACE:		// JUMP
-		Jump(jumpForce);
+		Jump();
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -88,19 +88,25 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_ESCAPE:		// MENU
 		break;
 	case SDLK_F1:			// TOGGLE DEBUG
-		GameSettings::s_DebugMode = !GameSettings::s_DebugMode;
-		s_Debug = !s_Debug;
-	case SDLK_F2:
+		CORE::s_DebugMode = !CORE::s_DebugMode;
+	case SDLK_F2:			// PRINT PLAYER POSITION
 		Print(m_Transform->position.ToString() + "\n");
-		m_pRigidbody->m_IsStatic = !m_pRigidbody->m_IsStatic;
-		m_pRigidbody->m_Velocity = Vector2{};
+		break;
+	case SDLK_F3:			// TOGGLE STATIC PLAYER
+		m_RigidbodyPtr->m_IsStatic = !m_RigidbodyPtr->m_IsStatic;
+		m_RigidbodyPtr->SetVelocity(0, 0);
 		break;
 	}
 }
 
 void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 {
-
+	switch (e.keysym.sym)
+	{
+	case SDLK_SPACE:		// CUT JUMP
+		CutJump();
+		break;
+	}
 }
 
 void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
@@ -122,22 +128,22 @@ void InputActions::OnMouseMotion(const SDL_MouseMotionEvent& e)
 #pragma endregion
 
 #pragma region Actions
-void InputActions::Walk(const float& speed)
+void InputActions::Walk(const float& speed) const
 {
-	m_pRigidbody->AddForce(Vector2(speed, 0));
+	m_RigidbodyPtr->AddForce(Vector2(speed, 0));
 }
 
-void InputActions::Jump(const float& force)
+void InputActions::Jump() const
 {
-	m_pRigidbody->AddForce(Vector2(0, force));
+	m_RigidbodyPtr->AddForce(Vector2(0, jumpForce));
 }
 
-void InputActions::CutJump()
+void InputActions::CutJump() const
 {
-	
+	m_RigidbodyPtr->AddForce(Vector2(0, -jumpForce/3));
 }
 
-void InputActions::Attack()
+void InputActions::Attack() const
 {
 	
 }

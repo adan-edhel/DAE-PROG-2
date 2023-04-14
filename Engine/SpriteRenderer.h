@@ -25,4 +25,6 @@ private:
 
 	const int m_Rows;
 	const int m_Columns;
+
+	void DebugDraw() const override;
 };

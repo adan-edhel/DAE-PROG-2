@@ -32,13 +32,7 @@ void SpriteRenderer::Draw() const
 	glTranslatef(m_Transform->position.x, m_Transform->position.y, 0);
 	glScalef(m_FlipX ? -1 : 1, 1, 1);
 
-	m_SpritePtr->Draw(Point2f(-sliceRect.width / 2, 0), sliceRect);
-
-	if (s_Debug)
-	{
-		glColor3f(1, 0, 0);
-		DrawCircle(0, 0, 3, 90);
-	}
+	m_SpritePtr->Draw(Point2f(-sliceRect.width / 2, -sliceRect.height / 2), sliceRect);
 
 	glPopMatrix();
 }
@@ -56,4 +50,21 @@ Vector2 SpriteRenderer::Bounds() const
 const Texture* SpriteRenderer::GetSprite() const
 {
 	return m_SpritePtr;
+}
+
+void SpriteRenderer::DebugDraw() const
+{
+	const Rectf sprite{  m_Transform->position.x - Bounds().x / 2,
+						m_Transform->position.y - Bounds().y / 2,
+						Bounds().x, Bounds().y };
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3f(0, 1, 0);
+	glBegin(GL_POLYGON);
+	glVertex2f(sprite.left, sprite.bottom);
+	glVertex2f(sprite.left, sprite.bottom + sprite.height);
+	glVertex2f(sprite.left + sprite.width, sprite.bottom + sprite.height);
+	glVertex2f(sprite.left + sprite.width, sprite.bottom);
+	glEnd();
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
