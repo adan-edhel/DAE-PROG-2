@@ -35,7 +35,7 @@ public:
 		castComponentPtr->Awake();
 		castComponentPtr->Start();
 
-		components.push_back(component);
+		components.push_back(castComponentPtr);
 		return component;
 	}
 
