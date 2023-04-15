@@ -1,22 +1,33 @@
 #pragma once
-
-class GameObject;
+#include <GameObject.h>
 
 class Level final
 {
 public:
 	Level(const std::string& levelName);
+	Level(const Level& other) { m_KnightPtr = other.m_KnightPtr; }
+	Level& operator=(const Level& other)
+	{
+		if (this != &other)
+		{
+			delete m_KnightPtr;
+			m_KnightPtr = other.m_KnightPtr;
+		}
+		return *this;
+	}
 	~Level();
 
 	void Update(const float& deltaTime);
 	void Draw() const;
 
 private:
-
-	Texture* levelRef;
-
 	GameObject* m_KnightPtr;
-	GameObject* m_LevelVisuals;
 
-	void Start();
+	GameObject* m_Background;
+	GameObject* m_Middleground;
+	GameObject* m_Foreground;
+	GameObject* m_Platforms;
+
+	void Initialize();
+	void SpawnLevel();
 };

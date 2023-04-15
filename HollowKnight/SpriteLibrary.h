@@ -12,7 +12,10 @@ enum class Sprite
 	Knight,
 	Crawlid,
 	Vengelfy,
-	Level
+	Platforms,
+	Background,
+	Middleground,
+	Foreground
 };
 
 class SpriteLibrary
@@ -25,7 +28,6 @@ public:
 
 private:
 	inline static map<Sprite, Texture*> s_Sprites;
-
 	static void LoadSprite(const Sprite& type, const string& path);
 };
 

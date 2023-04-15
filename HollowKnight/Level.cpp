@@ -29,36 +29,26 @@ Level::Level(const std::string& levelName)
 		Print(levelName + '\n', TextColor::Yellow);
 	}
 
-	Start();
+	Initialize();
 }
 
-void Level::Start()
+Level::~Level()
 {
-	levelRef = new Texture("HollowKnight/LevelRef.png");
+	delete Camera::m_MainPtr->m_GameObject;
 
-	m_LevelVisuals = new GameObject("Level Visuals");
-	m_LevelVisuals->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Level)));
-	m_LevelVisuals->m_Transform->position.x += m_LevelVisuals->GetComponent<SpriteRenderer>()->Bounds().x / 2;
-	m_LevelVisuals->m_Transform->position.y += m_LevelVisuals->GetComponent<SpriteRenderer>()->Bounds().y / 2;
+	delete m_Background;
+	delete m_Middleground;
+	delete m_Foreground;
+	delete m_Platforms;
 
-	// Set up camera
-	auto* cam = new GameObject("Camera");
-	Camera* camera = cam->AddComponent(new Camera(GameSettings::s_Screen));
+	delete m_KnightPtr;
+}
 
-	// Set up Knight
-	m_KnightPtr = new GameObject("Hollow Knight");
-	m_KnightPtr->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Knight), 12, 12));
-	m_KnightPtr->AddComponent(new Animator());
-	m_KnightPtr->AddComponent(new Collider());
-	m_KnightPtr->AddComponent(new Rigidbody2D());
-	m_KnightPtr->AddComponent(new InputActions());
-	m_KnightPtr->AddComponent(new Knight());
+void Level::Initialize()
+{
+	SpawnLevel();
 
-	m_KnightPtr->m_Transform->position = Vector2{ 2268, 2580 };
-
-	// Assign camera target
-	camera->SetTarget(*m_KnightPtr->m_Transform);
-	camera->SetLevelBoundaries(Rectf(-10000, 0, 20000, 10000));
+	m_KnightPtr->m_Transform->position = Vector2{ 2268, 2700 };
 }
 
 void Level::Update(const float& deltaTime)
@@ -71,7 +61,6 @@ void Level::Draw() const
 	glPushMatrix();
 
 	IDrawable::Invoke(&IDrawable::CameraDraw);
-	levelRef->Draw(Point2f(0, 0));
 	IDrawable::Invoke(&IDrawable::Draw);
 
 	if (CORE::s_DebugMode)
@@ -82,11 +71,52 @@ void Level::Draw() const
 	glPopMatrix();
 }
 
-Level::~Level()
+void Level::SpawnLevel()
 {
-	delete levelRef;
+	// Set up camera
+	auto* cam = new GameObject("Camera");
+	Camera* camera = cam->AddComponent(new Camera(GameSettings::s_Screen));
 
-	delete m_KnightPtr;
-	delete m_LevelVisuals;
-	delete Camera::m_MainPtr->m_GameObject;
+	// Set up background texture
+	m_Background = new GameObject("Background Image");
+	auto* spriteRnd = m_Background->AddComponent(new SpriteRenderer());
+	spriteRnd->AssignSprite(SpriteLibrary::GetSprite(Sprite::Background));
+	m_Background->m_Transform->position.x += spriteRnd->GetBounds().width / 2;
+	m_Background->m_Transform->position.y += spriteRnd->GetBounds().height / 2;
+
+	// Set up middleground texture
+	m_Middleground = new GameObject("Middleground Image");
+	spriteRnd = m_Middleground->AddComponent(new SpriteRenderer());
+	spriteRnd->AssignSprite(SpriteLibrary::GetSprite(Sprite::Middleground));
+	m_Middleground->m_Transform->position.x += spriteRnd->GetBounds().width / 2;
+	m_Middleground->m_Transform->position.y += spriteRnd->GetBounds().height / 2;
+
+	// Set camera boundaries
+	camera->SetLevelBoundaries(spriteRnd->GetBounds());
+
+	// Set up foreground texture
+	m_Foreground = new GameObject("Foreground Image");
+	spriteRnd = m_Foreground->AddComponent(new SpriteRenderer());
+	spriteRnd->AssignSprite(SpriteLibrary::GetSprite(Sprite::Foreground));
+	m_Foreground->m_Transform->position.x += spriteRnd->GetBounds().width / 2;
+	m_Foreground->m_Transform->position.y += spriteRnd->GetBounds().height / 2;
+
+	// Set up middleground texture
+	m_Platforms = new GameObject("Platforms Image");
+	spriteRnd = m_Platforms->AddComponent(new SpriteRenderer());
+	spriteRnd->AssignSprite(SpriteLibrary::GetSprite(Sprite::Platforms));
+	m_Platforms->m_Transform->position.x += spriteRnd->GetBounds().width / 2;
+	//m_Platforms->m_Transform->position.y += spriteRnd->GetBounds().height / 2;
+
+	// Set up Knight
+	m_KnightPtr = new GameObject("Hollow Knight");
+	m_KnightPtr->AddComponent(new SpriteRenderer(SpriteLibrary::GetSprite(Sprite::Knight), 12, 12));
+	m_KnightPtr->AddComponent(new Animator());
+	m_KnightPtr->AddComponent(new Collider());
+	m_KnightPtr->AddComponent(new Rigidbody2D());
+	m_KnightPtr->AddComponent(new InputActions());
+	m_KnightPtr->AddComponent(new Knight());
+
+	// Assign camera target
+	camera->SetTarget(*m_KnightPtr->m_Transform);
 }

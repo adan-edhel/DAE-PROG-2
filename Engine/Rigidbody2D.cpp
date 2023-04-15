@@ -17,7 +17,11 @@ void Rigidbody2D::Awake()
 {
 	m_PlayArea = Rectf(0, 0, 10000, 7000);
 	m_Collider = m_GameObject->GetComponent<Collider>();
-	SVGParser::GetVerticesFromSvgFile("HollowKnight/LevelCollision.svg", m_LevelBoundaries);
+
+	std::vector<std::vector<Point2f>> platforms;
+	SVGParser::GetVerticesFromSvgFile("HollowKnight/Environment/LevelCollision.svg", m_LevelBoundaries);
+	SVGParser::GetVerticesFromSvgFile("HollowKnight/Environment/PlatformCollision.svg", platforms);
+	m_LevelBoundaries.insert(m_LevelBoundaries.end(), platforms.begin(), platforms.end());
 }
 
 void Rigidbody2D::Update(const float& deltaTime)
@@ -31,10 +35,6 @@ void Rigidbody2D::Update(const float& deltaTime)
 		if (!m_Grounded)
 		{
 			SimulateGravity(deltaTime);
-		}
-		else
-		{
-			Print("Grounded!\n");
 		}
 
 		m_Transform->position += m_Velocity;
@@ -247,6 +247,7 @@ void Rigidbody2D::DebugDraw() const
 		}
 		glEnd();
 	}
+
 	glLineWidth(1);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

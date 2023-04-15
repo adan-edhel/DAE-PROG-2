@@ -25,6 +25,7 @@ public:
 
 private:
 	std::vector<std::vector<Point2f>> m_LevelBoundaries;
+
 	Rectf m_PlayArea{};
 
 	bool m_Grounded{};

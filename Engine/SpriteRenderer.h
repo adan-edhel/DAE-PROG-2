@@ -17,7 +17,7 @@ public:
 	void AssignSprite(const Texture* sprite);
 	void Draw() const override;
 
-	[[nodiscard]] Vector2 Bounds() const;
+	[[nodiscard]] Rectf GetBounds() const;
 	[[nodiscard]] const Texture* GetSprite() const;
 
 private:

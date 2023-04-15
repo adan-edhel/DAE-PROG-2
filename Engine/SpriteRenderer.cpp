@@ -37,14 +37,17 @@ void SpriteRenderer::Draw() const
 	glPopMatrix();
 }
 
-Vector2 SpriteRenderer::Bounds() const
+Rectf SpriteRenderer::GetBounds() const
 {
 	if (m_SpritePtr != nullptr)
 	{
-		return Vector2(m_SpritePtr->GetWidth() / m_Columns, m_SpritePtr->GetHeight() / m_Rows);
+		return Rectf(m_Transform->position.x - m_SpritePtr->GetWidth()/2, 
+					m_Transform->position.y - m_SpritePtr->GetHeight()/2,
+						m_SpritePtr->GetWidth() / m_Columns,
+						m_SpritePtr->GetHeight() / m_Rows);
 	}
 	Print(">>Warning<< No sprite has been loaded.\n", TextColor::Red);
-	return Vector2{};
+	return Rectf{};
 }
 
 const Texture* SpriteRenderer::GetSprite() const
@@ -54,9 +57,9 @@ const Texture* SpriteRenderer::GetSprite() const
 
 void SpriteRenderer::DebugDraw() const
 {
-	const Rectf sprite{  m_Transform->position.x - Bounds().x / 2,
-						m_Transform->position.y - Bounds().y / 2,
-						Bounds().x, Bounds().y };
+	const Rectf sprite{  m_Transform->position.x - GetBounds().width / 2,
+						m_Transform->position.y - GetBounds().height / 2,
+						GetBounds().width, GetBounds().height };
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glColor3f(0, 1, 0);

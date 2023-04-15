@@ -9,12 +9,15 @@ void SpriteLibrary::Setup()
 	LoadSprite(Sprite::Knight, "HollowKnight/Knight.png");
 	LoadSprite(Sprite::Crawlid, "HollowKnight/Enemies/Crawlid.png");
 	LoadSprite(Sprite::Vengelfy, "HollowKnight/Enemies/Vengefly.png");
-	LoadSprite(Sprite::Level, "HollowKnight/LevelVisual.png");
+	LoadSprite(Sprite::Platforms, "HollowKnight/Environment/Platforms.png");
+	LoadSprite(Sprite::Background, "HollowKnight/Environment/Background.png");
+	LoadSprite(Sprite::Middleground, "HollowKnight/Environment/Middleground.png");
+	LoadSprite(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");
 }
 
 void SpriteLibrary::Cleanup()
 {
-	for (auto& sprite : s_Sprites)
+	for (const auto& sprite : s_Sprites)
 	{
 		delete sprite.second;
 	}

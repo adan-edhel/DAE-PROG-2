@@ -7,6 +7,19 @@ GameObject::GameObject(const std::string& name) : Object(name)
 	m_Transform = AddComponent(new Transform());
 }
 
+GameObject::~GameObject()
+{
+	//UNDONE: Fix component removal at Destroy
+
+	if (components.empty()) return;
+
+	for (const auto* component : components)
+	{
+		if (component != nullptr)
+			Destroy(component);
+	}
+}
+
 bool GameObject::Active() const
 {
 	return m_IsActive;
@@ -24,18 +37,5 @@ void GameObject::Update(const float& deltaTime)
 	for ( const auto component : components)
 	{
 		component->Update(deltaTime);
-	}
-}
-
-GameObject::~GameObject()
-{
-	//UNDONE: Fix component removal at Destroy
-
-	if (components.empty()) return;
-
-	for ( const auto* component : components)
-	{
-		if (component != nullptr)
-			Destroy(component);
 	}
 }

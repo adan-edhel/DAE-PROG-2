@@ -17,8 +17,8 @@ Collider::~Collider()
 
 void Collider::Awake()
 {
-	const auto bounds = m_GameObject->GetComponent<SpriteRenderer>()->Bounds();
-	SetSize(bounds.x, bounds.y);
+	const auto bounds = m_GameObject->GetComponent<SpriteRenderer>()->GetBounds();
+	SetSize(bounds.width, bounds.height);
 }
 
 void Collider::Update(const float& deltaTime)
