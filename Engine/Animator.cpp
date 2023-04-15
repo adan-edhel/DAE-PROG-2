@@ -10,7 +10,6 @@ Animator::Animator() : Component("Animator")
 
 void Animator::Awake()
 {
-	m_pSpriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
 void Animator::Play(Animation*) const

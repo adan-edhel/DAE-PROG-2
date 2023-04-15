@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseGame.h"
+#include <CORE.h>
 
 class GameObject;
 class Knight;
@@ -28,6 +29,12 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 #pragma endregion
 private:
+	// Begin state of the game
+	const GameState m_BeginState{ GameState::Menu };
+
+	// Dynamic state of the game
+	GameState m_State{GameState::Game};
+
 	Level* m_pKingsPass{nullptr};
 
 	// FUNCTIONS

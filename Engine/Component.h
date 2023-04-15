@@ -14,6 +14,7 @@ protected:
 	virtual ~Component() override = default;
 
 	virtual void Awake();
+	virtual void Start();
 	virtual void Update(const float& deltaTime);
 
 private:

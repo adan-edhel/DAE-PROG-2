@@ -1,6 +1,8 @@
 #pragma once
 #include <GameObject.h>
 
+#include "SpriteLibrary.h"
+
 class Level final
 {
 public:
@@ -21,13 +23,17 @@ public:
 	void Draw() const;
 
 private:
-	GameObject* m_KnightPtr;
+	GameObject* m_KnightPtr{};
 
-	GameObject* m_Background;
-	GameObject* m_Middleground;
-	GameObject* m_Foreground;
-	GameObject* m_Platforms;
+	GameObject* m_Background{};
+	GameObject* m_Middleground{};
+	GameObject* m_Foreground{};
+	GameObject* m_Platforms{};
+
+	const Vector2 m_SpawnPoint{ 2200, 3150 };
+	const float m_BackgroundOffset{ 0.03 };
+	const float m_ForegroundOffset{ 0.01 };
 
 	void Initialize();
-	void SpawnLevel();
+	void SetupLevelObject(GameObject* object, const Sprite& sprite, const int& layer);
 };

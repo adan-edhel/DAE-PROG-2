@@ -19,7 +19,10 @@ void Game::Start( )
 	SpriteLibrary::Setup();
 	AnimLibrary::Setup();
 
-	m_pKingsPass = new Level("King's Pass");
+	if (m_State == GameState::Game)
+	{
+		m_pKingsPass = new Level("King's Pass");
+	}
 }
 
 void Game::End( )

@@ -26,7 +26,7 @@ private:
 	const int maxJumps{1};
 	const int jumpsLeft{maxJumps};
 
-	void Awake() override;
+	void Start() override;
 	void Update(const float& deltaTime) override;
 
 	void OnKeyDown(const SDL_KeyboardEvent& e) override;

@@ -57,3 +57,9 @@ void Camera::Clamp(Vector2& bottomLeftPos) const
 		bottomLeftPos.y = m_Boundaries.bottom + m_Boundaries.height - m_PixelHeight;
 	}
 }
+
+Vector2 Camera::GetPosition(const float& offset) const
+{
+	Vector2 pos{ Track() };
+	return Vector2{pos.x * offset, pos.y * offset};
+}

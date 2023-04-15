@@ -21,7 +21,7 @@ public:
 	[[nodiscard]] const Texture* GetSprite() const;
 
 private:
-	const Texture* m_SpritePtr{nullptr};
+	const Texture* m_SpritePtr;
 
 	const int m_Rows;
 	const int m_Columns;

@@ -17,17 +17,13 @@ Collider::~Collider()
 
 void Collider::Awake()
 {
-	const auto bounds = m_GameObject->GetComponent<SpriteRenderer>()->GetBounds();
-	SetSize(bounds.width, bounds.height);
+	SetSize(m_Transform->scale);
 }
 
 void Collider::Update(const float& deltaTime)
 {
-	if (m_GameObject != nullptr)
-	{
-		m_Collider.left = m_Transform->position.x - m_Collider.width / 2;
-		m_Collider.bottom = m_Transform->position.y - m_Collider.height / 2;
-	}
+	m_Collider.left = m_Transform->position.x + m_Translate.x;
+	m_Collider.bottom = m_Transform->position.y + m_Translate.y;
 }
 
 void Collider::SetSize(const float& sizeX, const float& sizeY) { SetSize(Vector2(sizeX, sizeY)); }
@@ -35,12 +31,13 @@ void Collider::SetSize(const Vector2& size)
 {
 	m_Collider.width = size.x;
 	m_Collider.height = size.y;
+
+	m_Translate = Vector2{-m_Collider.width/2, -m_Collider.height/2};
 }
 
 Vector2 Collider::GetCenter() const
 {
-	return Vector2(m_Collider.left + m_Collider.width / 2, 
-				m_Collider.bottom + m_Collider.height / 2);
+	return m_Transform->position + m_Translate;
 }
 
 Vector2 Collider::GetSize() const

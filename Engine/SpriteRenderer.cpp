@@ -15,6 +15,7 @@ SpriteRenderer::SpriteRenderer(const Texture* sprite, const int& rows, const int
 void SpriteRenderer::AssignSprite(const Texture* sprite)
 {
 	m_SpritePtr = sprite;
+	m_Transform->scale = Vector2(sprite->GetWidth(), sprite->GetHeight());
 }
 
 void SpriteRenderer::Draw() const

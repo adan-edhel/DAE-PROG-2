@@ -7,14 +7,11 @@ Component::Component(const std::string& name) : Object(name)
 {
 }
 
-//UNDONE: Causes issues with access violation
-//Component::~Component()
-//{
-//	if (m_GameObject != nullptr)
-//		m_GameObject->RemoveComponent(this);
-//}
-
 void Component::Awake()
+{
+}
+
+void Component::Start()
 {
 }
 
@@ -25,5 +22,5 @@ void Component::Update(const float& deltaTime)
 void Component::Initialize(GameObject* gameObject)
 {
 	m_GameObject = gameObject;
-	m_Transform = m_GameObject->GetComponent<Transform>();
+	m_Transform = gameObject->GetComponent<Transform>();
 }

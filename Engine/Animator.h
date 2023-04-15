@@ -2,10 +2,10 @@
 #include "Component.h"
 #include <map>
 
-class SpriteRenderer;
-
 class Animator final: public Component
 {
+	class SpriteRenderer;
+
 public:
 	float m_AnimationSpeed{ 1 };
 
@@ -16,7 +16,7 @@ public:
 	void Play(Animation*) const;
 
 private:
-	SpriteRenderer* m_pSpriteRenderer{nullptr};
+	SpriteRenderer* m_pSpriteRenderer{};
 
 	std::map<Animation, std::string> animations;
 

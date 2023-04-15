@@ -10,7 +10,7 @@ class GameObject final : public Object, public IUpdatable
 public:
 	Transform* m_Transform;
 
-	GameObject(const std::string& name);
+	GameObject(const std::string& name = "GameObject");
 	bool Active() const;
 	void SetActive(const bool& active);
 	~GameObject() override;
@@ -33,6 +33,7 @@ public:
 
 		castComponentPtr->Initialize(this);
 		castComponentPtr->Awake();
+		castComponentPtr->Start();
 
 		components.push_back(component);
 		return component;

@@ -26,8 +26,6 @@ public:
 private:
 	std::vector<std::vector<Point2f>> m_LevelBoundaries;
 
-	Rectf m_PlayArea{};
-
 	bool m_Grounded{};
 	Vector2 m_Velocity{};
 
@@ -37,6 +35,7 @@ private:
 
 	~Rigidbody2D() override = default;
 	void Awake() override;
+	void Start() override;
 	void Update(const float& deltaTime) override;
 	void DecayVelocity(const float& deltaTime);
 	void SimulateGravity(const float& deltaTime);

@@ -13,6 +13,7 @@ public:
 	~Camera() override = default;
 	void SetTarget(Transform& target);
 	void SetLevelBoundaries(const Rectf& levelBoundaries);
+	Vector2 GetPosition(const float& offset) const;
 
 private:
 	Transform* m_TargetPtr{nullptr};

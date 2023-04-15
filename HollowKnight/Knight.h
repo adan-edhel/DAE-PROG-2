@@ -7,8 +7,10 @@ public:
 	Knight();
 
 private:
-	~Knight() override = default;
+	const Vector2 colliderSize{ 40, 70 };
 
+	~Knight() override = default;
+	void Awake() override;
 	void OnDeath() override;
 
 	enum class AnimState

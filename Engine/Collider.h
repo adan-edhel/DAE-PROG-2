@@ -4,11 +4,12 @@
 #include "IUpdatable.h"
 #include "Vector2.h"
 
-class Rigidbody2D;
 
 class Collider : public Component, public IUpdatable, public IDrawable
 {
+	class Rigidbody2D;
 	friend Rigidbody2D;
+
 public:
 	Collider();
 	void SetSize(const float& sizeX, const float& sizeY);
@@ -21,6 +22,7 @@ public:
 private:
 	inline static std::vector<Collider*> s_AllColliders{};
 	Rectf m_Collider{};
+	Vector2 m_Translate{};
 
 	~Collider() override;
 	void Awake() override;

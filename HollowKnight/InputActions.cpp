@@ -12,11 +12,9 @@ InputActions::InputActions() : Component("Input Actions")
 {
 }
 
-void InputActions::Awake()
+void InputActions::Start()
 {
-	if (m_RigidbodyPtr == nullptr)
-		m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
-
+	m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
 	m_SpriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
 }
 

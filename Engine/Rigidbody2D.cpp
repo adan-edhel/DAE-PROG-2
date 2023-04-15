@@ -15,13 +15,16 @@ Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 
 void Rigidbody2D::Awake()
 {
-	m_PlayArea = Rectf(0, 0, 10000, 7000);
-	m_Collider = m_GameObject->GetComponent<Collider>();
-
 	std::vector<std::vector<Point2f>> platforms;
 	SVGParser::GetVerticesFromSvgFile("HollowKnight/Environment/LevelCollision.svg", m_LevelBoundaries);
 	SVGParser::GetVerticesFromSvgFile("HollowKnight/Environment/PlatformCollision.svg", platforms);
 	m_LevelBoundaries.insert(m_LevelBoundaries.end(), platforms.begin(), platforms.end());
+}
+
+void Rigidbody2D::Start()
+{
+	Collider* collider = m_GameObject->GetComponent<Collider>();
+	m_Collider = collider == nullptr ? m_GameObject->AddComponent(new Collider) : collider;
 }
 
 void Rigidbody2D::Update(const float& deltaTime)
@@ -166,12 +169,12 @@ void Rigidbody2D::HandleWallCollision(const Rectf& collider, Vector2& velocity, 
 //	const Point2f topLeft{ collider.left, collider.bottom + collider.height };
 //	const Point2f topRight{ collider.left + collider.width, collider.bottom + collider.height };
 //
-//	if (!utils::IsPointInRect(topLeft, m_PlayArea))
+//	if (!utils::IsPointInRect(topLeft, CORE::s_GameArea))
 //	{
-//		if (topLeft.y >= m_PlayArea.height)
+//		if (topLeft.y >= CORE::s_GameArea.height)
 //		{
 //			velocity.y = 0;
-//			m_Transform->position.y = m_PlayArea.height - collider.height;
+//			m_Transform->position.y = CORE::s_GameArea.height - collider.height;
 //
 //			if (collider.left <= 0)
 //			{
@@ -179,10 +182,10 @@ void Rigidbody2D::HandleWallCollision(const Rectf& collider, Vector2& velocity, 
 //				m_Transform->position.x = 0;
 //			}
 //
-//			if (m_Transform->position.x >= m_PlayArea.width - collider.width)
+//			if (m_Transform->position.x >= CORE::s_GameArea.width - collider.width)
 //			{
 //				velocity.x = 0;
-//				m_Transform->position.y = m_PlayArea.width - collider.width;
+//				m_Transform->position.y = CORE::s_GameArea.width - collider.width;
 //			}
 //		}
 //		else
@@ -191,10 +194,10 @@ void Rigidbody2D::HandleWallCollision(const Rectf& collider, Vector2& velocity, 
 //			m_Transform->position.x = 0;
 //		}
 //	}
-//	else if (!utils::IsPointInRect(topRight, m_PlayArea))
+//	else if (!utils::IsPointInRect(topRight, CORE::s_GameArea))
 //	{
 //		velocity.x = 0;
-//		m_Transform->position.x = m_PlayArea.width - collider.width;
+//		m_Transform->position.x = CORE::s_GameArea.width - collider.width;
 //	}
 //}
 #pragma endregion
