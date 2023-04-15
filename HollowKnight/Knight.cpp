@@ -16,7 +16,7 @@ void Knight::Awake()
 {
 	Actor::Awake();
 
-	const auto sprite = m_GameObject->GetComponent<SpriteRenderer>();
+	auto* sprite = m_GameObject->GetComponent<SpriteRenderer>();
 	sprite->AssignSprite(SpriteLibrary::GetSprite(Sprite::Knight));
 	sprite->SetLayer(IDrawable::s_MidLayer + 1);
 

@@ -5,14 +5,16 @@
 
 void SpriteLibrary::Setup()
 {
-	LoadSprite(Sprite::Default, "default_circle.png");
-	LoadSprite(Sprite::Knight, "HollowKnight/Knight.png");
-	LoadSprite(Sprite::Crawlid, "HollowKnight/Enemies/Crawlid.png");
-	LoadSprite(Sprite::Vengelfy, "HollowKnight/Enemies/Vengefly.png");
-	LoadSprite(Sprite::Platforms, "HollowKnight/Environment/Platforms.png");
-	LoadSprite(Sprite::Background, "HollowKnight/Environment/Background.png");
-	LoadSprite(Sprite::Middleground, "HollowKnight/Environment/Middleground.png");
-	LoadSprite(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");
+	Load(Sprite::Default, "default_circle.png");
+	Load(Sprite::Knight, "HollowKnight/Knight.png");
+	Load(Sprite::Crawlid, "HollowKnight/Enemies/Crawlid.png");
+	Load(Sprite::Vengelfy, "HollowKnight/Enemies/Vengefly.png");
+	Load(Sprite::Platforms, "HollowKnight/Environment/Platforms.png");
+	Load(Sprite::Background, "HollowKnight/Environment/Background.png");
+	Load(Sprite::Middleground, "HollowKnight/Environment/Middleground.png");
+	Load(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");
+
+	Load(Font::TrajanPro, "Trajan Pro Regular.ttf");
 }
 
 void SpriteLibrary::Cleanup()
@@ -22,6 +24,12 @@ void SpriteLibrary::Cleanup()
 		delete sprite.second;
 	}
 	s_Sprites.clear();
+	s_Fonts.clear();
+}
+
+const string& SpriteLibrary::GetFont(const Font& type)
+{
+	return s_Fonts.find(type)->second;
 }
 
 const Texture* SpriteLibrary::GetSprite(const Sprite& type)
@@ -29,7 +37,12 @@ const Texture* SpriteLibrary::GetSprite(const Sprite& type)
 	return s_Sprites.find(type)->second;
 }
 
-void SpriteLibrary::LoadSprite(const Sprite& type, const string& path)
+void SpriteLibrary::Load(const Sprite& type, const string& path)
 {
 	s_Sprites[type] = new Texture(path);
+}
+
+void SpriteLibrary::Load(const Font& type, const string& path)
+{
+	s_Fonts[type] = path;
 }

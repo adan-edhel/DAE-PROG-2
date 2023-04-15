@@ -18,16 +18,25 @@ enum class Sprite
 	Foreground
 };
 
+enum class Font
+{
+	TrajanPro
+};
+
 class SpriteLibrary
 {
 public:
 	static void Setup();
 	static void Cleanup();
 
+	static const string& GetFont(const Font& type);
 	static const Texture* GetSprite(const Sprite& type);
 
 private:
 	inline static map<Sprite, Texture*> s_Sprites;
-	static void LoadSprite(const Sprite& type, const string& path);
+	static void Load(const Sprite& type, const string& path);
+
+	inline static map<Font, std::string> s_Fonts;
+	static void Load(const Font& type, const string& path);
 };
 
