@@ -59,8 +59,11 @@ void Level::Initialize()
 	m_Middleground = new GameObject("Middleground Image");
 	SetupLevelObject(m_Middleground, Sprite::Middleground, IDrawable::s_MidLayer);
 
+	// Test version. The level will be redone in final version
 	m_Platforms = new GameObject("Platforms Image");
 	SetupLevelObject(m_Platforms, Sprite::Platforms, platformsLayer);
+	m_Platforms->m_Transform->position = m_PlatformPosition;
+	// ----
 
 	m_Foreground = new GameObject("Foreground Image");
 	SetupLevelObject(m_Foreground, Sprite::Foreground, foregroundLayer);

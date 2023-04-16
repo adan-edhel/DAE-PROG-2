@@ -10,6 +10,6 @@ enum class GameState
 class CORE
 {
 public:
-	inline static bool s_DebugMode{ true };
+	inline static bool s_DebugMode{ false };
 	inline static Rectf s_GameArea{};
 };

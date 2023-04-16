@@ -69,7 +69,7 @@ void SpriteRenderer::DebugDraw() const
 						GetBounds().width, GetBounds().height };
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glColor3f(0, 1, 0);
+	glColor3f(1, 1, 1);
 	glBegin(GL_POLYGON);
 	glVertex2f(sprite.left, sprite.bottom);
 	glVertex2f(sprite.left, sprite.bottom + sprite.height);
