@@ -14,7 +14,7 @@ Actor::Actor(const int& maxHealth) :
 
 void Actor::Awake()
 {
-	m_GameObject->AddComponent(new SpriteRenderer(nullptr, 12, 12));
+	m_GameObject->AddComponent(new SpriteRenderer());
 	m_GameObject->AddComponent(new Collider());
 	m_GameObject->AddComponent(new Animator());
 	m_GameObject->AddComponent(new Rigidbody2D());

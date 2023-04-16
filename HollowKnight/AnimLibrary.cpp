@@ -45,7 +45,7 @@ void AnimLibrary::Cleanup()
 	}
 }
 
-Animation* AnimLibrary::GetAnimation(Type character, const string& clipName)
+Animation* AnimLibrary::GetAnimation(AnimType animType, const string& clipName)
 {
 	if (!m_HasBeenSetup)
 	{
@@ -55,20 +55,34 @@ Animation* AnimLibrary::GetAnimation(Type character, const string& clipName)
 
 	map<string, Animation*>::iterator it;
 
-	switch (character)
+	switch (animType)
 	{
-	case Type::Knight:
+	case AnimType::Knight:
 		it = m_KnightClips.find(clipName);
 		break;
-	case Type::Crawlid:
+	case AnimType::Crawlid:
 		it = m_CrawlidClips.find(clipName);
 		break;
-	case Type::Vengefly:
+	case AnimType::Vengefly:
 		it = m_VengeflyClips.find(clipName);
 		break;
 	}
 
 	return it->first.empty() ? nullptr : it->second;
+}
+
+map<string, Animation*>* AnimLibrary::GetAnimations(AnimType animType)
+{
+	switch (animType)
+	{
+		case AnimType::Knight:
+			return &m_KnightClips;
+		case AnimType::Crawlid:
+			return &m_CrawlidClips;
+		case AnimType::Vengefly: 
+			return &m_VengeflyClips;
+	}
+	return nullptr;
 }
 
 void AnimLibrary::PrintInfo(const string& characterName, map<string, Animation*>& dictionary)
@@ -82,9 +96,9 @@ void AnimLibrary::PrintInfo(const string& characterName, map<string, Animation*>
 	{
 		for (auto it = dictionary.begin(); it != dictionary.end(); ++it)
 		{
-			if (!it->second->clipName.empty())
+			if (!it->second->m_Name.empty())
 			{
-				Print(it->second->clipName + '\n', TextColor::Brown);
+				Print(it->second->m_Name + '\n', TextColor::Brown);
 
 			}
 			else Print(">>Clip not set up<<\n", TextColor::Brown);
@@ -104,145 +118,131 @@ void AnimLibrary::DeleteClips(map<string, Animation*>& dictionary)
 
 void AnimLibrary::KnightSetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	// Todo: Test these animations
+	const auto* sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	const Vector2 gridCount{ 12,12 };
 
-	auto* currentClip = new Animation(*sprite);
-
-	// Idle clip
-	currentClip->clipName		= "Idle";
-	currentClip->m_RowPos		= 9;
-	currentClip->m_ColumnPos	= 0;
-	currentClip->m_NumFrames	= 7;
-
-	m_KnightClips[currentClip->clipName] = currentClip;
+	auto* currentClip = new Animation("Idle", sprite, gridCount, 7);
+	currentClip->MoveStartFrame(Vector2(0, 8));
+	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
-
-	// Walking clip
-	currentClip->clipName = "Walking";
-	currentClip->m_RowPos = 0;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 9;
-
-	m_KnightClips[currentClip->clipName] = currentClip;
+	currentClip = new Animation("Walk", sprite, gridCount, 6);
+	currentClip->MoveStartFrame(Vector2(6, 6));
+	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
-
-	// Jumping clip
-	currentClip->clipName = "Jumping";
-	currentClip->m_RowPos = 0;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 9;
-
-	m_KnightClips[currentClip->clipName] = currentClip;
+	currentClip = new Animation("Jump", sprite, gridCount, 4, false);
+	currentClip->MoveStartFrame(Vector2(1, 9)); //9 , 1
+	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
-
-	// Jumping clip
-	currentClip->clipName = "Attacking";
-	currentClip->m_RowPos = 0;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 9;
-
-	m_KnightClips[currentClip->clipName] = currentClip;
+	currentClip = new Animation("Fall", sprite, gridCount, 3, false);
+	currentClip->MoveStartFrame(Vector2(9, 1));
+	m_KnightClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Attack1", sprite, gridCount, 3, false);
+	currentClip->MoveStartFrame(Vector2(4, 0));
+	m_KnightClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Attack2", sprite, gridCount, 3, false);
+	currentClip->MoveStartFrame(Vector2(4, 3));
+	m_KnightClips[currentClip->m_Name] = currentClip;
 }
 
 void AnimLibrary::CrawlidSetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
+	//const auto sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
 
-	auto* currentClip = new Animation(*sprite);
+	//auto* currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Walking";
-	currentClip->m_RowPos = 0;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 4;
+	//// Idle clip
+	//currentClip->m_Name = "Walking";
+	//currentClip->m_RowStartIndex = 0;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 4;
 
-	m_CrawlidClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_CrawlidClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Turning";
-	currentClip->m_RowPos = 1;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 2;
+	//// Idle clip
+	//currentClip->m_Name = "Turning";
+	//currentClip->m_RowStartIndex = 1;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 2;
 
-	m_CrawlidClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_CrawlidClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Dying";
-	currentClip->m_RowPos = 2;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 3;
+	//// Idle clip
+	//currentClip->m_Name = "Dying";
+	//currentClip->m_RowStartIndex = 2;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 3;
 
-	m_CrawlidClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_CrawlidClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Dead";
-	currentClip->m_RowPos = 3;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 2;
+	//// Idle clip
+	//currentClip->m_Name = "Dead";
+	//currentClip->m_RowStartIndex = 3;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 2;
 
-	m_CrawlidClips[currentClip->clipName] = currentClip;
+	//m_CrawlidClips[currentClip->m_Name] = currentClip;
 }
 
 void AnimLibrary::VengeflySetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	//const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
 
-	auto* currentClip = new Animation(*sprite);
+	//auto* currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Flying";
-	currentClip->m_RowPos = 0;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 5;
+	//// Idle clip
+	//currentClip->m_Name = "Flying";
+	//currentClip->m_RowStartIndex = 0;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 5;
 
-	m_VengeflyClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_VengeflyClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Turning";
-	currentClip->m_RowPos = 1;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 2;
+	//// Idle clip
+	//currentClip->m_Name = "Turning";
+	//currentClip->m_RowStartIndex = 1;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 2;
 
-	m_VengeflyClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_VengeflyClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Attacking";
-	currentClip->m_RowPos = 2;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 4;
+	//// Idle clip
+	//currentClip->m_Name = "Attacking";
+	//currentClip->m_RowStartIndex = 2;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 4;
 
-	m_VengeflyClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_VengeflyClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Chasing";
-	currentClip->m_RowPos = 3;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 4;
+	//// Idle clip
+	//currentClip->m_Name = "Chasing";
+	//currentClip->m_RowStartIndex = 3;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 4;
 
-	m_VengeflyClips[currentClip->clipName] = currentClip;
-	// ----------------------------------------------
-	currentClip = new Animation(*sprite);
+	//m_VengeflyClips[currentClip->m_Name] = currentClip;
+	//// ----------------------------------------------
+	//currentClip = new Animation();
 
-	// Idle clip
-	currentClip->clipName = "Dying";
-	currentClip->m_RowPos = 4;
-	currentClip->m_ColumnPos = 0;
-	currentClip->m_NumFrames = 3;
+	//// Idle clip
+	//currentClip->m_Name = "Dying";
+	//currentClip->m_RowStartIndex = 4;
+	//currentClip->m_ColStartIndex = 0;
+	//currentClip->m_NumFrames = 3;
 
-	m_VengeflyClips[currentClip->clipName] = currentClip;
+	//m_VengeflyClips[currentClip->m_Name] = currentClip;
 }

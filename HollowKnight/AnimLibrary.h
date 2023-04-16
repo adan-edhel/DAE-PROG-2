@@ -3,10 +3,15 @@
 #include <iostream>
 #include <map>
 
-enum class CharacterType;
-
 using std::map;
 using std::string;
+
+enum class AnimType
+{
+	Knight,
+	Crawlid,
+	Vengefly
+};
 
 /**
  * \brief Animation Library
@@ -14,25 +19,20 @@ using std::string;
 class AnimLibrary
 {
 public:
-	enum class Type
-	{
-		Knight,
-		Crawlid,
-		Vengefly
-	};
-
 	static void Setup();
 	static void Cleanup();
 
-	static Animation* GetAnimation(Type character, const string& clipName);
+	static Animation* GetAnimation(AnimType animType, const string& clipName);
+	static map<string, Animation*>* GetAnimations(AnimType animType);
+
 
 private:
 	static const bool m_DebugInfo{ true };
 	inline static bool m_HasBeenSetup{false};
 
-	inline static map<string, Animation*> m_KnightClips;
-	inline static map<string, Animation*> m_CrawlidClips;
-	inline static map<string, Animation*> m_VengeflyClips;
+	inline static map<string, Animation*> m_KnightClips{};
+	inline static map<string, Animation*> m_CrawlidClips{};
+	inline static map<string, Animation*> m_VengeflyClips{};
 
 	static void PrintInfo(const string& characterName, map<string, Animation*>& dictionary);
 	static void DeleteClips(map<string, Animation*>& dictionary);

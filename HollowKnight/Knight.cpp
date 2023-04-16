@@ -7,6 +7,9 @@
 #include "Camera.h"
 #include "InputActions.h"
 #include "SpriteLibrary.h"
+#include <Animator.h>
+
+#include "AnimLibrary.h"
 
 Knight::Knight() : Actor(5)
 {
@@ -25,9 +28,12 @@ void Knight::Awake()
 	Camera::m_MainPtr->SetTarget(*m_Transform);
 
 	m_GameObject->AddComponent(new InputActions());
+
+	auto* anim = m_GameObject->GetComponent<Animator>();
+	anim->AssignAnimations(AnimLibrary::GetAnimations(AnimType::Knight));
+	anim->PlayAnimation("Walk");
 }
 
 void Knight::OnDeath()
 {
-	m_AnimState = AnimState::Dying;
 }

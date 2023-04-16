@@ -3,7 +3,7 @@
 #include "AmrothUtils.h"
 #include "Transform.h"
 
-SpriteRenderer::SpriteRenderer(const Texture* sprite, const int& rows, const int& cols) :
+SpriteRenderer::SpriteRenderer(Texture* sprite, const int& rows, const int& cols) :
 	Component("SpriteRenderer"),
 	IDrawable(s_MidLayer),
 	m_SpritePtr{ sprite },
@@ -12,28 +12,34 @@ SpriteRenderer::SpriteRenderer(const Texture* sprite, const int& rows, const int
 {
 }
 
-void SpriteRenderer::AssignSprite(const Texture* sprite)
+void SpriteRenderer::AssignSprite(Texture* sprite)
 {
 	m_SpritePtr = sprite;
 	m_Transform->scale = Vector2(sprite->GetWidth(), sprite->GetHeight());
+
+	Rectf sliceRect{};
+	sliceRect.width = m_SpritePtr->GetWidth() / float(m_Rows);
+	sliceRect.height = m_SpritePtr->GetHeight() / float(m_Columns);
+	sliceRect.left = 0;
+	sliceRect.bottom = sliceRect.height;
+	Slice(sliceRect);
 }
 
 void SpriteRenderer::Draw() const
 {
 	if (m_SpritePtr == nullptr) return;
 
-	Rectf sliceRect{};
-	sliceRect.width		= m_SpritePtr->GetWidth()  / float(m_Rows);
-	sliceRect.height	= m_SpritePtr->GetHeight() / float(m_Columns);
-	sliceRect.left		= 0;
-	sliceRect.bottom	= sliceRect.height;
-
 	glPushMatrix();
 
+	// Move according to position
 	glTranslatef(m_Transform->position.x, m_Transform->position.y, 0);
-	glScalef(m_FlipX ? -1 : 1, 1, 1);
 
-	m_SpritePtr->Draw(Point2f(-sliceRect.width / 2, -sliceRect.height / 2), sliceRect);
+	// Handle flipping
+	glScalef(m_FlipX ? -1 : 1, 1, 1);
+	glScalef(1, m_FlipY ? -1 : 1, 1);
+
+	// Draw centred on position
+	m_SpritePtr->Draw(Point2f(-m_Slice.width / 2, -m_Slice.height / 2), m_Slice);
 
 	glPopMatrix();
 }
@@ -44,16 +50,16 @@ Rectf SpriteRenderer::GetBounds() const
 	{
 		return Rectf(m_Transform->position.x - m_SpritePtr->GetWidth()/2, 
 					m_Transform->position.y - m_SpritePtr->GetHeight()/2,
-						m_SpritePtr->GetWidth() / m_Columns,
-						m_SpritePtr->GetHeight() / m_Rows);
+						m_SpritePtr->GetWidth() / float(m_Columns),
+						m_SpritePtr->GetHeight() / float(m_Rows));
 	}
 	Print(">>Warning<< No sprite has been loaded.\n", TextColor::Red);
 	return Rectf{};
 }
 
-const Texture* SpriteRenderer::GetSprite() const
+void SpriteRenderer::Slice(const Rectf& slice)
 {
-	return m_SpritePtr;
+	m_Slice = slice;
 }
 
 void SpriteRenderer::DebugDraw() const

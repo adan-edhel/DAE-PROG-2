@@ -29,8 +29,8 @@ public:
 	static void Setup();
 	static void Cleanup();
 
-	static const string& GetFont(const Font& type);
-	static const Texture* GetSprite(const Sprite& type);
+	static string& GetFont(const Font& type);
+	static Texture* GetSprite(const Sprite& type);
 
 private:
 	inline static map<Sprite, Texture*> s_Sprites;

@@ -27,12 +27,12 @@ void SpriteLibrary::Cleanup()
 	s_Fonts.clear();
 }
 
-const string& SpriteLibrary::GetFont(const Font& type)
+string& SpriteLibrary::GetFont(const Font& type)
 {
 	return s_Fonts.find(type)->second;
 }
 
-const Texture* SpriteLibrary::GetSprite(const Sprite& type)
+Texture* SpriteLibrary::GetSprite(const Sprite& type)
 {
 	return s_Sprites.find(type)->second;
 }

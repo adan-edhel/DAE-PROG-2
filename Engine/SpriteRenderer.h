@@ -5,26 +5,31 @@
 #include "Vector2.h"
 #include "Texture.h"
 
+class Animator;
+
 class SpriteRenderer final : public Component, public IDrawable
 {
 public:
 	bool m_FlipX{ false };
 	bool m_FlipY{ false };
 
-	SpriteRenderer(const Texture* sprite = nullptr, const int& rows = 1, const int& cols = 1);
+	SpriteRenderer(Texture* sprite = nullptr, const int& rows = 1, const int& cols = 1);
 	~SpriteRenderer() override = default;
 
-	void AssignSprite(const Texture* sprite);
+	void AssignSprite(Texture* sprite);
 	void Draw() const override;
 
 	[[nodiscard]] Rectf GetBounds() const;
-	[[nodiscard]] const Texture* GetSprite() const;
 
 private:
-	const Texture* m_SpritePtr;
+	friend Animator;
 
-	const int m_Rows;
-	const int m_Columns;
+	Texture* m_SpritePtr;
 
+	Rectf m_Slice{};
+	int m_Rows;
+	int m_Columns;
+
+	void Slice(const Rectf& slice);
 	void DebugDraw() const override;
 };

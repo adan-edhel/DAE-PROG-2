@@ -2,23 +2,24 @@
 #include "Component.h"
 #include <map>
 
+enum class AnimType;
+class SpriteRenderer;
+
 class Animator final: public Component
 {
-	class SpriteRenderer;
-
 public:
-	float m_AnimationSpeed{ 1 };
+	float m_PlaySpeed{ 1 };
 
 	Animator();
-	~Animator() override = default;
-
-	void Awake() override;
-	void Play(Animation*) const;
+	void Start() override;
+	void PlayAnimation(const std::string& name);
+	void AssignAnimations(std::map<std::string, Animation*>* anims);
 
 private:
-	SpriteRenderer* m_pSpriteRenderer{};
+	Animation* m_CurrentAnim{};
+	SpriteRenderer* m_SpriteRend{};
+	std::map<std::string, Animation*>* m_Clips{};
 
-	std::map<Animation, std::string> animations;
-
+	~Animator() override = default;
 	void Update(const float& deltaTime) override;
 };

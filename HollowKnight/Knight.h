@@ -16,13 +16,11 @@ private:
 	enum class AnimState
 	{
 		Idle,
-		Walking,
-		Attacking,
-		Jumping,
-		Hurt,
-		Dying
+		Walk,
+		Attack,
+		Jump,
+		Fall
 	};
 
 	AnimState m_AnimState{ AnimState::Idle };
 };
-
