@@ -15,8 +15,13 @@ void Animator::Start()
 
 void Animator::PlayAnimation(const std::string& name)
 {
+	// Return if there are no clips
 	if (m_Clips == nullptr) return;
 
+	// Reset time on current animation
+	if (m_CurrentAnim != nullptr) m_CurrentAnim->m_ElapsedTime = 0;
+
+	// Find and assign clip as current animation
 	const auto it = m_Clips->find(name);
 	if (!it->first.empty())
 	{

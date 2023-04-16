@@ -1,4 +1,5 @@
 #pragma once
+#include "AmrothUtils.h"
 #include "Texture.h"
 #include "Vector2.h"
 
@@ -31,7 +32,7 @@ struct Animation
 	}
 
 	void MoveStartFrame(const int& x, const int& y) { MoveStartFrame(Vector2(float(x), float(y))); }
-	void MoveStartFrame(const Vector2& index)
+	void MoveStartFrame(Vector2 index)
 	{
 		m_RowStartIndex = int(index.x);
 		m_ColStartIndex = int(index.y);
@@ -79,8 +80,8 @@ struct Animation
 
 	int m_NumFrames;
 
-	int m_RowStartIndex{0};
-	int m_ColStartIndex{0};
+	int m_RowStartIndex{1};
+	int m_ColStartIndex{1};
 
 	int m_CurrentFrame{0};
 
@@ -92,8 +93,8 @@ struct Animation
 private:
 	Rectf UpdatedSlice() const
 	{
-		const int left{m_RowStartIndex + m_CurrentFrame};
-		const int top{ m_ColStartIndex + 1};
+		const int left{(m_RowStartIndex - 1) + m_CurrentFrame};
+		const int top{ (m_ColStartIndex - 1) + 1};
 
 		//TODO: Check slicing for bugs
 		const float sliceWidth = m_SpriteSize.x / float(m_RowCount);

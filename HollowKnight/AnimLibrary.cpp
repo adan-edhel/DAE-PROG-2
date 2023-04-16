@@ -123,27 +123,27 @@ void AnimLibrary::KnightSetup()
 	const Vector2 gridCount{ 12,12 };
 
 	auto* currentClip = new Animation("Idle", sprite, gridCount, 7);
-	currentClip->MoveStartFrame(Vector2(0, 8));
+	currentClip->MoveStartFrame(Vector2(1, 9));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation("Walk", sprite, gridCount, 6);
-	currentClip->MoveStartFrame(Vector2(6, 6));
+	currentClip->MoveStartFrame(Vector2(7, 7));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation("Jump", sprite, gridCount, 4, false);
-	currentClip->MoveStartFrame(Vector2(1, 9)); //9 , 1
+	currentClip->MoveStartFrame(Vector2(2, 10));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation("Fall", sprite, gridCount, 3, false);
-	currentClip->MoveStartFrame(Vector2(9, 1));
+	currentClip->MoveStartFrame(Vector2(6, 10));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation("Attack1", sprite, gridCount, 3, false);
-	currentClip->MoveStartFrame(Vector2(4, 0));
+	currentClip->MoveStartFrame(Vector2(1, 5));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation("Attack2", sprite, gridCount, 3, false);
-	currentClip->MoveStartFrame(Vector2(4, 3));
+	currentClip->MoveStartFrame(Vector2(4, 5));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 }
 
