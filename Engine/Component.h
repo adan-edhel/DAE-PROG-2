@@ -16,6 +16,7 @@ protected:
 	virtual void Awake();
 	virtual void Start();
 	virtual void Update(const float& deltaTime);
+	virtual void OnCollisionEnter(const GameObject* collision);
 
 private:
 	void Initialize(GameObject* gameObject);

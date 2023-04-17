@@ -26,6 +26,7 @@ private:
 
 	~Collider() override;
 	void Awake() override;
+	void HandleCollision() const;
 	void Update(const float& deltaTime) override;
 	void DebugDraw() const override;
 };

@@ -1,5 +1,8 @@
 #include "Collider.h"
 
+#include "AmrothUtils.h"
+#include "utils.h"
+
 #include "CORE.h"
 #include "Transform.h"
 #include "GameObject.h"
@@ -20,10 +23,27 @@ void Collider::Awake()
 	SetSize(m_Transform->scale);
 }
 
+void Collider::HandleCollision() const
+{
+	for (const auto& otherCollider : s_AllColliders)
+	{
+		if (otherCollider == this) continue;
+
+		if(utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
+		{
+			Print(m_GameObject->m_Name, TextColor::Yellow);
+			Print(" collided ");
+			Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+		}
+	}
+}
+
 void Collider::Update(const float& deltaTime)
 {
 	m_Collider.left = m_Transform->position.x + m_Translate.x;
 	m_Collider.bottom = m_Transform->position.y + m_Translate.y;
+
+	HandleCollision();
 }
 
 void Collider::SetSize(const float& sizeX, const float& sizeY) { SetSize(Vector2(sizeX, sizeY)); }

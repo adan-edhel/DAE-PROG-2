@@ -19,6 +19,10 @@ void Component::Update(const float& deltaTime)
 {
 }
 
+void Component::OnCollisionEnter(const GameObject* collision)
+{
+}
+
 void Component::Initialize(GameObject* gameObject)
 {
 	m_GameObject = gameObject;

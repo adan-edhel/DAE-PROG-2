@@ -55,7 +55,6 @@ void Crawlid::ManageStates(const float& deltaTime)
 		case State::Turning:
 			if (m_AnimatorPtr->Current()->Finished())
 			{
-				Print("Turn finished");
 				if (m_Direction == Direction::Left)
 				{
 					m_Direction = Direction::Right;
