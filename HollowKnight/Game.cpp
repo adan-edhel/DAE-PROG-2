@@ -2,7 +2,9 @@
 #include "Game.h"
 
 #include "SpriteLibrary.h"
+#include "GameSettings.h"
 #include "AnimLibrary.h"
+#include "Camera.h"
 
 #include "IInputEvent.h"
 
@@ -19,6 +21,10 @@ void Game::Start( )
 	SpriteLibrary::Setup();
 	AnimLibrary::Setup();
 
+	// Setup camera
+	const auto cam = new GameObject("Camera");
+	cam->AddComponent(new Camera(GameSettings::s_Screen));
+
 	if (m_State == GameState::Game)
 	{
 		m_pKingsPass = new Level("King's Pass");
@@ -27,6 +33,8 @@ void Game::Start( )
 
 void Game::End( )
 {
+	delete Camera::m_MainPtr->m_GameObject;
+
 	delete m_pKingsPass;
 
 	AnimLibrary::Cleanup();

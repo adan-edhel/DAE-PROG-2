@@ -2,7 +2,6 @@
 #include "Level.h"
 
 // Misc
-#include "GameSettings.h"
 #include "CORE.h"
 
 // Interfaces
@@ -19,7 +18,13 @@
 #include "Crawlid.h"
 #include "SpriteLibrary.h"
 
-Level::Level(const std::string& levelName)
+Level::Level(const std::string& levelName) :
+	m_KnightPtr{"Hollow Knight"},
+	m_Crawlid{"Crawlid"},
+	m_SpawnPoint{2200, 3150},
+	m_BackgroundOffset{0.05f},
+	m_ForegroundOffset{0.005f},
+	m_PlatformPosition{8380, 2490}
 {
 	if (CORE::s_DebugMode)
 	{
@@ -30,26 +35,9 @@ Level::Level(const std::string& levelName)
 	Initialize();
 }
 
-Level::~Level()
-{
-	delete Camera::m_MainPtr->m_GameObject;
-
-	delete m_Background;
-	delete m_Middleground;
-	delete m_Foreground;
-	delete m_Platforms;
-
-	delete m_KnightPtr;
-	delete m_Crawlid;
-}
-
 void Level::Initialize()
 {
 	const Vector2 CrawlidSpawnPoint{ 4386, 2331 };
-
-	// Setup camera
-	const auto cam = new GameObject("Camera");
-	cam->AddComponent(new Camera(GameSettings::s_Screen));
 
 	// Setup level layers
 	const int backgroundLayer{ 5 };
@@ -57,34 +45,21 @@ void Level::Initialize()
 	const int foregroundLayer{ 12 };
 
 	// Setup level textures
-	m_Background = new GameObject("Background Image");
 	SetupLevelObject(m_Background, Sprite::Background, backgroundLayer);
-
-	m_Middleground = new GameObject("Middleground Image");
 	SetupLevelObject(m_Middleground, Sprite::Middleground, IDrawable::s_MidLayer);
-
-	// Test version. The level will be redone in final version
-	m_Platforms = new GameObject("Platforms Image");
 	SetupLevelObject(m_Platforms, Sprite::Platforms, platformsLayer);
-	m_Platforms->m_Transform->position = m_PlatformPosition;
-	// ----
-
-	m_Foreground = new GameObject("Foreground Image");
 	SetupLevelObject(m_Foreground, Sprite::Foreground, foregroundLayer);
+	m_Platforms.m_Transform->position = m_PlatformPosition;
 
-	Camera::m_MainPtr->SetLevelBoundaries(m_Middleground->GetComponent<SpriteRenderer>()->GetBounds());
+	Camera::m_MainPtr->SetLevelBoundaries(m_Middleground.GetComponent<SpriteRenderer>()->GetBounds());
 
 	// Set up Knight
-	m_KnightPtr = new GameObject("Hollow Knight");
-	m_KnightPtr->AddComponent(new Knight());
-
-	m_KnightPtr->m_Transform->Translate(m_SpawnPoint);
+	m_KnightPtr.AddComponent(new Knight());
+	m_KnightPtr.m_Transform->Translate(m_SpawnPoint);
 
 	// Set up Crawlid
-	m_Crawlid = new GameObject("Crawlid");
-	m_Crawlid->AddComponent(new Crawlid());
-	
-	m_Crawlid->m_Transform->position = CrawlidSpawnPoint;
+	m_Crawlid.AddComponent(new Crawlid());
+	m_Crawlid.m_Transform->position = CrawlidSpawnPoint;
 }
 
 void Level::Update(const float& deltaTime)
@@ -128,13 +103,13 @@ void Level::Draw() const
 	glPopMatrix();
 }
 
-void Level::SetupLevelObject(GameObject* object, const Sprite& sprite, const int& layer)
+void Level::SetupLevelObject(GameObject& object, const Sprite& sprite, const int& layer)
 {
-	const auto spriteRenderer = object->AddComponent(new SpriteRenderer());
+	const auto spriteRenderer = object.AddComponent(new SpriteRenderer());
 
 	spriteRenderer->AssignSprite(SpriteLibrary::GetSprite(sprite));
 	spriteRenderer->SetLayer(layer);
 
-	object->m_Transform->position.x += spriteRenderer->GetBounds().width / 2;
-	object->m_Transform->position.y += spriteRenderer->GetBounds().height / 2;
+	object.m_Transform->position.x += spriteRenderer->GetBounds().width / 2;
+	object.m_Transform->position.y += spriteRenderer->GetBounds().height / 2;
 }

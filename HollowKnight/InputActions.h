@@ -11,6 +11,8 @@ class InputActions final : public Component, public IInputEvent, public IUpdatab
 {
 public:
 	InputActions();
+	InputActions(const InputActions& other) = default;
+	InputActions& operator=(const InputActions& other) = default;
 	~InputActions() override = default;
 
 protected:
@@ -26,18 +28,18 @@ private:
 		Attacking
 	};
 
-	State m_State{State::Falling};
+	State m_State;
 
 	Rigidbody2D* m_RigidbodyPtr{};
 	SpriteRenderer* m_RendererPtr{};
 	Animator* m_Animator{};
 
-	const Uint8* KBStatesPtr{nullptr};
+	const Uint8* KBStatesPtr{};
 
-	const float m_WalkSpeed{ 26 };
-	const float m_JumpForce{ 5 };
-	const int m_MaxJumps{2};
-	int m_JumpsLeft{m_MaxJumps};
+	const float m_WalkSpeed;
+	const float m_JumpForce;
+	const int m_MaxJumps;
+	int m_JumpsLeft;
 
 	void Start() override;
 	void Update(const float& deltaTime) override;

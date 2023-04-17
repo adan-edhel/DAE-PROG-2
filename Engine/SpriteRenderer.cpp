@@ -64,6 +64,8 @@ void SpriteRenderer::Slice(const Rectf& slice)
 
 void SpriteRenderer::DebugDraw() const
 {
+	return;
+
 	const Rectf sprite{  m_Transform->position.x - GetBounds().width / 2,
 						m_Transform->position.y - GetBounds().height / 2,
 						GetBounds().width, GetBounds().height };

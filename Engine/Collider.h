@@ -1,4 +1,6 @@
 #pragma once
+#include <set>
+
 #include "Component.h"
 #include "IDrawable.h"
 #include "IUpdatable.h"
@@ -21,6 +23,7 @@ public:
 
 private:
 	inline static std::vector<Collider*> s_AllColliders{};
+	std::set<Collider*> m_CollidersInCollision{};
 	Rectf m_Collider{};
 	Vector2 m_Translate{};
 

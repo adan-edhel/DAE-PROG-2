@@ -10,7 +10,8 @@
 #include "AnimLibrary.h"
 #include "Camera.h"
 
-Knight::Knight() : Actor(5)
+Knight::Knight() : Actor(5),
+m_ColliderSize{50, 70}
 {
 }
 
@@ -25,7 +26,7 @@ void Knight::Start()
 	sprite->SetLayer(IDrawable::s_MidLayer + 1);
 
 	// Set collider size
-	m_GameObject->GetComponent<Collider>()->SetSize(colliderSize);
+	m_GameObject->GetComponent<Collider>()->SetSize(m_ColliderSize);
 
 	// Set as camera target
 	Camera::m_MainPtr->SetTarget(*m_Transform);

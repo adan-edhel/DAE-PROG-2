@@ -9,7 +9,12 @@
 #include <Rigidbody2D.h>
 #include <Animator.h>
 
-InputActions::InputActions() : Component("Input Actions")
+InputActions::InputActions() : Component("Input Actions"),
+m_State{State::Falling},
+m_WalkSpeed{26},
+m_JumpForce{5},
+m_MaxJumps{2},
+m_JumpsLeft{m_MaxJumps}
 {
 }
 

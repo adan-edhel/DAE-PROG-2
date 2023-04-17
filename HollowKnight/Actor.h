@@ -7,6 +7,9 @@ class SpriteRenderer;
 class Actor : public Behavior
 {
 public:
+	Actor(const Actor& other) = delete;
+	Actor& operator=(const Actor& other) = delete;
+
 	int GetHealth() const { return m_Health; }
 	virtual void OnDamage(const int& damage);
 

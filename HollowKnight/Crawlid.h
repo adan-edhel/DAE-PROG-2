@@ -21,6 +21,8 @@ class Crawlid final : public Enemy
 
 public:
 	Crawlid();
+	Crawlid(const Crawlid& other) = delete;
+	Crawlid& operator=(const Crawlid& other) = delete;
 
 private:
 	Animator* m_AnimatorPtr{};

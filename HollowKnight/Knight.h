@@ -7,11 +7,12 @@ class Knight final : public Actor
 {
 public:
 	Knight();
+	Knight(const Knight& other) = default;
+	Knight& operator=(const Knight& other) = default;
 
 private:
 	Animator* m_AnimatorPtr;
-
-	const Vector2 colliderSize{ 50, 70 };
+	const Vector2 m_ColliderSize;
 
 	~Knight() override = default;
 	void Start() override;
