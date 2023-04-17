@@ -154,7 +154,10 @@ void BaseGame::Run()
 				quit = true;
 				break;
 			case SDL_KEYDOWN:
-				this->ProcessKeyDownEvent(e.key);
+				if (e.key.repeat == 0)
+				{
+					this->ProcessKeyDownEvent(e.key);
+				}
 				break;
 			case SDL_KEYUP:
 				this->ProcessKeyUpEvent(e.key);

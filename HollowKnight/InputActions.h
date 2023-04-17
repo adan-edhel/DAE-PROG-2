@@ -35,9 +35,9 @@ private:
 	const Uint8* KBStatesPtr{nullptr};
 
 	const float m_WalkSpeed{ 26 };
-	const float m_JumpForce{ 4 };
-	const int m_MaxJumps{1};
-	const int m_JumpsLeft{m_MaxJumps};
+	const float m_JumpForce{ 5 };
+	const int m_MaxJumps{2};
+	int m_JumpsLeft{m_MaxJumps};
 
 	void Start() override;
 	void Update(const float& deltaTime) override;

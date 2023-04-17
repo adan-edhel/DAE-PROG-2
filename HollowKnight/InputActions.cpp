@@ -24,6 +24,8 @@ void InputActions::Update(const float& deltaTime)
 {
 	KBStatesPtr = SDL_GetKeyboardState(nullptr);
 
+	if (m_RigidbodyPtr->isGrounded()) m_JumpsLeft = m_MaxJumps;
+
 	if (KBStatesPtr[SDL_SCANCODE_A])
 	{
 		Walk(-m_WalkSpeed * deltaTime);
@@ -78,8 +80,12 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_SPACE:		// JUMP
-		m_State = State::Jumping;
-		Jump();
+		m_JumpsLeft--;
+		if(m_JumpsLeft > 0)
+		{
+			Jump();
+			m_State = State::Jumping;
+		}
 		break;
 	case SDLK_RSHIFT:		// ATTACK
 		break;
@@ -144,7 +150,7 @@ void InputActions::Jump() const
 
 void InputActions::CutJump() const
 {
-	if (!m_RigidbodyPtr->isGrounded())
+	if (!m_RigidbodyPtr->isGrounded() && m_RigidbodyPtr->GetVelocity().y > 0.5f)
 	{
 		m_RigidbodyPtr->AddForce(Vector2(0, -m_JumpForce / 3));
 	}
@@ -157,30 +163,23 @@ void InputActions::Attack() const
 
 void InputActions::AnimationConditions()
 {
-	const float walkCheckThreshold{ 0.01f };
+	const float walkCheckThreshold{ 0.5f };
 	const float fallCheckThreshold{ -0.5f };
 	const bool walking{ std::abs(m_RigidbodyPtr->GetVelocity().x) >= walkCheckThreshold };
 
 	// Fall condition
 	if (!m_RigidbodyPtr->isGrounded() && m_RigidbodyPtr->GetVelocity().y < fallCheckThreshold)
 	{
-		if (!KBStatesPtr[SDL_SCANCODE_SPACE])
-		{
-			m_State = State::Falling;
-		}
+		m_State = State::Falling;
 	}
 
 	switch (m_State)
 	{
+	case State::Idle:
+		if (walking && m_RigidbodyPtr->isGrounded()) m_State = State::Walking;
+		break;
 	case State::Walking:
 		if (!walking && m_RigidbodyPtr->isGrounded()) m_State = State::Idle;
-		break;
-	case State::Jumping:
-		//if (m_RigidbodyPtr->isGrounded())
-		//{
-		//	if (walking) m_State = State::Walking;
-		//	else  m_State = State::Idle;
-		//}
 		break;
 	case State::Falling:
 		if (m_RigidbodyPtr->isGrounded())
@@ -188,9 +187,6 @@ void InputActions::AnimationConditions()
 			if (walking) m_State = State::Walking;
 			else  m_State = State::Idle;
 		}
-		break;
-	case State::Idle:
-		if (walking && m_RigidbodyPtr->isGrounded()) m_State = State::Walking;
 		break;
 	}
 }

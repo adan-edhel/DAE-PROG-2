@@ -1,5 +1,4 @@
 #pragma once
-#include "AmrothUtils.h"
 #include "Texture.h"
 #include "Vector2.h"
 
@@ -45,8 +44,6 @@ struct Animation
 	{
 		// Calculate the duration of each frame
 		m_FrameDuration *= animSpeed;
-
-		Print(std::to_string(m_FrameDuration) + "\n");
 
 		// Accumulate time since the last frame change
 		m_ElapsedTime += deltaTime;
