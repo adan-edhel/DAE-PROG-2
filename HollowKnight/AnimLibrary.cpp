@@ -149,100 +149,41 @@ void AnimLibrary::KnightSetup()
 
 void AnimLibrary::CrawlidSetup()
 {
-	//const auto sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
+	const auto sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
+	const Vector2 gridCount{ 4,4 };
 
-	//auto* currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Walking";
-	//currentClip->m_RowStartIndex = 0;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 4;
-
-	//m_CrawlidClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Turning";
-	//currentClip->m_RowStartIndex = 1;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 2;
-
-	//m_CrawlidClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Dying";
-	//currentClip->m_RowStartIndex = 2;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 3;
-
-	//m_CrawlidClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Dead";
-	//currentClip->m_RowStartIndex = 3;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 2;
-
-	//m_CrawlidClips[currentClip->m_Name] = currentClip;
+	auto* currentClip = new Animation("Walk", sprite, gridCount, 4);
+	currentClip->MoveStartFrame(Vector2(1, 1));
+	m_CrawlidClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Turn", sprite, gridCount, 2, 2, false);
+	currentClip->MoveStartFrame(Vector2(1, 2));
+	m_CrawlidClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+		// ----------------------------------------------
+	currentClip = new Animation("Die", sprite, gridCount, 3, false);
+	currentClip->MoveStartFrame(Vector2(1, 3));
+	m_CrawlidClips[currentClip->m_Name] = currentClip;
 }
 
 void AnimLibrary::VengeflySetup()
 {
-	//const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	const Vector2 gridCount{ 5,5 };
 
-	//auto* currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Flying";
-	//currentClip->m_RowStartIndex = 0;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 5;
-
-	//m_VengeflyClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Turning";
-	//currentClip->m_RowStartIndex = 1;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 2;
-
-	//m_VengeflyClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Attacking";
-	//currentClip->m_RowStartIndex = 2;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 4;
-
-	//m_VengeflyClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Chasing";
-	//currentClip->m_RowStartIndex = 3;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 4;
-
-	//m_VengeflyClips[currentClip->m_Name] = currentClip;
-	//// ----------------------------------------------
-	//currentClip = new Animation();
-
-	//// Idle clip
-	//currentClip->m_Name = "Dying";
-	//currentClip->m_RowStartIndex = 4;
-	//currentClip->m_ColStartIndex = 0;
-	//currentClip->m_NumFrames = 3;
-
-	//m_VengeflyClips[currentClip->m_Name] = currentClip;
+	auto* currentClip = new Animation("Fly", sprite, gridCount, 5);
+	currentClip->MoveStartFrame(Vector2(1, 1));
+	m_VengeflyClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Turn", sprite, gridCount, 2);
+	currentClip->MoveStartFrame(Vector2(1, 2));
+	m_VengeflyClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Knockback", sprite, gridCount, 4);
+	currentClip->MoveStartFrame(Vector2(1, 2));
+	m_VengeflyClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Die", sprite, gridCount, 3);
+	currentClip->MoveStartFrame(Vector2(1, 5));
+	m_VengeflyClips[currentClip->m_Name] = currentClip;
 }

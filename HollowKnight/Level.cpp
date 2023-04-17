@@ -16,6 +16,7 @@
 #include <Transform.h>
 #include "Knight.h"
 #include "Camera.h"
+#include "Crawlid.h"
 #include "SpriteLibrary.h"
 
 Level::Level(const std::string& levelName)
@@ -39,10 +40,13 @@ Level::~Level()
 	delete m_Platforms;
 
 	delete m_KnightPtr;
+	delete m_Crawlid;
 }
 
 void Level::Initialize()
 {
+	const Vector2 CrawlidSpawnPoint{ 4386, 2331 };
+
 	// Setup camera
 	const auto cam = new GameObject("Camera");
 	cam->AddComponent(new Camera(GameSettings::s_Screen));
@@ -75,6 +79,12 @@ void Level::Initialize()
 	m_KnightPtr->AddComponent(new Knight());
 
 	m_KnightPtr->m_Transform->Translate(m_SpawnPoint);
+
+	// Set up Crawlid
+	m_Crawlid = new GameObject("Crawlid");
+	m_Crawlid->AddComponent(new Crawlid());
+	
+	m_Crawlid->m_Transform->position = CrawlidSpawnPoint;
 }
 
 void Level::Update(const float& deltaTime)

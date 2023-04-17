@@ -23,7 +23,8 @@ public:
 	void Draw() const;
 
 private:
-	GameObject* m_KnightPtr{};
+	GameObject* m_KnightPtr{}; //TODO: Make non-pointer
+	GameObject* m_Crawlid{};
 
 	GameObject* m_Background{};
 	GameObject* m_Middleground{};

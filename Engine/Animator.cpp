@@ -13,9 +13,9 @@ void Animator::Start()
 	m_SpriteRend = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
-std::string Animator::Current() const
+Animation* Animator::Current() const
 {
-	return m_CurrentAnim->m_Name;
+	return m_CurrentAnim;
 }
 
 void Animator::Play(const std::string& name)

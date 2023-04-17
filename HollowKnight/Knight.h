@@ -11,9 +11,9 @@ public:
 private:
 	Animator* m_AnimatorPtr;
 
-	const Vector2 colliderSize{ 40, 70 };
+	const Vector2 colliderSize{ 50, 70 };
 
 	~Knight() override = default;
-	void Awake() override;
+	void Start() override;
 	void OnDeath() override;
 };

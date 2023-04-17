@@ -48,6 +48,8 @@
     <ClCompile Include="InputActions.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="Crawlid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSettings.h">
@@ -83,5 +85,7 @@
     <ClInclude Include="InputActions.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Crawlid.h" />
   </ItemGroup>
 </Project>

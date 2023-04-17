@@ -14,10 +14,8 @@ Knight::Knight() : Actor(5)
 {
 }
 
-void Knight::Awake()
+void Knight::Start()
 {
-	Actor::Awake();
-
 	// Assign animation clips to animator
 	m_GameObject->GetComponent<Animator>()->AssignClips(AnimLibrary::GetAnimations(AnimType::Knight));
 

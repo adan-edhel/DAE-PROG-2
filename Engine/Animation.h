@@ -40,7 +40,7 @@ struct Animation
 	int FrameCount() const { return m_NumFrames; }
 	float Length() const { return m_FrameDuration * m_NumFrames; }
 
-	Rectf Update(const float& deltaTime, const float& animSpeed = 1)
+	Rectf Update(const float& deltaTime, const float& animSpeed = 1) //TODO: fix last frame skipping
 	{
 		// Calculate the duration of each frame
 		m_FrameDuration *= animSpeed;
@@ -61,8 +61,8 @@ struct Animation
 
 				if (m_Loop)
 				{
-					m_FinishedPlaying = false;
 					m_CurrentFrame = 0;
+					m_FinishedPlaying = false;
 				}
 				else
 				{
@@ -82,7 +82,6 @@ struct Animation
 	{
 		m_ElapsedTime = 0;
 		m_CurrentFrame = 0;
-		m_FinishedPlaying = false;
 	}
 
 private:
