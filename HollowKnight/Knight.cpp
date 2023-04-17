@@ -30,7 +30,7 @@ void Knight::Awake()
 
 	auto* anim = m_GameObject->GetComponent<Animator>();
 	anim->AssignClips(AnimLibrary::GetAnimations(AnimType::Knight));
-	anim->Play("Fall");
+	anim->Play("Walk");
 }
 
 void Knight::OnDeath()

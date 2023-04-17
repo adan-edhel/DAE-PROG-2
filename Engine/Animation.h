@@ -48,7 +48,7 @@ struct Animation
 		m_ElapsedTime += deltaTime;
 
 		// Check if it's time to move to the next frame
-		while (m_ElapsedTime >= frameDuration)
+		if (m_ElapsedTime >= frameDuration)
 		{
 			// Move to the next frame
 			m_CurrentFrame++;
@@ -81,7 +81,6 @@ struct Animation
 
 private:
 	int m_NumFrames;
-
 
 	int m_RowCount;
 	int m_ColumnCount;
