@@ -1,7 +1,8 @@
 #pragma once
-#include "UnityStructs.h"
 #include <iostream>
 #include <map>
+
+struct Animation;
 
 using std::map;
 using std::string;

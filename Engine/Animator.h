@@ -2,18 +2,20 @@
 #include "Component.h"
 #include <map>
 
-enum class AnimType;
 class SpriteRenderer;
+
+enum class AnimType;
+struct Animation;
 
 class Animator final: public Component
 {
 public:
-	float m_PlaySpeed{ 1 };
+	float m_PlaybackSpeed{ 1 };
 
 	Animator();
 	void Start() override;
-	void PlayAnimation(const std::string& name);
-	void AssignAnimations(std::map<std::string, Animation*>* anims);
+	void Play(const std::string& name);
+	void AssignClips(std::map<std::string, Animation*>* anims);
 
 private:
 	Animation* m_CurrentAnim{};

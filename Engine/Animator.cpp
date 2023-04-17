@@ -1,6 +1,6 @@
 #include "Animator.h"
 
-#include "AmrothUtils.h"
+#include "Animation.h"
 #include "GameObject.h"
 #include "SpriteRenderer.h"
 
@@ -13,35 +13,49 @@ void Animator::Start()
 	m_SpriteRend = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
-void Animator::PlayAnimation(const std::string& name)
+void Animator::Play(const std::string& name)
 {
 	// Return if there are no clips
 	if (m_Clips == nullptr) return;
 
-	// Reset time on current animation
-	if (m_CurrentAnim != nullptr) m_CurrentAnim->m_ElapsedTime = 0;
-
-	// Find and assign clip as current animation
+	// Find given animation in clips
 	const auto it = m_Clips->find(name);
+
+	// Check if animation is valid
 	if (!it->first.empty())
 	{
+		// Check if there is already an animation playing
+		if (m_CurrentAnim != nullptr)
+		{
+			// Return if current animation is the same as given clip
+			if (m_CurrentAnim == m_Clips->find(name)->second) return;
+
+			// Reset current animation
+			m_CurrentAnim->Reset();
+		}
+
+		// AssignClips new clip as current animation
 		m_CurrentAnim = it->second;
-		m_SpriteRend->m_Rows = m_CurrentAnim->m_RowCount;
-		m_SpriteRend->m_Columns = m_CurrentAnim->m_ColumnCount;
-		return;
+		m_SpriteRend->m_Rows = m_CurrentAnim->GridSize().x;
+		m_SpriteRend->m_Columns = m_CurrentAnim->GridSize().y;
 	}
-	m_CurrentAnim = nullptr;
 }
 
-void Animator::AssignAnimations(std::map<std::string, Animation*>* anims)
+void Animator::AssignClips(std::map<std::string, Animation*>* anims)
 {
 	m_Clips = anims;
 }
 
 void Animator::Update(const float& deltaTime)
 {
-	if (m_CurrentAnim != nullptr && m_CurrentAnim->m_NumFrames > 1)
+	// If there is a current animation
+	if (m_CurrentAnim != nullptr)
 	{
-		m_SpriteRend->Slice(m_CurrentAnim->Update(deltaTime, m_PlaySpeed));
+		// If current animation has more than 1 frame
+		if (m_CurrentAnim->FrameCount() > 1)
+		{
+			// Update SpriteRenderer to current frame
+			m_SpriteRend->Slice(m_CurrentAnim->Update(deltaTime, m_PlaybackSpeed));
+		}
 	}
 }

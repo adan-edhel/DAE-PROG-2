@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "AnimLibrary.h"
 
-#include "AmrothUtils.h"
 #include "CORE.h"
+#include <Animation.h>
+#include "AmrothUtils.h"
 #include "SpriteLibrary.h"
 
 //TODO: Test animation clips
@@ -118,7 +119,6 @@ void AnimLibrary::DeleteClips(map<string, Animation*>& dictionary)
 
 void AnimLibrary::KnightSetup()
 {
-	// Todo: Test these animations
 	const auto* sprite = SpriteLibrary::GetSprite(Sprite::Knight);
 	const Vector2 gridCount{ 12,12 };
 

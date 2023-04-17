@@ -11,6 +11,11 @@ Object::Object(const std::string& name) :
 	}
 }
 
+bool Object::CompareTag(Tag other) const
+{
+	return tag == other;
+}
+
 void Object::Destroy(const Object* objectPtr)
 {
 	if (objectPtr != nullptr)

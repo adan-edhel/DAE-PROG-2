@@ -1,23 +1,20 @@
 #pragma once
-#include "AmrothUtils.h"
 #include "Texture.h"
 #include "Vector2.h"
 
 using std::string;
 
-enum class Tag
-{
-	Default,
-	Player,
-	Enemy
-};
-
 struct Animation
 {
-	Animation(const string& name, const Texture* sprite, const Vector2& gridCounts, const int& numFrames = 1, const bool& loop = true) :
+	const std::string m_Name;
+	float m_Duration;
+	bool m_Loop;
+
+	Animation(const string& name, const Texture* sprite, const Vector2& gridCounts, const int& numFrames = 1, const float& duration = 1, const bool& loop = true) :
 		m_Name{ name },
-		m_NumFrames{ numFrames },
-		m_Loop{ loop }
+		m_Duration{duration},
+		m_Loop{ loop },
+		m_NumFrames{ numFrames }
 	{
 		m_SpriteSize.x = sprite->GetWidth();
 		m_SpriteSize.y = sprite->GetHeight();
@@ -34,9 +31,13 @@ struct Animation
 	void MoveStartFrame(const int& x, const int& y) { MoveStartFrame(Vector2(float(x), float(y))); }
 	void MoveStartFrame(Vector2 index)
 	{
-		m_RowStartIndex = int(index.x);
-		m_ColStartIndex = int(index.y);
+		m_StartPosIndex.x = index.x;
+		m_StartPosIndex.y = index.y;
 	}
+
+	Vector2 GridSize() const { return Vector2(m_RowCount, m_ColumnCount); }
+	bool Finished() const { return m_FinishedPlaying; }
+	int FrameCount() const { return m_NumFrames; }
 
 	Rectf Update(const float& deltaTime, const float& animSpeed = 1)
 	{
@@ -55,8 +56,11 @@ struct Animation
 			// Loop back to the first frame if the end is reached
 			if (m_CurrentFrame >= m_NumFrames - 1)
 			{
+				m_FinishedPlaying = true;
+
 				if (m_Loop)
 				{
+					m_FinishedPlaying = false;
 					m_CurrentFrame = 0;
 				}
 				else
@@ -72,34 +76,33 @@ struct Animation
 		return UpdatedSlice();
 	}
 
-	const std::string m_Name;
-
-	Vector2 m_SpriteSize;
-	int m_RowCount;
-	int m_ColumnCount;
-
-	int m_NumFrames;
-
-	int m_RowStartIndex{1};
-	int m_ColStartIndex{1};
-
-	int m_CurrentFrame{0};
-
-	float m_Duration{1};
-	bool m_Loop{true};
-
-	float m_ElapsedTime{};
+	// Reset animation
+	void Reset() { m_ElapsedTime = 0; }
 
 private:
+	int m_NumFrames;
+
+
+	int m_RowCount;
+	int m_ColumnCount;
+	Vector2 m_SpriteSize;
+
+	int m_CurrentFrame{0};
+	Vector2 m_StartPosIndex{1,1};
+
+	bool m_FinishedPlaying;
+	float m_ElapsedTime{};
+
 	Rectf UpdatedSlice() const
 	{
-		const int left{(m_RowStartIndex - 1) + m_CurrentFrame};
-		const int top{ (m_ColStartIndex - 1) + 1};
+		//TODO: Double-Check slicing for bugs
 
-		//TODO: Check slicing for bugs
+		const int left{(int(m_StartPosIndex.x) - 1) + m_CurrentFrame};
+		const int top {(int(m_StartPosIndex.y) - 1) + 1};
+
 		const float sliceWidth = m_SpriteSize.x / float(m_RowCount);
 		const float sliceHeight = m_SpriteSize.y / float(m_ColumnCount);
 
-		return Rectf{ left * sliceWidth, top * sliceHeight, sliceWidth, sliceHeight };
+		return Rectf{ float(left) * sliceWidth, float(top) * sliceHeight, sliceWidth, sliceHeight };
 	}
 };

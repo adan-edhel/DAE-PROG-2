@@ -1,15 +1,14 @@
 #include "pch.h"
 #include "Knight.h"
 
+#include <Animator.h>
 #include <Collider.h>
 #include <SpriteRenderer.h>
 
-#include "Camera.h"
-#include "InputActions.h"
 #include "SpriteLibrary.h"
-#include <Animator.h>
-
+#include "InputActions.h"
 #include "AnimLibrary.h"
+#include "Camera.h"
 
 Knight::Knight() : Actor(5)
 {
@@ -30,8 +29,8 @@ void Knight::Awake()
 	m_GameObject->AddComponent(new InputActions());
 
 	auto* anim = m_GameObject->GetComponent<Animator>();
-	anim->AssignAnimations(AnimLibrary::GetAnimations(AnimType::Knight));
-	anim->PlayAnimation("Fall");
+	anim->AssignClips(AnimLibrary::GetAnimations(AnimType::Knight));
+	anim->Play("Fall");
 }
 
 void Knight::OnDeath()

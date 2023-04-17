@@ -179,7 +179,7 @@
     <ClInclude Include="Transform.h">
       <Filter>Custom Framework\Components\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="UnityStructs.h">
+    <ClInclude Include="Animation.h">
       <Filter>Custom Framework\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">

@@ -2,7 +2,6 @@
 #include "Component.h"
 #include "IDrawable.h"
 
-#include "Vector2.h"
 #include "Texture.h"
 
 class Animator;
