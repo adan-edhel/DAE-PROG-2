@@ -13,6 +13,11 @@ void Animator::Start()
 	m_SpriteRend = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
+std::string Animator::Current() const
+{
+	return m_CurrentAnim->m_Name;
+}
+
 void Animator::Play(const std::string& name)
 {
 	// Return if there are no clips
@@ -51,11 +56,7 @@ void Animator::Update(const float& deltaTime)
 	// If there is a current animation
 	if (m_CurrentAnim != nullptr)
 	{
-		// If current animation has more than 1 frame
-		if (m_CurrentAnim->FrameCount() > 1)
-		{
-			// Update SpriteRenderer to current frame
-			m_SpriteRend->Slice(m_CurrentAnim->Update(deltaTime, m_PlaybackSpeed));
-		}
+		// Update SpriteRenderer to current frame
+		m_SpriteRend->Slice(m_CurrentAnim->Update(deltaTime, m_PlaybackSpeed));
 	}
 }

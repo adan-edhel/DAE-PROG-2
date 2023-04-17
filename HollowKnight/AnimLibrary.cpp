@@ -122,7 +122,7 @@ void AnimLibrary::KnightSetup()
 	const auto* sprite = SpriteLibrary::GetSprite(Sprite::Knight);
 	const Vector2 gridCount{ 12,12 };
 
-	auto* currentClip = new Animation("Idle", sprite, gridCount, 7);
+	auto* currentClip = new Animation("Idle", sprite, gridCount, 1);
 	currentClip->MoveStartFrame(Vector2(1, 9));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
@@ -130,11 +130,11 @@ void AnimLibrary::KnightSetup()
 	currentClip->MoveStartFrame(Vector2(7, 7));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation("Jump", sprite, gridCount, 4, false);
+	currentClip = new Animation("Jump", sprite, gridCount, 4, 0.2f, false);
 	currentClip->MoveStartFrame(Vector2(2, 10));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation("Fall", sprite, gridCount, 3, false);
+	currentClip = new Animation("Fall", sprite, gridCount, 1, false);
 	currentClip->MoveStartFrame(Vector2(6, 10));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------

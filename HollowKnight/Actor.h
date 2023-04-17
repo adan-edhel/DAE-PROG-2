@@ -6,7 +6,6 @@ class SpriteRenderer;
 
 class Actor : public Behavior
 {
-
 public:
 	int GetHealth() const { return m_Health; }
 	virtual void OnDamage(const int& damage);

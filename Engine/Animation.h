@@ -1,4 +1,5 @@
 #pragma once
+#include "AmrothUtils.h"
 #include "Texture.h"
 #include "Vector2.h"
 
@@ -7,12 +8,12 @@ using std::string;
 struct Animation
 {
 	const std::string m_Name;
-	float m_Duration;
+	float m_FrameDuration;
 	bool m_Loop;
 
-	Animation(const string& name, const Texture* sprite, const Vector2& gridCounts, const int& numFrames = 1, const float& duration = 1, const bool& loop = true) :
+	Animation(const string& name, const Texture* sprite, const Vector2& gridCounts, const int& numFrames = 1, const float& m_FrameDuration = 0.15f, const bool& loop = true) :
 		m_Name{ name },
-		m_Duration{duration},
+		m_FrameDuration{m_FrameDuration},
 		m_Loop{ loop },
 		m_NumFrames{ numFrames }
 	{
@@ -38,17 +39,20 @@ struct Animation
 	Vector2 GridSize() const { return Vector2(m_RowCount, m_ColumnCount); }
 	bool Finished() const { return m_FinishedPlaying; }
 	int FrameCount() const { return m_NumFrames; }
+	float Length() const { return m_FrameDuration * m_NumFrames; }
 
 	Rectf Update(const float& deltaTime, const float& animSpeed = 1)
 	{
 		// Calculate the duration of each frame
-		const float frameDuration = m_Duration / float(m_NumFrames) / animSpeed;
+		m_FrameDuration *= animSpeed;
+
+		Print(std::to_string(m_FrameDuration) + "\n");
 
 		// Accumulate time since the last frame change
 		m_ElapsedTime += deltaTime;
 
 		// Check if it's time to move to the next frame
-		if (m_ElapsedTime >= frameDuration)
+		if (m_ElapsedTime >= m_FrameDuration)
 		{
 			// Move to the next frame
 			m_CurrentFrame++;
@@ -70,14 +74,19 @@ struct Animation
 			}
 
 			// Reset the accumulated time
-			m_ElapsedTime -= frameDuration;
+			m_ElapsedTime -= m_FrameDuration;
 		}
 
 		return UpdatedSlice();
 	}
 
 	// Reset animation
-	void Reset() { m_ElapsedTime = 0; }
+	void Reset()
+	{
+		m_ElapsedTime = 0;
+		m_CurrentFrame = 0;
+		m_FinishedPlaying = false;
+	}
 
 private:
 	int m_NumFrames;

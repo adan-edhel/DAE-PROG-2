@@ -1,12 +1,13 @@
 #include "pch.h"
 #include "InputActions.h"
 
-#include "CORE.h"
-#include "Transform.h"
-#include "GameObject.h"
+#include <CORE.h>
+#include <Transform.h>
+#include <GameObject.h>
 
-#include "Rigidbody2D.h"
-#include "SpriteRenderer.h"
+#include <SpriteRenderer.h>
+#include <Rigidbody2D.h>
+#include <Animator.h>
 
 InputActions::InputActions() : Component("Input Actions")
 {
@@ -15,7 +16,8 @@ InputActions::InputActions() : Component("Input Actions")
 void InputActions::Start()
 {
 	m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
-	m_SpriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
+	m_RendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
+	m_Animator = m_GameObject->GetComponent<Animator>();
 }
 
 void InputActions::Update(const float& deltaTime)
@@ -24,44 +26,47 @@ void InputActions::Update(const float& deltaTime)
 
 	if (KBStatesPtr[SDL_SCANCODE_A])
 	{
-		Walk(-walkSpeed * deltaTime);
+		Walk(-m_WalkSpeed * deltaTime);
 		if (!KBStatesPtr[SDL_SCANCODE_D])
 		{
-			if (!m_SpriteRenderer->m_FlipX) m_SpriteRenderer->m_FlipX = true;
+			if (!m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = true;
 		}
 	}
 	if (KBStatesPtr[SDL_SCANCODE_D])
 	{
-		Walk(walkSpeed * deltaTime);
+		Walk(m_WalkSpeed * deltaTime);
 		if (!KBStatesPtr[SDL_SCANCODE_A])
 		{
-			if (m_SpriteRenderer->m_FlipX) m_SpriteRenderer->m_FlipX = false;
+			if (m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = false;
 		}
 	}
+
+	AnimationConditions();
+	UpdateAnimation();
 
 	if (CORE::s_DebugMode)
 	{
 		if (KBStatesPtr[SDL_SCANCODE_UP])
 		{
-			m_Transform->position.y += walkSpeed / 3;
+			m_Transform->position.y += m_WalkSpeed / 3;
 			m_RigidbodyPtr->SetVelocity(0,0);
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_DOWN])
 		{
-			m_Transform->position.y -= walkSpeed / 3;
+			m_Transform->position.y -= m_WalkSpeed / 3;
 			m_RigidbodyPtr->SetVelocity(0, 0);
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_LEFT])
 		{
-			m_Transform->position.x -= walkSpeed / 3;
+			m_Transform->position.x -= m_WalkSpeed / 3;
 			m_RigidbodyPtr->SetVelocity(0, 0);
 		}
 
 		if (KBStatesPtr[SDL_SCANCODE_RIGHT])
 		{
-			m_Transform->position.x += walkSpeed / 3;
+			m_Transform->position.x += m_WalkSpeed / 3;
 			m_RigidbodyPtr->SetVelocity(0, 0);
 		}
 	}
@@ -73,6 +78,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_SPACE:		// JUMP
+		m_State = State::Jumping;
 		Jump();
 		break;
 	case SDLK_RSHIFT:		// ATTACK
@@ -133,16 +139,85 @@ void InputActions::Walk(const float& speed) const
 
 void InputActions::Jump() const
 {
-	m_RigidbodyPtr->AddForce(Vector2(0, jumpForce));
+	m_RigidbodyPtr->AddForce(Vector2(0, m_JumpForce));
 }
 
 void InputActions::CutJump() const
 {
-	m_RigidbodyPtr->AddForce(Vector2(0, -jumpForce/3));
+	if (!m_RigidbodyPtr->isGrounded())
+	{
+		m_RigidbodyPtr->AddForce(Vector2(0, -m_JumpForce / 3));
+	}
 }
 
 void InputActions::Attack() const
 {
 	
+}
+
+void InputActions::AnimationConditions()
+{
+	const float walkCheckThreshold{ 0.01f };
+	const float fallCheckThreshold{ -0.5f };
+	const bool walking{ std::abs(m_RigidbodyPtr->GetVelocity().x) >= walkCheckThreshold };
+
+	// Fall condition
+	if (!m_RigidbodyPtr->isGrounded() && m_RigidbodyPtr->GetVelocity().y < fallCheckThreshold)
+	{
+		if (!KBStatesPtr[SDL_SCANCODE_SPACE])
+		{
+			m_State = State::Falling;
+		}
+	}
+
+	switch (m_State)
+	{
+	case State::Walking:
+		if (!walking && m_RigidbodyPtr->isGrounded()) m_State = State::Idle;
+		break;
+	case State::Jumping:
+		//if (m_RigidbodyPtr->isGrounded())
+		//{
+		//	if (walking) m_State = State::Walking;
+		//	else  m_State = State::Idle;
+		//}
+		break;
+	case State::Falling:
+		if (m_RigidbodyPtr->isGrounded())
+		{
+			if (walking) m_State = State::Walking;
+			else  m_State = State::Idle;
+		}
+		break;
+	case State::Idle:
+		if (walking && m_RigidbodyPtr->isGrounded()) m_State = State::Walking;
+		break;
+	}
+}
+
+void InputActions::UpdateAnimation() const
+{
+	std::string name{};
+
+	switch (m_State)
+	{
+	case State::Idle:
+		name = "Idle";
+		break;
+	case State::Walking:
+		name = "Walk";
+		break;
+	case State::Jumping:
+		name = "Jump";
+		break;
+	case State::Falling:
+		name = "Fall";
+		break;
+	case State::Attacking:
+		name = "Attack1";
+		break;
+	}
+
+	if (!name.empty()) m_Animator->Play(name);
 }
 #pragma endregion

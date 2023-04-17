@@ -1,16 +1,14 @@
 #pragma once
 #include "Component.h"
-#include "IUpdatable.h"
 
+// Include for derived classes
 #include "Transform.h"
 #include "GameObject.h"
 
-class Behavior : public Component, public IUpdatable
+class Behavior : public Component
 {
 protected:
 	Behavior();
 	virtual ~Behavior() override;
-
-	virtual void Update(const float& deltaTime) override;
 	virtual void OnDestroy();
 };

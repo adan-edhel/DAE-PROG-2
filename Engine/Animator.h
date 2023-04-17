@@ -14,6 +14,7 @@ public:
 
 	Animator();
 	void Start() override;
+	std::string Current() const;
 	void Play(const std::string& name);
 	void AssignClips(std::map<std::string, Animation*>* anims);
 

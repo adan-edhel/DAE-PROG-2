@@ -3,6 +3,7 @@
 #include "IInputEvent.h"
 #include "IUpdatable.h"
 
+class Animator;
 class SpriteRenderer;
 class Rigidbody2D;
 
@@ -16,15 +17,27 @@ protected:
 	Vector2 m_MousePos{};
 
 private:
-	Rigidbody2D* m_RigidbodyPtr{nullptr};
-	SpriteRenderer* m_SpriteRenderer{ nullptr };
+	enum class State
+	{
+		Idle,
+		Walking,
+		Jumping,
+		Falling,
+		Attacking
+	};
+
+	State m_State{State::Falling};
+
+	Rigidbody2D* m_RigidbodyPtr{};
+	SpriteRenderer* m_RendererPtr{};
+	Animator* m_Animator{};
 
 	const Uint8* KBStatesPtr{nullptr};
 
-	const float walkSpeed{ 26 };
-	const float jumpForce{ 4 };
-	const int maxJumps{1};
-	const int jumpsLeft{maxJumps};
+	const float m_WalkSpeed{ 26 };
+	const float m_JumpForce{ 4 };
+	const int m_MaxJumps{1};
+	const int m_JumpsLeft{m_MaxJumps};
 
 	void Start() override;
 	void Update(const float& deltaTime) override;
@@ -39,5 +52,8 @@ private:
 	void Jump() const;
 	void CutJump() const;
 	void Attack() const;
+
+	void AnimationConditions();
+	void UpdateAnimation() const;
 };
 
