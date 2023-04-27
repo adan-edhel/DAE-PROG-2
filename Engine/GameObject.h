@@ -52,6 +52,19 @@ public:
 
 		return nullptr;
 	}
+
+	template <class T = Component>
+	std::vector<T*> GetComponents()
+	{
+		std::vector<T*> result;
+		for (auto* componentPtr : components)
+		{
+			T* castComponent{ dynamic_cast<T*>(componentPtr) };
+			if (castComponent != nullptr)
+				result.push_back(castComponent);
+		}
+		return result;
+	}
 #pragma endregion
 
 private:

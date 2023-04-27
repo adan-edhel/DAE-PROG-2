@@ -4,6 +4,7 @@
 #include "utils.h"
 
 #include "CORE.h"
+#include "Collision.h"
 #include "Transform.h"
 #include "GameObject.h"
 #include "SpriteRenderer.h"
@@ -23,17 +24,73 @@ void Collider::Awake()
 	SetSize(m_Transform->scale);
 }
 
-void Collider::HandleCollision() const
+void Collider::OnCollision()
 {
+	// Loop through all colliders
 	for (const auto& otherCollider : s_AllColliders)
 	{
+		// Skip itself
 		if (otherCollider == this) continue;
 
-		if(utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
+		// Skip already collided
+		if (Contains(m_OverlappingColliders, otherCollider)) continue;
+
+		// Enter collision
+		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
 		{
-			Print(m_GameObject->m_Name, TextColor::Yellow);
-			Print(" collided ");
-			Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+			// Add to list already collided with
+			m_OverlappingColliders.emplace_back(otherCollider);
+
+			// Send collision message to all components
+			Collider collision{ *otherCollider };
+			for (auto* component : m_GameObject->GetComponents())
+			{
+				component->OnCollisionEnter(collision);
+			}
+
+			if (CORE::s_DebugMode)
+			{
+				Print(m_GameObject->m_Name, TextColor::Yellow);
+				Print(" collided ", TextColor::Lightgreen);
+				Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+			}
+		}
+	}
+
+	for (const auto& otherCollider : m_OverlappingColliders)
+	{
+		// Exit collision
+		if (!utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
+		{
+			// Send collision message to all components
+			Collider collision{ *otherCollider };
+			for (auto* component : m_GameObject->GetComponents())
+			{
+				component->OnCollisionExit(collision);
+			}
+
+			// Add to list already collided with
+			m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
+
+			if (CORE::s_DebugMode)
+			{
+				Print(m_GameObject->m_Name, TextColor::Yellow);
+				Print(" exited ", TextColor::Red);
+				Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+			}
+
+			continue;
+		}
+
+		// Ongoing collision
+		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
+		{
+			// Send collision message to all components
+			Collider collision{ *otherCollider };
+			for (auto* component : m_GameObject->GetComponents())
+			{
+				component->OnCollisionStay(collision);
+			}
 		}
 	}
 }
@@ -43,7 +100,7 @@ void Collider::Update(const float& deltaTime)
 	m_Collider.left = m_Transform->position.x + m_Translate.x;
 	m_Collider.bottom = m_Transform->position.y + m_Translate.y;
 
-	HandleCollision();
+	OnCollision();
 }
 
 void Collider::SetSize(const float& sizeX, const float& sizeY) { SetSize(Vector2(sizeX, sizeY)); }

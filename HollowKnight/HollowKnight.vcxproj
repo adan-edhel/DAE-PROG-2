@@ -158,7 +158,6 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Sprite2D.cpp" />
     <ClCompile Include="SpriteLibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,7 +168,6 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="GameSettings.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="InputActions.h" />
-    <ClInclude Include="Sprite2D.h" />
     <ClInclude Include="SpriteLibrary.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />

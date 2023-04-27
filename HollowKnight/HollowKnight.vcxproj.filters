@@ -13,9 +13,6 @@
     <Filter Include="Game\Headers">
       <UniqueIdentifier>{161a921a-30b1-4731-9436-3fd15e77aa5d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Obsolete">
-      <UniqueIdentifier>{3de22330-fdfd-42c0-a392-b8940709e1d7}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -41,9 +38,6 @@
     </ClCompile>
     <ClCompile Include="SpriteLibrary.cpp">
       <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite2D.cpp">
-      <Filter>Obsolete</Filter>
     </ClCompile>
     <ClCompile Include="InputActions.cpp">
       <Filter>Game</Filter>
@@ -82,9 +76,6 @@
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Base\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite2D.h">
-      <Filter>Obsolete</Filter>
     </ClInclude>
     <ClInclude Include="InputActions.h">
       <Filter>Game\Headers</Filter>

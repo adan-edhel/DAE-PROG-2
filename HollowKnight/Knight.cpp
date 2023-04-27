@@ -38,3 +38,22 @@ void Knight::Start()
 void Knight::OnDeath()
 {
 }
+
+void Knight::OnCollisionEnter(const Collision& collision)
+{
+	Print(m_GameObject->m_Name, TextColor::Yellow);
+	Print(" collided ", TextColor::Lightgreen);
+	Print(collision.m_GameObject->m_Name + "\n", TextColor::Yellow);
+}
+
+void Knight::OnCollisionStay(const Collision& collision)
+{
+
+}
+
+void Knight::OnCollisionExit(const Collision& collision)
+{
+	Print(m_GameObject->m_Name, TextColor::Yellow);
+	Print(" exited ", TextColor::Red);
+	Print(collision.m_GameObject->m_Name + "\n", TextColor::Yellow);
+}

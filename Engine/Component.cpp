@@ -19,7 +19,15 @@ void Component::Update(const float& deltaTime)
 {
 }
 
-void Component::OnCollisionEnter(const GameObject* collision)
+void Component::OnCollisionEnter(const Collision& collision)
+{
+}
+
+void Component::OnCollisionStay(const Collision& collision)
+{
+}
+
+void Component::OnCollisionExit(const Collision& collision)
 {
 }
 
