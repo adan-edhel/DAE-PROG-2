@@ -11,7 +11,7 @@ public:
 	Actor& operator=(const Actor& other) = delete;
 
 	int GetHealth() const { return m_Health; }
-	virtual void OnDamage(const int& damage);
+	virtual void OnDamage();
 
 protected:
 	Actor(const int& maxHealth);

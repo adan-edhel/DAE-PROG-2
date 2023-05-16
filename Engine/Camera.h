@@ -16,7 +16,7 @@ public:
 	Vector2 GetPosition(const float& offset) const;
 
 private:
-	Transform* m_TargetPtr{nullptr};
+	Transform* m_TargetPtr{};
 	Rectf m_Boundaries;
 	float m_PixelWidth;
 	float m_PixelHeight;

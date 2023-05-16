@@ -13,6 +13,18 @@
     <Filter Include="Game\Headers">
       <UniqueIdentifier>{161a921a-30b1-4731-9436-3fd15e77aa5d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Libraries">
+      <UniqueIdentifier>{dfab41cb-c5dc-4cf5-a0fc-19a3b1a976b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Libraries\Headers">
+      <UniqueIdentifier>{2f0d9040-17e2-49c2-b4c4-ec426a70045d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Characters">
+      <UniqueIdentifier>{6fbb29c5-b2c0-4554-b624-4bbf064c667c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Characters\Headers">
+      <UniqueIdentifier>{a1bcad83-db30-4690-b279-097afeb08572}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -24,31 +36,34 @@
     <ClCompile Include="pch.cpp">
       <Filter>Base</Filter>
     </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Actor.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Knight.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="AnimLibrary.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteLibrary.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="InputActions.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Crawlid.cpp">
+    <ClCompile Include="HUDManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteLibrary.cpp">
+      <Filter>Game\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimLibrary.cpp">
+      <Filter>Game\Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Game</Filter>
+      <Filter>Game\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="HUDManager.cpp">
+    <ClCompile Include="Crawlid.cpp">
+      <Filter>Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Game\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackCollider.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,31 +80,34 @@
     <ClInclude Include="Level.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Actor.h">
-      <Filter>Game\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>Game\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="AnimLibrary.h">
-      <Filter>Game\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteLibrary.h">
-      <Filter>Game\Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Base\Headers</Filter>
     </ClInclude>
     <ClInclude Include="InputActions.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Crawlid.h">
+    <ClInclude Include="HUDManager.h">
       <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimLibrary.h">
+      <Filter>Game\Libraries\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteLibrary.h">
+      <Filter>Game\Libraries\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Game\Characters\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Crawlid.h">
+      <Filter>Game\Characters\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Game\Headers</Filter>
+      <Filter>Game\Characters\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="HUDManager.h">
+    <ClInclude Include="Knight.h">
+      <Filter>Game\Characters\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackCollider.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
   </ItemGroup>

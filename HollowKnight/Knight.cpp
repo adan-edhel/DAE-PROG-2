@@ -4,11 +4,14 @@
 #include <Animator.h>
 #include <Collider.h>
 #include <SpriteRenderer.h>
+#include <Rigidbody2D.h>
 
 #include "SpriteLibrary.h"
 #include "InputActions.h"
 #include "AnimLibrary.h"
 #include "Camera.h"
+
+#include "HUDManager.h"
 
 Knight::Knight() : Actor(5),
 m_ColliderSize{50, 70}
@@ -38,7 +41,7 @@ void Knight::Start()
 void Knight::Update(const float& deltaTime)
 {
 	Actor::Update(deltaTime);
-	s_Position = m_Transform->position;
+	HUDManager::UpdatePlayerPosition(m_Transform->position);
 }
 
 void Knight::OnDeath()
@@ -47,9 +50,14 @@ void Knight::OnDeath()
 
 void Knight::OnCollisionEnter(const Collision& collision)
 {
-	Print(m_GameObject->m_Name, TextColor::Yellow);
-	Print(" collided ", TextColor::Lightgreen);
-	Print(collision.m_GameObject->m_Name + "\n", TextColor::Yellow);
+	if (collision.m_GameObject->CompareTag(Tag::Enemy))
+	{
+		OnDamage();
+
+		// Knockback
+		const Vector2 direction{ collision.m_Transform->position - m_Transform->position };
+		m_GameObject->GetComponent<Rigidbody2D>()->AddForce(Vector2(-direction.Normalized() * 15));
+	}
 }
 
 void Knight::OnCollisionStay(const Collision& collision)
@@ -59,7 +67,5 @@ void Knight::OnCollisionStay(const Collision& collision)
 
 void Knight::OnCollisionExit(const Collision& collision)
 {
-	Print(m_GameObject->m_Name, TextColor::Yellow);
-	Print(" exited ", TextColor::Red);
-	Print(collision.m_GameObject->m_Name + "\n", TextColor::Yellow);
+
 }

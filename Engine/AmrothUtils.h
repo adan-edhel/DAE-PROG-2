@@ -86,6 +86,7 @@ enum class TextColor
 
 // Functions
 void Print(const std::string& text, const TextColor& color = TextColor::White);
+void ClearConsole();
 
 #pragma endregion ConsoleFunctionality
 

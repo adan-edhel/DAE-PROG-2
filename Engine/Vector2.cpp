@@ -57,7 +57,17 @@ std::string Vector2::ToString() const
 
 	buffer << std::fixed;
 	buffer << std::setprecision(2);
-	buffer << "Vector2(" << x << ", " << y << ")";
+	buffer << x << ", " << y;
+	return buffer.str();
+}
+
+std::string Vector2::ToRoundedString() const
+{
+	std::stringstream buffer;
+
+	buffer << std::fixed;
+	buffer << std::setprecision(0);
+	buffer << x << ", " << y;
 	return buffer.str();
 }
 

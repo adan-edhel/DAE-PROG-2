@@ -233,6 +233,11 @@ void Print(const std::string& text, const TextColor& color)
 	std::cout << text;
 	SetConsoleTextAttribute(g_HConsole, 0 | static_cast<int>(TextColor::White));
 }
+
+void ClearConsole()
+{
+	std::system("cls");
+}
 #pragma endregion ConsoleFunctions
 
 #pragma region Collision

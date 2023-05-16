@@ -35,6 +35,9 @@ struct Vector2 final
 	// Convert to String 
 	std::string	ToString() const;
 
+	// Convert to rounded String 
+	std::string	ToRoundedString() const;
+
 	// DotProduct
 	// float d = u.DotProduct(v);
 	float DotProduct(const Vector2& other) const;
@@ -56,7 +59,7 @@ struct Vector2 final
 	float SquaredLength() const;
 
 	// AngleWith returns the smallest angle with another vector within the range [-PI/2, PI/2]. 
-	// A s_Position angle is counter clockwise from this to the other
+	// A s_Instance angle is counter clockwise from this to the other
 	// float angle = u.AngleWith(v);
 	float AngleWith(const Vector2& other) const;
 

@@ -42,6 +42,9 @@ void Collider::OnCollision()
 		// Skip already collided
 		if (Contains(m_OverlappingColliders, otherCollider)) continue;
 
+		// Skip inactive collider
+		if (!otherCollider->m_GameObject->IsActive()) continue;
+
 		// Enter collision
 		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
 		{
@@ -55,12 +58,12 @@ void Collider::OnCollision()
 				component->OnCollisionEnter(collision);
 			}
 
-			if (CORE::s_DebugMode)
-			{
-				Print(m_GameObject->m_Name, TextColor::Yellow);
-				Print(" collided ", TextColor::Lightgreen);
-				Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
-			}
+			//if (CORE::s_DebugMode)
+			//{
+			//	Print(m_GameObject->m_Name, TextColor::Yellow);
+			//	Print(" collided ", TextColor::Lightgreen);
+			//	Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+			//}
 		}
 	}
 
@@ -76,15 +79,15 @@ void Collider::OnCollision()
 				component->OnCollisionExit(collision);
 			}
 
-			// Add to list already collided with
+			// Erase from list already collided with
 			m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
 
-			if (CORE::s_DebugMode)
-			{
-				Print(m_GameObject->m_Name, TextColor::Yellow);
-				Print(" exited ", TextColor::Red);
-				Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
-			}
+			//if (CORE::s_DebugMode)
+			//{
+			//	Print(m_GameObject->m_Name, TextColor::Yellow);
+			//	Print(" exited ", TextColor::Red);
+			//	Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+			//}
 
 			continue;
 		}
@@ -92,6 +95,21 @@ void Collider::OnCollision()
 		// Ongoing collision
 		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
 		{
+			if (!otherCollider->m_GameObject->IsActive())
+			{
+				m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
+				otherCollider->m_OverlappingColliders.clear();
+
+				//if (CORE::s_DebugMode)
+				//{
+				//	Print(m_GameObject->m_Name, TextColor::Yellow);
+				//	Print(" exited ", TextColor::Red);
+				//	Print(otherCollider->m_GameObject->m_Name + "\n", TextColor::Yellow);
+				//}
+
+				continue;
+			}
+
 			// Send collision message to all components
 			Collider collision{ *otherCollider };
 			for (auto* component : m_GameObject->GetComponents())

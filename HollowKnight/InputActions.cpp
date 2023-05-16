@@ -10,6 +10,8 @@
 #include <Animator.h>
 #include <Collider.h>
 
+#include "AttackCollider.h"
+
 InputActions::InputActions() :
 m_State{State::Falling},
 m_WalkSpeed{26},
@@ -25,18 +27,22 @@ void InputActions::Start()
 	m_RendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
 	m_Animator = m_GameObject->GetComponent<Animator>();
 
+	// Prepare collider
 	const Collider* playerCollider{ m_GameObject->GetComponent<Collider>() };
-	Collider* collider{ m_AttackCollider.AddComponent(new Collider()) };
-
-	collider->SetSize(playerCollider->GetSize());
-	m_ColliderOffset = playerCollider->GetSize().x;
+	m_AttackCollider.AddComponent(new Collider())->SetSize(playerCollider->GetSize() + Vector2(50, 0));
+	m_AttackCollider.AddComponent(new AttackCollider());
+	m_ColliderOffset = playerCollider->GetSize().x + 50;
 }
 
 void InputActions::Update(const float& deltaTime)
 {
-	const float offsetMult{ float(m_RendererPtr->m_FlipX ? -1 : 1) };
+	if (m_State != State::Attacking)
+	{
+		m_AttackOffsetMult = float(m_RendererPtr->m_FlipX ? -1 : 1);
+	}
+
 	m_AttackCollider.m_Transform->position = 
-		Vector2(m_Transform->position.x + (m_ColliderOffset * offsetMult), m_Transform->position.y);
+		Vector2(m_Transform->position.x + (m_ColliderOffset * m_AttackOffsetMult), m_Transform->position.y);
 
 	OnKey(deltaTime);
 
@@ -79,6 +85,9 @@ void InputActions::OnKey(const float& deltaTime)
 
 	if (m_RigidbodyPtr->isGrounded()) m_JumpsLeft = m_MaxJumps;
 
+	// return if in hurt state
+	if (m_State == State::Hurt) return;
+
 	if (KBStatesPtr[SDL_SCANCODE_LEFT])
 	{
 		Walk(-m_WalkSpeed * deltaTime);
@@ -107,7 +116,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_z:			// JUMP
+	case SDLK_UP:			// JUMP
 		m_JumpsLeft--;
 		if(m_JumpsLeft > 0)
 		{
@@ -141,6 +150,9 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		m_RigidbodyPtr->m_IsStatic = !m_RigidbodyPtr->m_IsStatic;
 		m_RigidbodyPtr->SetVelocity(0, 0);
 		break;
+	case SDLK_F5:			// Clear Console
+		ClearConsole();
+		break;
 	}
 }
 
@@ -148,7 +160,7 @@ void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_SPACE:		// CUT JUMP
+	case SDLK_UP:		// CUT JUMP
 		CutJump();
 		break;
 	}

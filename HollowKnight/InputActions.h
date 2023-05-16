@@ -27,6 +27,7 @@ private:
 		Walking,
 		Jumping,
 		Falling,
+		Hurt,
 		Attacking
 	};
 
@@ -46,10 +47,11 @@ private:
 	int m_JumpsLeft;
 
 	// Attack fields
-	GameObject m_AttackCollider{};
+	GameObject m_AttackCollider{"Attack Collider"};
 	float m_ColliderOffset{};
 	float m_AttackDuration{0.5f};
 	float m_AttackCountdown{};
+	float m_AttackOffsetMult{};
 
 	// Functions
 	void Start() override;

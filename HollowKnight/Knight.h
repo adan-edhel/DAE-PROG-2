@@ -6,14 +6,11 @@ class Animator;
 class Knight final : public Actor
 {
 public:
-	inline static Vector2 s_Position{};
-
 	Knight();
 	Knight(const Knight& other) = default;
 	Knight& operator=(const Knight& other) = default;
 
 private:
-	Animator* m_AnimatorPtr;
 	const Vector2 m_ColliderSize;
 
 	~Knight() override = default;

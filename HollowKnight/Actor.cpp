@@ -22,9 +22,14 @@ void Actor::Awake()
 	renderer->SetLayer(int(IDrawable::Layers::Actors));
 }
 
-void Actor::OnDamage(const int& damage)
+void Actor::OnDamage()
 {
-	m_Health -= damage;
+	if (m_Health <= 0) return;
+
+	m_Health--;
+	Print(m_GameObject->m_Name + " is damaged! ");
+	Print("New health: " + std::to_string(m_Health) + "\n");
+
 	if (m_Health <= 0)
 	{
 		OnDeath();
