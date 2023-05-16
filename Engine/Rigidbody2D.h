@@ -11,8 +11,7 @@ class Rigidbody2D final : public Component, public IDrawable
 {
 public:
 	bool m_IsStatic{ false };
-
-	Collider* m_Collider{nullptr};
+	Collider* m_Collider{};
 
 	Rigidbody2D();
 	void SetVelocity(const float& xVelocity, const float& yVelocity);

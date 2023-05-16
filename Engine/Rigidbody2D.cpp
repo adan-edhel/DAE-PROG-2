@@ -1,6 +1,7 @@
 #include "Rigidbody2D.h"
 
 #include "AmrothUtils.h"
+#include "Camera.h"
 #include "SVGParser.h"
 #include "utils.h"
 
@@ -28,19 +29,18 @@ void Rigidbody2D::Start()
 
 void Rigidbody2D::Update(const float& deltaTime)
 {
-	if (!m_IsStatic)
+	if (m_IsStatic) return;
+
+	CheckForCollision();
+
+	DecayVelocity(deltaTime);
+
+	if (!m_Grounded)
 	{
-		CheckForCollision();
-
-		DecayVelocity(deltaTime);
-
-		if (!m_Grounded)
-		{
-			SimulateGravity(deltaTime);
-		}
-
-		m_Transform->position += m_Velocity;
+		SimulateGravity(deltaTime);
 	}
+
+	m_Transform->position += m_Velocity;
 }
 
 void Rigidbody2D::DecayVelocity(const float& deltaTime)
