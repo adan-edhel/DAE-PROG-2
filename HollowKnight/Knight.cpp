@@ -35,6 +35,12 @@ void Knight::Start()
 	m_GameObject->AddComponent(new InputActions());
 }
 
+void Knight::Update(const float& deltaTime)
+{
+	Actor::Update(deltaTime);
+	s_Position = m_Transform->position;
+}
+
 void Knight::OnDeath()
 {
 }

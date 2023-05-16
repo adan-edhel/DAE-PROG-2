@@ -97,6 +97,8 @@ void Level::Draw() const
 	}
 
 	glPopMatrix();
+
+	IDrawable::InvokeAll(&IDrawable::UIDraw);
 }
 
 void Level::SetupLevelObject(GameObject& object, const Sprite& sprite, const int& layer)

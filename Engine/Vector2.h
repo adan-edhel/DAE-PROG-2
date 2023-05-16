@@ -56,7 +56,7 @@ struct Vector2 final
 	float SquaredLength() const;
 
 	// AngleWith returns the smallest angle with another vector within the range [-PI/2, PI/2]. 
-	// A m_Position angle is counter clockwise from this to the other
+	// A s_Position angle is counter clockwise from this to the other
 	// float angle = u.AngleWith(v);
 	float AngleWith(const Vector2& other) const;
 

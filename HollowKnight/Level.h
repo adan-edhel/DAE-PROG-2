@@ -1,8 +1,10 @@
 #pragma once
 #include <GameObject.h>
 #include "SpriteLibrary.h"
+#include "HUDManager.h"
 
 #include <array>
+
 
 class Level final
 {
@@ -18,10 +20,7 @@ public:
 	void Draw() const;
 
 private:
-	GameObject m_Background{string("Background")};
-	GameObject m_Middleground{string("Middleground")};
-	GameObject m_Foreground{string("Foreground")};
-	GameObject m_Platforms{string("Platform")};
+	HUDManager m_Hud{};
 
 	GameObject m_KnightPtr{"Hollow Knight"};
 	std::array<GameObject, 2> m_Crawlids{string("Crawlid"), string("Crawlid")};
@@ -30,6 +29,11 @@ private:
 	std::array<Vector2, 2> m_CrawlidSpawnPositions{
 		Vector2(4386, 2331),
 		Vector2(7000, 2340) };
+
+	GameObject m_Background{ string("Background") };
+	GameObject m_Middleground{ string("Middleground") };
+	GameObject m_Foreground{ string("Foreground") };
+	GameObject m_Platforms{ string("Platform") };
 
 	const Vector2 m_PlatformPosition{8380, 2490};
 

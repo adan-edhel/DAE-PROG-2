@@ -1,7 +1,11 @@
 #include "pch.h"
 #include "HUDManager.h"
 
-HUDManager::HUDManager()
+HUDManager::HUDManager() : IDrawable(int(Layers::UserInterface))
 {
+}
 
+void HUDManager::UIDraw() const
+{
+	m_PositionText.Draw();
 }

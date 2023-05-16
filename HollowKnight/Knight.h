@@ -6,6 +6,8 @@ class Animator;
 class Knight final : public Actor
 {
 public:
+	inline static Vector2 s_Position{};
+
 	Knight();
 	Knight(const Knight& other) = default;
 	Knight& operator=(const Knight& other) = default;
@@ -16,7 +18,9 @@ private:
 
 	~Knight() override = default;
 	void Start() override;
+	void Update(const float& deltaTime) override;
 	void OnDeath() override;
+
 	void OnCollisionEnter(const Collision& collision) override;
 	void OnCollisionStay(const Collision& collision) override;
 	void OnCollisionExit(const Collision& collision) override;

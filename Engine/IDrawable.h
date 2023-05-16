@@ -53,6 +53,7 @@ public:
 
 	virtual void CameraDraw() const {}
 	virtual void Draw()	const {}
+	virtual void UIDraw() const {}
 	virtual void DebugDraw() const {}
 
 	int GetLayer() const { return m_OrderInLayer; }
