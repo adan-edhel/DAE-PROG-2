@@ -30,12 +30,16 @@ public:
 #pragma endregion
 private:
 	// Begin state of the game
-	const GameState m_BeginState{ GameState::Menu };
+	const GameState m_BeginState{ GameState::Game };
 
 	// Dynamic state of the game
-	GameState m_State{GameState::Game};
+	GameState m_State{};
 
-	Level* m_pKingsPass{nullptr};
+	// Level
+	Level* m_KingsPassPtr{};
+
+	// Camera
+	GameObject* m_CameraPtr;
 
 	// FUNCTIONS
 	void Start();

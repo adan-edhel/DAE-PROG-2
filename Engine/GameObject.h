@@ -5,13 +5,15 @@
 #include "Component.h"
 #include <vector>
 
+#include "AmrothUtils.h"
+
 class GameObject final : public Object, public IUpdatable
 {
 public:
 	Transform* m_Transform;
 
-	GameObject(const std::string& name = "GameObject");
-	bool Active() const;
+	GameObject(const std::string& name = "");
+	bool IsActive() const;
 	void SetActive(const bool& active);
 	~GameObject() override;
 
@@ -30,6 +32,14 @@ public:
 	AddComponent(T* component)
 	{
 		auto* castComponentPtr{ dynamic_cast<Component*>(component) };
+
+		if (!castComponentPtr->m_Name.empty() && !m_Name.empty())
+		{	
+			Print("New ", TextColor::Green);
+			Print(castComponentPtr->m_Name, TextColor::Lightblue);
+			Print(" on ");
+			Print(m_Name + "\n", TextColor::Yellow);
+		}
 
 		castComponentPtr->Initialize(this);
 		castComponentPtr->Awake();

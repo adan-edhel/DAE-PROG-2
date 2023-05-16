@@ -3,7 +3,7 @@
 #include "AmrothUtils.h"
 #include "Transform.h"
 
-Camera::Camera(const Vector2& screen) :
+Camera::Camera(const Vector2& screen) : Component("Camera"),
 	m_PixelWidth{ screen.x },
 	m_PixelHeight{ screen.y }
 {

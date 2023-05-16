@@ -48,6 +48,7 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="HUDManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSettings.h">
@@ -84,6 +85,9 @@
       <Filter>Game\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
+      <Filter>Game\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="HUDManager.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
   </ItemGroup>

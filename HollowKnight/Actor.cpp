@@ -14,10 +14,12 @@ Actor::Actor(const int& maxHealth) :
 
 void Actor::Awake()
 {
-	m_GameObject->AddComponent(new SpriteRenderer());
+	SpriteRenderer* renderer = m_GameObject->AddComponent(new SpriteRenderer());
 	m_GameObject->AddComponent(new Collider());
 	m_GameObject->AddComponent(new Animator());
 	m_GameObject->AddComponent(new Rigidbody2D());
+
+	renderer->SetLayer(int(IDrawable::Layers::Actors));
 }
 
 void Actor::OnDamage(const int& damage)

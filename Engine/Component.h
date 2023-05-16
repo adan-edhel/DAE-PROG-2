@@ -13,8 +13,6 @@ public:
 	GameObject* m_GameObject{};
 	Transform* m_Transform{};
 
-
-
 protected:
 	Component(const std::string& name = "");
 	virtual ~Component() override = default;

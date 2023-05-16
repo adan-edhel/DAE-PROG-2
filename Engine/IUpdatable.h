@@ -27,4 +27,3 @@ protected:
 private:
 	inline static std::vector<IUpdatable*> m_EventPtrs{};
 };
-

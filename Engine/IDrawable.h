@@ -5,18 +5,19 @@
 using std::array;
 using std::vector;
 
-enum class Layers
-{
-	Background,
-	Middleground,
-	Actors,
-	Foreground,
-
-};
-
 class IDrawable
 {
 public:
+	enum class Layers
+	{
+		Background = 0,
+		Middleground = 4,
+		Platforms = 5,
+		Actors = 6,
+		Foreground = 7,
+		UserInterface = 10
+	};
+
 	inline const static int m_TotalLayerCount{ 15 };
 	inline const static int s_MidLayer{ (m_TotalLayerCount / 2) };
 
@@ -54,7 +55,7 @@ public:
 	virtual void Draw()	const {}
 	virtual void DebugDraw() const {}
 
-	int GetLayer() { return m_OrderInLayer; }
+	int GetLayer() const { return m_OrderInLayer; }
 	void SetLayer(const int& layer)
 	{
 		RemoveFromVector();

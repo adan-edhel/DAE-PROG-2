@@ -21,13 +21,16 @@ void Game::Start( )
 	SpriteLibrary::Setup();
 	AnimLibrary::Setup();
 
-	// Setup camera
-	const auto cam = new GameObject("Camera");
-	cam->AddComponent(new Camera(GameSettings::s_Screen));
+	// Set game state
+	m_State = m_BeginState;
 
-	if (m_State == GameState::Game)
+	// Setup camera
+	m_CameraPtr = new GameObject();
+	m_CameraPtr->AddComponent(new Camera(GameSettings::s_Screen));
+
+	if (m_State == m_BeginState)
 	{
-		m_pKingsPass = new Level("King's Pass");
+		m_KingsPassPtr = new Level("King's Pass");
 	}
 }
 
@@ -35,7 +38,7 @@ void Game::End( )
 {
 	delete Camera::m_MainPtr->m_GameObject;
 
-	delete m_pKingsPass;
+	delete m_KingsPassPtr;
 
 	AnimLibrary::Cleanup();
 	SpriteLibrary::Cleanup();
@@ -43,7 +46,7 @@ void Game::End( )
 
 void Game::Update(const float& deltaTime )
 {
-	m_pKingsPass->Update(deltaTime);
+	m_KingsPassPtr->Update(deltaTime);
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -59,7 +62,7 @@ void Game::Update(const float& deltaTime )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	m_pKingsPass->Draw();
+	m_KingsPassPtr->Draw();
 }
 
 void Game::ClearBackground( ) const

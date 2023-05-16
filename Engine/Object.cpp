@@ -1,14 +1,8 @@
 #include "Object.h"
 #include "AmrothUtils.h"
 
-Object::Object(const std::string& name) :
-	m_Name{name}
+Object::Object(const std::string& name) : m_Name{name.empty() ? "" : name}
 {
-	if (!name.empty())
-	{
-		Print("New ", TextColor::Green);
-		Print(m_Name + '\n', TextColor::Lightblue);
-	}
 }
 
 bool Object::CompareTag(Tag other) const
@@ -16,18 +10,20 @@ bool Object::CompareTag(Tag other) const
 	return tag == other;
 }
 
-void Object::Destroy(const Object* objectPtr)
+void Object::Destroy(const Object& parent, const Object* object)
 {
-	if (objectPtr != nullptr)
+	// delete component
+	if (object != nullptr)
 	{
-		if (!objectPtr->m_Name.empty())
+		if (!object->m_Name.empty() && !parent.m_Name.empty())
 		{
 			Print("(x) ", TextColor::Red);
-			Print(objectPtr->m_Name, TextColor::Lightblue);
-			Print(" destroyed \n", TextColor::Red);
+			Print(object->m_Name, TextColor::Lightblue);
+			Print(" destroyed on ", TextColor::Red);
+			Print(parent.m_Name + " \n", TextColor::Yellow);
 		}
 
-		delete objectPtr;
-		objectPtr = nullptr;
+		delete object;
+		object = nullptr;
 	}
 }

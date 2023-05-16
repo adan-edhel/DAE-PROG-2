@@ -4,12 +4,11 @@
 #include "utils.h"
 
 #include "CORE.h"
-#include "Collision.h"
 #include "Transform.h"
 #include "GameObject.h"
 #include "SpriteRenderer.h"
 
-Collider::Collider()
+Collider::Collider() : Component("Collider")
 {
 	s_AllColliders.emplace_back(this);
 }

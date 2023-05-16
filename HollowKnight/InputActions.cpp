@@ -9,7 +9,7 @@
 #include <Rigidbody2D.h>
 #include <Animator.h>
 
-InputActions::InputActions() : Component("Input Actions"),
+InputActions::InputActions() :
 m_State{State::Falling},
 m_WalkSpeed{26},
 m_JumpForce{5},
@@ -31,18 +31,18 @@ void InputActions::Update(const float& deltaTime)
 
 	if (m_RigidbodyPtr->isGrounded()) m_JumpsLeft = m_MaxJumps;
 
-	if (KBStatesPtr[SDL_SCANCODE_A])
+	if (KBStatesPtr[SDL_SCANCODE_LEFT])
 	{
 		Walk(-m_WalkSpeed * deltaTime);
-		if (!KBStatesPtr[SDL_SCANCODE_D])
+		if (!KBStatesPtr[SDL_SCANCODE_RIGHT])
 		{
 			if (!m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = true;
 		}
 	}
-	if (KBStatesPtr[SDL_SCANCODE_D])
+	if (KBStatesPtr[SDL_SCANCODE_RIGHT])
 	{
 		Walk(m_WalkSpeed * deltaTime);
-		if (!KBStatesPtr[SDL_SCANCODE_A])
+		if (!KBStatesPtr[SDL_SCANCODE_LEFT])
 		{
 			if (m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = false;
 		}
@@ -84,7 +84,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_SPACE:		// JUMP
+	case SDLK_z:			// JUMP
 		m_JumpsLeft--;
 		if(m_JumpsLeft > 0)
 		{
@@ -92,13 +92,19 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 			m_State = State::Jumping;
 		}
 		break;
-	case SDLK_RSHIFT:		// ATTACK
+	case SDLK_x:			// ATTACK
 		break;
-	case SDLK_LSHIFT:		// DASH
+	case SDLK_c:			// DASH
 		break;
-	case SDLK_e:			// FOCUS / CAST
+	case SDLK_a:			// FOCUS / CAST
 		break;
-	case SDLK_r:			// DREAM NAIL
+	case SDLK_s:			// Super Dash
+		break;
+	case SDLK_d:			// DREAM NAIL
+		break;
+	case SDLK_f:			// Quick Cast
+		break;
+	case SDLK_i:			// Inventory
 		break;
 	case SDLK_ESCAPE:		// MENU
 		break;
@@ -126,8 +132,11 @@ void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 
 void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
 {
-	m_Transform->position = m_MousePos;
-	Print(m_Transform->position.ToString() + "\n");
+	if (CORE::s_DebugMode)
+	{
+		m_Transform->position = m_MousePos;
+		Print(m_Transform->position.ToString() + "\n");
+	}
 }
 
 void InputActions::OnMouseUp(const SDL_MouseButtonEvent& e)

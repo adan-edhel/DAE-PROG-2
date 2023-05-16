@@ -8,7 +8,7 @@
 class Behavior : public Component
 {
 protected:
-	Behavior();
+	Behavior(const std::string& name = "");
 	virtual ~Behavior() override;
 	virtual void OnDestroy();
 };
