@@ -7,7 +7,6 @@
 #include "GameObject.h"
 #include "Transform.h"
 #include "Collider.h"
-#include "CORE.h"
 
 Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {
@@ -31,7 +30,7 @@ void Rigidbody2D::Update(const float& deltaTime)
 {
 	if (!m_IsStatic)
 	{
-		OnCollisionEnter();
+		CheckForCollision();
 
 		DecayVelocity(deltaTime);
 
@@ -73,7 +72,7 @@ void Rigidbody2D::AddForce(const Vector2& force)
 //----------------------------------------------------
 
 #pragma region Handling
-void Rigidbody2D::OnCollisionEnter()
+void Rigidbody2D::CheckForCollision()
 {
 	// Initialize flags to false
 	m_Grounded = false;

@@ -48,7 +48,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="HUDManager.cpp" />
+    <ClCompile Include="HUDManager.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSettings.h">

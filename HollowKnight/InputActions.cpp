@@ -25,19 +25,26 @@ void InputActions::Start()
 	m_RendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
 	m_Animator = m_GameObject->GetComponent<Animator>();
 
-	m_AttackCollider.AddComponent(new Rigidbody2D())->m_IsStatic = true;
-	m_AttackCollider.AddComponent(new Collider())->SetSize(m_AttackSize);
+	const Collider* playerCollider{ m_GameObject->GetComponent<Collider>() };
+	Collider* collider{ m_AttackCollider.AddComponent(new Collider()) };
+
+	collider->SetSize(playerCollider->GetSize());
+	m_ColliderOffset = playerCollider->GetSize().x;
 }
 
 void InputActions::Update(const float& deltaTime)
 {
+	const float offsetMult{ float(m_RendererPtr->m_FlipX ? -1 : 1) };
+	m_AttackCollider.m_Transform->position = 
+		Vector2(m_Transform->position.x + (m_ColliderOffset * offsetMult), m_Transform->position.y);
+
 	OnKey(deltaTime);
 
 	AnimationConditions(deltaTime);
 	UpdateAnimation();
 
 	// debug movement
-	if (CORE::s_DebugMode)
+	if (m_RigidbodyPtr->m_IsStatic)
 	{
 		if (KBStatesPtr[SDL_SCANCODE_UP])
 		{
@@ -77,7 +84,10 @@ void InputActions::OnKey(const float& deltaTime)
 		Walk(-m_WalkSpeed * deltaTime);
 		if (!KBStatesPtr[SDL_SCANCODE_RIGHT])
 		{
-			if (!m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = true;
+			if (!m_RendererPtr->m_FlipX)
+			{
+				m_RendererPtr->m_FlipX = true;
+			}
 		}
 	}
 	if (KBStatesPtr[SDL_SCANCODE_RIGHT])
@@ -85,7 +95,10 @@ void InputActions::OnKey(const float& deltaTime)
 		Walk(m_WalkSpeed * deltaTime);
 		if (!KBStatesPtr[SDL_SCANCODE_LEFT])
 		{
-			if (m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = false;
+			if (m_RendererPtr->m_FlipX)
+			{
+				m_RendererPtr->m_FlipX = false;
+			}
 		}
 	}
 }
@@ -145,8 +158,8 @@ void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
 {
 	if (CORE::s_DebugMode)
 	{
-		m_Transform->position = m_MousePos;
-		Print(m_Transform->position.ToString() + "\n");
+		//m_Transform->position = m_MousePos;
+		//Print(m_Transform->position.ToString() + "\n");
 	}
 }
 
@@ -183,6 +196,8 @@ void InputActions::CutJump() const
 
 void InputActions::Attack()
 {
+	if (m_State == State::Attacking) return;
+
 	// Save state
 	m_StoredState = m_State;
 
@@ -201,7 +216,7 @@ void InputActions::AnimationConditions(const float& deltaTime)
 
 	// Automatic conditions
 	const bool walking{ std::abs(m_RigidbodyPtr->GetVelocity().x) >= walkCheckThreshold };
-	//m_AttackCollider.SetActive(m_State == State::Attacking ? true : false);
+	m_AttackCollider.SetActive(m_State == State::Attacking ? true : false);
 
 	switch (m_State)
 	{

@@ -23,6 +23,14 @@ void Collider::Awake()
 	SetSize(m_Transform->scale);
 }
 
+void Collider::Update(const float& deltaTime)
+{
+	m_Collider.left = m_Transform->position.x + m_Translate.x;
+	m_Collider.bottom = m_Transform->position.y + m_Translate.y;
+
+	OnCollision();
+}
+
 void Collider::OnCollision()
 {
 	// Loop through all colliders
@@ -94,14 +102,6 @@ void Collider::OnCollision()
 	}
 }
 
-void Collider::Update(const float& deltaTime)
-{
-	m_Collider.left = m_Transform->position.x + m_Translate.x;
-	m_Collider.bottom = m_Transform->position.y + m_Translate.y;
-
-	OnCollision();
-}
-
 void Collider::SetSize(const float& sizeX, const float& sizeY) { SetSize(Vector2(sizeX, sizeY)); }
 void Collider::SetSize(const Vector2& size)
 {
@@ -128,20 +128,18 @@ Rectf Collider::GetBounds() const
 
 void Collider::DebugDraw() const
 {
-	if (CORE::s_DebugMode)
-	{
-		// Draw Collider
+	if (!m_GameObject->IsActive()) return;
 
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		glColor3f(0, 0, 1);
-		glLineWidth(2);
-		glBegin(GL_POLYGON);
-		glVertex2f(m_Collider.left, m_Collider.bottom);
-		glVertex2f(m_Collider.left, m_Collider.bottom + m_Collider.height);
-		glVertex2f(m_Collider.left + m_Collider.width, m_Collider.bottom + m_Collider.height);
-		glVertex2f(m_Collider.left + m_Collider.width, m_Collider.bottom);
-		glEnd();
-		glLineWidth(1);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
+	// Draw Collider
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3f(0, 0, 1);
+	glLineWidth(2);
+	glBegin(GL_POLYGON);
+	glVertex2f(m_Collider.left, m_Collider.bottom);
+	glVertex2f(m_Collider.left, m_Collider.bottom + m_Collider.height);
+	glVertex2f(m_Collider.left + m_Collider.width, m_Collider.bottom + m_Collider.height);
+	glVertex2f(m_Collider.left + m_Collider.width, m_Collider.bottom);
+	glEnd();
+	glLineWidth(1);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

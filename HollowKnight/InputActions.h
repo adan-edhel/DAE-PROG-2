@@ -47,8 +47,8 @@ private:
 
 	// Attack fields
 	GameObject m_AttackCollider{};
-	Vector2 m_AttackSize{ 100, 100 };
-	float m_AttackDuration{1.0f};
+	float m_ColliderOffset{};
+	float m_AttackDuration{0.5f};
 	float m_AttackCountdown{};
 
 	// Functions

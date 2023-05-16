@@ -4,7 +4,7 @@
 #include "IUpdatable.h"
 #include "Vector2.h"
 
-class Collider final : public Component, public IUpdatable, public IDrawable
+class Collider final : public Component, public IDrawable
 {
 	class Rigidbody2D;
 	friend Rigidbody2D;
@@ -25,11 +25,13 @@ private:
 	std::vector<Collider*> m_OverlappingColliders{};
 	Rectf m_Collider{};
 	Vector2 m_Translate{};
+	bool m_IsTrigger;
 
 	void Awake() override;
-	void OnCollision();
 	void Update(const float& deltaTime) override;
 	void DebugDraw() const override;
+
+	void OnCollision();
 
 	template<typename T>
 	bool Contains(const std::vector<T>& object, const T& element)

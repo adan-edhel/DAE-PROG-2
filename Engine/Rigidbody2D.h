@@ -41,7 +41,7 @@ private:
 	void SimulateGravity(const float& deltaTime);
 
 	// Collisions
-	void OnCollisionEnter();
+	void CheckForCollision();
 	void HandleFloorCollision(const Rectf& collider, Vector2& velocity, const float& floorPos);
 	void HandleCeilingCollision(const Rectf& collider, Vector2& velocity, const float& ceilingPos);
 	void HandleWallCollision(const Rectf& collider, Vector2& velocity, const float& wallPos, const float& wallHeight);
