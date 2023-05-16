@@ -43,7 +43,7 @@ void Collider::OnCollision()
 		if (Contains(m_OverlappingColliders, otherCollider)) continue;
 
 		// Skip inactive collider
-		if (!otherCollider->m_GameObject->IsActive()) continue;
+		if (!otherCollider->m_GameObject->IsActive() || !otherCollider->m_IsEnabled) continue;
 
 		// Enter collision
 		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
@@ -95,7 +95,7 @@ void Collider::OnCollision()
 		// Ongoing collision
 		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
 		{
-			if (!otherCollider->m_GameObject->IsActive())
+			if (!otherCollider->m_GameObject->IsActive() || !otherCollider->m_IsEnabled)
 			{
 				m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
 				otherCollider->m_OverlappingColliders.clear();

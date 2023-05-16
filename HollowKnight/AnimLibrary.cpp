@@ -161,7 +161,7 @@ void AnimLibrary::CrawlidSetup()
 	m_CrawlidClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 		// ----------------------------------------------
-	currentClip = new Animation("Die", sprite, gridCount, 3, false);
+	currentClip = new Animation("Die", sprite, gridCount, 3, .15f, false);
 	currentClip->MoveStartFrame(Vector2(1, 3));
 	m_CrawlidClips[currentClip->m_Name] = currentClip;
 }

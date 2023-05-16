@@ -21,6 +21,26 @@ void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
 	m_Boundaries = levelBoundaries;
 }
 
+void Camera::Update(const float& deltaTime)
+{
+	if (m_ShakeActive)
+	{
+		m_ShakeTimer += deltaTime;
+		if (m_ShakeTimer < m_ShakeDuration)
+		{
+			const float offsetX{ RandomRange(-m_ShakeMagnitude, m_ShakeMagnitude) };
+			const float offsetY{ RandomRange(-m_ShakeMagnitude, m_ShakeMagnitude) };
+
+			m_ShakeOffset = Vector2(offsetX, offsetY);
+		}
+		else
+		{
+			m_ShakeActive = false;
+			m_ShakeOffset = Vector2{};
+		}
+	}
+}
+
 Vector2 Camera::Track() const
 {
 	return Vector2(m_TargetPtr->position.x - m_PixelWidth/2, 
@@ -31,7 +51,7 @@ void Camera::CameraDraw() const
 {
 	if (m_TargetPtr != nullptr)
 	{
-		Vector2 centerPos{ Track() };
+		Vector2 centerPos{ Track() + m_ShakeOffset };
 		Clamp(centerPos);
 		glTranslatef(-centerPos.x, -centerPos.y, 0);
 	}
@@ -62,4 +82,13 @@ Vector2 Camera::GetPosition(const float& offset) const
 {
 	Vector2 pos{ Track() };
 	return Vector2{pos.x * offset, pos.y * offset};
+}
+
+void Camera::SetShake(float magnitude, float duration)
+{
+	m_ShakeActive = true;
+	m_ShakeMagnitude = magnitude;
+	m_ShakeDuration = duration;
+	m_ShakeTimer = 0.0f;
+	m_ShakeOffset = Vector2{};
 }

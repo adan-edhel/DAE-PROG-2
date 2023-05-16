@@ -10,6 +10,8 @@ class Collider final : public Component, public IDrawable
 	friend Rigidbody2D;
 
 public:
+	bool m_IsEnabled{ true };
+
 	Collider();
 	~Collider() override;
 
@@ -25,7 +27,6 @@ private:
 	std::vector<Collider*> m_OverlappingColliders{};
 	Rectf m_Collider{};
 	Vector2 m_Translate{};
-	bool m_IsTrigger;
 
 	void Awake() override;
 	void Update(const float& deltaTime) override;

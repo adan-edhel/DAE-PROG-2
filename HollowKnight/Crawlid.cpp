@@ -40,12 +40,20 @@ void Crawlid::Start()
 
 void Crawlid::Update(const float& deltaTime)
 {
-	UpdateAnimation();
+	if (m_State == State::Dying) return;
+
 	ManageStates(deltaTime);
+	UpdateAnimation();
 }
 
 void Crawlid::ManageStates(const float& deltaTime)
 {
+	if (GetHealth() <= 0)
+	{
+		m_State = State::Dying;
+		m_GameObject->GetComponent<Collider>()->m_IsEnabled = false;
+	}
+
 	switch (m_State)
 	{
 		case State::Walking:

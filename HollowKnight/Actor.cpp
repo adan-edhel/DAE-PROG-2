@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Actor.h"
 
+#include "Camera.h"
 #include "Animator.h"
 #include "Collider.h"
 #include "Rigidbody2D.h"
@@ -29,6 +30,7 @@ void Actor::OnDamage()
 	m_Health--;
 	Print(m_GameObject->m_Name + " is damaged! ");
 	Print("New health: " + std::to_string(m_Health) + "\n");
+	Camera::m_MainPtr->SetShake();
 
 	if (m_Health <= 0)
 	{

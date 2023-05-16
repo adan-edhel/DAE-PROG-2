@@ -38,8 +38,10 @@ private:
 	float m_TurnCounter{};
 
 	~Crawlid() override = default;
+
 	void Start() override;
 	void Update(const float& deltaTime) override;
+
 	void Walk(const float& deltaTime) const;
 	void Turn(const float& deltaTime);
 	void ManageStates(const float& deltaTime);
