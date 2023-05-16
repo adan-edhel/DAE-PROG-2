@@ -5,7 +5,7 @@
 
 #include "GameSettings.h"
 
-HUDManager::HUDManager() : IDrawable(int(Layers::UserInterface))
+HUDManager::HUDManager()
 {
 }
 

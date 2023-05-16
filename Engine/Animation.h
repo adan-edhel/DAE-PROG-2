@@ -28,6 +28,41 @@ struct Animation
 	{
 	}
 
+	/*
+	Animation(const Animation& other) : // Copy constructor
+		m_Name(other.m_Name),
+		m_FrameDuration(other.m_FrameDuration),
+		m_Loop(other.m_Loop),
+		m_NumFrames(other.m_NumFrames),
+		m_RowCount(other.m_RowCount),
+		m_ColumnCount(other.m_ColumnCount),
+		m_SpriteSize(other.m_SpriteSize),
+		m_CurrentFrame(other.m_CurrentFrame),
+		m_StartPosIndex(other.m_StartPosIndex),
+		m_FinishedPlaying(other.m_FinishedPlaying),
+		m_ElapsedTime(other.m_ElapsedTime)
+	{
+	} 
+	Animation& operator=(const Animation& other) // Copy Operator
+	{
+		if (this != &other)
+		{
+			m_Name = other.m_Name;
+			m_FrameDuration = other.m_FrameDuration;
+			m_Loop = other.m_Loop;
+			m_NumFrames = other.m_NumFrames;
+			m_RowCount = other.m_RowCount;
+			m_ColumnCount = other.m_ColumnCount;
+			m_SpriteSize = other.m_SpriteSize;
+			m_CurrentFrame = other.m_CurrentFrame;
+			m_StartPosIndex = other.m_StartPosIndex;
+			m_FinishedPlaying = other.m_FinishedPlaying;
+			m_ElapsedTime = other.m_ElapsedTime;
+		}
+		return *this;
+	}
+	*/
+
 	void MoveStartFrame(const int& x, const int& y) { MoveStartFrame(Vector2(float(x), float(y))); }
 	void MoveStartFrame(Vector2 index)
 	{

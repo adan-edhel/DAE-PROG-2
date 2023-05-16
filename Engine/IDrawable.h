@@ -11,11 +11,10 @@ public:
 	enum class Layers
 	{
 		Background = 0,
-		Middleground = 4,
-		Platforms = 5,
-		Actors = 6,
-		Foreground = 7,
-		UserInterface = 10
+		Actors = 4,
+		Middleground = 5,
+		Platforms = 6,
+		Foreground = 10
 	};
 
 	inline const static int m_TotalLayerCount{ 15 };

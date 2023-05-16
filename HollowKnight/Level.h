@@ -22,13 +22,17 @@ public:
 private:
 	HUDManager m_Hud{};
 
+	static const int m_NumberCrawlids{ 2 };
+
 	GameObject m_KnightPtr{"Hollow Knight"};
-	std::array<GameObject, 2> m_Crawlids{string("Crawlid"), string("Crawlid")};
+	std::array<GameObject, m_NumberCrawlids> m_Crawlids{
+		string("Crawlid"),
+		string("Crawlid 2")};
 
 	const Vector2 m_PlayerSpawnPoint;
-	std::array<Vector2, 2> m_CrawlidSpawnPositions{
+	std::array<Vector2, m_NumberCrawlids> m_CrawlidSpawnPositions{
 		Vector2(4386, 2331),
-		Vector2(7000, 2340) };
+		Vector2(7000, 2340)};
 
 	GameObject m_Background{ string("Background") };
 	GameObject m_Middleground{ string("Middleground") };

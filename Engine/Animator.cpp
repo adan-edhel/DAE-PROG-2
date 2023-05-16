@@ -41,6 +41,7 @@ void Animator::Play(const std::string& name)
 
 		// AssignClips new clip as current animation
 		m_CurrentAnim = it->second;
+		m_CurrentAnim->Reset();
 		m_SpriteRend->m_Rows = m_CurrentAnim->GridSize().x;
 		m_SpriteRend->m_Columns = m_CurrentAnim->GridSize().y;
 	}
