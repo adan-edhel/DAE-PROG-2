@@ -34,15 +34,8 @@ GameObject::~GameObject()
 	}
 }
 
-bool GameObject::IsActive() const
-{
-	return m_IsActive;
-}
-
-void GameObject::SetActive(const bool& active)
-{
-	m_IsActive = active;
-}
+bool GameObject::IsActive() const { return m_IsActive; }
+void GameObject::SetActive(const bool& active) { m_IsActive = active; }
 
 void GameObject::Update(const float& deltaTime)
 {

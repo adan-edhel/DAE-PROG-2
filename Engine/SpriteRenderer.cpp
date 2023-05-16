@@ -1,4 +1,5 @@
 #include "SpriteRenderer.h"
+#include "GameObject.h"
 
 #include "AmrothUtils.h"
 #include "Transform.h"
@@ -28,6 +29,7 @@ void SpriteRenderer::AssignSprite(Texture* sprite)
 void SpriteRenderer::Draw() const
 {
 	if (m_SpritePtr == nullptr) return;
+	if (!m_GameObject->IsActive()) return;
 
 	glPushMatrix();
 

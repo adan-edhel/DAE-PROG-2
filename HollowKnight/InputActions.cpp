@@ -8,6 +8,7 @@
 #include <SpriteRenderer.h>
 #include <Rigidbody2D.h>
 #include <Animator.h>
+#include <Collider.h>
 
 InputActions::InputActions() :
 m_State{State::Falling},
@@ -23,34 +24,19 @@ void InputActions::Start()
 	m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
 	m_RendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
 	m_Animator = m_GameObject->GetComponent<Animator>();
+
+	m_AttackCollider.AddComponent(new Rigidbody2D())->m_IsStatic = true;
+	m_AttackCollider.AddComponent(new Collider())->SetSize(m_AttackSize);
 }
 
 void InputActions::Update(const float& deltaTime)
 {
-	KBStatesPtr = SDL_GetKeyboardState(nullptr);
+	OnKey(deltaTime);
 
-	if (m_RigidbodyPtr->isGrounded()) m_JumpsLeft = m_MaxJumps;
-
-	if (KBStatesPtr[SDL_SCANCODE_LEFT])
-	{
-		Walk(-m_WalkSpeed * deltaTime);
-		if (!KBStatesPtr[SDL_SCANCODE_RIGHT])
-		{
-			if (!m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = true;
-		}
-	}
-	if (KBStatesPtr[SDL_SCANCODE_RIGHT])
-	{
-		Walk(m_WalkSpeed * deltaTime);
-		if (!KBStatesPtr[SDL_SCANCODE_LEFT])
-		{
-			if (m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = false;
-		}
-	}
-
-	AnimationConditions();
+	AnimationConditions(deltaTime);
 	UpdateAnimation();
 
+	// debug movement
 	if (CORE::s_DebugMode)
 	{
 		if (KBStatesPtr[SDL_SCANCODE_UP])
@@ -80,6 +66,30 @@ void InputActions::Update(const float& deltaTime)
 }
 
 #pragma region Override
+void InputActions::OnKey(const float& deltaTime)
+{
+	KBStatesPtr = SDL_GetKeyboardState(nullptr);
+
+	if (m_RigidbodyPtr->isGrounded()) m_JumpsLeft = m_MaxJumps;
+
+	if (KBStatesPtr[SDL_SCANCODE_LEFT])
+	{
+		Walk(-m_WalkSpeed * deltaTime);
+		if (!KBStatesPtr[SDL_SCANCODE_RIGHT])
+		{
+			if (!m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = true;
+		}
+	}
+	if (KBStatesPtr[SDL_SCANCODE_RIGHT])
+	{
+		Walk(m_WalkSpeed * deltaTime);
+		if (!KBStatesPtr[SDL_SCANCODE_LEFT])
+		{
+			if (m_RendererPtr->m_FlipX) m_RendererPtr->m_FlipX = false;
+		}
+	}
+}
+
 void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
@@ -93,6 +103,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		}
 		break;
 	case SDLK_x:			// ATTACK
+		Attack();
 		break;
 	case SDLK_c:			// DASH
 		break;
@@ -170,25 +181,36 @@ void InputActions::CutJump() const
 	}
 }
 
-void InputActions::Attack() const
+void InputActions::Attack()
 {
-	
+	// Save state
+	m_StoredState = m_State;
+
+	m_State = State::Attacking;
+	m_AttackCountdown = m_AttackDuration;
 }
 
-void InputActions::AnimationConditions()
+void InputActions::AnimationConditions(const float& deltaTime)
 {
+	// Local fields
 	const float walkCheckThreshold{ 0.5f };
 	const float fallCheckThreshold{ -0.5f };
-	const bool walking{ std::abs(m_RigidbodyPtr->GetVelocity().x) >= walkCheckThreshold };
 
-	// Fall condition
-	if (!m_RigidbodyPtr->isGrounded() && m_RigidbodyPtr->GetVelocity().y < fallCheckThreshold)
-	{
-		m_State = State::Falling;
-	}
+	// Update fields
+	m_AttackCountdown -= deltaTime;
+
+	// Automatic conditions
+	const bool walking{ std::abs(m_RigidbodyPtr->GetVelocity().x) >= walkCheckThreshold };
+	//m_AttackCollider.SetActive(m_State == State::Attacking ? true : false);
 
 	switch (m_State)
 	{
+	case State::Attacking:
+		if (m_AttackCountdown > 0)
+			return;
+		else
+			m_State = m_StoredState;
+		break;
 	case State::Idle:
 		if (walking && m_RigidbodyPtr->isGrounded()) m_State = State::Walking;
 		break;
@@ -202,6 +224,12 @@ void InputActions::AnimationConditions()
 			else  m_State = State::Idle;
 		}
 		break;
+	}
+
+	// Fall condition
+	if (!m_RigidbodyPtr->isGrounded() && m_RigidbodyPtr->GetVelocity().y < fallCheckThreshold)
+	{
+		m_State = State::Falling;
 	}
 }
 

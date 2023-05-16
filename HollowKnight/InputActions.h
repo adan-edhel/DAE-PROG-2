@@ -1,5 +1,7 @@
 #pragma once
 #include "Component.h"
+#include <GameObject.h>
+
 #include "IInputEvent.h"
 #include "IUpdatable.h"
 
@@ -11,9 +13,9 @@ class InputActions final : public Component, public IInputEvent, public IUpdatab
 {
 public:
 	InputActions();
+	~InputActions() override = default;
 	InputActions(const InputActions& other) = default;
 	InputActions& operator=(const InputActions& other) = default;
-	~InputActions() override = default;
 
 protected:
 	Vector2 m_MousePos{};
@@ -29,6 +31,7 @@ private:
 	};
 
 	State m_State;
+	State m_StoredState;
 
 	Rigidbody2D* m_RigidbodyPtr{};
 	SpriteRenderer* m_RendererPtr{};
@@ -36,14 +39,23 @@ private:
 
 	const Uint8* KBStatesPtr{};
 
+	// Movement fields
 	const float m_WalkSpeed;
 	const float m_JumpForce;
 	const int m_MaxJumps;
 	int m_JumpsLeft;
 
+	// Attack fields
+	GameObject m_AttackCollider{};
+	Vector2 m_AttackSize{ 100, 100 };
+	float m_AttackDuration{1.0f};
+	float m_AttackCountdown{};
+
+	// Functions
 	void Start() override;
 	void Update(const float& deltaTime) override;
 
+	void OnKey(const float& deltaTime);
 	void OnKeyDown(const SDL_KeyboardEvent& e) override;
 	void OnKeyUp(const SDL_KeyboardEvent& e) override;
 	void OnMouseDown(const SDL_MouseButtonEvent& e) override;
@@ -53,9 +65,9 @@ private:
 	void Walk(const float& speed) const;
 	void Jump() const;
 	void CutJump() const;
-	void Attack() const;
+	void Attack();
 
-	void AnimationConditions();
+	void AnimationConditions(const float& deltaTime);
 	void UpdateAnimation() const;
 };
 
