@@ -2,6 +2,8 @@
 #include "BaseGame.h"
 #include <CORE.h>
 
+#include "Menu.h"
+
 class GameObject;
 class Knight;
 class Level;
@@ -34,6 +36,9 @@ private:
 
 	// Dynamic state of the game
 	GameState m_State{};
+
+	// Menu
+	Menu* m_MenuPtr;
 
 	// Level
 	Level* m_KingsPassPtr{};

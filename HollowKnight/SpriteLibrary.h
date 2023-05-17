@@ -15,7 +15,9 @@ enum class Sprite
 	Platforms,
 	Background,
 	Middleground,
-	Foreground
+	Foreground,
+	MenuBackground,
+	MenuTitle
 };
 
 enum class Font

@@ -12,7 +12,7 @@ int SDL_main(int argv, char** args)
 
 	StartHeapControl();
 
-	Game* pGame{ new Game{ Window{ "Hollow Knight - Onmaz, 'Mort' Yasin - 1DAE12", GameSettings::s_Screen.x , GameSettings::s_Screen.y } } };
+	Game* pGame{ new Game{ Window{ "Hollow Knight - Onmaz, 'Mort' Yasin - 1DAE12", GameSettings::s_ScreenSize.x , GameSettings::s_ScreenSize.y } } };
 	pGame->Run();
 	delete pGame;
 

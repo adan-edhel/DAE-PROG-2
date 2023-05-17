@@ -13,25 +13,24 @@
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
 {
+	SpriteLibrary::Setup();
+	AnimLibrary::Setup();
+
 	Start();
 }
 
 void Game::Start( )
 {
-	SpriteLibrary::Setup();
-	AnimLibrary::Setup();
+	m_MenuPtr = new Menu();
 
 	// Set game state
 	m_State = m_BeginState;
 
 	// Setup camera
 	m_CameraPtr = new GameObject();
-	m_CameraPtr->AddComponent(new Camera(GameSettings::s_Screen));
+	m_CameraPtr->AddComponent(new Camera(GameSettings::s_ScreenSize));
 
-	if (m_State == m_BeginState)
-	{
-		m_KingsPassPtr = new Level("King's Pass");
-	}
+	m_KingsPassPtr = new Level("King's Pass");
 }
 
 void Game::End( )
@@ -39,6 +38,7 @@ void Game::End( )
 	delete Camera::m_MainPtr->m_GameObject;
 
 	delete m_KingsPassPtr;
+	delete m_MenuPtr;
 
 	AnimLibrary::Cleanup();
 	SpriteLibrary::Cleanup();
@@ -46,7 +46,19 @@ void Game::End( )
 
 void Game::Update(const float& deltaTime )
 {
-	m_KingsPassPtr->Update(deltaTime);
+	switch (m_State)
+	{
+	case GameState::Menu:
+		m_MenuPtr->Update(deltaTime);
+		break;
+	case GameState::Settings: 
+		break;
+	case GameState::Game:
+		m_KingsPassPtr->Update(deltaTime);
+		break;
+	}
+
+
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -62,7 +74,18 @@ void Game::Update(const float& deltaTime )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	m_KingsPassPtr->Draw();
+
+	switch (m_State)
+	{
+	case GameState::Menu:
+		m_MenuPtr->Draw();
+		break;
+	case GameState::Settings:
+		break;
+	case GameState::Game:
+		m_KingsPassPtr->Draw();
+		break;
+	}
 }
 
 void Game::ClearBackground( ) const

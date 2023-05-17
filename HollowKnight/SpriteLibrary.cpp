@@ -13,6 +13,8 @@ void SpriteLibrary::Setup()
 	Load(Sprite::Background, "HollowKnight/Environment/Background.png");
 	Load(Sprite::Middleground, "HollowKnight/Environment/Middleground.png");
 	Load(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");
+	Load(Sprite::MenuBackground, "HollowKnight/Menu/Background.png");
+	Load(Sprite::MenuTitle, "HollowKnight/Menu/Title.png");
 
 	Load(Font::TrajanPro, "Trajan Pro Regular.ttf");
 }

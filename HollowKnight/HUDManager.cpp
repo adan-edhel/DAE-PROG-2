@@ -34,8 +34,8 @@ void HUDManager::DrawString(const std::string& text, const Vector2 position) con
 {
 	const Texture m_PositionText{ text, m_Font, m_FontSize, m_FontColor };
 
-	const float drawPosX{ GameSettings::s_Screen.x / 2 - m_PositionText.GetWidth() / 2 };
-	const float drawPosY{ GameSettings::s_Screen.y / 2 - m_PositionText.GetHeight() / 2 };
+	const float drawPosX{ GameSettings::s_ScreenSize.x / 2 - m_PositionText.GetWidth() / 2 };
+	const float drawPosY{ GameSettings::s_ScreenSize.y / 2 - m_PositionText.GetHeight() / 2 };
 
 	m_PositionText.Draw(Point2f(drawPosX + position.x ,drawPosY + position.y ));
 }
