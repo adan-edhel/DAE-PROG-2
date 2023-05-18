@@ -5,6 +5,7 @@
 
 void SpriteLibrary::Setup()
 {
+	// Game
 	Load(Sprite::Default, "default_circle.png");
 	Load(Sprite::Knight, "HollowKnight/Knight.png");
 	Load(Sprite::Crawlid, "HollowKnight/Enemies/Crawlid.png");
@@ -12,6 +13,11 @@ void SpriteLibrary::Setup()
 	Load(Sprite::Platforms, "HollowKnight/Environment/Platforms.png");
 	Load(Sprite::Background, "HollowKnight/Environment/Background.png");
 	Load(Sprite::Middleground, "HollowKnight/Environment/Middleground.png");
+
+	// HUD
+	Load(Sprite::AncientMask, "HollowKnight/HUD/AncientMask.png");
+
+	// Menu
 	Load(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");
 	Load(Sprite::MenuBackground, "HollowKnight/Menu/Background.png");
 	Load(Sprite::MenuTitle, "HollowKnight/Menu/Title.png");

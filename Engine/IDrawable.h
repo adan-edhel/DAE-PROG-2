@@ -12,8 +12,8 @@ public:
 	{
 		Background = 0,
 		Actors = 4,
-		Middleground = 5,
-		Platforms = 6,
+		Middleground = 7,
+		Platforms = 8,
 		Foreground = 10
 	};
 

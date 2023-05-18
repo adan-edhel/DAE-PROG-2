@@ -8,6 +8,7 @@ using std::string;
 
 enum class Sprite
 {
+	// Game
 	Default,
 	Knight,
 	Crawlid,
@@ -16,6 +17,11 @@ enum class Sprite
 	Background,
 	Middleground,
 	Foreground,
+
+	// HUD
+	AncientMask,
+
+	// Menu
 	MenuBackground,
 	MenuTitle
 };

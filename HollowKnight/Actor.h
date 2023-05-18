@@ -14,6 +14,8 @@ public:
 	virtual void OnDamage();
 
 protected:
+	const int m_MaxHealth;
+
 	Actor(const int& maxHealth);
 	virtual ~Actor() override = default;
 
@@ -21,6 +23,5 @@ protected:
 	virtual void OnDeath() = 0;
 
 private:
-	int m_MaxHealth;
 	int m_Health;
 };

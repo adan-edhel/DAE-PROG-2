@@ -21,6 +21,9 @@ m_ColliderSize{50, 70}
 
 void Knight::Start()
 {
+	// Update HUD health values
+	HUDManager::UpdatePlayerHealth(GetHealth(), m_MaxHealth);
+
 	// Assign animation clips to animator
 	m_GameObject->GetComponent<Animator>()->AssignClips(AnimLibrary::GetAnimations(AnimType::Knight));
 
@@ -55,6 +58,12 @@ void Knight::Update(const float& deltaTime)
 		}
 		Camera::m_MainPtr->SetShake();
 	}
+}
+
+void Knight::OnDamage()
+{
+	Actor::OnDamage();
+	HUDManager::UpdatePlayerHealth(GetHealth(), m_MaxHealth);
 }
 
 void Knight::OnDeath()

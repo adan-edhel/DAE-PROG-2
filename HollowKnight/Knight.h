@@ -21,6 +21,7 @@ private:
 	~Knight() override = default;
 	void Start() override;
 	void Update(const float& deltaTime) override;
+	void OnDamage() override;
 	void OnDeath() override;
 
 	void OnCollisionEnter(const Collision& collision) override;
