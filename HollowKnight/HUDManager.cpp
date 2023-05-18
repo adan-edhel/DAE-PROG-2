@@ -23,10 +23,7 @@ void HUDManager::UpdatePlayerHealth(const int& health, const int& maxHealth)
 {
 	m_PlayerHealth = health;
 	m_PlayerMaxHealth = maxHealth;
-}
 
-void HUDManager::Update(const float& deltaTime)
-{
 	for (int i = 0; i < m_AncientMasks.size(); i++)
 	{
 		m_AncientMasks[i].m_Active = false;
@@ -35,6 +32,10 @@ void HUDManager::Update(const float& deltaTime)
 			m_AncientMasks[i].m_Active = true;
 		}
 	}
+}
+
+void HUDManager::Update(const float& deltaTime)
+{
 }
 
 void HUDManager::UIDraw() const

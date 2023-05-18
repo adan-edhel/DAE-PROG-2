@@ -35,10 +35,16 @@ class HUDManager final : IUpdatable, IDrawable
 	};
 
 public:
+	static HUDManager& GetInstance()
+	{
+		static HUDManager instance;
+		return instance;
+	}
+
 	HUDManager();
 
-	static void UpdatePlayerPosition(const Vector2& position);
-	static void UpdatePlayerHealth(const int& health, const int& maxHealth);
+	void UpdatePlayerPosition(const Vector2& position);
+	void UpdatePlayerHealth(const int& health, const int& maxHealth);
 
 private:
 	// Text settings
@@ -47,9 +53,9 @@ private:
 	std::string m_Font{ SpriteLibrary::GetFont(Font::TrajanPro) };
 
 	//Debug values
-	inline static Vector2 m_PlayerPosition{};
-	inline static int m_PlayerMaxHealth{};
-	inline static int m_PlayerHealth{};
+	Vector2 m_PlayerPosition{};
+	int m_PlayerMaxHealth{};
+	int m_PlayerHealth{};
 
 	// Ancient Masks
 	std::array<AncientMask, 5> m_AncientMasks{};
