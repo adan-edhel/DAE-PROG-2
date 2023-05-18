@@ -36,7 +36,6 @@ private:
 
 	Rigidbody2D* m_RigidbodyPtr{};
 	SpriteRenderer* m_RendererPtr{};
-	Animator* m_Animator{};
 
 	const Uint8* KBStatesPtr{};
 
@@ -49,7 +48,6 @@ private:
 	// Attack fields
 	GameObject m_AttackCollider{"Attack Collider"};
 	float m_ColliderOffset{};
-	float m_AttackDuration{0.5f};
 	float m_AttackCountdown{};
 	float m_AttackOffsetMult{};
 

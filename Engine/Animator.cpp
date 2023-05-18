@@ -36,12 +36,12 @@ void Animator::Play(const std::string& name)
 			if (m_CurrentAnim == m_Clips->find(name)->second) return;
 
 			// Reset current animation
-			m_CurrentAnim->Reset();
+			m_CurrentAnim->ResetAnim();
 		}
 
 		// AssignClips new clip as current animation
 		m_CurrentAnim = it->second;
-		m_CurrentAnim->Reset();
+		m_CurrentAnim->ResetAnim();
 		m_SpriteRend->m_Rows = m_CurrentAnim->GridSize().x;
 		m_SpriteRend->m_Columns = m_CurrentAnim->GridSize().y;
 	}

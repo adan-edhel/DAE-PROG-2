@@ -10,8 +10,6 @@ class Collider final : public Component, public IDrawable
 	friend Rigidbody2D;
 
 public:
-	bool m_IsEnabled{ true };
-
 	Collider();
 	~Collider() override;
 

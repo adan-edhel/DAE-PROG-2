@@ -98,7 +98,7 @@ void Collider::OnCollision()
 			if (!otherCollider->m_GameObject->IsActive() || !otherCollider->m_IsEnabled)
 			{
 				m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
-				otherCollider->m_OverlappingColliders.clear();
+				otherCollider->m_OverlappingColliders.clear(); // Ugly workaround due to lack of delegates
 
 				//if (CORE::s_DebugMode)
 				//{

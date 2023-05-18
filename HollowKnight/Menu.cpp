@@ -9,17 +9,17 @@ Menu::Menu()
 	m_BackgroundPtr = SpriteLibrary::GetSprite(Sprite::MenuBackground);
 	m_TitlePtr = SpriteLibrary::GetSprite(Sprite::MenuTitle);
 
-	const float backgroundMult = 1.4f;
-	const float titleMult = 0.6f;
+	const float backgroundMultiplier = 1.4f;
+	const float titleMultiplier = 0.6f;
 	const float titleOffset = 175;
 
-	m_BackgroundRect.width = m_BackgroundPtr->GetWidth() * backgroundMult;
-	m_BackgroundRect.height = m_BackgroundPtr->GetHeight() * backgroundMult;
+	m_BackgroundRect.width = m_BackgroundPtr->GetWidth() * backgroundMultiplier;
+	m_BackgroundRect.height = m_BackgroundPtr->GetHeight() * backgroundMultiplier;
 	m_BackgroundRect.left = GameSettings::s_ScreenCenter.x - m_BackgroundRect.width / 2;
 	m_BackgroundRect.bottom = GameSettings::s_ScreenCenter.y - m_BackgroundRect.height / 2;
 
-	m_TitleRect.width = m_TitlePtr->GetWidth() * titleMult;
-	m_TitleRect.height = m_TitlePtr->GetHeight() * titleMult;
+	m_TitleRect.width = m_TitlePtr->GetWidth() * titleMultiplier;
+	m_TitleRect.height = m_TitlePtr->GetHeight() * titleMultiplier;
 	m_TitleRect.left = GameSettings::s_ScreenCenter.x - m_TitleRect.width / 2;
 	m_TitleRect.bottom = GameSettings::s_ScreenCenter.y - m_TitleRect.height / 2 + titleOffset;
 }

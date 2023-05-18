@@ -9,6 +9,8 @@
 #include <Rigidbody2D.h>
 #include <Animator.h>
 #include <Collider.h>
+#include <Animation.h>
+#include "AnimLibrary.h"
 
 #include "AttackCollider.h"
 
@@ -25,13 +27,12 @@ void InputActions::Start()
 {
 	m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
 	m_RendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
-	m_Animator = m_GameObject->GetComponent<Animator>();
 
 	// Prepare collider
 	const Collider* playerCollider{ m_GameObject->GetComponent<Collider>() };
-	m_AttackCollider.AddComponent(new Collider())->SetSize(playerCollider->GetSize() + Vector2(50, 0));
+	m_AttackCollider.AddComponent(new Collider())->SetSize(playerCollider->GetSize());
 	m_AttackCollider.AddComponent(new AttackCollider());
-	m_ColliderOffset = playerCollider->GetSize().x + 50;
+	m_ColliderOffset = playerCollider->GetSize().x;
 }
 
 void InputActions::Update(const float& deltaTime)
@@ -41,8 +42,9 @@ void InputActions::Update(const float& deltaTime)
 		m_AttackOffsetMult = float(m_RendererPtr->m_FlipX ? -1 : 1);
 	}
 
-	m_AttackCollider.m_Transform->position = 
-		Vector2(m_Transform->position.x + (m_ColliderOffset * m_AttackOffsetMult), m_Transform->position.y);
+	const Vector2 offset{ m_Transform->position.x + (m_ColliderOffset * m_AttackOffsetMult),
+							m_Transform->position.y };
+	m_AttackCollider.m_Transform->position = offset;
 
 	OnKey(deltaTime);
 
@@ -116,7 +118,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_UP:			// JUMP
+	case SDLK_z:			// JUMP
 		m_JumpsLeft--;
 		if(m_JumpsLeft > 0)
 		{
@@ -214,7 +216,7 @@ void InputActions::Attack()
 	m_StoredState = m_State;
 
 	m_State = State::Attacking;
-	m_AttackCountdown = m_AttackDuration;
+	m_AttackCountdown = AnimLibrary::GetAnimation(AnimType::Knight, "Attack1")->Length();
 }
 
 void InputActions::AnimationConditions(const float& deltaTime)
@@ -283,6 +285,6 @@ void InputActions::UpdateAnimation() const
 		break;
 	}
 
-	if (!name.empty()) m_Animator->Play(name);
+	if (!name.empty()) m_GameObject->GetComponent<Animator>()->Play(name);
 }
 #pragma endregion

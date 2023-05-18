@@ -43,6 +43,9 @@ void GameObject::Update(const float& deltaTime)
 
 	for ( const auto component : components)
 	{
-		component->Update(deltaTime);
+		if (component->m_IsEnabled)
+		{
+			component->Update(deltaTime);
+		}
 	}
 }

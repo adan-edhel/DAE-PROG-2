@@ -70,13 +70,21 @@ struct Animation
 		m_StartPosIndex.y = index.y;
 	}
 
-	Vector2 GridSize() const { return Vector2(m_RowCount, m_ColumnCount); }
+	// Returns the row and column count of the animation sheet.
+	Vector2 GridSize() const { return Vector2(float(m_RowCount), float(m_ColumnCount)); }
+	// Returns the finished state of the animation.
 	bool Finished() const { return m_FinishedPlaying; }
+	// Returns the number of frames in the animation.
 	int FrameCount() const { return m_NumFrames; }
-	float Length() const { return m_FrameDuration * m_NumFrames; }
+	// Returns the duration of the entire animation.
+	float Length() const { return m_FrameDuration * (float(m_NumFrames) + 3); }
 
-	Rectf Update(const float& deltaTime, const float& animSpeed = 1) //TODO: fix last frame skipping
+	// Updates animation
+	Rectf Update(const float& deltaTime, const float& animSpeed = 1)
 	{
+		// Set status to unfinished
+		m_FinishedPlaying = false;
+
 		// Calculate the duration of each frame
 		m_FrameDuration *= animSpeed;
 
@@ -90,7 +98,7 @@ struct Animation
 			m_CurrentFrame++;
 
 			// Loop back to the first frame if the end is reached
-			if (m_CurrentFrame >= m_NumFrames - 1)
+			if (m_CurrentFrame >= m_NumFrames)
 			{
 				m_FinishedPlaying = true;
 
@@ -109,11 +117,11 @@ struct Animation
 			m_ElapsedTime -= m_FrameDuration;
 		}
 
-		return UpdatedSlice();
+		return Slice();
 	}
 
-	// Reset animation
-	void Reset()
+	// Resets incremental animation values
+	void ResetAnim()
 	{
 		m_ElapsedTime = 0;
 		m_CurrentFrame = 0;
@@ -132,7 +140,8 @@ private:
 	bool m_FinishedPlaying;
 	float m_ElapsedTime{};
 
-	Rectf UpdatedSlice() const
+	// Returns the result slice of the updated animation
+	Rectf Slice() const
 	{
 		//TODO: Double-Check slicing for bugs
 

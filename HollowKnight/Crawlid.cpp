@@ -14,7 +14,7 @@ Crawlid::Crawlid() :
 	m_State{ State::Walking },
 	m_Direction{ Direction::Left },
 	m_ColliderSize{ 110, 80 },
-	m_WalkSpeed{ 14 },
+	m_WalkSpeed{ 20 },
 	m_TurnInterval{5}
 {
 }
@@ -75,6 +75,7 @@ void Crawlid::ManageStates(const float& deltaTime)
 				}
 
 				m_State = State::Walking;
+				m_TurnCounter = 0;
 			}
 			break;
 	}
@@ -90,10 +91,9 @@ void Crawlid::Turn(const float& deltaTime)
 {
 	if (m_State != State::Turning) m_TurnCounter += deltaTime;
 
-	if (m_TurnCounter >= m_TurnInterval)
+	if (m_TurnCounter >= m_TurnInterval + RandomRange(-3, 3))
 	{
 		m_State = State::Turning;
-		m_TurnCounter = 0;
 	}
 }
 
