@@ -43,8 +43,8 @@ public:
 
 	HUDManager();
 
-	void UpdatePlayerPosition(const Vector2& position);
-	void UpdatePlayerHealth(const int& health, const int& maxHealth);
+	void UpdatePositionText(const Vector2& position);
+	void UpdateHealthBar(const int& health);
 
 private:
 	// Text settings
@@ -52,15 +52,13 @@ private:
 	Color4f m_FontColor{ 0.5f, 0.5f, 0.5f, 1 };
 	std::string m_Font{ SpriteLibrary::GetFont(Font::TrajanPro) };
 
-	//Debug values
-	Vector2 m_PlayerPosition{};
-	int m_PlayerMaxHealth{};
-	int m_PlayerHealth{};
-
 	// Ancient Masks
 	std::array<AncientMask, 5> m_AncientMasks{};
 	const Vector2 m_MasksPositionsOrigin{100, 700};
 	const float m_MasksOffset{50};
+
+	//Debug values
+	Vector2 m_PlayerPosition{};
 
 	void Update(const float& deltaTime) override;
 	void UIDraw() const override;

@@ -11,7 +11,7 @@ HUDManager::HUDManager()
 {
 }
 
-void HUDManager::UpdatePlayerPosition(const Vector2& position)
+void HUDManager::UpdatePositionText(const Vector2& position)
 {
 	if (position != m_PlayerPosition)
 	{
@@ -19,15 +19,12 @@ void HUDManager::UpdatePlayerPosition(const Vector2& position)
 	}
 }
 
-void HUDManager::UpdatePlayerHealth(const int& health, const int& maxHealth)
+void HUDManager::UpdateHealthBar(const int& health)
 {
-	m_PlayerHealth = health;
-	m_PlayerMaxHealth = maxHealth;
-
 	for (int i = 0; i < m_AncientMasks.size(); i++)
 	{
 		m_AncientMasks[i].m_Active = false;
-		if (i < m_PlayerHealth)
+		if (i < health)
 		{
 			m_AncientMasks[i].m_Active = true;
 		}
@@ -40,17 +37,17 @@ void HUDManager::Update(const float& deltaTime)
 
 void HUDManager::UIDraw() const
 {
-	// Draw player position
-	if (!CORE::s_DebugMode) // TODO: Remove for release
-	{
-		DrawString(m_PlayerPosition.ToRoundedString(), Vector2(0, -350));
-	}
-
 	// Draw ancient masks (health)
 	for (int i = 0; i < m_AncientMasks.size(); i++)
 	{
 		const float offsetPosX{m_MasksPositionsOrigin.x + (m_MasksOffset * float(i))};
 		m_AncientMasks[i].Draw(Vector2(offsetPosX, m_MasksPositionsOrigin.y));
+	}
+
+	// Draw player position
+	if (!CORE::s_DebugMode) // TODO: Remove for release
+	{
+		DrawString(m_PlayerPosition.ToRoundedString(), Vector2(0, -350));
 	}
 }
 
