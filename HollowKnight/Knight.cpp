@@ -22,7 +22,7 @@ m_ColliderSize{50, 70}
 void Knight::Start()
 {
 	// Update HUD health values
-	HUDManager::GetInstance().UpdatePlayerHealth(GetHealth());
+	HUDManager::GetInstance().UpdateHealthBar(GetHealth());
 
 	// Assign animation clips to animator
 	m_GameObject->GetComponent<Animator>()->AssignClips(AnimLibrary::GetAnimations(AnimType::Knight));
@@ -48,9 +48,9 @@ void Knight::Start()
 void Knight::Update(const float& deltaTime)
 {
 	Actor::Update(deltaTime);
-	HUDManager::GetInstance().UpdatePlayerPosition(m_Transform->position);
+	HUDManager::GetInstance().UpdatePositionText(m_Transform->position);
 
-	if (std::abs(m_RigidbodyPtr->GetVelocity().y) > m_ImpactThreshold) // TODO: Make sure this happens only on impact
+	if (m_RigidbodyPtr->GetVelocity().y < -m_ImpactThreshold) // TODO: Make sure this happens only on impact
 	{
 		if (CORE::s_DebugMode)
 		{
@@ -63,7 +63,7 @@ void Knight::Update(const float& deltaTime)
 void Knight::OnDamage()
 {
 	Actor::OnDamage();
-	HUDManager::GetInstance().UpdatePlayerHealth(GetHealth());
+	HUDManager::GetInstance().UpdateHealthBar(GetHealth());
 }
 
 void Knight::OnDeath()

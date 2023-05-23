@@ -1,11 +1,8 @@
 #include "pch.h"
 #include "HUDManager.h"
 
-#include <sstream>
-
 #include "CORE.h"
 #include "GameSettings.h"
-#include <SpriteRenderer.h>
 
 HUDManager::HUDManager()
 {
@@ -37,6 +34,8 @@ void HUDManager::Update(const float& deltaTime)
 
 void HUDManager::UIDraw() const
 {
+	m_FocusBarPtr->Draw(m_FocusBarRect);
+
 	// Draw ancient masks (health)
 	for (int i = 0; i < m_AncientMasks.size(); i++)
 	{

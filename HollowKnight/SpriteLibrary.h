@@ -20,6 +20,7 @@ enum class Sprite
 
 	// HUD
 	AncientMask,
+	FocusBar,
 
 	// Menu
 	MenuBackground,

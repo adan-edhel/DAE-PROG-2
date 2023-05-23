@@ -16,6 +16,7 @@ void SpriteLibrary::Setup()
 
 	// HUD
 	Load(Sprite::AncientMask, "HollowKnight/HUD/AncientMask.png");
+	Load(Sprite::FocusBar, "HollowKnight/HUD/FocusBar.png");
 
 	// Menu
 	Load(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");

@@ -1,10 +1,8 @@
 #pragma once
-#include "IDrawable.h"
-#include "SpriteLibrary.h"
-
 #include <array>
-
-#include "Knight.h"
+#include "IDrawable.h"
+#include "IUpdatable.h"
+#include "SpriteLibrary.h"
 
 class HUDManager final : IUpdatable, IDrawable
 {
@@ -12,7 +10,7 @@ class HUDManager final : IUpdatable, IDrawable
 	{
 	private:
 		Texture* m_Texture{ SpriteLibrary::GetSprite(Sprite::AncientMask) };
-		const float m_Scale{ 0.15f };
+		const float m_Scale{ 0.1f };
 
 	public:
 		bool m_Active{ true };
@@ -52,10 +50,17 @@ private:
 	Color4f m_FontColor{ 0.5f, 0.5f, 0.5f, 1 };
 	std::string m_Font{ SpriteLibrary::GetFont(Font::TrajanPro) };
 
+	// Focus Bar
+	const float m_FocusBarScale{0.7f};
+	Texture* m_FocusBarPtr{ SpriteLibrary::GetSprite(Sprite::FocusBar) };
+	Rectf m_FocusBarRect{ 75, 650,
+						m_FocusBarPtr->GetWidth() * m_FocusBarScale,
+						m_FocusBarPtr->GetHeight() * m_FocusBarScale};
+
 	// Ancient Masks
 	std::array<AncientMask, 5> m_AncientMasks{};
-	const Vector2 m_MasksPositionsOrigin{100, 700};
-	const float m_MasksOffset{50};
+	const Vector2 m_MasksPositionsOrigin{190, 715};
+	const float m_MasksOffset{38};
 
 	//Debug values
 	Vector2 m_PlayerPosition{};
