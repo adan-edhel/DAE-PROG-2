@@ -35,17 +35,17 @@ Level::Level(const std::string& levelName) :
 void Level::Initialize()
 {
 	// Setup level textures
-	SetupLevelObject(m_Background,	Sprite::Background,	int(IDrawable::Layers::Background));
+	SetupLevelObject(m_Background,	Sprite::Background,	 int(IDrawable::Layers::Background));
 	SetupLevelObject(m_Middleground, Sprite::Middleground,int(IDrawable::Layers::Middleground));
-	SetupLevelObject(m_Platforms,		Sprite::Platforms,	int(IDrawable::Layers::Platforms));
-	SetupLevelObject(m_Foreground,	Sprite::Foreground,	int(IDrawable::Layers::Foreground));
+	SetupLevelObject(m_Platforms,	Sprite::Platforms,	 int(IDrawable::Layers::Platforms));
+	SetupLevelObject(m_Foreground,	Sprite::Foreground,	 int(IDrawable::Layers::Foreground));
 	m_Platforms.m_Transform->position = m_PlatformPosition;
 
 	Camera::m_MainPtr->SetLevelBoundaries(m_Middleground.GetComponent<SpriteRenderer>()->GetBounds());
 
 	// Set up Knight
-	m_KnightPtr.AddComponent(new Knight());
-	m_KnightPtr.m_Transform->Translate(m_PlayerSpawnPoint);
+	m_Knight.AddComponent(new Knight());
+	m_Knight.m_Transform->Translate(m_PlayerSpawnPoint);
 
 	// Set up Crawlids
 	if (!m_Crawlids.empty())
