@@ -18,6 +18,9 @@ enum class Sprite
 	Middleground,
 	Foreground,
 
+	//Misc
+	Coin,
+
 	// HUD
 	AncientMask,
 	FocusBar,
