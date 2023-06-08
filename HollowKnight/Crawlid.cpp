@@ -32,7 +32,6 @@ void Crawlid::Start()
 	// Set rendered sprite & layer
 	auto* sprite = m_GameObject->GetComponent<SpriteRenderer>();
 	sprite->AssignSprite(SpriteLibrary::GetSprite(Sprite::Crawlid));
-	sprite->SetLayer(IDrawable::s_MidLayer + 1);
 
 	// Set collider size
 	m_GameObject->GetComponent<Collider>()->SetSize(m_ColliderSize);
