@@ -12,10 +12,12 @@ class Rigidbody2D;
 class InputActions final : public Component, public IInputEvent, public IUpdatable
 {
 public:
-	InputActions();
-	~InputActions() override = default;
-	InputActions(const InputActions& other) = default;
-	InputActions& operator=(const InputActions& other) = default;
+	InputActions(); 
+	~InputActions() override = default;								// destructor
+	InputActions(const InputActions& other) = delete;				// copy constructor
+	InputActions& operator=(const InputActions& other) = delete;	// copy operator
+	InputActions(InputActions&& other) noexcept = delete;			// move constructor
+	InputActions& operator=(const InputActions&& other) = delete;	// move operator
 
 protected:
 	Vector2 m_MousePos{};
@@ -40,6 +42,7 @@ private:
 	const Uint8* KBStatesPtr{};
 
 	// Movement fields
+	const float m_JumpResetThreshold{ -1.0f };
 	const float m_WalkSpeed;
 	const float m_JumpForce;
 	const int m_MaxJumps;

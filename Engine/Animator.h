@@ -13,6 +13,11 @@ public:
 	float m_PlaybackSpeed{ 1 };
 
 	Animator();
+	Animator(const Animator& other)					= delete;	// copy constructor
+	Animator(Animator&& other) noexcept				= delete;	// move constructor
+	Animator& operator=(const Animator& other)		= delete;	// copy operator
+	Animator& operator=(Animator&& other) noexcept	= delete;	// move operator
+
 	void Start() override;
 	Animation* Current() const;
 	void Play(const std::string& name);
@@ -24,5 +29,7 @@ private:
 	std::map<std::string, Animation*>* m_Clips{};
 
 	~Animator() override = default;
+
+
 	void Update(const float& deltaTime) override;
 };

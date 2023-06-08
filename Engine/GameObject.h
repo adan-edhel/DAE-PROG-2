@@ -13,9 +13,14 @@ public:
 	Transform* m_Transform;
 
 	GameObject(const std::string& name = "");
+	~GameObject() override;
+	GameObject(const GameObject& other)					= delete;	// copy constructor
+	GameObject(GameObject&& other) noexcept				= delete;	// move constructor
+	GameObject& operator=(const GameObject& other)		= delete;	// copy operator
+	GameObject& operator=(GameObject&& other) noexcept	= delete;	// move operator
+
 	bool IsActive() const;
 	void SetActive(const bool& active);
-	~GameObject() override;
 
 #pragma region Components
 private:

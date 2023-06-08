@@ -11,7 +11,11 @@ public:
 	inline static Camera* m_MainPtr{};
 
 	Camera(const Vector2& screen);
-	~Camera() override = default;
+	~Camera() override							= default;
+	Camera(const Camera& other)					= delete;	// copy constructor
+	Camera(Camera&& other) noexcept				= delete;	// move constructor
+	Camera& operator=(const Camera& other)		= delete;	// copy operator
+	Camera& operator=(Camera&& other) noexcept	= delete;	// move operator
 
 	void SetTarget(Transform& target);
 	void SetLevelBoundaries(const Rectf& levelBoundaries);
