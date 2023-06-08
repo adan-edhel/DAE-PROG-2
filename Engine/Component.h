@@ -17,7 +17,7 @@ public:
 
 protected:
 	Component(const std::string& name = "");
-	virtual ~Component() = default;
+	virtual ~Component() override = default;
 
 	virtual void Awake();
 	virtual void Start();

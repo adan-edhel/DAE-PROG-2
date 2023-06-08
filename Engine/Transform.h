@@ -9,7 +9,7 @@ class Transform final : public Component, public IDrawable
 public:
 	Vector2 position{};
 	Vector2 rotation{};
-	Vector2 scale{};
+	Vector2 scale{1, 1};
 
 	Transform();
 	void Translate(const float& x, const float& y);

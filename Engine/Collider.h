@@ -36,7 +36,6 @@ private:
 	// Collider offset
 	Vector2 m_Translate{};
 
-	void Awake() override;
 	void Update(const float& deltaTime) override;
 	void DebugDraw() const override;
 

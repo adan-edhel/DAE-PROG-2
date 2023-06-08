@@ -18,11 +18,6 @@ Collider::~Collider()
 	s_AllColliders.erase(std::remove(s_AllColliders.begin(), s_AllColliders.end(), this), s_AllColliders.end());
 }
 
-void Collider::Awake()
-{
-	SetSize(m_Transform->scale);
-}
-
 void Collider::Update(const float& deltaTime)
 {
 	m_Collider.left = m_Transform->position.x + m_Translate.x;

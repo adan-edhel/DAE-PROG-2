@@ -16,7 +16,6 @@ SpriteRenderer::SpriteRenderer(Texture* sprite, const int& rows, const int& cols
 void SpriteRenderer::AssignSprite(Texture* sprite)
 {
 	m_SpritePtr = sprite;
-	m_Transform->scale = Vector2(sprite->GetWidth(), sprite->GetHeight());
 
 	Rectf sliceRect{};
 	sliceRect.width = m_SpritePtr->GetWidth() / float(m_Rows);
@@ -41,7 +40,11 @@ void SpriteRenderer::Draw() const
 	glScalef(1, m_FlipY ? -1 : 1, 1);
 
 	// Draw centred on position
-	m_SpritePtr->Draw(Point2f(-m_Slice.width / 2, -m_Slice.height / 2), m_Slice);
+	m_SpritePtr->Draw(Rectf(-m_Slice.width * m_Transform->scale.x / 2, 
+								-m_Slice.height * m_Transform->scale.y / 2, 
+								m_Slice.width * m_Transform->scale.x, 
+							m_Slice.height * m_Transform->scale.y), 
+						m_Slice);
 
 	glPopMatrix();
 }
@@ -52,8 +55,8 @@ Rectf SpriteRenderer::GetBounds() const
 	{
 		return Rectf(m_Transform->position.x - m_SpritePtr->GetWidth()/2, 
 					m_Transform->position.y - m_SpritePtr->GetHeight()/2,
-						m_SpritePtr->GetWidth() / float(m_Columns),
-						m_SpritePtr->GetHeight() / float(m_Rows));
+						(m_SpritePtr->GetWidth() / float(m_Columns)) * m_Transform->scale.x,
+						(m_SpritePtr->GetHeight() / float(m_Rows)) * m_Transform->scale.y);
 	}
 	Print(">>Warning<< No sprite has been loaded.\n", TextColor::Red);
 	return Rectf{};
