@@ -1,7 +1,5 @@
 #pragma once
 #include "BaseGame.h"
-#include <CORE.h>
-
 #include "Menu.h"
 
 class GameObject;
@@ -31,12 +29,6 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 #pragma endregion
 private:
-	// Begin state of the game
-	const GameState m_BeginState{ GameState::Game };
-
-	// Dynamic state of the game
-	GameState m_State{};
-
 	// Menu
 	Menu* m_MenuPtr;
 

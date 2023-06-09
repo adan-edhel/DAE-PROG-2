@@ -1,12 +1,4 @@
 #pragma once
-
-enum class GameState
-{
-	Menu,
-	Settings,
-	Game
-};
-
 class CORE
 {
 public:

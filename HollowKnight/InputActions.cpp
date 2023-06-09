@@ -13,6 +13,7 @@
 #include "AnimLibrary.h"
 
 #include "AttackCollider.h"
+#include "SceneManager.h"
 
 InputActions::InputActions() :
 m_State{State::Falling},
@@ -154,6 +155,12 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		break;
 	case SDLK_F5:			// Clear Console
 		ClearConsole();
+		break;
+	case SDLK_F7:			// Menu Scene
+		SceneManager::SetScene(Scene::Menu);
+		break;
+	case SDLK_F8:			// Game Scene
+		SceneManager::SetScene(Scene::Game);
 		break;
 	}
 }

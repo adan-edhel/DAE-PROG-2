@@ -2,12 +2,11 @@
 #include "Game.h"
 
 #include "SpriteLibrary.h"
+#include "SceneManager.h"
 #include "GameSettings.h"
+#include "IInputEvent.h"
 #include "AnimLibrary.h"
 #include "Camera.h"
-
-#include "IInputEvent.h"
-
 #include "Level.h"
 
 Game::Game( const Window& window ) 
@@ -22,9 +21,6 @@ Game::Game( const Window& window )
 void Game::Start( )
 {
 	m_MenuPtr = new Menu();
-
-	// Set game state
-	m_State = m_BeginState;
 
 	// Setup camera
 	m_CameraPtr = new GameObject();
@@ -46,14 +42,12 @@ void Game::End( )
 
 void Game::Update(const float& deltaTime )
 {
-	switch (m_State)
+	switch (SceneManager::GetCurrentScene())
 	{
-	case GameState::Menu:
+	case Scene::Menu:
 		m_MenuPtr->Update(deltaTime);
 		break;
-	case GameState::Settings: 
-		break;
-	case GameState::Game:
+	case Scene::Game:
 		m_KingsPassPtr->Update(deltaTime);
 		break;
 	}
@@ -75,14 +69,12 @@ void Game::Draw( ) const
 {
 	ClearBackground( );
 
-	switch (m_State)
+	switch (SceneManager::GetCurrentScene())
 	{
-	case GameState::Menu:
+	case Scene::Menu:
 		m_MenuPtr->Draw();
 		break;
-	case GameState::Settings:
-		break;
-	case GameState::Game:
+	case Scene::Game:
 		m_KingsPassPtr->Draw();
 		break;
 	}
