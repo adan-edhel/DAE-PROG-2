@@ -77,9 +77,6 @@ void Menu::SelectButton()
 		case Buttons::Quit:
 			Print("Quit Game! [Implement for release...]\n");
 			break;
-		case Buttons::Back:
-			m_ActivePage = Page::Menu;
-		break;
 		}
 		break;
 	case Page::Controls:

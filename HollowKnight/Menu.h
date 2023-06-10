@@ -39,7 +39,7 @@ private:
 	// Active Button
 	Page m_ActivePage{};
 	Buttons m_ActiveButton{};
-	Buttons m_StoredButton{};
+	Buttons m_LastSelectedButton{};
 
 	// Text settings
 	int m_FontSize{ 20 };
