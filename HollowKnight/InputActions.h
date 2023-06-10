@@ -14,9 +14,6 @@ class InputActions final : public Component, IInputEvent, IUpdatable
 public:
 	InputActions();
 
-protected:
-	Vector2 m_MousePos{};
-
 private:
 	enum class State
 	{
@@ -35,9 +32,10 @@ private:
 	SpriteRenderer* m_RendererPtr{};
 
 	const Uint8* KBStatesPtr{};
+	Vector2 m_MousePos{};
 
 	// Movement fields
-	const float m_JumpResetThreshold{ -1.0f };
+	const float m_JumpResetThreshold;
 	const float m_WalkSpeed;
 	const float m_JumpForce;
 	const int m_MaxJumps;

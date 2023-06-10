@@ -15,10 +15,11 @@
 
 InputActions::InputActions() :
 m_State{State::Falling},
+m_JumpResetThreshold{1.0f},
 m_WalkSpeed{26},
 m_JumpForce{6},
 m_MaxJumps{1},
-m_JumpsLeft{m_MaxJumps}
+m_JumpsLeft{}
 {
 }
 
@@ -84,11 +85,16 @@ void InputActions::OnKey(const float& deltaTime)
 {
 	KBStatesPtr = SDL_GetKeyboardState(nullptr);
 
-	if (m_RigidbodyPtr->isGrounded() && m_RigidbodyPtr->GetVelocity().y > m_JumpResetThreshold) m_JumpsLeft = m_MaxJumps;
+	// Reset Jump capability
+	if (m_RigidbodyPtr->isGrounded() && std::abs(m_RigidbodyPtr->GetVelocity().y) < m_JumpResetThreshold)
+	{
+		m_JumpsLeft = m_MaxJumps;
+	}
 
-	// return if in hurt state
+	// Return if in hurt state
 	if (m_State == State::Hurt) return;
 
+	// Move left
 	if (KBStatesPtr[SDL_SCANCODE_LEFT])
 	{
 		Walk(-m_WalkSpeed * deltaTime);
@@ -100,6 +106,7 @@ void InputActions::OnKey(const float& deltaTime)
 			}
 		}
 	}
+	// Move Right
 	if (KBStatesPtr[SDL_SCANCODE_RIGHT])
 	{
 		Walk(m_WalkSpeed * deltaTime);
@@ -159,7 +166,7 @@ void InputActions::OnKeyUp(const SDL_KeyboardEvent& e)
 {
 	switch (e.keysym.sym)
 	{
-	case SDLK_UP:		// CUT JUMP
+	case SDLK_z:		// CUT JUMP
 		CutJump();
 		break;
 	}
