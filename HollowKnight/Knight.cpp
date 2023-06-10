@@ -14,7 +14,10 @@
 #include "HUDManager.h"
 
 Knight::Knight() : Actor(5),
-m_ColliderSize{50, 70}
+	m_ColliderSize{50, 70},
+	m_Walking{"HollowKnight/Audio/Game/Hero/hero_run_footsteps_stone.wav"},
+	m_LandingSoft{"HollowKnight/Audio/Game/Hero/hero_land_soft.wav"},
+	m_LandingHard{ "HollowKnight/Audio/Game/Hero/hero_land_hard.wav" }
 {
 }
 
@@ -49,14 +52,55 @@ void Knight::Update(const float& deltaTime)
 	Actor::Update(deltaTime);
 	HUDManager::GetInstance().UpdatePositionText(m_Transform->position);
 
-	if (m_RigidbodyPtr->GetVelocity().y < -m_ImpactThreshold)
+	HandleWalkAudio();
+	HandleGroundImpact();
+
+	// Store Previous Velocity
+	m_VelocityUpdateCounter += deltaTime;
+	if (m_VelocityUpdateCounter >= m_VelocityUpdateInterval)
 	{
+		m_StoredVelocity = m_RigidbodyPtr->GetVelocity();
+		m_VelocityUpdateCounter = 0;
+	}
+}
+
+void Knight::HandleGroundImpact() const
+{
+	if (!m_RigidbodyPtr->isGrounded()) return;
+
+	if (m_StoredVelocity.y < -m_SoftImpactThreshold)
+	{
+		if (m_StoredVelocity.y < -m_HardImpactThreshold)
+		{
+			Camera::m_MainPtr->SetShake();
+			m_LandingHard.Play();
+		}
+		else
+		{
+			m_LandingSoft.Play();
+		}
+
 		if (CORE::s_DebugMode)
 		{
-			Print("Impact velocity: " + std::to_string(m_RigidbodyPtr->GetVelocity().y) + "\n");
+			Print("Impact velocity: " + std::to_string(m_StoredVelocity.y) + "\n");
 		}
-		Camera::m_MainPtr->SetShake();
 	}
+}
+
+void Knight::HandleWalkAudio() const
+{
+	if (m_RigidbodyPtr->isGrounded())
+	{
+		if (std::abs(m_RigidbodyPtr->GetVelocity().x) > m_WalkSoundThreshold)
+		{
+			if (!m_Walking.IsPlaying())
+			{
+				m_Walking.Play(0);
+			}
+			return;
+		}
+	}
+	m_Walking.Stop();
 }
 
 void Knight::OnDamage()
