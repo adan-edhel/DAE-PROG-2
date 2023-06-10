@@ -12,7 +12,11 @@ public:
 	SoundEffect& operator=( SoundEffect&& rhs) = delete;
 
 	bool IsLoaded( ) const;
+	bool IsPlaying() const;
 	bool Play( const int loops = 0 ) const;
+	void Stop() const;
+	void Pause() const;
+	void Resume() const;
 	void SetVolume( const int value ); 
 	int GetVolume( ) const; 
 	static void StopAll( );

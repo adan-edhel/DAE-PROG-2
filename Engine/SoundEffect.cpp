@@ -22,6 +22,20 @@ bool SoundEffect::IsLoaded( ) const
 	return m_pMixChunk != nullptr;
 }
 
+bool SoundEffect::IsPlaying() const
+{
+	if (m_pMixChunk != nullptr)
+	{
+		const int numChannels = Mix_Playing(-1);
+		for (int i = 0; i < numChannels; ++i)
+		{
+			if (Mix_GetChunk(i) == m_pMixChunk)
+				return true;
+		}
+	}
+	return false;
+}
+
 bool SoundEffect::Play( const int loops ) const
 {
 	// Don't save the channel as a data member, 
@@ -37,6 +51,46 @@ bool SoundEffect::Play( const int loops ) const
 		return false;
 	}
 }
+
+void SoundEffect::Stop() const
+{
+	if (m_pMixChunk != nullptr)
+	{
+		const int numChannels = Mix_Playing(-1);
+		for (int i = 0; i < numChannels; ++i)
+		{
+			if (Mix_GetChunk(i) == m_pMixChunk)
+				Mix_HaltChannel(i);
+		}
+	}
+}
+
+void SoundEffect::Pause() const
+{
+	if (m_pMixChunk != nullptr)
+	{
+		const int numChannels = Mix_Playing(-1);
+		for (int i = 0; i < numChannels; ++i)
+		{
+			if (Mix_GetChunk(i) == m_pMixChunk)
+				Mix_Pause(i);
+		}
+	}
+}
+
+void SoundEffect::Resume() const
+{
+	if (m_pMixChunk != nullptr)
+	{
+		const int numChannels = Mix_Playing(-1);
+		for (int i = 0; i < numChannels; ++i)
+		{
+			if (Mix_GetChunk(i) == m_pMixChunk)
+				Mix_Resume(i);
+		}
+	}
+}
+
 
 void SoundEffect::SetVolume( const int value )
 {
