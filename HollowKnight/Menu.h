@@ -1,21 +1,31 @@
 #pragma once
 #include <array>
-#include "SpriteLibrary.h"
 
-enum class Buttons
-{
-	Start,
-	Controls,
-	Quit
-};
+#include "GameObject.h"
+#include "SpriteLibrary.h"
 
 class Menu final
 {
+	enum class Page
+	{
+		Menu,
+		Controls
+	};
+
+	enum class Buttons
+	{
+		None,
+		Start,
+		Controls,
+		Quit,
+		Back
+	};
+
 public:
 	Menu();
-	void Update(const float& deltaTime);
 	void Draw() const;
-	void DrawButton(const Texture& texture, const float& offset) const;
+	void SelectButton();
+	void HighlightButton(const float& mouseX, const float& mouseY);
 
 private:
 	// Background Pointers
@@ -27,7 +37,9 @@ private:
 	Rectf m_TitleRect{};
 
 	// Active Button
+	Page m_ActivePage{};
 	Buttons m_ActiveButton{};
+	Buttons m_StoredButton{};
 
 	// Text settings
 	int m_FontSize{ 20 };
@@ -38,10 +50,14 @@ private:
 	const float m_ButtonsPosOffset{-50};
 
 	// Buttons
-	std::array<Texture, 3> m_Buttons = {
+	std::array<Texture, 4> m_Buttons = {
 		Texture("Start Game", m_Font, m_FontSize, m_FontColor),
 		Texture("Controls", m_Font, m_FontSize, m_FontColor),
-		Texture("Quit Game", m_Font, m_FontSize, m_FontColor) };
+		Texture("Quit Game", m_Font, m_FontSize, m_FontColor),
+		Texture("Back", m_Font, m_FontSize, m_FontColor)};
 
-	std::array<Rectf, 3> m_ButtonBounds = {};
+	std::array<Rectf, 4> m_ButtonBounds = {};
+
+	// Button Details
+	GameObject m_ButtonAccents{};
 };

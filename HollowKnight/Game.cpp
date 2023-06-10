@@ -40,18 +40,18 @@ void Game::End( )
 	SpriteLibrary::Cleanup();
 }
 
+void Game::RestartLevel()
+{
+	delete m_KingsPassPtr;
+	m_KingsPassPtr = new Level("King's Pass");
+}
+
 void Game::Update(const float& deltaTime )
 {
-	switch (SceneManager::GetCurrentScene())
+	if (SceneManager::GetCurrentScene() == Scene::Game)
 	{
-	case Scene::Menu:
-		m_MenuPtr->Update(deltaTime);
-		break;
-	case Scene::Game:
 		m_KingsPassPtr->Update(deltaTime);
-		break;
 	}
-
 
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
@@ -90,7 +90,16 @@ void Game::ClearBackground( ) const
 #pragma region Keyboard
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
+	if (SceneManager::GetCurrentScene() == Scene::Game)
+	{
+		if (e.keysym.sym == SDLK_ESCAPE)
+		{
+			SceneManager::SetScene(Scene::Menu);
+			RestartLevel();
+			return;
+		}
+		IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
+	}
 }
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
@@ -100,11 +109,25 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 #pragma region Mouse
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
-	IInputEvent::Invoke(&IInputEvent::OnMouseMotion, e);
+	if (SceneManager::GetCurrentScene() == Scene::Menu)
+	{
+		m_MenuPtr->HighlightButton(e.x, e.y);
+	}
+	else
+	{
+		IInputEvent::Invoke(&IInputEvent::OnMouseMotion, e);
+	}
 }
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
+	if (SceneManager::GetCurrentScene() == Scene::Menu)
+	{
+		m_MenuPtr->SelectButton();
+	}
+	else
+	{
+		IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
+	}
 }
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 {

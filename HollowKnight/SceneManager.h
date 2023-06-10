@@ -14,5 +14,5 @@ public:
 
 private:
 	// Dynamic state of the game
-	inline static Scene s_Scene{Scene::Game};
+	inline static Scene s_Scene{Scene::Menu};
 };

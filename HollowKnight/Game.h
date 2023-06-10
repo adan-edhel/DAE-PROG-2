@@ -29,17 +29,14 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 #pragma endregion
 private:
-	// Menu
+	// POINTERS
 	Menu* m_MenuPtr;
-
-	// Level
 	Level* m_KingsPassPtr{};
-
-	// Camera
 	GameObject* m_CameraPtr;
 
 	// FUNCTIONS
 	void Start();
 	void End( );
+	void RestartLevel();
 	void ClearBackground( ) const;
 };

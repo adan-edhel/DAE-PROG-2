@@ -142,8 +142,6 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		break;
 	case SDLK_i:			// Inventory
 		break;
-	case SDLK_ESCAPE:		// MENU
-		break;
 	case SDLK_F1:			// TOGGLE DEBUG
 		CORE::s_DebugMode = !CORE::s_DebugMode;
 	case SDLK_F2:			// PRINT PLAYER POSITION
@@ -155,12 +153,6 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		break;
 	case SDLK_F5:			// Clear Console
 		ClearConsole();
-		break;
-	case SDLK_F7:			// Menu Scene
-		SceneManager::SetScene(Scene::Menu);
-		break;
-	case SDLK_F8:			// Game Scene
-		SceneManager::SetScene(Scene::Game);
 		break;
 	}
 }
