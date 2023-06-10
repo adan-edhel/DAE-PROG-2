@@ -6,7 +6,10 @@
 #include "SpriteLibrary.h"
 #include "utils.h"
 
-Menu::Menu()
+Menu::Menu() :
+	m_MenuMusic{ "HollowKnight/Audio/Music/TitleTheme.wav" },
+	m_HighlightSound{"HollowKnight/Audio/UI/ui_change_selection.wav"},
+	m_ConfirmSound{"HollowKnight/Audio/UI/ui_button_confirm.wav"}
 {
 	m_BackgroundPtr = SpriteLibrary::GetSprite(Sprite::MenuBackground);
 	m_TitlePtr = SpriteLibrary::GetSprite(Sprite::MenuTitle);
@@ -15,7 +18,7 @@ Menu::Menu()
 	const float titleMultiplier = 0.6f;
 	const float titleOffset = 175;
 
-	// Background positioning
+	// Background Positioning
 	m_BackgroundRect.width = m_BackgroundPtr->GetWidth() * backgroundMultiplier;
 	m_BackgroundRect.height = m_BackgroundPtr->GetHeight() * backgroundMultiplier;
 	m_BackgroundRect.left = GameSettings::s_ScreenCenter.x - m_BackgroundRect.width / 2;
@@ -38,6 +41,8 @@ Menu::Menu()
 		m_ButtonBounds[i].left = centerXPos;
 		m_ButtonBounds[i].bottom = centerYPos - (i * m_ButtonsOffset);
 	}
+
+	m_MenuMusic.Play(-1);
 }
 
 void Menu::Draw() const
@@ -88,6 +93,7 @@ void Menu::SelectButton()
 		}
 		break;
 	}
+	m_ConfirmSound.Play();
 }
 
 void Menu::HighlightButton(const float& mouseX, const float& mouseY)
@@ -101,6 +107,22 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 			if (m_LastSelectedButton != button)
 			{
 				//TODO: Play UI sound
+				switch (button)
+				{
+					case Buttons::Start:
+						Print("Start Highlighted!\n");
+						break;
+					case Buttons::Controls:
+						Print("Controls Highlighted!\n");
+						break;
+					case Buttons::Quit:
+						Print("Quit Highlighted!\n");
+						break;
+					case Buttons::Back:
+						Print("Back Highlighted!\n");
+						break;
+				}
+				m_HighlightSound.Play();
 			}
 			m_ActiveButton = button;
 			m_LastSelectedButton = m_ActiveButton;
