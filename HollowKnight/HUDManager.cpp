@@ -28,10 +28,6 @@ void HUDManager::UpdateHealthBar(const int& health)
 	}
 }
 
-void HUDManager::Update(const float& deltaTime)
-{
-}
-
 void HUDManager::UIDraw() const
 {
 	m_FocusBarPtr->Draw(m_FocusBarRect);
@@ -44,8 +40,9 @@ void HUDManager::UIDraw() const
 	}
 
 	// Draw player position
-	if (!CORE::s_DebugMode) // TODO: Remove for release
+	if (!CORE::s_DebugMode)
 	{
+		//TODO: Remove for release
 		DrawString(m_PlayerPosition.ToRoundedString(), Vector2(0, -350));
 	}
 }

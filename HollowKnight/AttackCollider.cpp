@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "AttackCollider.h"
-#include <Collider.h>
-#include <GameObject.h>
 
+#include <GameObject.h>
+#include <Collider.h>
 #include "Enemy.h"
 
 void AttackCollider::OnCollisionEnter(const Collision& collision)

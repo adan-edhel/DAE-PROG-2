@@ -11,9 +11,7 @@
 #include <Collider.h>
 #include <Animation.h>
 #include "AnimLibrary.h"
-
 #include "AttackCollider.h"
-#include "SceneManager.h"
 
 InputActions::InputActions() :
 m_State{State::Falling},

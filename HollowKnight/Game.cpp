@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "Game.h"
 
+// Libraries
 #include "SpriteLibrary.h"
+#include "AnimLibrary.h"
+
 #include "SceneManager.h"
 #include "GameSettings.h"
 #include "IInputEvent.h"
-#include "AnimLibrary.h"
 #include "Camera.h"
 #include "Level.h"
 
@@ -31,19 +33,13 @@ void Game::Start( )
 
 void Game::End( )
 {
-	delete Camera::m_MainPtr->m_GameObject;
+	delete m_CameraPtr;
 
 	delete m_KingsPassPtr;
 	delete m_MenuPtr;
 
 	AnimLibrary::Cleanup();
 	SpriteLibrary::Cleanup();
-}
-
-void Game::RestartLevel()
-{
-	delete m_KingsPassPtr;
-	m_KingsPassPtr = new Level("King's Pass");
 }
 
 void Game::Update(const float& deltaTime )
@@ -95,7 +91,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 		if (e.keysym.sym == SDLK_ESCAPE)
 		{
 			SceneManager::SetScene(Scene::Menu);
-			RestartLevel();
+			SceneManager::ReloadLevel(m_KingsPassPtr, "King's Pass");
 			return;
 		}
 		IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);

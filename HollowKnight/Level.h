@@ -1,20 +1,14 @@
 #pragma once
 #include <GameObject.h>
+#include <array>
+
 #include "SpriteLibrary.h"
 #include "HUDManager.h"
-
-#include <array>
 
 class Level final
 {
 public:
-	Level(const std::string& levelName);					// constructor
-	~Level()									= default;	// destructor
-	Level(const Level& other)					= delete;	// copy constructor
-	Level(Level&& other) noexcept				= delete;	// move constructor
-	Level& operator=(const Level& other)		= delete;	// copy operator
-	Level& operator=(Level&& other) noexcept	= delete;	// move operator
-
+	Level(const std::string& levelName);
 	void Update(const float& deltaTime);
 	void Draw() const;
 

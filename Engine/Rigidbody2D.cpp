@@ -236,7 +236,7 @@ void Rigidbody2D::DebugDraw() const
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glColor3f(1, 0, 0);
-	glLineWidth(4);
+	glLineWidth(3);
 
 	// Draw Level Colliders
 	for (const auto& collider : m_LevelBoundaries)
@@ -251,5 +251,6 @@ void Rigidbody2D::DebugDraw() const
 	}
 
 	glLineWidth(1);
+	glColor3f(1, 1, 1);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }

@@ -3,9 +3,8 @@
 
 #include <Animator.h>
 #include <Collider.h>
-#include <SpriteRenderer.h>
 #include <Rigidbody2D.h>
-
+#include <SpriteRenderer.h>
 #include "SpriteLibrary.h"
 #include "InputActions.h"
 #include "AnimLibrary.h"
@@ -50,7 +49,7 @@ void Knight::Update(const float& deltaTime)
 	Actor::Update(deltaTime);
 	HUDManager::GetInstance().UpdatePositionText(m_Transform->position);
 
-	if (m_RigidbodyPtr->GetVelocity().y < -m_ImpactThreshold) // TODO: Make sure this happens only on impact
+	if (m_RigidbodyPtr->GetVelocity().y < -m_ImpactThreshold)
 	{
 		if (CORE::s_DebugMode)
 		{

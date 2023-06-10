@@ -1,6 +1,7 @@
 #pragma once
 #include "structs.h"
 #include "Texture.h"
+#include "Vector3.h"
 
 // Declaration
 #pragma region Constants
@@ -20,6 +21,7 @@ double	WaveMovement		(double moved, double fullMovement = 1.0);
 // WaveMovement(25);						// Out of 100
 
 void DrawCircle(float posX, float posY, float radius, int segments);
+void DrawRectColored(const Rectf& rect, const Vector3& color = Vector3(1, 1, 1), const float& lineWidth = 1);
 
 // Color Functions
 enum class Color

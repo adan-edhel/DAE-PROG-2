@@ -13,6 +13,16 @@ SpriteRenderer::SpriteRenderer(Texture* sprite, const int& rows, const int& cols
 {
 }
 
+void SpriteRenderer::SetLayer(const int& layer)
+{
+	IDrawable::SetLayer(layer);
+}
+
+int SpriteRenderer::GetLayer() const
+{
+	return IDrawable::GetLayer();
+}
+
 void SpriteRenderer::AssignSprite(Texture* sprite)
 {
 	m_SpritePtr = sprite;
@@ -73,13 +83,5 @@ void SpriteRenderer::DebugDraw() const
 						m_Transform->position.y - GetBounds().height / 2,
 						GetBounds().width, GetBounds().height };
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glColor3f(1, 1, 1);
-	glBegin(GL_POLYGON);
-	glVertex2f(sprite.left, sprite.bottom);
-	glVertex2f(sprite.left, sprite.bottom + sprite.height);
-	glVertex2f(sprite.left + sprite.width, sprite.bottom + sprite.height);
-	glVertex2f(sprite.left + sprite.width, sprite.bottom);
-	glEnd();
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	DrawRectColored(sprite);
 }

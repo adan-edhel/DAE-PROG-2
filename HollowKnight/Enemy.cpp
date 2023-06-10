@@ -13,5 +13,5 @@ void Enemy::Awake()
 
 void Enemy::OnDeath()
 {
-	//TODO: Spawn reward
+	//TODO: Spawn reward (optionally)
 }

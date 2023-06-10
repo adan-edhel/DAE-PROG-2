@@ -1,10 +1,9 @@
 #pragma once
 #include <array>
 #include "IDrawable.h"
-#include "IUpdatable.h"
 #include "SpriteLibrary.h"
 
-class HUDManager final : IUpdatable, IDrawable
+class HUDManager final : IDrawable
 {
 	struct AncientMask
 	{
@@ -65,7 +64,6 @@ private:
 	//Debug values
 	Vector2 m_PlayerPosition{};
 
-	void Update(const float& deltaTime) override;
 	void UIDraw() const override;
 
 	void DrawString(const std::string& text, const Vector2 position = Vector2{}) const;

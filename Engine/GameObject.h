@@ -7,7 +7,7 @@
 
 #include "AmrothUtils.h"
 
-class GameObject final : public Object, public IUpdatable
+class GameObject final : public Object, IUpdatable
 {
 public:
 	Transform* m_Transform;

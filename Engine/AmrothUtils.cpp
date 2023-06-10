@@ -1,7 +1,8 @@
-#include <iostream>
-#include "Vector3.h"
-#include "utils.h"
 #include "AmrothUtils.h"
+
+#include "Vector3.h"
+#include <iostream>
+#include "utils.h"
 
 //#define _USE_MATH_DEFINES
 //#include <math.h>
@@ -27,38 +28,50 @@ double WaveMovement	(double moved, double fullMovement)
 void DrawCircle(float posX, float posY, float radius, int segments)
 {
 	const float theta = M_PI * 2 / float(segments);
-	const float tangetial_factor = tanf(theta);//calculate the tangential factor 
-
-	const float radial_factor = cosf(theta);//calculate the radial factor 
-
-	float x = radius;//we start at angle = 0 
-
+	const float tangetial_factor = tanf(theta);
+	const float radial_factor = cosf(theta);	
+	float x = radius;							
 	float y = 0;
+
 	glLineWidth(2);
+
 	glBegin(GL_LINE_LOOP);
 	glPolygonMode(GL_FRONT, GL_FILL);
 	for (int ii = 0; ii < segments; ii++)
 	{
-		glVertex2f(x + posX, y + posY);//output vertex 
+		glVertex2f(x + posX, y + posY);
 
-		//calculate the tangential vector 
-		//remember, the radial vector is (x, y) 
-		//to get the tangential vector we flip those coordinates and negate one of them 
-
-		float tx = -y;
-		float ty = x;
-
-		//add the tangential vector 
+		const float tx = -y;
+		const float ty = x;
 
 		x += tx * tangetial_factor;
 		y += ty * tangetial_factor;
 
-		//correct using the radial factor 
-
 		x *= radial_factor;
 		y *= radial_factor;
 	}
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnd();
+
+	glLineWidth(1);
+}
+
+void DrawRectColored(const Rectf& rect, const Vector3& color, const float& lineWidth)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3f(color.x, color.y, color.z);
+	glLineWidth(lineWidth);
+
+	glBegin(GL_POLYGON);
+	glVertex2f(rect.left, rect.bottom);
+	glVertex2f(rect.left, rect.bottom + rect.height);
+	glVertex2f(rect.left + rect.width, rect.bottom + rect.height);
+	glVertex2f(rect.left + rect.width, rect.bottom);
+	glEnd();
+
+	glLineWidth(1);
+	glColor3f(1, 1, 1);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 // Color Functions

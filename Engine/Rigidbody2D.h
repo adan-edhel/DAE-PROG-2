@@ -7,7 +7,7 @@
 
 class Collider;
 
-class Rigidbody2D final : public Component, public IDrawable
+class Rigidbody2D final : public Component, IDrawable
 {
 public:
 	bool m_IsStatic{ false };
@@ -44,7 +44,7 @@ private:
 	void HandleFloorCollision(const Rectf& collider, Vector2& velocity, const float& floorPos);
 	void HandleCeilingCollision(const Rectf& collider, Vector2& velocity, const float& ceilingPos);
 	void HandleWallCollision(const Rectf& collider, Vector2& velocity, const float& wallPos, const float& wallHeight);
-	//void HandleBoundaryCollision(const Rectf& collider, Vector2& velocity) const; //TODO: Needs to be reworked
+	//void HandleBoundaryCollision(const Rectf& collider, Vector2& velocity) const; //TODO: Needs rework
 
 	// Assist Functions
 	bool IntersectsLine(const Rectf& rect, const Vector2& start, const Vector2& end, float& intersectMin, float& intersectMax);

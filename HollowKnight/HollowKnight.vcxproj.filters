@@ -25,6 +25,18 @@
     <Filter Include="Game\Characters\Headers">
       <UniqueIdentifier>{a1bcad83-db30-4690-b279-097afeb08572}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{ee3f4958-ae41-4547-97ea-dd9d0a0e23cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI\Header">
+      <UniqueIdentifier>{be61d362-410e-4e44-93e8-97e3e4d308d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MISC">
+      <UniqueIdentifier>{dc6119f7-d557-40fe-bc80-32c152967304}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\MISC\Header">
+      <UniqueIdentifier>{a7f0d27f-d40d-4056-854a-a27c373e16fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -35,12 +47,6 @@
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Base</Filter>
-    </ClCompile>
-    <ClCompile Include="InputActions.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="HUDManager.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="SpriteLibrary.cpp">
       <Filter>Game\Libraries</Filter>
@@ -63,14 +69,20 @@
     <ClCompile Include="Knight.cpp">
       <Filter>Game\Characters</Filter>
     </ClCompile>
-    <ClCompile Include="AttackCollider.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="HUDManager.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackCollider.cpp">
+      <Filter>Game\MISC</Filter>
+    </ClCompile>
+    <ClCompile Include="InputActions.cpp">
+      <Filter>Game\MISC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -88,12 +100,6 @@
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Base\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="InputActions.h">
-      <Filter>Game\Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="HUDManager.h">
-      <Filter>Game\Headers</Filter>
     </ClInclude>
     <ClInclude Include="AnimLibrary.h">
       <Filter>Game\Libraries\Headers</Filter>
@@ -113,14 +119,20 @@
     <ClInclude Include="Knight.h">
       <Filter>Game\Characters\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="AttackCollider.h">
+    <ClInclude Include="SceneManager.h">
       <Filter>Game\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
-      <Filter>Game\Headers</Filter>
+      <Filter>Game\UI\Header</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Game\Headers</Filter>
+    <ClInclude Include="HUDManager.h">
+      <Filter>Game\UI\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="InputActions.h">
+      <Filter>Game\MISC\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackCollider.h">
+      <Filter>Game\MISC\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

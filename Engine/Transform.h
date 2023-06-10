@@ -4,7 +4,7 @@
 
 #include "Vector2.h"
 
-class Transform final : public Component, public IDrawable
+class Transform final : public Component, IDrawable
 {
 public:
 	Vector2 position{};

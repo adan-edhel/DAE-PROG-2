@@ -144,15 +144,5 @@ void Collider::DebugDraw() const
 	if (!m_GameObject->IsActive()) return;
 
 	// Draw Collider
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	glColor3f(0, 0, 1);
-	glLineWidth(2);
-	glBegin(GL_POLYGON);
-	glVertex2f(m_Collider.left, m_Collider.bottom);
-	glVertex2f(m_Collider.left, m_Collider.bottom + m_Collider.height);
-	glVertex2f(m_Collider.left + m_Collider.width, m_Collider.bottom + m_Collider.height);
-	glVertex2f(m_Collider.left + m_Collider.width, m_Collider.bottom);
-	glEnd();
-	glLineWidth(1);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	DrawRectColored(m_Collider, Vector3(0, 0, 1), 2);
 }

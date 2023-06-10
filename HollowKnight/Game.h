@@ -37,6 +37,5 @@ private:
 	// FUNCTIONS
 	void Start();
 	void End( );
-	void RestartLevel();
 	void ClearBackground( ) const;
 };

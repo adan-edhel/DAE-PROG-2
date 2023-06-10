@@ -1,23 +1,18 @@
 #pragma once
 #include "Component.h"
-#include <GameObject.h>
-
-#include "IInputEvent.h"
 #include "IUpdatable.h"
+#include "IInputEvent.h"
+
+#include <GameObject.h>
 
 class Animator;
 class SpriteRenderer;
 class Rigidbody2D;
 
-class InputActions final : public Component, public IInputEvent, public IUpdatable
+class InputActions final : public Component, IInputEvent, IUpdatable
 {
 public:
-	InputActions(); 
-	~InputActions() override = default;								// destructor
-	InputActions(const InputActions& other) = delete;				// copy constructor
-	InputActions& operator=(const InputActions& other) = delete;	// copy operator
-	InputActions(InputActions&& other) noexcept = delete;			// move constructor
-	InputActions& operator=(const InputActions&& other) = delete;	// move operator
+	InputActions();
 
 protected:
 	Vector2 m_MousePos{};

@@ -56,8 +56,8 @@ public:
 	virtual void UIDraw() const {}
 	virtual void DebugDraw() const {}
 
-	int GetLayer() const { return m_OrderInLayer; }
-	void SetLayer(const int& layer)
+	virtual int GetLayer() const { return m_OrderInLayer; }
+	virtual void SetLayer(const int& layer)
 	{
 		RemoveFromVector();
 		m_OrderInLayer = layer;

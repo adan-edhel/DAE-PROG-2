@@ -5,7 +5,7 @@
 
 class Animator;
 
-class SpriteRenderer final : public Component, public IDrawable
+class SpriteRenderer final : public Component, IDrawable
 {
 public:
 	bool m_FlipX{ false };
@@ -14,8 +14,10 @@ public:
 	SpriteRenderer(Texture* sprite = nullptr, const int& rows = 1, const int& cols = 1);
 	~SpriteRenderer() override = default;
 
+	void SetLayer(const int& layer) override;
+	int GetLayer() const override;
+
 	void AssignSprite(Texture* sprite);
-	void Draw() const override;
 
 	[[nodiscard]] Rectf GetBounds() const;
 
@@ -28,6 +30,7 @@ private:
 	int m_Rows;
 	int m_Columns;
 
+	void Draw() const override;
 	void Slice(const Rectf& slice);
 	void DebugDraw() const override;
 };
