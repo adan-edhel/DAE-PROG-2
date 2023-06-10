@@ -35,7 +35,18 @@ GameObject::~GameObject()
 }
 
 bool GameObject::IsActive() const { return m_IsActive; }
-void GameObject::SetActive(const bool& active) { m_IsActive = active; }
+void GameObject::SetActive(const bool& active)
+{
+	m_IsActive = active;
+	if (active == true)
+	{
+		for (const auto& component : components)
+		{
+			component->Awake();
+			component->Start();
+		}
+	}
+}
 
 void GameObject::Update(const float& deltaTime)
 {
