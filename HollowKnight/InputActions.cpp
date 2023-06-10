@@ -15,6 +15,7 @@
 
 InputActions::InputActions() :
 m_State{State::Falling},
+m_JumpSound{"HollowKnight/Audio/Game/Hero/hero_jump.wav"},
 m_JumpResetThreshold{1.0f},
 m_WalkSpeed{26},
 m_JumpForce{6},
@@ -129,6 +130,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		{
 			Jump();
 			m_State = State::Jumping;
+			m_JumpSound.Play();
 			m_JumpsLeft--;
 		}
 		break;
