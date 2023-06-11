@@ -11,6 +11,7 @@
 #include <Collider.h>
 #include <Animation.h>
 #include "AnimLibrary.h"
+#include "SceneManager.h"
 #include "AttackCollider.h"
 
 InputActions::InputActions() :
@@ -148,6 +149,9 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	case SDLK_f:			// Quick Cast
 		break;
 	case SDLK_i:			// Inventory
+		break;
+	case SDLK_ESCAPE:
+		SceneManager::LoadScene(Scene::Menu);
 		break;
 	case SDLK_F1:			// TOGGLE DEBUG
 		CORE::s_DebugMode = !CORE::s_DebugMode;

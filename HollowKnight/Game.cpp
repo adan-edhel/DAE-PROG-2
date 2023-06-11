@@ -69,15 +69,7 @@ void Game::ClearBackground( ) const
 #pragma region Keyboard
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	if (SceneManager::GetCurrentScene() == Scene::Game)
-	{
-		if (e.keysym.sym == SDLK_ESCAPE)
-		{
-			SceneManager::LoadScene(Scene::Menu);
-			return;
-		}
-		IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
-	}
+	IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
 }
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
@@ -91,10 +83,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 	{
 		SceneManager::GetScene<Menu>()->HighlightButton(e.x, e.y);
 	}
-	else
-	{
-		IInputEvent::Invoke(&IInputEvent::OnMouseMotion, e);
-	}
+	IInputEvent::Invoke(&IInputEvent::OnMouseMotion, e);
 }
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
@@ -102,10 +91,7 @@ void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 	{
 		SceneManager::GetScene<Menu>()->SelectButton();
 	}
-	else
-	{
-		IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
-	}
+	IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
 }
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 {
