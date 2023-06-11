@@ -15,6 +15,10 @@ void Component::Start()
 {
 }
 
+void Component::OnDisable()
+{
+}
+
 void Component::Update(const float& deltaTime)
 {
 }

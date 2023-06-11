@@ -37,6 +37,8 @@ GameObject::~GameObject()
 bool GameObject::IsActive() const { return m_IsActive; }
 void GameObject::SetActive(const bool& active)
 {
+	if (active == m_IsActive) return;
+
 	m_IsActive = active;
 	if (active == true)
 	{
@@ -44,6 +46,13 @@ void GameObject::SetActive(const bool& active)
 		{
 			component->Awake();
 			component->Start();
+		}
+	}
+	else
+	{
+		for (const auto& component : components)
+		{
+			component->OnDisable();
 		}
 	}
 }
