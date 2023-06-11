@@ -1,15 +1,15 @@
 #include "pch.h"
 #include "Menu.h"
 
+#include "AudioLibrary.h"
+#include "CORE.h"
+#include <SoundEffect.h>
 #include "GameSettings.h"
 #include "SceneManager.h"
 #include "SpriteLibrary.h"
 #include "utils.h"
 
-Menu::Menu() :
-	m_MenuMusic{ "Audio/Music/TitleTheme.wav" },
-	m_HighlightSound{"Audio/UI/ui_change_selection.wav"},
-	m_ConfirmSound{"Audio/UI/ui_button_confirm.wav"}
+Menu::Menu()
 {
 	m_BackgroundPtr = SpriteLibrary::GetSprite(Sprite::MenuBackground);
 	m_TitlePtr = SpriteLibrary::GetSprite(Sprite::MenuTitle);
@@ -42,7 +42,7 @@ Menu::Menu() :
 		m_ButtonBounds[i].bottom = centerYPos - (i * m_ButtonsOffset);
 	}
 
-	m_MenuMusic.Play(-1);
+	AudioLibrary::GetClip(Music::Title)->Play(-1);
 }
 
 void Menu::Draw() const
@@ -70,11 +70,12 @@ void Menu::SelectButton()
 {
 	switch (m_ActivePage)
 	{
-	case Page::Menu:
+		case Page::Menu:
 		switch (m_ActiveButton)
 		{
 		case Buttons::Start:
-			SceneManager::SetScene(Scene::Game);
+			AudioLibrary::GetClip(Music::Title)->Stop();
+			SceneManager::LoadScene(Scene::Game);
 			break;
 		case Buttons::Controls:
 			m_ActivePage = Page::Controls;
@@ -93,7 +94,11 @@ void Menu::SelectButton()
 		}
 		break;
 	}
-	m_ConfirmSound.Play();
+
+	if (m_ActiveButton != Buttons::None)
+	{
+		AudioLibrary::GetClip(Audio::ButtonConfirm)->PlayOnce();
+	}
 }
 
 void Menu::HighlightButton(const float& mouseX, const float& mouseY)
@@ -107,8 +112,12 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 			if (m_LastSelectedButton != button)
 			{
 				//TODO: Play UI sound
-				switch (button)
+				AudioLibrary::GetClip(Audio::ButtonHighlight)->PlayOnce();
+
+				if (CORE::s_DebugMode)
 				{
+					switch (button)
+					{
 					case Buttons::Start:
 						Print("Start Highlighted!\n");
 						break;
@@ -121,8 +130,8 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 					case Buttons::Back:
 						Print("Back Highlighted!\n");
 						break;
+					}
 				}
-				m_HighlightSound.Play();
 			}
 			m_ActiveButton = button;
 			m_LastSelectedButton = m_ActiveButton;

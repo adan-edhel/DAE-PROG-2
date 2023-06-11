@@ -8,16 +8,14 @@
 #include "SpriteLibrary.h"
 #include "InputActions.h"
 #include "AnimLibrary.h"
+#include "AudioLibrary.h"
 #include "Camera.h"
 #include "CORE.h"
 
 #include "HUDManager.h"
 
 Knight::Knight() : Actor(5),
-	m_ColliderSize{50, 70},
-	m_Walking{"Audio/Game/Hero/hero_run_footsteps_stone.wav"},
-	m_LandingSoft{"Audio/Game/Hero/hero_land_soft.wav"},
-	m_LandingHard{ "Audio/Game/Hero/hero_land_hard.wav" }
+	m_ColliderSize{50, 70}
 {
 }
 
@@ -66,20 +64,24 @@ void Knight::Update(const float& deltaTime)
 
 void Knight::HandleGroundImpact() const
 {
+	// Return if grounded
 	if (!m_RigidbodyPtr->isGrounded()) return;
 
+	// If soft impact
 	if (m_StoredVelocity.y < -m_SoftImpactThreshold)
 	{
+		// If hard impact
 		if (m_StoredVelocity.y < -m_HardImpactThreshold)
 		{
 			Camera::m_MainPtr->SetShake();
-			m_LandingHard.PlayOnce();
+			AudioLibrary::GetClip(Audio::HeroLandHard)->PlayOnce();
 		}
 		else
 		{
-			m_LandingSoft.PlayOnce();
+			AudioLibrary::GetClip(Audio::HeroLandSoft)->PlayOnce();
 		}
 
+		// Print impact info
 		if (CORE::s_DebugMode)
 		{
 			Print("Impact velocity: " + std::to_string(m_StoredVelocity.y) + "\n");
@@ -93,14 +95,14 @@ void Knight::HandleWalkAudio() const
 	{
 		if (std::abs(m_RigidbodyPtr->GetVelocity().x) > m_WalkSoundThreshold)
 		{
-			if (!m_Walking.IsPlaying())
+			if (!AudioLibrary::GetClip(Audio::HeroFootstep)->IsPlaying())
 			{
-				m_Walking.PlayOnce(-1);
+				AudioLibrary::GetClip(Audio::HeroFootstep)->PlayOnce(-1);
 			}
 			return;
 		}
 	}
-	m_Walking.Stop();
+	AudioLibrary::GetClip(Audio::HeroFootstep)->Stop();
 }
 
 void Knight::OnDamage()

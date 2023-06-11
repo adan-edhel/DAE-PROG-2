@@ -20,10 +20,6 @@ private:
 	float m_VelocityUpdateCounter{};
 	Vector2 m_StoredVelocity{};
 
-	SoundEffect m_Walking;
-	SoundEffect m_LandingSoft;
-	SoundEffect m_LandingHard;
-
 	const Vector2 m_ColliderSize;
 	const float m_SoftImpactThreshold{ 0.5 };
 	const float m_HardImpactThreshold{ 7.0 };

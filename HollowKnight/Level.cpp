@@ -13,6 +13,8 @@
 #include "SpriteRenderer.h"
 #include "GameObject.h"
 #include <Transform.h>
+
+#include "AudioLibrary.h"
 #include "Knight.h"
 #include "Camera.h"
 #include "Crawlid.h"
@@ -56,6 +58,9 @@ void Level::Initialize()
 			m_Crawlids[i].m_Transform->position = m_CrawlidSpawnPositions[i];
 		}
 	}
+
+	// Play Ambience audio
+	AudioLibrary::GetClip(Audio::Blizzard)->PlayOnce(-1);
 }
 
 void Level::Update(const float& deltaTime)
