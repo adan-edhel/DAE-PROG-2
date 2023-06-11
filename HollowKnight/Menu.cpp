@@ -7,9 +7,9 @@
 #include "utils.h"
 
 Menu::Menu() :
-	m_MenuMusic{ "HollowKnight/Audio/Music/TitleTheme.wav" },
-	m_HighlightSound{"HollowKnight/Audio/UI/ui_change_selection.wav"},
-	m_ConfirmSound{"HollowKnight/Audio/UI/ui_button_confirm.wav"}
+	m_MenuMusic{ "Audio/Music/TitleTheme.wav" },
+	m_HighlightSound{"Audio/UI/ui_change_selection.wav"},
+	m_ConfirmSound{"Audio/UI/ui_button_confirm.wav"}
 {
 	m_BackgroundPtr = SpriteLibrary::GetSprite(Sprite::MenuBackground);
 	m_TitlePtr = SpriteLibrary::GetSprite(Sprite::MenuTitle);

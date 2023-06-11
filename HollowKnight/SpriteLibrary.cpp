@@ -7,26 +7,26 @@ void SpriteLibrary::Setup()
 {
 	// Game
 	Load(Sprite::Default, "default_circle.png");
-	Load(Sprite::Knight, "HollowKnight/Actors/Knight.png");
-	Load(Sprite::Crawlid, "HollowKnight/Actors/Crawlid.png");
-	Load(Sprite::Vengelfy, "HollowKnight/Actors/Vengefly.png");
-	Load(Sprite::Platforms, "HollowKnight/Environment/Platforms.png");
-	Load(Sprite::Background, "HollowKnight/Environment/Background.png");
-	Load(Sprite::Middleground, "HollowKnight/Environment/Middleground.png");
-	Load(Sprite::Foreground, "HollowKnight/Environment/Foreground.png");
+	Load(Sprite::Knight, "Actors/Knight.png");
+	Load(Sprite::Crawlid, "Actors/Crawlid.png");
+	Load(Sprite::Vengelfy, "Actors/Vengefly.png");
+	Load(Sprite::Platforms, "Environment/Platforms.png");
+	Load(Sprite::Background, "Environment/Background.png");
+	Load(Sprite::Middleground, "Environment/Middleground.png");
+	Load(Sprite::Foreground, "Environment/Foreground.png");
 
 	//Misc
-	Load(Sprite::Coin, "HollowKnight/HUD/Coin.png");
+	Load(Sprite::Coin, "HUD/Coin.png");
 
 	// HUD
-	Load(Sprite::AncientMask, "HollowKnight/HUD/AncientMask.png");
-	Load(Sprite::FocusBar, "HollowKnight/HUD/FocusBar.png");
+	Load(Sprite::AncientMask, "HUD/AncientMask.png");
+	Load(Sprite::FocusBar, "HUD/FocusBar.png");
 
 	// Menu
-	Load(Sprite::MenuBackground, "HollowKnight/Menu/Background.png");
-	Load(Sprite::MenuTitle, "HollowKnight/Menu/Title.png");
+	Load(Sprite::MenuBackground, "Menu/Background.png");
+	Load(Sprite::MenuTitle, "Menu/Title.png");
 
-	Load(Font::TrajanPro, "Trajan Pro Regular.ttf");
+	Load(Font::TrajanPro, "Fonts/Trajan Pro Regular.ttf");
 }
 
 void SpriteLibrary::Cleanup()

@@ -15,9 +15,9 @@
 
 Knight::Knight() : Actor(5),
 	m_ColliderSize{50, 70},
-	m_Walking{"HollowKnight/Audio/Game/Hero/hero_run_footsteps_stone.wav"},
-	m_LandingSoft{"HollowKnight/Audio/Game/Hero/hero_land_soft.wav"},
-	m_LandingHard{ "HollowKnight/Audio/Game/Hero/hero_land_hard.wav" }
+	m_Walking{"Audio/Game/Hero/hero_run_footsteps_stone.wav"},
+	m_LandingSoft{"Audio/Game/Hero/hero_land_soft.wav"},
+	m_LandingHard{ "Audio/Game/Hero/hero_land_hard.wav" }
 {
 }
 
