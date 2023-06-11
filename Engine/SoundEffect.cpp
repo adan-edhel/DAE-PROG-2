@@ -52,6 +52,12 @@ bool SoundEffect::Play( const int loops ) const
 	}
 }
 
+bool SoundEffect::PlayOnce(const int loops) const
+{
+	Stop();
+	return Play(loops);
+}
+
 void SoundEffect::Stop() const
 {
 	if (m_pMixChunk != nullptr)
@@ -125,7 +131,3 @@ void SoundEffect::ResumeAll( )
 {
 	Mix_Resume( -1 );
 }
-
-
-
-

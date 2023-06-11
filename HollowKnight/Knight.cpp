@@ -73,11 +73,11 @@ void Knight::HandleGroundImpact() const
 		if (m_StoredVelocity.y < -m_HardImpactThreshold)
 		{
 			Camera::m_MainPtr->SetShake();
-			m_LandingHard.Play();
+			m_LandingHard.PlayOnce();
 		}
 		else
 		{
-			m_LandingSoft.Play();
+			m_LandingSoft.PlayOnce();
 		}
 
 		if (CORE::s_DebugMode)
@@ -95,7 +95,7 @@ void Knight::HandleWalkAudio() const
 		{
 			if (!m_Walking.IsPlaying())
 			{
-				m_Walking.Play(0);
+				m_Walking.PlayOnce(-1);
 			}
 			return;
 		}

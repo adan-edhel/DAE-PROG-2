@@ -14,6 +14,7 @@ public:
 	bool IsLoaded( ) const;
 	bool IsPlaying() const;
 	bool Play( const int loops = 0 ) const;
+	bool PlayOnce(const int loops = 0) const;
 	void Stop() const;
 	void Pause() const;
 	void Resume() const;

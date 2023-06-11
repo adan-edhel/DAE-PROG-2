@@ -27,7 +27,7 @@ private:
 	const Vector2 m_ColliderSize;
 	const float m_SoftImpactThreshold{ 0.5 };
 	const float m_HardImpactThreshold{ 7.0 };
-	const float m_WalkSoundThreshold{ 0.01f };
+	const float m_WalkSoundThreshold{ 0.5f };
 
 	~Knight() override = default;
 	void Start() override;
