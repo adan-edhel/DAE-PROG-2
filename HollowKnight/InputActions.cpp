@@ -13,15 +13,17 @@
 #include "AnimLibrary.h"
 #include "SceneManager.h"
 #include "AttackCollider.h"
+#include "AudioLibrary.h"
 
 InputActions::InputActions() :
-m_State{State::Falling},
-m_JumpSound{"HollowKnight/Audio/Game/Hero/hero_jump.wav"},
-m_JumpResetThreshold{1.0f},
-m_WalkSpeed{26},
-m_JumpForce{6},
-m_MaxJumps{1},
-m_JumpsLeft{}
+	m_State{ State::Falling },
+	m_JumpResetThreshold{ 1.0f },
+	m_WalkSpeed{ 26 },
+	m_JumpForce{ 6 },
+	m_MaxJumps{ 1 },
+	m_JumpsLeft{},
+	m_DashVelocity{ 50 },
+	m_DashCooldown{ 5 }
 {
 }
 
@@ -39,21 +41,30 @@ void InputActions::Start()
 
 void InputActions::Update(const float& deltaTime)
 {
+	// Update Attack Direction
 	if (m_State != State::Attacking)
 	{
 		m_AttackOffsetMult = float(m_RendererPtr->m_FlipX ? -1 : 1);
 	}
-
+	// Update Attack Position
 	const Vector2 offset{ m_Transform->position.x + (m_ColliderOffset * m_AttackOffsetMult),
 							m_Transform->position.y };
 	m_AttackCollider.m_Transform->position = offset;
 
+	// Dash Cooldown
+	if (m_DashCountdown < m_DashCooldown)
+	{
+		m_DashCountdown += deltaTime;
+	}
+
+	// Continuous Input
 	OnKey(deltaTime);
 
+	// Animation Functions
 	AnimationConditions(deltaTime);
 	UpdateAnimation();
 
-	// debug movement
+	// Debug Movement
 	if (m_RigidbodyPtr->m_IsStatic)
 	{
 		if (KBStatesPtr[SDL_SCANCODE_UP])
@@ -127,18 +138,24 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_z:			// JUMP
-		if(m_JumpsLeft > 0)
+		if(CanJump())
 		{
 			Jump();
-			m_State = State::Jumping;
-			m_JumpSound.Play();
 			m_JumpsLeft--;
+			m_State = State::Jumping;
+			AudioLibrary::GetClip(Audio::HeroJump)->PlayOnce();
 		}
 		break;
 	case SDLK_x:			// ATTACK
 		Attack();
 		break;
 	case SDLK_c:			// DASH
+		if (CanDash())
+		{
+			Dash();
+			m_DashCountdown = 0;
+			AudioLibrary::GetClip(Audio::HeroDash)->PlayOnce();
+		}
 		break;
 	case SDLK_a:			// FOCUS / CAST
 		break;
@@ -203,6 +220,11 @@ void InputActions::OnMouseMotion(const SDL_MouseMotionEvent& e)
 void InputActions::Walk(const float& speed) const
 {
 	m_RigidbodyPtr->AddForce(Vector2(speed, 0));
+}
+
+void InputActions::Dash() const
+{
+	m_RigidbodyPtr->SetVelocity(m_DashVelocity * float(m_RendererPtr->m_FlipX ? -1 : 1), 0);
 }
 
 void InputActions::Jump() const

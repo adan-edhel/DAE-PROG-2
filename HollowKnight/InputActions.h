@@ -32,17 +32,20 @@ private:
 	Rigidbody2D* m_RigidbodyPtr{};
 	SpriteRenderer* m_RendererPtr{};
 
-	SoundEffect m_JumpSound;
-
 	const Uint8* KBStatesPtr{};
 	Vector2 m_MousePos{};
 
 	// Movement fields
 	const float m_JumpResetThreshold;
-	const float m_WalkSpeed;
+;	const float m_WalkSpeed;
 	const float m_JumpForce;
 	const int m_MaxJumps;
 	int m_JumpsLeft;
+
+	// Dash fields
+	const float m_DashVelocity;
+	const float m_DashCooldown;
+	float m_DashCountdown{};
 
 	// Attack fields
 	GameObject m_AttackCollider{"Attack Collider"};
@@ -50,10 +53,11 @@ private:
 	float m_AttackCountdown{};
 	float m_AttackOffsetMult{};
 
-	// Functions
+	// Base Functions
 	void Start() override;
 	void Update(const float& deltaTime) override;
 
+	// Input Functions
 	void OnKey(const float& deltaTime);
 	void OnKeyDown(const SDL_KeyboardEvent& e) override;
 	void OnKeyUp(const SDL_KeyboardEvent& e) override;
@@ -61,12 +65,19 @@ private:
 	void OnMouseUp(const SDL_MouseButtonEvent& e) override;
 	void OnMouseMotion(const SDL_MouseMotionEvent& e) override;
 
+	// Action Functions
 	void Walk(const float& speed) const;
 	void Jump() const;
 	void CutJump() const;
+	void Dash() const;
 	void Attack();
 
+	// Animation Functions
 	void AnimationConditions(const float& deltaTime);
 	void UpdateAnimation() const;
+
+	// Helper Functions
+	[[nodiscard]] bool CanJump() const { return m_JumpsLeft > 0; }
+	[[nodiscard]] bool CanDash() const { return m_DashCountdown >= m_DashCooldown; }
 };
 
