@@ -84,6 +84,9 @@
     <ClCompile Include="InputActions.cpp">
       <Filter>Game\MISC</Filter>
     </ClCompile>
+    <ClCompile Include="AudioLibrary.cpp">
+      <Filter>Game\Libraries</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSettings.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="AttackCollider.h">
       <Filter>Game\MISC\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioLibrary.h">
+      <Filter>Game\Libraries\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
