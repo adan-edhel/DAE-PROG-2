@@ -1,17 +1,14 @@
 #include "pch.h"
 #include "Game.h"
 
-// Libraries
-#include "SpriteLibrary.h"
-#include "AnimLibrary.h"
-
 #include "SceneManager.h"
 #include "GameSettings.h"
+#include <SoundEffect.h>
 #include "IInputEvent.h"
 #include "Camera.h"
 #include "Level.h"
 
-Game::Game( const Window& window ) 
+Game::Game(const Window& window)
 	:BaseGame{ window }
 {
 	Start();
@@ -19,28 +16,20 @@ Game::Game( const Window& window )
 
 void Game::Start( )
 {
-	m_MenuPtr = new Menu();
-
 	// Setup camera
-	m_CameraPtr = new GameObject();
-	m_CameraPtr->AddComponent(new Camera(GameSettings::s_ScreenSize));
-
-	m_KingsPassPtr = new Level("King's Pass");
+	m_Camera.AddComponent(new Camera(GameSettings::s_ScreenSize));
 }
 
 void Game::End( )
 {
-	delete m_CameraPtr;
 
-	delete m_KingsPassPtr;
-	delete m_MenuPtr;
 }
 
 void Game::Update(const float& deltaTime )
 {
 	if (SceneManager::GetCurrentScene() == Scene::Game)
 	{
-		m_KingsPassPtr->Update(deltaTime);
+		SceneManager::GetScene<Level>()->Update(deltaTime);
 	}
 
 	// Check keyboard state
@@ -62,10 +51,10 @@ void Game::Draw( ) const
 	switch (SceneManager::GetCurrentScene())
 	{
 	case Scene::Menu:
-		m_MenuPtr->Draw();
+		SceneManager::GetScene<Menu>()->Draw();
 		break;
 	case Scene::Game:
-		m_KingsPassPtr->Draw();
+		SceneManager::GetScene<Level>()->Draw();
 		break;
 	}
 }
@@ -84,8 +73,7 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 	{
 		if (e.keysym.sym == SDLK_ESCAPE)
 		{
-			SceneManager::SetScene(Scene::Menu);
-			SceneManager::ReloadLevel(m_KingsPassPtr, "King's Pass");
+			SceneManager::LoadScene(Scene::Menu);
 			return;
 		}
 		IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
@@ -101,7 +89,7 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
 	if (SceneManager::GetCurrentScene() == Scene::Menu)
 	{
-		m_MenuPtr->HighlightButton(e.x, e.y);
+		SceneManager::GetScene<Menu>()->HighlightButton(e.x, e.y);
 	}
 	else
 	{
@@ -112,7 +100,7 @@ void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
 	if (SceneManager::GetCurrentScene() == Scene::Menu)
 	{
-		m_MenuPtr->SelectButton();
+		SceneManager::GetScene<Menu>()->SelectButton();
 	}
 	else
 	{

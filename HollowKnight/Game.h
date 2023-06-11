@@ -4,6 +4,7 @@
 #include "AnimLibrary.h"
 #include "BaseGame.h"
 #include "Menu.h"
+#include "SceneManager.h"
 
 class GameObject;
 class Knight;
@@ -37,10 +38,10 @@ private:
 	SpriteLibrary m_SpriteLibrary{};
 	AnimLibrary m_AnimationLibrary{}; // Load after SpriteLibrary!
 
+	SceneManager m_SceneManager{};
+
 	// POINTERS
-	Menu* m_MenuPtr;
-	Level* m_KingsPassPtr;
-	GameObject* m_CameraPtr;
+	GameObject m_Camera;
 
 	// FUNCTIONS
 	void Start();

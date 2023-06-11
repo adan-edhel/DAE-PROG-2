@@ -1,19 +1,48 @@
 #include "pch.h"
-#include "Level.h"
 #include "SceneManager.h"
+
+#include "Menu.h"
+#include "Level.h"
+#include "SoundEffect.h"
+
+SceneManager::SceneManager()
+{
+	LoadScene(Scene::Menu);
+}
+
+SceneManager::~SceneManager()
+{
+	UnloadLevels();
+}
 
 Scene SceneManager::GetCurrentScene()
 {
 	return s_ActiveScene;
 }
 
-void SceneManager::SetScene(Scene scene)
+void SceneManager::LoadScene(const Scene& scene)
 {
 	s_ActiveScene = scene;
+
+	SoundEffect::StopAll();
+	UnloadLevels();
+
+	switch (s_ActiveScene)
+	{
+	case Scene::Menu:
+		s_MenuPtr = new Menu();
+		break;
+	case Scene::Game:
+		s_KingsPassPtr = new Level("King's Pass");
+		break;
+	}
 }
 
-void SceneManager::ReloadLevel(Level*& level, const std::string& name)
+void SceneManager::UnloadLevels()
 {
-	delete level;
-	level = new Level(name);
+	delete s_KingsPassPtr;
+	s_KingsPassPtr = nullptr;
+
+	delete s_MenuPtr;
+	s_MenuPtr = nullptr;
 }
