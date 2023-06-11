@@ -3,10 +3,10 @@
 
 #include "Texture.h"
 
-void SpriteLibrary::Setup()
+SpriteLibrary::SpriteLibrary()
 {
 	// Game
-	Load(Sprite::Default, "default_circle.png");
+	Load(Sprite::Default, "Default/default_circle.png");
 	Load(Sprite::Knight, "Actors/Knight.png");
 	Load(Sprite::Crawlid, "Actors/Crawlid.png");
 	Load(Sprite::Vengelfy, "Actors/Vengefly.png");
@@ -29,7 +29,7 @@ void SpriteLibrary::Setup()
 	Load(Font::TrajanPro, "Fonts/Trajan Pro Regular.ttf");
 }
 
-void SpriteLibrary::Cleanup()
+SpriteLibrary::~SpriteLibrary()
 {
 	for (const auto& sprite : s_Sprites)
 	{

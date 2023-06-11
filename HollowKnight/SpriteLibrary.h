@@ -35,11 +35,15 @@ enum class Font
 	TrajanPro
 };
 
-class SpriteLibrary
+class SpriteLibrary final
 {
 public:
-	static void Setup();
-	static void Cleanup();
+	SpriteLibrary();
+	~SpriteLibrary();
+	SpriteLibrary(const SpriteLibrary& other) = delete;					// copy constructor
+	SpriteLibrary(SpriteLibrary&& other) noexcept = delete;				// move constructor
+	SpriteLibrary& operator=(const SpriteLibrary& other) = delete;		// copy operator
+	SpriteLibrary& operator=(SpriteLibrary&& other) noexcept = delete;	// move operator
 
 	static string& GetFont(const Font& type);
 	static Texture* GetSprite(const Sprite& type);

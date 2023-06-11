@@ -6,9 +6,7 @@
 #include "AmrothUtils.h"
 #include "SpriteLibrary.h"
 
-//TODO: Test animation clips
-
-void AnimLibrary::Setup()
+AnimLibrary::AnimLibrary()
 {
 	if (CORE::s_DebugMode)
 	{
@@ -18,8 +16,6 @@ void AnimLibrary::Setup()
 	KnightSetup();
 	CrawlidSetup();
 	VengeflySetup();
-
-	m_HasBeenSetup = true;
 
 	// Print information in the console
 	if (CORE::s_DebugMode && m_DebugInfo)
@@ -34,7 +30,7 @@ void AnimLibrary::Setup()
 	}
 }
 
-void AnimLibrary::Cleanup()
+AnimLibrary::~AnimLibrary()
 {
 	DeleteClips(m_KnightClips);
 	DeleteClips(m_CrawlidClips);
@@ -48,12 +44,6 @@ void AnimLibrary::Cleanup()
 
 Animation* AnimLibrary::GetAnimation(AnimType animType, const string& clipName)
 {
-	if (!m_HasBeenSetup)
-	{
-		Print("Animation Library has not been set up!", TextColor::Red);
-		return nullptr;
-	}
-
 	map<string, Animation*>::iterator it;
 
 	switch (animType)

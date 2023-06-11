@@ -14,9 +14,6 @@
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
 {
-	SpriteLibrary::Setup();
-	AnimLibrary::Setup();
-
 	Start();
 }
 
@@ -37,9 +34,6 @@ void Game::End( )
 
 	delete m_KingsPassPtr;
 	delete m_MenuPtr;
-
-	AnimLibrary::Cleanup();
-	SpriteLibrary::Cleanup();
 }
 
 void Game::Update(const float& deltaTime )

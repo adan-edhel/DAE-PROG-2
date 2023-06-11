@@ -17,19 +17,21 @@ enum class AnimType
 /**
  * \brief Animation Library
  */
-class AnimLibrary
+class AnimLibrary final
 {
 public:
-	static void Setup();
-	static void Cleanup();
+	AnimLibrary();
+	~AnimLibrary();
+	AnimLibrary(const AnimLibrary& other) = delete;					// copy constructor
+	AnimLibrary(AnimLibrary&& other) noexcept = delete;				// move constructor
+	AnimLibrary& operator=(const AnimLibrary& other) = delete;		// copy operator
+	AnimLibrary& operator=(AnimLibrary&& other) noexcept = delete;	// move operator
 
 	static Animation* GetAnimation(AnimType animType, const string& clipName);
 	static map<string, Animation*>* GetAnimations(AnimType animType);
 
-
 private:
 	static const bool m_DebugInfo{ true };
-	inline static bool m_HasBeenSetup{false};
 
 	inline static map<string, Animation*> m_KnightClips{};
 	inline static map<string, Animation*> m_CrawlidClips{};

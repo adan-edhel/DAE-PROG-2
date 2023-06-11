@@ -1,4 +1,7 @@
 #pragma once
+#include "SpriteLibrary.h"
+#include "AudioLibrary.h"
+#include "AnimLibrary.h"
 #include "BaseGame.h"
 #include "Menu.h"
 
@@ -29,9 +32,14 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 #pragma endregion
 private:
+	// Asset Libraries
+	AudioLibrary m_AudioLibrary{};
+	SpriteLibrary m_SpriteLibrary{};
+	AnimLibrary m_AnimationLibrary{}; // Load after SpriteLibrary!
+
 	// POINTERS
 	Menu* m_MenuPtr;
-	Level* m_KingsPassPtr{};
+	Level* m_KingsPassPtr;
 	GameObject* m_CameraPtr;
 
 	// FUNCTIONS
