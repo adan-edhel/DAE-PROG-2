@@ -7,10 +7,14 @@
 #include <Collider.h>
 #include <Animator.h>
 #include <Animation.h>
+#include <AudioSource.h>
 #include <Rigidbody2D.h>
 #include <SpriteRenderer.h>
 
+#include "AudioLibrary.h"
+
 Crawlid::Crawlid() :
+	m_FootSteps{"Audio/Game/Enemies/crawler.wav"},
 	m_State{ State::Walking },
 	m_Direction{ Direction::Left },
 	m_ColliderSize{ 110, 80 },
@@ -25,6 +29,7 @@ void Crawlid::Start()
 	m_AnimatorPtr = m_GameObject->GetComponent<Animator>();
 	m_Rigidbody = m_GameObject->GetComponent<Rigidbody2D>();
 	m_SpriteRend = m_GameObject->GetComponent<SpriteRenderer>();
+	m_AudioSource = m_GameObject->AddComponent(new AudioSource(true));
 
 	// Assign animation clips to animator
 	m_AnimatorPtr->AssignClips(AnimLibrary::GetAnimations(AnimType::Crawlid));
@@ -35,6 +40,9 @@ void Crawlid::Start()
 
 	// Set collider size
 	m_GameObject->GetComponent<Collider>()->SetSize(m_ColliderSize);
+
+	//TODO: refactor library
+	m_AudioSource->SetClip(&m_FootSteps);
 }
 
 void Crawlid::Update(const float& deltaTime)
@@ -43,6 +51,11 @@ void Crawlid::Update(const float& deltaTime)
 
 	ManageStates(deltaTime);
 	UpdateAnimation();
+}
+
+void Crawlid::OnDeath()
+{
+	m_AudioSource->Stop();
 }
 
 void Crawlid::ManageStates(const float& deltaTime)

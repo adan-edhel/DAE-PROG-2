@@ -64,6 +64,11 @@ AudioLibrary::~AudioLibrary()
 	s_AudioClips.clear();
 }
 
+void AudioLibrary::PlayClip(const Audio& clip, bool loop)
+{
+	GetClip(clip)->PlayOnce(loop ? -1 : 0);
+}
+
 SoundEffect* AudioLibrary::GetClip(const Audio& clip)
 {
 	// Vector for matching audio clips

@@ -5,6 +5,8 @@
 #include "SpriteLibrary.h"
 #include "HUDManager.h"
 
+class AudioSource;
+
 class Level final
 {
 public:
@@ -36,6 +38,10 @@ private:
 	GameObject m_Middleground	{ string("Middleground") };
 	GameObject m_Foreground		{ string("Foreground") };
 	GameObject m_Platforms		{ string("Platform") };
+
+	// Level Audio
+	GameObject m_AudioSource{};
+	AudioSource* m_BlizzardAmbience{};
 
 	void Initialize();
 	void SetupLevelObject(GameObject& object, const Sprite& sprite, const int& layer);

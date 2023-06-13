@@ -12,12 +12,3 @@ Behavior::Behavior(const std::string& name)
 		Print(m_Name + "\n", TextColor::Yellow);
 	}
 }
-
-Behavior::~Behavior()
-{
-	OnDestroy();
-}
-
-void Behavior::OnDestroy()
-{
-}

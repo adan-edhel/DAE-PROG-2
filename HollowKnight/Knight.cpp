@@ -1,18 +1,23 @@
 #include "pch.h"
 #include "Knight.h"
 
+// Libraries
+#include "SpriteLibrary.h"
+#include "AudioLibrary.h"
+#include "AnimLibrary.h"
+
+// Components
 #include <Animator.h>
 #include <Collider.h>
 #include <Rigidbody2D.h>
 #include <SpriteRenderer.h>
-#include "SpriteLibrary.h"
-#include "InputActions.h"
-#include "AnimLibrary.h"
-#include "AudioLibrary.h"
-#include "Camera.h"
-#include "CORE.h"
+#include <AudioListener.h>
+#include <AudioSource.h>
+#include <Camera.h>
+#include <CORE.h>
 
 #include "HUDManager.h"
+#include "InputActions.h"
 
 Knight::Knight() : Actor(5),
 	m_ColliderSize{50, 70}
@@ -43,6 +48,17 @@ void Knight::Start()
 
 	// Add input actions component
 	m_GameObject->AddComponent(new InputActions());
+
+	m_GameObject->AddComponent(new AudioListener());
+	if (m_FootStepSource == nullptr)
+	{
+		m_FootStepSource = m_GameObject->AddComponent(new AudioSource(true, false, false));
+		m_FootStepSource->SetClip(AudioLibrary::GetClip(Audio::HeroFootstep));
+	}
+	if (m_LandingSource == nullptr)
+	{
+		m_LandingSource = m_GameObject->AddComponent(new AudioSource(false, false));
+	}
 }
 
 void Knight::Update(const float& deltaTime)
@@ -74,11 +90,11 @@ void Knight::HandleGroundImpact() const
 		if (m_StoredVelocity.y < -m_HardImpactThreshold)
 		{
 			Camera::m_MainPtr->SetShake();
-			AudioLibrary::GetClip(Audio::HeroLandHard)->PlayOnce();
+			m_LandingSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandHard));
 		}
 		else
 		{
-			AudioLibrary::GetClip(Audio::HeroLandSoft)->PlayOnce();
+			m_LandingSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandSoft));
 		}
 
 		// Print impact info
@@ -95,14 +111,14 @@ void Knight::HandleWalkAudio() const
 	{
 		if (std::abs(m_RigidbodyPtr->GetVelocity().x) > m_WalkSoundThreshold)
 		{
-			if (!AudioLibrary::GetClip(Audio::HeroFootstep)->IsPlaying())
+			if (!m_FootStepSource->IsPlaying())
 			{
-				AudioLibrary::GetClip(Audio::HeroFootstep)->PlayOnce(-1);
+				m_FootStepSource->Play();
 			}
 			return;
 		}
 	}
-	AudioLibrary::GetClip(Audio::HeroFootstep)->Stop();
+	m_FootStepSource->Stop();
 }
 
 void Knight::OnDamage()

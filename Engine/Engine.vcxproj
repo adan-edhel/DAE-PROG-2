@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="AmrothUtils.cpp" />
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="AudioListener.cpp" />
+    <ClCompile Include="AudioSource.cpp" />
     <ClCompile Include="BaseGame.cpp" />
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -44,6 +46,8 @@
   <ItemGroup>
     <ClInclude Include="AmrothUtils.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="AudioListener.h" />
+    <ClInclude Include="AudioSource.h" />
     <ClInclude Include="BaseGame.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Camera.h" />

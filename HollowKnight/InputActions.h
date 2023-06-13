@@ -4,9 +4,9 @@
 #include "IInputEvent.h"
 
 #include <GameObject.h>
-#include "SoundEffect.h"
 
 class Animator;
+class AudioSource;
 class SpriteRenderer;
 class Rigidbody2D;
 
@@ -31,6 +31,7 @@ private:
 
 	Rigidbody2D* m_RigidbodyPtr{};
 	SpriteRenderer* m_RendererPtr{};
+	AudioSource* m_AudioSource{};
 
 	const Uint8* KBStatesPtr{};
 	Vector2 m_MousePos{};

@@ -15,7 +15,15 @@ void Component::Start()
 {
 }
 
+void Component::OnEnable()
+{
+}
+
 void Component::OnDisable()
+{
+}
+
+void Component::OnDestroy()
 {
 }
 

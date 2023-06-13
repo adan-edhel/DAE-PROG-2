@@ -2,23 +2,25 @@
 #include "Level.h"
 
 // Misc
-#include "CORE.h"
+#include <CORE.h>
+
+// Libraries
+#include "AudioLibrary.h"
+#include "SpriteLibrary.h"
 
 // Interfaces
-#include "IDrawable.h"
-#include "IUpdatable.h"
-#include "InputActions.h"
+#include <IDrawable.h>
+#include <IUpdatable.h>
 
 // Components
-#include "SpriteRenderer.h"
-#include "GameObject.h"
+#include <SpriteRenderer.h>
+#include <AudioSource.h>
+#include <GameObject.h>
 #include <Transform.h>
+#include <Camera.h>
 
-#include "AudioLibrary.h"
 #include "Knight.h"
-#include "Camera.h"
 #include "Crawlid.h"
-#include "SpriteLibrary.h"
 
 Level::Level(const std::string& levelName) :
 	m_PlayerSpawnPoint{2200, 3150},
@@ -60,7 +62,11 @@ void Level::Initialize()
 	}
 
 	// Play Ambience audio
-	AudioLibrary::GetClip(Audio::Blizzard)->PlayOnce(-1);
+	if (m_BlizzardAmbience == nullptr)
+	{
+		m_BlizzardAmbience = m_AudioSource.AddComponent(new AudioSource(true, false));
+	}
+	m_BlizzardAmbience->SetClip(AudioLibrary::GetClip(Audio::Blizzard));
 }
 
 void Level::Update(const float& deltaTime)

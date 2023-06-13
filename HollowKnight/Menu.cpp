@@ -3,10 +3,10 @@
 
 #include "AudioLibrary.h"
 #include "CORE.h"
-#include <SoundEffect.h>
 #include "GameSettings.h"
 #include "SceneManager.h"
 #include "SpriteLibrary.h"
+#include <AudioSource.h>
 #include "utils.h"
 
 Menu::Menu()
@@ -42,7 +42,12 @@ Menu::Menu()
 		m_ButtonBounds[i].bottom = centerYPos - (i * m_ButtonsOffset);
 	}
 
-	AudioLibrary::GetClip(Music::Title)->Play(-1);
+	if (m_MusicSource == nullptr)
+	{
+		m_MusicSource = m_AudioSource.AddComponent(new AudioSource(true, false, true));
+	}
+
+	m_MusicSource->SetClip(AudioLibrary::GetClip(Music::Title));
 }
 
 void Menu::Draw() const
@@ -74,7 +79,7 @@ void Menu::SelectButton()
 		switch (m_ActiveButton)
 		{
 		case Buttons::Start:
-			AudioLibrary::GetClip(Music::Title)->Stop();
+			m_MusicSource->Stop();
 			SceneManager::LoadScene(Scene::Game);
 			break;
 		case Buttons::Controls:
@@ -97,7 +102,7 @@ void Menu::SelectButton()
 
 	if (m_ActiveButton != Buttons::None)
 	{
-		AudioLibrary::GetClip(Audio::ButtonConfirm)->PlayOnce();
+		AudioLibrary::PlayClip(Audio::ButtonConfirm);
 	}
 }
 
@@ -111,8 +116,7 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 
 			if (m_LastSelectedButton != button)
 			{
-				//TODO: Play UI sound
-				AudioLibrary::GetClip(Audio::ButtonHighlight)->PlayOnce();
+				AudioLibrary::PlayClip(Audio::ButtonHighlight);
 
 				if (CORE::s_DebugMode)
 				{

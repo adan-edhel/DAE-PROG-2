@@ -1,7 +1,7 @@
 #pragma once
 #include "Actor.h"
-#include "SoundEffect.h"
 
+class AudioSource;
 class Rigidbody2D;
 class Animator;
 
@@ -15,6 +15,8 @@ public:
 private:
 	// Component pointers
 	Rigidbody2D* m_RigidbodyPtr;
+	AudioSource* m_FootStepSource{};
+	AudioSource* m_LandingSource{};
 
 	const float m_VelocityUpdateInterval{ 0.001f };
 	float m_VelocityUpdateCounter{};

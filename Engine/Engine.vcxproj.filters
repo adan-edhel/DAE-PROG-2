@@ -105,6 +105,12 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Custom Framework\Components</Filter>
     </ClCompile>
+    <ClCompile Include="AudioListener.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioSource.cpp">
+      <Filter>Custom Framework\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AmrothUtils.h">
@@ -190,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="CORE.h">
       <Filter>Header Files\Amroth</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioListener.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioSource.h">
+      <Filter>Custom Framework\Components\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

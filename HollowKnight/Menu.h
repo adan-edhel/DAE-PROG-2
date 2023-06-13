@@ -2,7 +2,10 @@
 #include <array>
 
 #include "GameObject.h"
+#include "SoundEffect.h"
 #include "SpriteLibrary.h"
+
+class AudioSource;
 
 class Menu final
 {
@@ -28,6 +31,10 @@ public:
 	void HighlightButton(const float& mouseX, const float& mouseY);
 
 private:
+	// Audio
+	GameObject m_AudioSource{};
+	AudioSource* m_MusicSource{};
+
 	// Background Pointers
 	Texture* m_BackgroundPtr{};
 	Texture* m_TitlePtr{};

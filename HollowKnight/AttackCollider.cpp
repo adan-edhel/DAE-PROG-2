@@ -5,11 +5,15 @@
 #include <Collider.h>
 
 #include "AudioLibrary.h"
-#include <SoundEffect.h>
+#include <AudioSource.h>
 #include "Enemy.h"
 
 void AttackCollider::Awake()
 {
+	if (m_AudioSource == nullptr)
+	{
+		m_AudioSource = m_GameObject->AddComponent(new AudioSource(false, false));
+	}
 	m_EnemyHit = false;
 }
 
@@ -31,7 +35,7 @@ void AttackCollider::PlaySound() const
 {
 	if (m_EnemyHit)
 	{
-		AudioLibrary::GetClip(Audio::EnemyDamage)->PlayOnce();
+		m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::EnemyDamage));
 	}
-	AudioLibrary::GetClip(Audio::HeroSword)->PlayOnce();
+	m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroSword));
 }

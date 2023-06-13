@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include "AudioSource.h"
 
 class SoundEffect;
 
@@ -36,10 +37,13 @@ public:
 	AudioLibrary& operator=(const AudioLibrary& other) = delete;		// copy operator
 	AudioLibrary& operator=(AudioLibrary&& other) noexcept = delete;	// move operator
 
+	static void PlayClip(const Audio& clip, bool loop = false);
 	static SoundEffect* GetClip(const Audio& clip);
 	static SoundEffect* GetClip(const Music& clip);
 
 private:
+	inline static AudioSource m_UISource{};
+
 	inline static std::map<Music, SoundEffect*> s_MusicClips;
 	void LoadClip(const Music& clip, const std::string& path);
 

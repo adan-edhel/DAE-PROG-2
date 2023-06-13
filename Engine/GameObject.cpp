@@ -16,7 +16,7 @@ GameObject::GameObject(const std::string& name) : Object(name)
 
 GameObject::~GameObject()
 {
-	//UNDONE: Fix component removal at Destroy
+	SetActive(false);
 
 	if (!m_Name.empty())
 	{
@@ -27,10 +27,13 @@ GameObject::~GameObject()
 
 	if (components.empty()) return;
 
-	for (const auto* component : components)
+	for (Component* component : components)
 	{
 		if (component != nullptr)
+		{
+			component->OnDestroy();
 			Destroy(*this, component);
+		}
 	}
 }
 

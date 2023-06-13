@@ -1,15 +1,17 @@
 #include "pch.h"
 #include "InputActions.h"
 
+// Component
 #include <CORE.h>
 #include <Transform.h>
-#include <GameObject.h>
-
-#include <SpriteRenderer.h>
 #include <Rigidbody2D.h>
+#include <GameObject.h>
 #include <Animator.h>
 #include <Collider.h>
 #include <Animation.h>
+#include <AudioSource.h>
+#include <SpriteRenderer.h>
+
 #include "AnimLibrary.h"
 #include "SceneManager.h"
 #include "AttackCollider.h"
@@ -29,6 +31,10 @@ InputActions::InputActions() :
 
 void InputActions::Start()
 {
+	if (m_AudioSource == nullptr)
+	{
+		m_AudioSource = m_GameObject->AddComponent(new AudioSource(false, false));
+	}
 	m_RigidbodyPtr = m_GameObject->GetComponent<Rigidbody2D>();
 	m_RendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
 
@@ -143,7 +149,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 			Jump();
 			m_JumpsLeft--;
 			m_State = State::Jumping;
-			AudioLibrary::GetClip(Audio::HeroJump)->PlayOnce();
+			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroJump));
 		}
 		break;
 	case SDLK_x:			// ATTACK
@@ -154,7 +160,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		{
 			Dash();
 			m_DashCountdown = 0;
-			AudioLibrary::GetClip(Audio::HeroDash)->PlayOnce();
+			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroDash));
 		}
 		break;
 	case SDLK_a:			// FOCUS / CAST

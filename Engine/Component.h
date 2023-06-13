@@ -21,7 +21,9 @@ protected:
 
 	virtual void Awake();
 	virtual void Start();
+	virtual void OnEnable();
 	virtual void OnDisable();
+	virtual void OnDestroy();
 	virtual void Update(const float& deltaTime);
 
 	virtual void OnCollisionEnter(const Collision& collision);
