@@ -6,6 +6,7 @@ class AudioSource;
 class AttackCollider final : public Behavior
 {
 	AudioSource* m_AudioSource{};
+	const float m_KnockbackForce{ 15 };
 	bool m_EnemyHit{};
 
 	void Awake() override;

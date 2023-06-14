@@ -26,6 +26,7 @@ private:
 	Vector2 m_StoredVelocity{};
 
 	const Vector2 m_ColliderSize;
+	const float m_KnockbackForce{ 15 };
 	const float m_SoftImpactThreshold{ 0.5 };
 	const float m_HardImpactThreshold{ 7.0 };
 	const float m_WalkSoundThreshold{ 0.5f };
@@ -38,6 +39,4 @@ private:
 	void OnDeath() override;
 
 	void OnCollisionEnter(const Collision& collision) override;
-	void OnCollisionStay(const Collision& collision) override;
-	void OnCollisionExit(const Collision& collision) override;
 };

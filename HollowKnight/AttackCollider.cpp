@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "AttackCollider.h"
 
+#include "AudioLibrary.h"
+
 #include <GameObject.h>
+#include <AudioSource.h>
+#include <Rigidbody2D.h>
 #include <Collider.h>
 
-#include "AudioLibrary.h"
-#include <AudioSource.h>
 #include "Enemy.h"
+#include "Knight.h"
 
 void AttackCollider::Awake()
 {
@@ -27,6 +30,10 @@ void AttackCollider::OnCollisionEnter(const Collision& collision)
 	if (collision.m_GameObject->CompareTag(Tag::Enemy))
 	{
 		collision.m_GameObject->GetComponent<Enemy>()->OnDamage();
+
+		const Vector2 direction{ collision.m_Transform->position - Knight::m_Instance->m_Transform->position };
+		collision.m_GameObject->GetComponent<Rigidbody2D>()->AddForce(Vector2(direction.Normalized() * m_KnockbackForce));
+
 		m_EnemyHit = true;
 	}
 }

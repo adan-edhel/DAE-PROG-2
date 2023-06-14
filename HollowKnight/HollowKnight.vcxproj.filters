@@ -90,6 +90,9 @@
     <ClCompile Include="Vengefly.cpp">
       <Filter>Game\Characters</Filter>
     </ClCompile>
+    <ClCompile Include="MaskShard.cpp">
+      <Filter>Game\MISC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSettings.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="Vengefly.h">
       <Filter>Game\Characters\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MaskShard.h">
+      <Filter>Game\MISC\Header</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

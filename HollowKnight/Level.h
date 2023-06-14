@@ -11,6 +11,8 @@ class Level final
 {
 public:
 	Level(const std::string& levelName);
+	~Level(); // No dynamic memory
+
 	void Update(const float& deltaTime);
 	void Draw() const;
 
@@ -21,7 +23,7 @@ private:
 
 	const Vector2 m_PlatformPosition{ 8380, 2490 };
 	static const int m_NumberCrawlids{ 2 };
-	static const int m_NumberVengeflies{ 1 };
+	static const int m_NumberVengeflies{ 4 };
 	const Vector2 m_PlayerSpawnPoint;
 	const float m_BackgroundOffset;
 	const float m_ForegroundOffset;
@@ -35,18 +37,18 @@ private:
 		Vector2(7000, 2340)};
 
 	// Vengeflies
-	//std::array<GameObject, m_NumberVengeflies> m_Vengeflies{
-	//	string("Vengefly")};
-	//std::array<Vector2, m_NumberVengeflies> m_VengeflySpawnPositions{
-	//	Vector2(8300, 2626) };
-
-	GameObject m_Vengefly{"Vengefly"};
+	std::array<GameObject, m_NumberVengeflies> m_Vengeflies{
+		string("Vengefly 1"),
+		string("Vengefly 2")};
+	std::array<Vector2, m_NumberVengeflies> m_VengeflyPositions{
+		Vector2(8300, 2626),
+		Vector2(2200, 2700)};
 
 	// Level Sprites
-	GameObject m_Background		{ string("Background") };
-	GameObject m_Middleground	{ string("Middleground") };
-	GameObject m_Foreground		{ string("Foreground") };
-	GameObject m_Platforms		{ string("Platform") };
+	GameObject m_Background{};
+	GameObject m_Middleground{};
+	GameObject m_Foreground{};
+	GameObject m_Platforms{};
 
 	// Level Audio
 	GameObject m_AudioSource{};

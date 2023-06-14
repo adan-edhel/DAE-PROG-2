@@ -24,6 +24,7 @@ protected:
 	Rigidbody2D* m_RigidbodyPtr;
 	SpriteRenderer* m_SpriteRendererPtr;
 
+	const int m_ShardDrops{ 2 };
 	const Vector2 m_ColliderSize{ 110, 80 };
 	const float m_BaseTurnInterval{ 5 };
 	const float m_TurnIntervalOffset{ 3 };

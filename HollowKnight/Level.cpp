@@ -19,6 +19,7 @@
 #include <Transform.h>
 #include <Camera.h>
 
+#include "MaskShard.h"
 #include "Knight.h"
 #include "Crawlid.h"
 #include "Vengefly.h"
@@ -35,6 +36,11 @@ Level::Level(const std::string& levelName) :
 	}
 
 	Initialize();
+}
+
+Level::~Level()
+{
+	MaskShard::Cleanup();
 }
 
 void Level::Initialize()
@@ -63,24 +69,21 @@ void Level::Initialize()
 	}
 
 	// Set up Vengeflies
-	//if (!m_Vengeflies.empty())
-	//{
-	//	for (int i = 0; i < m_Crawlids.size(); i++)
-	//	{
-	//		m_Vengeflies[i].AddComponent(new Vengefly());
-	//		m_Vengeflies[i].m_Transform->position = m_VengeflySpawnPositions[i];
-	//	}
-	//}
-
-	m_Vengefly.AddComponent(new Vengefly());
-	m_Vengefly.m_Transform->position = Vector2(8300, 2626);
+	if (!m_Vengeflies.empty())
+	{
+		for (int i = 0; i < m_Vengeflies.size(); i++)
+		{
+			m_Vengeflies[i].AddComponent(new Vengefly());
+			m_Vengeflies[i].m_Transform->position = m_VengeflyPositions[i];
+		}
+	}
 
 	// Play Ambience audio
 	if (m_BlizzardAmbience == nullptr)
 	{
 		m_BlizzardAmbience = m_AudioSource.AddComponent(new AudioSource(true, false));
 	}
-	//m_BlizzardAmbience->SetClip(AudioLibrary::GetClip(Audio::Blizzard));
+	m_BlizzardAmbience->SetClip(AudioLibrary::GetClip(Audio::Blizzard));
 }
 
 void Level::Update(const float& deltaTime)

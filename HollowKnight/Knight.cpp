@@ -20,7 +20,7 @@
 #include "InputActions.h"
 
 Knight::Knight() : Actor(5),
-	m_ColliderSize{50, 70}
+                   m_ColliderSize{50, 70}
 {
 	if (m_Instance == nullptr) { m_Instance = this; }
 }
@@ -41,7 +41,7 @@ void Knight::Start()
 	// Set rendered sprite & layer
 	SpriteRenderer* renderer = m_GameObject->GetComponent<SpriteRenderer>();
 	renderer->AssignSprite(SpriteLibrary::GetSprite(Sprite::Knight));
-	renderer->SetLayer(int(IDrawable::Layers::Actors));
+	renderer->SetLayer(int(IDrawable::Layers::Knight));
 
 	// Assign rigidbody reference
 	m_RigidbodyPtr = m_GameObject->AddComponent(new Rigidbody2D);
@@ -135,6 +135,7 @@ void Knight::OnDamage()
 
 void Knight::OnDeath()
 {
+	//Todo: Restart scene
 }
 
 void Knight::OnCollisionEnter(const Collision& collision)
@@ -145,16 +146,11 @@ void Knight::OnCollisionEnter(const Collision& collision)
 
 		// Knockback
 		const Vector2 direction{ collision.m_Transform->position - m_Transform->position };
-		m_GameObject->GetComponent<Rigidbody2D>()->AddForce(Vector2(-direction.Normalized() * 15));
+		m_GameObject->GetComponent<Rigidbody2D>()->AddForce(Vector2(-direction.Normalized() * m_KnockbackForce));
 	}
-}
-
-void Knight::OnCollisionStay(const Collision& collision)
-{
-
-}
-
-void Knight::OnCollisionExit(const Collision& collision)
-{
-
+	if (collision.m_GameObject->CompareTag(Tag::Coin))
+	{
+		//TODO: Earn coins
+		delete collision.m_GameObject;
+	}
 }

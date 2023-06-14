@@ -14,9 +14,7 @@ Actor::Actor(const int& maxHealth) :
 
 void Actor::Awake()
 {
-	SpriteRenderer* renderer = m_GameObject->AddComponent(new SpriteRenderer());
-	renderer->SetLayer(int(IDrawable::Layers::Actors));
-
+	m_GameObject->AddComponent(new SpriteRenderer());
 	m_GameObject->AddComponent(new Collider());
 }
 

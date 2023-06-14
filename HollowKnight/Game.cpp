@@ -22,7 +22,6 @@ void Game::Start( )
 
 void Game::End( )
 {
-
 }
 
 void Game::Update(const float& deltaTime )

@@ -39,9 +39,7 @@ private:
 	AnimLibrary m_AnimationLibrary{}; // Load after SpriteLibrary!
 
 	SceneManager m_SceneManager{};
-
-	// POINTERS
-	GameObject m_Camera;
+	GameObject m_Camera{};
 
 	// FUNCTIONS
 	void Start();
