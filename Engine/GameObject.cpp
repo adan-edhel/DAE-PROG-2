@@ -16,8 +16,6 @@ GameObject::GameObject(const std::string& name) : Object(name)
 
 GameObject::~GameObject()
 {
-	SetActive(false);
-
 	if (!m_Name.empty())
 	{
 		Print("(x) ", TextColor::Red);
@@ -26,6 +24,8 @@ GameObject::~GameObject()
 	}
 
 	if (components.empty()) return;
+
+	SetActive(false);
 
 	for (Component* component : components)
 	{

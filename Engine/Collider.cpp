@@ -3,19 +3,22 @@
 #include "AmrothUtils.h"
 #include "utils.h"
 
-#include "CORE.h"
 #include "Transform.h"
 #include "GameObject.h"
-#include "SpriteRenderer.h"
 
 Collider::Collider() : Component("Collider")
 {
-	s_AllColliders.emplace_back(this);
 }
 
-Collider::~Collider()
+void Collider::OnEnable()
+{
+	s_AllColliders.push_back(this);
+}
+
+void Collider::OnDisable()
 {
 	s_AllColliders.erase(std::remove(s_AllColliders.begin(), s_AllColliders.end(), this), s_AllColliders.end());
+	m_OverlappingColliders.clear();
 }
 
 void Collider::Update(const float& deltaTime)
@@ -29,28 +32,27 @@ void Collider::Update(const float& deltaTime)
 void Collider::OnCollision()
 {
 	// Loop through all colliders
-	for (const auto& otherCollider : s_AllColliders)
+	for (int i = 0; i < s_AllColliders.size(); i++)
 	{
 		// Skip itself
-		if (otherCollider == this) continue;
+		if (s_AllColliders[i] == this) continue;
 
-		// Skip already collided
-		if (Contains(m_OverlappingColliders, otherCollider)) continue;
+		// Skip if already collided
+		if (Contains(m_OverlappingColliders, s_AllColliders[i])) continue;
 
 		// Skip inactive collider
-		if (!otherCollider->m_GameObject->IsActive() || !otherCollider->m_IsEnabled) continue;
+		if (!s_AllColliders[i]->m_GameObject->IsActive() || !s_AllColliders[i]->m_IsEnabled) continue;
 
 		// Enter collision
-		if (utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
+		if (utils::IsOverlapping(m_Collider, s_AllColliders[i]->m_Collider))
 		{
 			// Add to list already collided with
-			m_OverlappingColliders.emplace_back(otherCollider);
+			m_OverlappingColliders.push_back(s_AllColliders[i]);
 
 			// Send collision message to all components
-			Collider collision{ *otherCollider };
 			for (auto* component : m_GameObject->GetComponents())
 			{
-				component->OnCollisionEnter(collision);
+				component->OnCollisionEnter(*s_AllColliders[i]);
 			}
 
 			//if (CORE::s_DebugMode)
@@ -62,16 +64,22 @@ void Collider::OnCollision()
 		}
 	}
 
-	for (const auto& otherCollider : m_OverlappingColliders)
+	for (Collider* otherCollider : m_OverlappingColliders)
 	{
+		// Remove if collider isn't valid
+		if (!Contains(s_AllColliders, otherCollider))
+		{
+			m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
+			continue;
+		}
+
 		// Exit collision
 		if (!utils::IsOverlapping(m_Collider, otherCollider->m_Collider))
 		{
 			// Send collision message to all components
-			Collider collision{ *otherCollider };
 			for (auto* component : m_GameObject->GetComponents())
 			{
-				component->OnCollisionExit(collision);
+				component->OnCollisionExit(*otherCollider);
 			}
 
 			// Erase from list already collided with
@@ -93,7 +101,7 @@ void Collider::OnCollision()
 			if (!otherCollider->m_GameObject->IsActive() || !otherCollider->m_IsEnabled)
 			{
 				m_OverlappingColliders.erase(std::remove(m_OverlappingColliders.begin(), m_OverlappingColliders.end(), otherCollider), m_OverlappingColliders.end());
-				otherCollider->m_OverlappingColliders.clear(); // Ugly workaround due to lack of delegates
+				otherCollider = nullptr;
 
 				//if (CORE::s_DebugMode)
 				//{
@@ -106,10 +114,9 @@ void Collider::OnCollision()
 			}
 
 			// Send collision message to all components
-			Collider collision{ *otherCollider };
 			for (auto* component : m_GameObject->GetComponents())
 			{
-				component->OnCollisionStay(collision);
+				component->OnCollisionStay(*otherCollider);
 			}
 		}
 	}

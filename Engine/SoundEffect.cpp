@@ -106,6 +106,22 @@ void SoundEffect::SetVolume( const int value )
 	}
 }
 
+void SoundEffect::SetGlobalVolume(float value)
+{
+	if (value > 1)
+	{
+		value = 1;
+	}
+	else if (value < 0)
+	{
+		value = 0;
+	}
+
+	const int maxVolume{ 128 };
+
+	Mix_MasterVolume(int(maxVolume * value));
+}
+
 int SoundEffect::GetVolume( ) const
 {
 	if ( m_pMixChunk != nullptr )

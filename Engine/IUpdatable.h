@@ -7,8 +7,10 @@ public:
 	template<typename... Args>
 	static void Invoke(void(IUpdatable::* function)(Args...), Args&&... args)
 	{
-		for (IUpdatable* eventPtr : m_EventPtrs)
-			(eventPtr->*function)(std::forward<Args>(args)...);
+		for (int i = 0; i < m_EventPtrs.size(); i++)
+		{
+			(m_EventPtrs[i]->*function)(std::forward<Args>(args)...);
+		}
 	}
 
 	virtual void Update(const float& deltaTime)	{}

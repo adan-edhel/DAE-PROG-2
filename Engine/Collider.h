@@ -13,10 +13,10 @@ class Collider final : public Component, IDrawable
 
 public:
 	Collider();
-	~Collider() override;
-	Collider(const Collider& other)					= default;	// copy constructor
+	~Collider() override							= default;
+	Collider(const Collider& other)					= delete;	// copy constructor
 	Collider(Collider&& other) noexcept				= delete;	// move constructor
-	Collider& operator=(const Collider& other)		= default;	// copy operator
+	Collider& operator=(const Collider& other)		= delete;	// copy operator
 	Collider& operator=(Collider&& other) noexcept	= delete;	// move operator
 
 	void SetSize(const float& sizeX, const float& sizeY);
@@ -36,6 +36,8 @@ private:
 	// Collider offset
 	Vector2 m_Translate{};
 
+	void OnEnable() override;
+	void OnDisable() override;
 	void Update(const float& deltaTime) override;
 	void DebugDraw() const override;
 

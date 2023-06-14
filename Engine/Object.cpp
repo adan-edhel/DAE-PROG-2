@@ -7,7 +7,7 @@ Object::Object(const std::string& name) : m_Name{name.empty() ? "" : name}
 
 bool Object::CompareTag(Tag other) const
 {
-	return tag == other;
+	return m_Tag == other;
 }
 
 void Object::Destroy(const Object& GameObject, const Object* object)

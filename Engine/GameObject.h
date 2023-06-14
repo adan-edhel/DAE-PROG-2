@@ -48,6 +48,7 @@ public:
 
 		castComponentPtr->Initialize(this);
 		castComponentPtr->Awake();
+		castComponentPtr->OnEnable();
 		castComponentPtr->Start();
 
 		components.push_back(component);

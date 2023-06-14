@@ -18,7 +18,8 @@ public:
 	void Stop() const;
 	void Pause() const;
 	void Resume() const;
-	void SetVolume( const int value ); 
+	void SetVolume( const int value );
+	static void SetGlobalVolume(float value);
 	int GetVolume( ) const; 
 	static void StopAll( );
 	static void PauseAll( );
