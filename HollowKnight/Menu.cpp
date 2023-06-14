@@ -86,7 +86,16 @@ void Menu::SelectButton()
 			m_ActivePage = Page::Controls;
 			break;
 		case Buttons::Quit:
-			Print("Quit Game! [Implement for release...]\n");
+			SDL_Event quit{};
+			quit.type = SDL_QUIT;
+			SDL_PushEvent(&quit);
+			Print("###################################\n");
+			Print("#     THANK YOU FOR PLAYING!      #\n");
+			Print("###################################\n");
+			Print("#          HOLLOW KNIGHT          #\n");
+			Print("###################################\n");
+			Print("#        (Re)Made by Mort         #\n");
+			Print("###################################\n");
 			break;
 		}
 		break;
