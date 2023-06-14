@@ -21,9 +21,6 @@ enum class Audio
 	EnemyDamage,
 	HeroLandHard,
 	HeroLandSoft,
-	BuzzerStartle,
-	BuzzerFly,
-	Crawler,
 	Blizzard,
 };
 

@@ -158,10 +158,10 @@ void AnimLibrary::CrawlidSetup()
 
 void AnimLibrary::VengeflySetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	const auto sprite = SpriteLibrary::GetSprite(Sprite::Vengelfy);
 	const Vector2 gridCount{ 5,5 };
 
-	auto* currentClip = new Animation("Fly", sprite, gridCount, 5);
+	auto* currentClip = new Animation("Fly", sprite, gridCount, 5, .15f, true);
 	currentClip->MoveStartFrame(Vector2(1, 1));
 	m_VengeflyClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
@@ -169,8 +169,12 @@ void AnimLibrary::VengeflySetup()
 	currentClip->MoveStartFrame(Vector2(1, 2));
 	m_VengeflyClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
-	currentClip = new Animation("Knockback", sprite, gridCount, 4, .15f, false);
-	currentClip->MoveStartFrame(Vector2(1, 2));
+	currentClip = new Animation("Startle", sprite, gridCount, 4, .15f, false);
+	currentClip->MoveStartFrame(Vector2(1, 3));
+	m_VengeflyClips[currentClip->m_Name] = currentClip;
+	// ----------------------------------------------
+	currentClip = new Animation("Charge", sprite, gridCount, 4, .15f, true);
+	currentClip->MoveStartFrame(Vector2(1, 4));
 	m_VengeflyClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
 	currentClip = new Animation("Die", sprite, gridCount, 3, .15f, false);

@@ -34,13 +34,6 @@ AudioLibrary::AudioLibrary()
 	LoadClip(Audio::HeroLandHard, "Audio/Game/Hero/hero_land_hard.wav");
 	LoadClip(Audio::HeroLandSoft, "Audio/Game/Hero/hero_land_soft.wav");
 
-	// Enemies
-	LoadClip(Audio::BuzzerStartle, "Audio/Game/Enemies/buzzer_startle_01.wav");
-	LoadClip(Audio::BuzzerStartle, "Audio/Game/Enemies/buzzer_startle_02.wav");
-	LoadClip(Audio::BuzzerStartle, "Audio/Game/Enemies/buzzer_startle_03.wav");
-	LoadClip(Audio::BuzzerFly, "Audio/Game/Enemies/buzzer_fly.wav");
-	LoadClip(Audio::Crawler, "Audio/Game/Enemies/crawler.wav");
-
 	// Ambience
 	LoadClip(Audio::Blizzard, "Audio/Game/Ambience/blizzard_loop.wav");
 }
