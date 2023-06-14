@@ -21,6 +21,7 @@ private:
 
 	const Vector2 m_PlatformPosition{ 8380, 2490 };
 	static const int m_NumberCrawlids{ 2 };
+	static const int m_NumberVengeflies{ 1 };
 	const Vector2 m_PlayerSpawnPoint;
 	const float m_BackgroundOffset;
 	const float m_ForegroundOffset;
@@ -32,6 +33,14 @@ private:
 	std::array<Vector2, m_NumberCrawlids> m_CrawlidSpawnPositions{
 		Vector2(4386, 2331),
 		Vector2(7000, 2340)};
+
+	// Vengeflies
+	//std::array<GameObject, m_NumberVengeflies> m_Vengeflies{
+	//	string("Vengefly")};
+	//std::array<Vector2, m_NumberVengeflies> m_VengeflySpawnPositions{
+	//	Vector2(8300, 2626) };
+
+	GameObject m_Vengefly{"Vengefly"};
 
 	// Level Sprites
 	GameObject m_Background		{ string("Background") };

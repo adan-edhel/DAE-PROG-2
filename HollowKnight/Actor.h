@@ -12,8 +12,10 @@ public:
 
 	int GetHealth() const { return m_Health; }
 	virtual void OnDamage();
+	bool IsAlive() const;
 
 protected:
+	bool m_IsAlive{ true };
 	const int m_MaxHealth;
 
 	Actor(const int& maxHealth);

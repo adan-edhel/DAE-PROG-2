@@ -21,6 +21,7 @@
 
 #include "Knight.h"
 #include "Crawlid.h"
+#include "Vengefly.h"
 
 Level::Level(const std::string& levelName) :
 	m_PlayerSpawnPoint{2200, 3150},
@@ -61,12 +62,25 @@ void Level::Initialize()
 		}
 	}
 
+	// Set up Vengeflies
+	//if (!m_Vengeflies.empty())
+	//{
+	//	for (int i = 0; i < m_Crawlids.size(); i++)
+	//	{
+	//		m_Vengeflies[i].AddComponent(new Vengefly());
+	//		m_Vengeflies[i].m_Transform->position = m_VengeflySpawnPositions[i];
+	//	}
+	//}
+
+	m_Vengefly.AddComponent(new Vengefly());
+	m_Vengefly.m_Transform->position = Vector2(8300, 2626);
+
 	// Play Ambience audio
 	if (m_BlizzardAmbience == nullptr)
 	{
 		m_BlizzardAmbience = m_AudioSource.AddComponent(new AudioSource(true, false));
 	}
-	m_BlizzardAmbience->SetClip(AudioLibrary::GetClip(Audio::Blizzard));
+	//m_BlizzardAmbience->SetClip(AudioLibrary::GetClip(Audio::Blizzard));
 }
 
 void Level::Update(const float& deltaTime)

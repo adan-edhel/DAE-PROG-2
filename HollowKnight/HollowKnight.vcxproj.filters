@@ -87,6 +87,9 @@
     <ClCompile Include="AudioLibrary.cpp">
       <Filter>Game\Libraries</Filter>
     </ClCompile>
+    <ClCompile Include="Vengefly.cpp">
+      <Filter>Game\Characters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSettings.h">
@@ -139,6 +142,9 @@
     </ClInclude>
     <ClInclude Include="AudioLibrary.h">
       <Filter>Game\Libraries\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Vengefly.h">
+      <Filter>Game\Characters\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

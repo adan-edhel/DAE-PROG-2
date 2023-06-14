@@ -8,7 +8,10 @@ class Animator;
 class Knight final : public Actor
 {
 public:
+	inline static Knight* m_Instance{};
+
 	Knight();
+	~Knight() override;
 	Knight(const Knight& other) = default;
 	Knight& operator=(const Knight& other) = default;
 
@@ -27,7 +30,6 @@ private:
 	const float m_HardImpactThreshold{ 7.0 };
 	const float m_WalkSoundThreshold{ 0.5f };
 
-	~Knight() override = default;
 	void Start() override;
 	void Update(const float& deltaTime) override;
 	void HandleGroundImpact() const;

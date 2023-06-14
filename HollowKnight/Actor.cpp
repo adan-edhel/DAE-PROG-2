@@ -2,9 +2,8 @@
 #include "Actor.h"
 
 #include "Camera.h"
-#include "Animator.h"
 #include "Collider.h"
-#include "Rigidbody2D.h"
+#include "Animator.h"
 #include "SpriteRenderer.h"
 
 Actor::Actor(const int& maxHealth) :
@@ -16,11 +15,9 @@ Actor::Actor(const int& maxHealth) :
 void Actor::Awake()
 {
 	SpriteRenderer* renderer = m_GameObject->AddComponent(new SpriteRenderer());
-	m_GameObject->AddComponent(new Collider());
-	m_GameObject->AddComponent(new Animator());
-	m_GameObject->AddComponent(new Rigidbody2D());
-
 	renderer->SetLayer(int(IDrawable::Layers::Actors));
+
+	m_GameObject->AddComponent(new Collider());
 }
 
 void Actor::OnDamage()
@@ -34,6 +31,12 @@ void Actor::OnDamage()
 
 	if (m_Health <= 0)
 	{
+		m_IsAlive = false;
 		OnDeath();
 	}
+}
+
+bool Actor::IsAlive() const
+{
+	return m_IsAlive;
 }

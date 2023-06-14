@@ -11,14 +11,7 @@ class Crawlid final : public Enemy
 	enum class State
 	{
 		Walking,
-		Turning,
-		Dying
-	};
-
-	enum class Direction
-	{
-		Left,
-		Right
+		Turning
 	};
 
 public:
@@ -28,20 +21,11 @@ public:
 	Crawlid& operator=(const Crawlid& other) = delete;
 
 private:
-	Animator* m_AnimatorPtr;
-	Rigidbody2D* m_Rigidbody;
-	SpriteRenderer* m_SpriteRend;
-	AudioSource* m_AudioSource;
-
-	State m_State;
-	Direction m_Direction;
-
+	State m_State{State::Walking};
+	AudioSource* m_AudioSourcePtr;
 	SoundEffect m_FootSteps;
 
-	const Vector2 m_ColliderSize;
-	const float m_WalkSpeed;
-	const float m_TurnInterval;
-	float m_TurnCounter{};
+	const float m_MoveSpeed{20};
 
 	void Start() override;
 	void Update(const float& deltaTime) override;
@@ -49,6 +33,7 @@ private:
 
 	void Walk(const float& deltaTime) const;
 	void Turn(const float& deltaTime);
-	void ManageStates(const float& deltaTime);
-	void UpdateAnimation() const;
+
+	void HandleStates(const float& deltaTime) override;
+	void HandleAnimation() const override;
 };
