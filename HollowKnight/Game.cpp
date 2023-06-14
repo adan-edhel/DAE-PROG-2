@@ -69,6 +69,41 @@ void Game::ClearBackground( ) const
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
+
+#pragma region Print Controls
+	if (e.keysym.sym == SDLK_i)
+	{
+		Print("___________________________________\n");
+		Print("|             CONTROLS            |\n");
+		Print("|_________________________________|\n");
+		Print("| Ones with '*' are bonus goals   |\n");
+		Print("| and may possibly be unfinished. |\n");
+		Print("|_________________________________|\n");
+		Print("| Left Arrow     | Move Left      |\n");
+		Print("|_________________________________|\n");
+		Print("| Right Arrow    | Move Right     |\n");
+		Print("|_________________________________|\n");
+		Print("| Z              | Jump           |\n");
+		Print("|_________________________________|\n");
+		Print("| X              | Attack         |\n");
+		Print("|_________________________________|\n");
+		Print("| C              | Dash           |\n");
+		Print("|_________________________________|\n");
+		Print("| *A             | *Focus/Heal    |\n");
+		Print("|_________________________________|\n");
+		Print("| Escape         | Quit to menu   |\n");
+		Print("|_________________________________|\n");
+		Print("| F1             | Debug Info     |\n");
+		Print("|_________________________________|\n");
+		Print("| F2             | Print Position |\n");
+		Print("|_________________________________|\n");
+		Print("| F3             | Debug Movement |\n");
+		Print("|_________________________________|\n");
+		Print("| F5             | Clear Console  |\n");
+		Print("|_________________________________|\n");
+	}
+#pragma endregion
+
 }
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {

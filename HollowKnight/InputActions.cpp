@@ -165,15 +165,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		break;
 	case SDLK_a:			// FOCUS / CAST
 		break;
-	case SDLK_s:			// Super Dash
-		break;
-	case SDLK_d:			// DREAM NAIL
-		break;
-	case SDLK_f:			// Quick Cast
-		break;
-	case SDLK_i:			// Inventory
-		break;
-	case SDLK_ESCAPE:
+	case SDLK_ESCAPE:		// QUIT TO MENU
 		SceneManager::LoadScene(Scene::Menu);
 		break;
 	case SDLK_F1:			// TOGGLE DEBUG
