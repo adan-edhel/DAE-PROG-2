@@ -130,43 +130,35 @@ void Texture::CreateFromString( const std::string& text, TTF_Font *pFont, const 
 	SDL_FreeSurface( pLoadedSurface );
 }
 
-void Texture::CreateFromSurface( SDL_Surface* pSurface )
+void Texture::CreateFromSurface(SDL_Surface* pSurface)
 {
 	m_CreationOk = true;
 
 	//Get image dimensions
 	m_Width = float(pSurface->w);
-	m_Height =float( pSurface->h);
+	m_Height = float(pSurface->h);
 
-	// Get pixel format information and translate to OpenGl format
-	GLenum pixelFormat{ GL_RGB };
-	switch ( pSurface->format->BytesPerPixel )
-	{
-	case 3:
-		if ( pSurface->format->Rmask == 0x000000ff )
-		{
-			pixelFormat = GL_RGB;
-		}
-		else
-		{
-			pixelFormat = GL_BGR;
-		}
-		break;
-	case 4:
-		if ( pSurface->format->Rmask == 0x000000ff )
-		{
-			pixelFormat = GL_RGBA;
-		}
-		else
-		{
-			pixelFormat = GL_BGRA;
-		}
-		break;
-	default:
-		std::cerr << "Texture::CreateFromSurface, unknow pixel format, BytesPerPixel: " << pSurface->format->BytesPerPixel << "\nUse 32 bit or 24 bit images.\n";
-		m_CreationOk = false;
-		return;
-	}
+	// fix format detection by just copying to RGBA
+	SDL_Surface* pImage = SDL_CreateRGBSurface(
+		SDL_SWSURFACE,
+		pSurface->w, pSurface->h,
+		32,
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN /* OpenGL RGBA masks */
+		0x000000FF,
+		0x0000FF00,
+		0x00FF0000,
+		0xFF000000
+#else
+		0xFF000000,
+		0x00FF0000,
+		0x0000FF00,
+		0x000000FF
+#endif
+	);
+
+	/* Copy the surface into the GL texture image */
+	SDL_Rect area = { 0, 0, pSurface->w, pSurface->h };
+	SDL_BlitSurface(pSurface, &area, pImage, &area);
 
 	//Generate an array of textures.  We only want one texture (one element array), so trick
 	//it by treating "texture" as array of length one.
@@ -175,7 +167,6 @@ void Texture::CreateFromSurface( SDL_Surface* pSurface )
 	//Select (bind) the texture we just generated as the current 2D texture OpenGL is using/modifying.
 	//All subsequent changes to OpenGL's texturing state for 2D textures will affect this texture.
 	glBindTexture(GL_TEXTURE_2D, m_Id);
-	glPixelStorei(GL_UNPACK_ROW_LENGTH, pSurface->pitch / pSurface->format->BytesPerPixel);
 	// check for errors. Can happen if a texture is created while a static pointer is being initialized, even before the call to the main function.
 	GLenum e = glGetError();
 	if (e != GL_NO_ERROR)
@@ -203,15 +194,17 @@ void Texture::CreateFromSurface( SDL_Surface* pSurface )
 	//                         any value that fits in one byte (so 0 through 255).  These values are to be interpreted as
 	//                         *unsigned* values (since 0x00 should be dark and 0xFF should be bright).
 	//  surface->pixels:    The actual data.  As above, SDL's array of bytes.
-	glTexImage2D( GL_TEXTURE_2D, 0, GL_RGBA, pSurface->w, pSurface->h, 0, pixelFormat, GL_UNSIGNED_BYTE, pSurface->pixels );
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, pImage->w, pImage->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pImage->pixels);
+
+	SDL_FreeSurface(pImage);
 
 	// Set the minification and magnification filters.  In this case, when the texture is minified (i.e., the texture's pixels (texels) are
 	// *smaller* than the screen pixels you're seeing them on, linearly filter them (i.e. blend them together).  This blends four texels for
 	// each sample--which is not very much.  Mipmapping can give better results.  Find a texturing tutorial that discusses these issues
 	// further.  Conversely, when the texture is magnified (i.e., the texture's texels are *larger* than the screen pixels you're seeing
 	// them on), linearly filter them.  Qualitatively, this causes "blown up" (overmagnified) textures to look blurry instead of blocky.
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST );
-	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 }
 
 void Texture::Draw( const Point2f& dstBottomLeft, const Rectf& srcRect ) const
