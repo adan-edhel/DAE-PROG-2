@@ -22,6 +22,7 @@ public:
 	Animation* Current() const;
 	void Play(const std::string& name);
 	void AssignClips(std::map<std::string, Animation*>* anims);
+	bool IsLoaded() const;
 
 private:
 	Animation* m_CurrentAnim{};

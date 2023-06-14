@@ -94,7 +94,7 @@ struct Animation
 		// Check if it's time to move to the next frame
 		if (m_ElapsedTime >= m_FrameDuration)
 		{
-			// Move to the next frame
+			// Fly to the next frame
 			m_CurrentFrame++;
 
 			// Loop back to the first frame if the end is reached

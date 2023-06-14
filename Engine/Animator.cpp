@@ -52,6 +52,11 @@ void Animator::AssignClips(std::map<std::string, Animation*>* anims)
 	m_Clips = anims;
 }
 
+bool Animator::IsLoaded() const
+{
+	return !m_Clips->empty();
+}
+
 void Animator::Update(const float& deltaTime)
 {
 	// If there is a current animation

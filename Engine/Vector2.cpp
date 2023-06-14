@@ -116,6 +116,26 @@ Vector2 Vector2::Reflect(const Vector2& surfaceNormal) const
 	return (*this) - 2 * (this->DotProduct(surfaceNormal) * surfaceNormal);
 }
 
+void Vector2::MoveTowards(Vector2& current, const Vector2& target, const float& maxDelta)
+{
+	Vector2 direction;
+	direction.x = target.x - current.x;
+	direction.y = target.y - current.y;
+
+	const float distance = std::sqrt(direction.x * direction.x + direction.y * direction.y);
+
+	if (distance <= maxDelta)
+		current = target;
+	else
+	{
+		const float ratio = maxDelta / distance;
+		Vector2 newPosition;
+		newPosition.x = current.x + direction.x * ratio;
+		newPosition.y = current.y + direction.y * ratio;
+		current = newPosition;
+	}
+}
+
 void Vector2::Set(float newX, float newY)
 {
 	x = newX;

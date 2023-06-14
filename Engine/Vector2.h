@@ -75,6 +75,9 @@ struct Vector2 final
 	// surfaceNormal: represents the normal of the surface at the reflection point
 	Vector2 Reflect(const Vector2& surfaceNormal) const;
 
+	// Moves the current position towards the target position by a maximum delta value.
+	static void MoveTowards(Vector2& current, const Vector2& target, const float& maxDelta);
+
 	// Sets the values of x and y
 	void Set(float newX, float newY);
 

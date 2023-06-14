@@ -59,6 +59,20 @@ void AudioSource::Stop() const
 	m_AudioPtr->Stop();
 }
 
+void AudioSource::Pause() const
+{
+	if (m_AudioPtr == nullptr) return;
+
+	m_AudioPtr->Pause();
+}
+
+void AudioSource::Resume() const
+{
+	if (m_AudioPtr == nullptr) return;
+
+	m_AudioPtr->Resume();
+}
+
 void AudioSource::SetVolume(float volume)
 {
 	Clamp(volume, 0.0f, 1.0f);

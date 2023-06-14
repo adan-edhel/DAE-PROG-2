@@ -16,6 +16,8 @@ public:
 	bool IsPlaying() const;
 	void Play() const;
 	void Stop() const;
+	void Pause() const;
+	void Resume() const;
 	void SetVolume(float volume);
 	float GetVolume() const;
 

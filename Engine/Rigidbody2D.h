@@ -11,6 +11,7 @@ class Rigidbody2D final : public Component, IDrawable
 {
 public:
 	bool m_IsStatic{ false };
+	bool m_GravityEnabled{ true };
 	Collider* m_Collider{};
 
 	Rigidbody2D();

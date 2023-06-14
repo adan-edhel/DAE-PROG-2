@@ -50,6 +50,7 @@ void Rigidbody2D::DecayVelocity(const float& deltaTime)
 
 void Rigidbody2D::SimulateGravity(const float& deltaTime)
 {
+	if (!m_GravityEnabled) return;
 	AddForce(Vector2(0, GRAVITY * deltaTime));
 }
 
