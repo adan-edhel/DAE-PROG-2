@@ -11,7 +11,8 @@ public:
 	enum class Layers
 	{
 		Background = 0,
-		Actors = 4,
+		Enemies = 3,
+		Knight = 4,
 		Pickups = 5,
 		Middleground = 7,
 		Platforms = 8,
