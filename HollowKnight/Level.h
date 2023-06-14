@@ -42,7 +42,7 @@ private:
 		string("Vengefly 2")};
 	std::array<Vector2, m_NumberVengeflies> m_VengeflyPositions{
 		Vector2(8300, 2626),
-		Vector2(2200, 2700)};
+		Vector2(5150, 3600)};
 
 	// Level Sprites
 	GameObject m_Background{};
