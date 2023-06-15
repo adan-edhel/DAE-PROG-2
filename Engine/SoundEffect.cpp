@@ -2,8 +2,9 @@
 #include <iostream>
 #include "SoundEffect.h"
 
-SoundEffect::SoundEffect( const std::string& path )
-	:m_pMixChunk{ Mix_LoadWAV( path.c_str( ) ) }
+SoundEffect::SoundEffect( const std::string& path ) :
+	m_Path{path},
+	m_pMixChunk{ Mix_LoadWAV( path.c_str( ) ) }
 {
 	if ( m_pMixChunk == nullptr )
 	{
@@ -44,6 +45,10 @@ bool SoundEffect::Play( const int loops ) const
 	if ( m_pMixChunk != nullptr )
 	{
 		const int channel{ Mix_PlayChannel( -1, m_pMixChunk, loops ) };
+		if (channel == -1)
+		{
+			std::cout << "Audio failed to play, no available channels. Path[" << m_Path << "]" << std::endl;
+		}
 		return channel == -1 ? false : true;
 	}
 	else

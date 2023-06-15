@@ -4,6 +4,8 @@ class Mix_Chunk;
 class SoundEffect final
 {
 public:
+	const std::string m_Path;
+
 	explicit SoundEffect( const std::string& path );
 	~SoundEffect( );
 	SoundEffect(const SoundEffect& other) = delete;

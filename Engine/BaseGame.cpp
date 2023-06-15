@@ -120,6 +120,9 @@ void BaseGame::InitializeGameEngine()
 		return;
 	}
 
+	// Allocate more channels to play sounds with
+	Mix_AllocateChannels(24);
+
 	m_Initialized = true;
 }
 
