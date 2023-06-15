@@ -60,6 +60,7 @@ void Vengefly::Update(const float& deltaTime)
 void Vengefly::OnDamage()
 {
 	Enemy::OnDamage();
+	m_Hostile = true;
 	m_State = State::Startled;
 }
 
@@ -156,7 +157,7 @@ void Vengefly::HandleStates(const float& deltaTime)
 		{
 			if (m_AnimatorPtr->Current()->Finished())
 			{
-				m_State = PlayerInAttackRange() ? State::Charging : State::Flying;
+				m_State = State::Charging;
 				m_FlySourcePtr->Resume();
 			}
 		}
