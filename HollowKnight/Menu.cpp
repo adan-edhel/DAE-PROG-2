@@ -2,13 +2,16 @@
 #include "Menu.h"
 
 #include "AudioLibrary.h"
-#include "CORE.h"
+#include "SpriteLibrary.h"
+
 #include "GameSettings.h"
 #include "SceneManager.h"
-#include "SpriteLibrary.h"
-#include <AudioSource.h>
 
+#include <AudioSource.h>
+#include <SoundEffect.h>
 #include "utils.h"
+#include <CORE.h>
+
 
 Menu::Menu()
 {
@@ -57,18 +60,20 @@ void Menu::Draw() const
 	m_BackgroundPtr->Draw(m_BackgroundRect);
 	m_TitlePtr->Draw(m_TitleRect);
 
+	// Draw Buttons
 	switch (m_ActivePage)
 	{
 	case Page::Menu:
-		// Draw Buttons
-		for (int i = 0; i < m_Buttons.size() - 1; i++)
+		for (int i = 0; i < m_MenuButtonCount; i++)
 		{
 			m_Buttons[i].Draw(m_ButtonBounds[i]);
 		}
-
 		break;
 	case Page::Controls:
-		m_Buttons[m_Buttons.size() - 1].Draw(m_ButtonBounds[m_Buttons.size() - 1]);
+		for (int i = m_MenuButtonCount; i < m_MenuButtonCount + m_OptionsButtonCount; i++)
+		{
+			m_Buttons[i].Draw(m_ButtonBounds[i]);
+		}
 		break;
 	}
 
@@ -91,11 +96,16 @@ void Menu::SelectButton()
 		SceneManager::LoadScene(Scene::Game);
 		AudioLibrary::PlayClip(Audio::ButtonConfirm);
 		return;
-		break;
 	case Buttons::Controls:		// CONTROLS
 		m_ActivePage = Page::Controls;
 		m_ActiveButton = Buttons::Back;
-		;		break;
+		break;
+	case Buttons::SoundOn:		// Sound On
+		SoundEffect::SetGlobalVolume(1);
+		break;
+	case Buttons::SoundOff:		// Sound off
+		SoundEffect::SetGlobalVolume(0);
+		break;
 	case Buttons::Back:			// BACK
 		m_ActivePage = Page::Menu;
 		break;
@@ -143,15 +153,20 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 					case Buttons::Controls:
 						Print("Controls Highlighted!\n");
 						break;
-					case Buttons::Quit:
-						Print("Quit Highlighted!\n");
+					case Buttons::SoundOn:
+						Print("Volume Up Highlighted!\n");
+						break;
+					case Buttons::SoundOff:
+						Print("Volume Down Highlighted!\n");
 						break;
 					case Buttons::Back:
 						Print("Back Highlighted!\n");
 						break;
+					case Buttons::Quit:
+						Print("Quit Highlighted!\n");
+						break;
 					}
 				}
-
 				m_ActiveButton = button;
 				m_LastSelectedButton = m_ActiveButton;
 			}

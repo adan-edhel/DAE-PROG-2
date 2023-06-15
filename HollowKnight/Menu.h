@@ -48,6 +48,8 @@ class Menu final : IInputEvent
 		Start,
 		Controls,
 		Quit,
+		SoundOn,
+		SoundOff,
 		Back,
 		Buttons_Count
 	};
@@ -80,20 +82,22 @@ private:
 	std::string m_Font{ SpriteLibrary::GetFont(Font::TrajanPro) };
 
 	static const int m_MenuButtonCount{ 3 };
-	static const int m_ControlsButtonCount{ 1 };
+	static const int m_OptionsButtonCount{ 3 };
 
 	const float m_ButtonsOffset{ 56 };
 	const float m_ButtonsPosOffset{ -50 };
 
 	// Buttons
-	std::array<Texture, m_MenuButtonCount + m_ControlsButtonCount> m_Buttons{
+	std::array<Texture, m_MenuButtonCount + m_OptionsButtonCount> m_Buttons{
 		Texture("Start Game", m_Font, m_FontSize, m_FontColor),
 		Texture("Options", m_Font, m_FontSize, m_FontColor),
 		Texture("Quit Game", m_Font, m_FontSize, m_FontColor),
-		Texture("Back", m_Font, m_FontSize, m_FontColor) };
+		Texture("Sound On", m_Font, m_FontSize, m_FontColor),
+		Texture("Sound Off", m_Font, m_FontSize, m_FontColor),
+		Texture("Back", m_Font, m_FontSize, m_FontColor),};
 
 	// Button Bounds
-	std::array<Rectf, m_MenuButtonCount + m_ControlsButtonCount> m_ButtonBounds{};
+	std::array<Rectf, m_MenuButtonCount + m_OptionsButtonCount> m_ButtonBounds{};
 
 	// Button Pointers
 	Pointer m_ButtonPointers{};
