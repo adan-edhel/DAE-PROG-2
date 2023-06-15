@@ -19,7 +19,7 @@ private:
 	// Component pointers
 	Rigidbody2D* m_RigidbodyPtr;
 	AudioSource* m_FootStepSource{};
-	AudioSource* m_LandingSource{};
+	AudioSource* m_AudioSource{};
 
 	const float m_VelocityUpdateInterval{ 0.001f };
 	float m_VelocityUpdateCounter{};

@@ -54,16 +54,18 @@ void Knight::Start()
 
 	// Add input actions component
 	m_GameObject->AddComponent(new InputActions());
-
+	// Add audio listener component
 	m_GameObject->AddComponent(new AudioListener());
+
+	// Set up audio sources
 	if (m_FootStepSource == nullptr)
 	{
 		m_FootStepSource = m_GameObject->AddComponent(new AudioSource(true, false, false));
 		m_FootStepSource->SetClip(AudioLibrary::GetClip(Audio::HeroFootstep));
 	}
-	if (m_LandingSource == nullptr)
+	if (m_AudioSource == nullptr)
 	{
-		m_LandingSource = m_GameObject->AddComponent(new AudioSource(false, false));
+		m_AudioSource = m_GameObject->AddComponent(new AudioSource(false, false));
 	}
 }
 
@@ -96,11 +98,11 @@ void Knight::HandleGroundImpact() const
 		if (m_StoredVelocity.y < -m_HardImpactThreshold)
 		{
 			Camera::m_MainPtr->SetShake();
-			m_LandingSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandHard));
+			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandHard));
 		}
 		else
 		{
-			m_LandingSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandSoft));
+			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandSoft));
 		}
 
 		// Print impact info
@@ -151,6 +153,7 @@ void Knight::OnCollisionEnter(const Collision& collision)
 	if (collision.m_GameObject->CompareTag(Tag::Coin))
 	{
 		//TODO: Earn coins
+		m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::SoulPickup));
 		delete collision.m_GameObject;
 	}
 }
