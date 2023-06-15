@@ -131,18 +131,10 @@ void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 #pragma region Mouse
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
-	if (SceneManager::GetCurrentScene() == Scene::Menu)
-	{
-		SceneManager::GetScene<Menu>()->HighlightButton(e.x, e.y);
-	}
 	IInputEvent::Invoke(&IInputEvent::OnMouseMotion, e);
 }
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	if (SceneManager::GetCurrentScene() == Scene::Menu)
-	{
-		SceneManager::GetScene<Menu>()->SelectButton();
-	}
 	IInputEvent::Invoke(&IInputEvent::OnMouseDown, e);
 }
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )

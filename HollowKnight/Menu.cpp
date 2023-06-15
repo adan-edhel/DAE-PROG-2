@@ -7,6 +7,7 @@
 #include "SceneManager.h"
 #include "SpriteLibrary.h"
 #include <AudioSource.h>
+
 #include "utils.h"
 
 Menu::Menu()
@@ -64,54 +65,49 @@ void Menu::Draw() const
 		{
 			m_Buttons[i].Draw(m_ButtonBounds[i]);
 		}
+
 		break;
 	case Page::Controls:
 		m_Buttons[m_Buttons.size() - 1].Draw(m_ButtonBounds[m_Buttons.size() - 1]);
 		break;
 	}
+
+	VisualizeHighlights();
+
+	if (CORE::s_DebugMode)
+	{
+		for (int i = 0; i < m_ButtonBounds.size(); i++)
+		{
+			utils::DrawRect(m_ButtonBounds[i]);
+		}
+	}
 }
 
 void Menu::SelectButton()
 {
-	switch (m_ActivePage)
+	switch (m_ActiveButton)
 	{
-		case Page::Menu:
-		switch (m_ActiveButton)
-		{
-		case Buttons::Start:
-			m_MusicSource->Stop();
-			SceneManager::LoadScene(Scene::Game);
-			break;
-		case Buttons::Controls:
-			m_ActivePage = Page::Controls;
-			break;
-		case Buttons::Quit:
-			SDL_Event quit{};
-			quit.type = SDL_QUIT;
-			SDL_PushEvent(&quit);
-			Print("###################################\n");
-			Print("#     THANK YOU FOR PLAYING!      #\n");
-			Print("###################################\n");
-			Print("#          HOLLOW KNIGHT          #\n");
-			Print("###################################\n");
-			Print("#        (Re)Made by Mort         #\n");
-			Print("###################################\n");
-			break;
-		}
+	case Buttons::Start:		// START
+		SceneManager::LoadScene(Scene::Game);
+		AudioLibrary::PlayClip(Audio::ButtonConfirm);
+		return;
 		break;
-	case Page::Controls:
-		switch (m_ActiveButton)
-		{
-		case Buttons::Back:
-			m_ActivePage = Page::Menu;
-			break;
-		}
+	case Buttons::Controls:		// CONTROLS
+		m_ActivePage = Page::Controls;
+		m_ActiveButton = Buttons::Back;
+		;		break;
+	case Buttons::Back:			// BACK
+		m_ActivePage = Page::Menu;
+		break;
+	case Buttons::Quit:			// QUIT (needs to be placed last)
+		SceneManager::Quit();
 		break;
 	}
 
 	if (m_ActiveButton != Buttons::None)
 	{
 		AudioLibrary::PlayClip(Audio::ButtonConfirm);
+		m_ActiveButton = Buttons::None;
 	}
 }
 
@@ -119,6 +115,17 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 {
 	for (int i = 0; i < m_ButtonBounds.size(); i++)
 	{
+		// Deactivate buttons depending on active page
+		switch (m_ActivePage)
+		{
+		case Page::Menu:
+			if (i > m_MenuButtonCount - 1) continue;
+			break;
+		case Page::Controls:
+			if (i < m_MenuButtonCount) continue;
+			break;
+		}
+
 		if (utils::IsPointInRect(Point2f(mouseX, mouseY), m_ButtonBounds[i]))
 		{
 			const Buttons button{ Buttons(i + 1) };
@@ -126,7 +133,6 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 			if (m_LastSelectedButton != button)
 			{
 				AudioLibrary::PlayClip(Audio::ButtonHighlight);
-
 				if (CORE::s_DebugMode)
 				{
 					switch (button)
@@ -145,11 +151,73 @@ void Menu::HighlightButton(const float& mouseX, const float& mouseY)
 						break;
 					}
 				}
+
+				m_ActiveButton = button;
+				m_LastSelectedButton = m_ActiveButton;
 			}
-			m_ActiveButton = button;
-			m_LastSelectedButton = m_ActiveButton;
 			return;
 		}
-		m_ActiveButton = Buttons::None;
+	}
+}
+
+void Menu::MoveSelectedButton(int&& x, int&& y)
+{
+	int nextButton{ int(m_ActiveButton) };
+
+	if (y > 0) nextButton--;
+	else if (y < 0) nextButton++;
+
+	switch (m_ActivePage)
+	{
+	case Page::Menu:
+		if (nextButton <= 0 || nextButton > int(Buttons::Quit)) return;
+		break;
+	case Page::Controls:
+		if (nextButton <= m_MenuButtonCount || nextButton >= int(Buttons::Buttons_Count)) return;
+		break;
+	}
+
+	m_ActiveButton = Buttons(nextButton);
+	AudioLibrary::PlayClip(Audio::ButtonConfirm);
+}
+
+void Menu::OnMouseMotion(const SDL_MouseMotionEvent& e)
+{
+	SceneManager::GetScene<Menu>()->HighlightButton(e.x, e.y);
+}
+
+void Menu::OnMouseDown(const SDL_MouseButtonEvent& e)
+{
+	SelectButton();
+}
+
+void Menu::OnKeyDown(const SDL_KeyboardEvent& e)
+{
+	int nextButton{};
+
+	switch (e.keysym.sym)
+	{
+	case SDLK_RETURN:
+		SceneManager::GetScene<Menu>()->SelectButton();
+		break;
+	case SDLK_UP:
+		MoveSelectedButton(0, 1);
+		break;
+	case SDLK_DOWN:
+		MoveSelectedButton(0, -1);
+		break;
+	}
+}
+
+void Menu::VisualizeHighlights() const
+{
+	if (m_ActiveButton == Buttons::None) return;
+
+	for (int i = 0; i <= m_ButtonBounds.size() - 1; i++)
+	{
+		if (static_cast<int>(m_ActiveButton) == i + 1)
+		{
+			m_ButtonPointers.Draw(m_ButtonBounds[i]);
+		}
 	}
 }
