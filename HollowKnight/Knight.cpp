@@ -60,8 +60,9 @@ void Knight::Start()
 	// Set up audio sources
 	if (m_FootStepSource == nullptr)
 	{
-		m_FootStepSource = m_GameObject->AddComponent(new AudioSource(true, false, false));
+		m_FootStepSource = m_GameObject->AddComponent(new AudioSource(true, false, true));
 		m_FootStepSource->SetClip(AudioLibrary::GetClip(Audio::HeroFootstep));
+		m_FootStepSource->Pause();
 	}
 	if (m_AudioSource == nullptr)
 	{
@@ -119,14 +120,11 @@ void Knight::HandleWalkAudio() const
 	{
 		if (std::abs(m_RigidbodyPtr->GetVelocity().x) > m_WalkSoundThreshold)
 		{
-			if (!m_FootStepSource->IsPlaying())
-			{
-				m_FootStepSource->Play();
-			}
+			m_FootStepSource->Resume();
 			return;
 		}
 	}
-	m_FootStepSource->Stop();
+	m_FootStepSource->Pause();
 }
 
 void Knight::OnDamage()
@@ -137,7 +135,11 @@ void Knight::OnDamage()
 
 void Knight::OnDeath()
 {
-	//Todo: Restart scene
+	//TODO: remove coins
+
+	m_RigidbodyPtr->SetVelocity(0, 0);
+	m_Transform->position = m_SpawnPosition;
+	Heal(m_MaxHealth);
 }
 
 void Knight::OnCollisionEnter(const Collision& collision)

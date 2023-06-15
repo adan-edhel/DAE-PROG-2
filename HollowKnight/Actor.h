@@ -11,6 +11,8 @@ public:
 	Actor& operator=(const Actor& other) = delete;
 
 	int GetHealth() const { return m_Health; }
+	void Heal(const int& health);
+
 	virtual void OnDamage();
 	bool IsAlive() const;
 

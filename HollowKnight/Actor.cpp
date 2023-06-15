@@ -18,6 +18,15 @@ void Actor::Awake()
 	m_GameObject->AddComponent(new Collider());
 }
 
+void Actor::Heal(const int& health)
+{
+	if (health > 0)
+	{
+		m_Health += health;
+		Clamp(m_Health, 0, m_MaxHealth);
+	}
+}
+
 void Actor::OnDamage()
 {
 	if (m_Health <= 0) return;

@@ -25,6 +25,8 @@ private:
 	float m_VelocityUpdateCounter{};
 	Vector2 m_StoredVelocity{};
 
+	Vector2 m_SpawnPosition{ 2200, 3150 };
+
 	const Vector2 m_ColliderSize;
 	const float m_KnockbackForce{ 15 };
 	const float m_SoftImpactThreshold{ 0.5 };
