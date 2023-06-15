@@ -42,7 +42,7 @@ void AttackCollider::PlaySound() const
 {
 	if (m_EnemyHit)
 	{
-		m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::EnemyDamage));
+		m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::EnemyDamage));
 	}
-	m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroSword));
+	m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::HeroSword));
 }

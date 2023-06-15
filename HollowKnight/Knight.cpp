@@ -20,7 +20,7 @@
 #include "InputActions.h"
 
 Knight::Knight() : Actor(5),
-                   m_ColliderSize{50, 70}
+	m_ColliderSize{50, 70}
 {
 	if (m_Instance == nullptr) { m_Instance = this; }
 }
@@ -39,9 +39,9 @@ void Knight::Start()
 	m_GameObject->AddComponent(new Animator())->AssignClips(AnimLibrary::GetAnimations(AnimType::Knight));
 
 	// Set rendered sprite & layer
-	SpriteRenderer* renderer = m_GameObject->GetComponent<SpriteRenderer>();
-	renderer->AssignSprite(SpriteLibrary::GetSprite(Sprite::Knight));
-	renderer->SetLayer(int(IDrawable::Layers::Knight));
+	SpriteRenderer* spriteRenderer = m_GameObject->GetComponent<SpriteRenderer>();
+	spriteRenderer->AssignSprite(SpriteLibrary::GetSprite(Sprite::Knight));
+	spriteRenderer->SetLayer(int(IDrawable::Layers::Knight));
 
 	// Assign rigidbody reference
 	m_RigidbodyPtr = m_GameObject->AddComponent(new Rigidbody2D);
@@ -61,7 +61,7 @@ void Knight::Start()
 	if (m_FootStepSource == nullptr)
 	{
 		m_FootStepSource = m_GameObject->AddComponent(new AudioSource(true, false, true));
-		m_FootStepSource->SetClip(AudioLibrary::GetClip(Audio::HeroFootstep));
+		m_FootStepSource->AssignClip(AudioLibrary::GetClip(Audio::HeroFootstep));
 		m_FootStepSource->Pause();
 	}
 	if (m_AudioSource == nullptr)
@@ -79,11 +79,11 @@ void Knight::Update(const float& deltaTime)
 	HandleGroundImpact();
 
 	// Store Previous Velocity
-	m_VelocityUpdateCounter += deltaTime;
-	if (m_VelocityUpdateCounter >= m_VelocityUpdateInterval)
+	m_VelocityUpdateTimer += deltaTime;
+	if (m_VelocityUpdateTimer >= m_VelocityUpdateInterval)
 	{
 		m_StoredVelocity = m_RigidbodyPtr->GetVelocity();
-		m_VelocityUpdateCounter = 0;
+		m_VelocityUpdateTimer = 0;
 	}
 }
 
@@ -99,11 +99,11 @@ void Knight::HandleGroundImpact() const
 		if (m_StoredVelocity.y < -m_HardImpactThreshold)
 		{
 			Camera::m_MainPtr->SetShake();
-			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandHard));
+			m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::HeroLandHard));
 		}
 		else
 		{
-			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroLandSoft));
+			m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::HeroLandSoft));
 		}
 
 		// Print impact info
@@ -155,7 +155,7 @@ void Knight::OnCollisionEnter(const Collision& collision)
 	if (collision.m_GameObject->CompareTag(Tag::Coin))
 	{
 		//TODO: Earn coins
-		m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::SoulPickup));
+		m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::SoulPickup));
 		delete collision.m_GameObject;
 	}
 }

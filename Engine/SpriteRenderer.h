@@ -13,6 +13,10 @@ public:
 
 	SpriteRenderer(Texture* sprite = nullptr, const int& rows = 1, const int& cols = 1);
 	~SpriteRenderer() override = default;
+	SpriteRenderer(const SpriteRenderer& other) = delete;
+	SpriteRenderer(SpriteRenderer&& other) noexcept = delete;
+	SpriteRenderer& operator=(const SpriteRenderer& other) = delete;
+	SpriteRenderer& operator=(SpriteRenderer&& other) noexcept = delete;
 
 	void SetLayer(const int& layer) override;
 	int GetLayer() const override;

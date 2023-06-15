@@ -23,15 +23,6 @@ public:
 	void SetActive(const bool& active);
 
 #pragma region Components
-private:
-	void RemoveComponent(Component* component)
-	{
-		components.erase(std::remove(components.begin(), 
-									 components.end(), component), 
-									 components.end());
-	}
-
-public:
 	template<class T>
 	std::enable_if_t<std::is_base_of_v<Component, T>, T*>
 	AddComponent(T* component)
@@ -80,6 +71,13 @@ public:
 				result.push_back(castComponent);
 		}
 		return result;
+	}
+
+	void RemoveComponent(Component* component)
+	{
+		components.erase(std::remove(components.begin(),
+			components.end(), component),
+			components.end());
 	}
 #pragma endregion
 

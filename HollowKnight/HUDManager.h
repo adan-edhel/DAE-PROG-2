@@ -38,7 +38,12 @@ public:
 		return instance;
 	}
 
-	HUDManager();
+	HUDManager() = default;
+	~HUDManager() = default;
+	HUDManager(const HUDManager& other) = delete;
+	HUDManager(HUDManager&& other) noexcept = delete;
+	HUDManager& operator=(const HUDManager& other) = delete;
+	HUDManager& operator=(HUDManager&& other) noexcept = delete;
 
 	void UpdatePositionText(const Vector2& position);
 	void UpdateHealthBar(const int& health);
@@ -65,7 +70,6 @@ private:
 	Vector2 m_PlayerPosition{};
 
 	void UIDraw() const override;
-
 	void DrawString(const std::string& text, const Vector2 position = Vector2{}) const;
 };
 

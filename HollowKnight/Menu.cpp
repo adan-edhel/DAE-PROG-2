@@ -48,7 +48,7 @@ Menu::Menu()
 		m_MusicSource = m_AudioSource.AddComponent(new AudioSource(true, false, true));
 	}
 
-	m_MusicSource->SetClip(AudioLibrary::GetClip(Music::Title));
+	m_MusicSource->AssignClip(AudioLibrary::GetClip(Music::Title));
 }
 
 void Menu::Draw() const

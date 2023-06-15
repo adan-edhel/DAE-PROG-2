@@ -79,11 +79,11 @@ void Level::Initialize()
 	}
 
 	// Play Ambience audio
-	if (m_BlizzardAmbience == nullptr)
+	if (m_AudioSourcePtr == nullptr)
 	{
-		m_BlizzardAmbience = m_AudioSource.AddComponent(new AudioSource(true, false));
+		m_AudioSourcePtr = m_AudioSourceObject.AddComponent(new AudioSource(true, false));
 	}
-	m_BlizzardAmbience->SetClip(AudioLibrary::GetClip(Audio::Blizzard));
+	m_AudioSourcePtr->AssignClip(AudioLibrary::GetClip(Audio::Blizzard));
 }
 
 void Level::Update(const float& deltaTime)

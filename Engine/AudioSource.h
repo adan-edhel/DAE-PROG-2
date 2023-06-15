@@ -11,19 +11,37 @@ public:
 	bool m_SpatialBlend;
 
 	AudioSource(bool loop = false, bool spatialBlend = true, bool playOnWake = true);
+	~AudioSource() override = default;
+	AudioSource(const AudioSource& other) = delete;
+	AudioSource(AudioSource&& other) noexcept = delete;
+	AudioSource& operator=(const AudioSource& other) = delete;
+	AudioSource& operator=(AudioSource&& other) noexcept = delete;
 
-	void SetClip(SoundEffect* audio);
+	// Assigns given clip to the audio source. Plays immediately if playOnWake is enabled.
+	void AssignClip(SoundEffect* audio);
+	// Returns if audio is currently playing. Paused audio still counts as playing.
 	bool IsPlaying() const;
+	// Plays assigned clip, if there is any.
 	void Play() const;
+	// Stops assigned clip.
 	void Stop() const;
+	// Pauses assigned clip, paused clips keep their channel occupied unless stopped.
 	void Pause() const;
+	// Resumes assigned clip.
 	void Resume() const;
+
+	// Sets volume for this audio source. Values clamped between 0.0f and 1.0f.
 	void SetVolume(float volume);
+	// Returns volume of this audio source.
 	float GetVolume() const;
 
+	// Sets minimum distance for audio attenuation.
 	void SetMinDistance(const float& distance);
-	void SetMaxDistance(const float& distance);
+	// Gets minimum distance for audio attenuation.
 	float GetMinDistance() const;
+	// Sets maximum distance for audio attenuation.
+	void SetMaxDistance(const float& distance);
+	// Gets maximum distance for audio attenuation.
 	float GetMaxDistance() const;
 
 private:
@@ -38,6 +56,8 @@ private:
 
 	void Update(const float& deltaTime) override;
 
-	int GetAttenuatedVolume() const;
-	bool CanUpdateVolume() const { return m_UpdateCountdown >= m_UpdateInterval; }
+	// Calculate volume depending on distance to the AudioListener.
+	int AttenuateVolume() const;
+	// Can update attenuated volume.
+	bool CanUpdate() const { return m_UpdateCountdown >= m_UpdateInterval; }
 };

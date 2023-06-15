@@ -39,4 +39,5 @@ void Enemy::OnDeath()
 		shard->AddComponent(new MaskShard());
 		shard->m_Transform->position = m_Transform->position;
 	}
+	m_GameObject->m_Tag = Tag::Default;
 }

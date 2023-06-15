@@ -11,11 +11,16 @@ public:
 	Vector2 rotation{};
 	Vector2 scale{1, 1};
 
-	Transform();
+	Transform() = default;
+	~Transform() override = default;
+	Transform(const Transform& other) = delete;	// copy constructor
+	Transform(Transform&& other) noexcept = delete;	// move constructor
+	Transform& operator=(const Transform& other) = delete;	// copy operator
+	Transform& operator=(Transform&& other) noexcept = delete;	// move operator
+
 	void Translate(const float& x, const float& y);
 	void Translate(const Vector2& displacement);
 
 private:
-	~Transform() override = default;
 	void DebugDraw() const override;
 };

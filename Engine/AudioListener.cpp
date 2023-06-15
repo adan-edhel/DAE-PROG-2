@@ -1,10 +1,6 @@
 #include "AudioListener.h"
 #include "GameObject.h"
 
-AudioListener::AudioListener()
-{
-}
-
 void AudioListener::Awake()
 {
 	if (m_MainPtr == nullptr)
@@ -15,11 +11,11 @@ void AudioListener::Awake()
 	{
 		delete m_MainPtr->m_GameObject;
 		m_MainPtr = this;
-		Print("Multiple instances of AudioListener. First instances are replaced.");
+		Print("Multiple instances of AudioListener. Initial instances are replaced.");
 	}
 }
 
-void AudioListener::OnDisable()
+void AudioListener::OnDestroy()
 {
 	m_MainPtr = nullptr;
 }

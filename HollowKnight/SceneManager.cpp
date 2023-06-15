@@ -12,7 +12,7 @@ SceneManager::SceneManager()
 
 SceneManager::~SceneManager()
 {
-	UnloadLevels();
+	Cleanup();
 }
 
 Scene SceneManager::GetCurrentScene()
@@ -25,7 +25,7 @@ void SceneManager::LoadScene(const Scene& scene)
 	s_ActiveScene = scene;
 
 	SoundEffect::StopAll();
-	UnloadLevels();
+	Cleanup();
 
 	switch (s_ActiveScene)
 	{
@@ -40,9 +40,6 @@ void SceneManager::LoadScene(const Scene& scene)
 
 void SceneManager::Quit()
 {
-	SDL_Event quit{};
-	quit.type = SDL_QUIT;
-	SDL_PushEvent(&quit);
 	Print("###################################\n");
 	Print("#     THANK YOU FOR PLAYING!      #\n");
 	Print("###################################\n");
@@ -50,9 +47,12 @@ void SceneManager::Quit()
 	Print("###################################\n");
 	Print("#        (Re)Made by Mort         #\n");
 	Print("###################################\n");
+	SDL_Event quit{};
+	quit.type = SDL_QUIT;
+	SDL_PushEvent(&quit);
 }
 
-void SceneManager::UnloadLevels()
+void SceneManager::Cleanup()
 {
 	delete s_KingsPassPtr;
 	s_KingsPassPtr = nullptr;

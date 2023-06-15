@@ -14,10 +14,10 @@ class SceneManager final
 public:
 	SceneManager();
 	~SceneManager();
-	SceneManager(const SceneManager& other) = delete;					// copy constructor
-	SceneManager(SceneManager&& other) noexcept = delete;				// move constructor
-	SceneManager& operator=(const SceneManager& other) = delete;		// copy operator
-	SceneManager& operator=(SceneManager&& other) noexcept = delete;	// move operator
+	SceneManager(const SceneManager& other) = delete;
+	SceneManager(SceneManager&& other) noexcept = delete;
+	SceneManager& operator=(const SceneManager& other) = delete;
+	SceneManager& operator=(SceneManager&& other) noexcept = delete;
 
 	// Returns the current scene
 	static Scene GetCurrentScene();
@@ -50,5 +50,5 @@ private:
 	inline static Level* s_KingsPassPtr{};
 	inline static Menu* s_MenuPtr{};
 
-	static void UnloadLevels();
+	static void Cleanup();
 };

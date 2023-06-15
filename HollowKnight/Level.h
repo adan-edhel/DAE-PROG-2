@@ -12,6 +12,10 @@ class Level final
 public:
 	Level(const std::string& levelName);
 	~Level(); // No dynamic memory
+	Level(const Level& other) = delete;
+	Level(Level&& other) noexcept = delete;
+	Level& operator=(const Level& other) = delete;
+	Level& operator=(Level&& other) noexcept = delete;
 
 	void Update(const float& deltaTime);
 	void Draw() const;
@@ -51,9 +55,11 @@ private:
 	GameObject m_Platforms{};
 
 	// Level Audio
-	GameObject m_AudioSource{};
-	AudioSource* m_BlizzardAmbience{};
+	GameObject m_AudioSourceObject{};
+	AudioSource* m_AudioSourcePtr{};
 
+	// Sets up the level
 	void Initialize();
+	// Sets up level objects (environment)
 	void SetupLevelObject(GameObject& object, const Sprite& sprite, const int& layer);
 };

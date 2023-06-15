@@ -1,6 +1,7 @@
 #include "Behavior.h"
 
 #include "AmrothUtils.h"
+#include "CORE.h"
 
 Behavior::Behavior(const std::string& name)
 {
@@ -8,7 +9,10 @@ Behavior::Behavior(const std::string& name)
 	{
 		m_GameObject->m_Name = name;
 
-		Print("New ", TextColor::Green);
-		Print(m_Name + "\n", TextColor::Yellow);
+		if (CORE::s_DebugMode)
+		{
+			Print("New ", TextColor::Green);
+			Print(m_Name + "\n", TextColor::Yellow);
+		}
 	}
 }

@@ -12,14 +12,18 @@ public:
 
 	Camera(const Vector2& screen);
 	~Camera() override							= default;
-	Camera(const Camera& other)					= delete;	// copy constructor
-	Camera(Camera&& other) noexcept				= delete;	// move constructor
-	Camera& operator=(const Camera& other)		= delete;	// copy operator
-	Camera& operator=(Camera&& other) noexcept	= delete;	// move operator
+	Camera(const Camera& other)					= delete;
+	Camera(Camera&& other) noexcept				= delete;
+	Camera& operator=(const Camera& other)		= delete;
+	Camera& operator=(Camera&& other) noexcept	= delete;
 
+	// Sets camera target object.
 	void SetTarget(Transform& target);
+	// Sets boundaries of the level.
 	void SetLevelBoundaries(const Rectf& levelBoundaries);
+	// Returns camera position (with offset) for parallax.
 	Vector2 GetPosition(const float& offset) const;
+	// Shakes camera.
 	void SetShake(float magnitude = 10.0f, float duration = 0.66f);
 
 private:
@@ -28,14 +32,13 @@ private:
 	float m_PixelWidth;
 	float m_PixelHeight;
 
-	bool m_ShakeActive;
-	float m_ShakeMagnitude;
-	float m_ShakeDuration;
 	float m_ShakeTimer;
+	float m_ShakeMagnitude;
 	Vector2 m_ShakeOffset;
 
 	void Update(const float& deltaTime) override;
 	Vector2 Track() const;
 	void Clamp(Vector2& bottomLeftPos) const;
 	void CameraDraw() const override;
+	bool IsShaking() const { return m_ShakeTimer > 0; }
 };

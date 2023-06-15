@@ -67,7 +67,7 @@ void InputActions::Update(const float& deltaTime)
 	OnKey(deltaTime);
 
 	// Animation Functions
-	AnimationConditions(deltaTime);
+	HandleConditions(deltaTime);
 	UpdateAnimation();
 
 	// Debug Movement
@@ -149,7 +149,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 			Jump();
 			m_JumpsLeft--;
 			m_State = State::Jumping;
-			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroJump));
+			m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::HeroJump));
 		}
 		break;
 	case SDLK_x:			// ATTACK
@@ -160,7 +160,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		{
 			Dash();
 			m_DashCountdown = 0;
-			m_AudioSource->SetClip(AudioLibrary::GetClip(Audio::HeroDash));
+			m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::HeroDash));
 		}
 		break;
 	case SDLK_a:			// FOCUS / CAST
@@ -242,7 +242,7 @@ void InputActions::Attack()
 	m_AttackCountdown = AnimLibrary::GetAnimation(AnimType::Knight, "Attack1")->Length();
 }
 
-void InputActions::AnimationConditions(const float& deltaTime)
+void InputActions::HandleConditions(const float& deltaTime)
 {
 	// Local fields
 	const float walkCheckThreshold{ 0.5f };

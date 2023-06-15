@@ -1,7 +1,9 @@
 #include "AudioSource.h"
 
-#include "AudioListener.h"
 #include "AmrothUtils.h"
+
+#include "AudioListener.h"
+#include "CORE.h"
 #include "SoundEffect.h"
 #include "Transform.h"
 
@@ -21,14 +23,14 @@ void AudioSource::Update(const float& deltaTime)
 		m_UpdateCountdown += deltaTime;
 	}
 
-	if (m_AudioPtr != nullptr && CanUpdateVolume())
+	if (m_AudioPtr != nullptr && CanUpdate())
 	{
-		m_AudioPtr->SetVolume(static_cast<int>(GetAttenuatedVolume() * m_Volume));
+		m_AudioPtr->SetVolume(AttenuateVolume());
 		m_UpdateCountdown = 0;
 	}
 }
 
-void AudioSource::SetClip(SoundEffect* audio)
+void AudioSource::AssignClip(SoundEffect* audio)
 {
 	m_AudioPtr = audio;
 
@@ -104,15 +106,22 @@ float AudioSource::GetMaxDistance() const
 	return m_MaxDistance;
 }
 
-int AudioSource::GetAttenuatedVolume() const
+int AudioSource::AttenuateVolume() const
 {
+	if (AudioListener::m_MainPtr == nullptr)
+	{
+		Print("Warning, no Audio Listener found. All sounds are muted.\n");
+		return 0;
+	}
+
 	const int maxVolume{ 128 };
 
-	if (m_SpatialBlend == false) return maxVolume;
+	// If 3D Spatial Blend is disabled, returns max volume.
+	if (m_SpatialBlend == false) return maxVolume * m_Volume;
 
-	int volume{};
 	const float distance{ GetDistanceBetween(m_Transform->position.ToPoint2f(), AudioListener::m_MainPtr->m_Transform->position.ToPoint2f()) };
 
+	int volume{};
 	if (distance <= m_MinDistance)
 	{
 		volume = maxVolume;
@@ -126,8 +135,12 @@ int AudioSource::GetAttenuatedVolume() const
 		const float attenuationFactor = 1.0f - (distance - m_MinDistance) / (m_MaxDistance - m_MinDistance + 1);
 		volume = static_cast<int>(attenuationFactor * maxVolume);
 
-		//Print("Factor: " + std::to_string(attenuationFactor) + " " + "Sound: " + std::to_string(volume) + "\n");
+		if (CORE::s_DebugMode)
+		{
+			// Attenuation debug info
+			//Print("Factor: " + std::to_string(attenuationFactor) + " " + "Sound: " + std::to_string(volume) + "\n");
+		}
 	}
 
-	return volume;
+	return volume * m_Volume;
 }

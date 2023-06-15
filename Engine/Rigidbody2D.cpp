@@ -13,25 +13,21 @@ Rigidbody2D::Rigidbody2D() : Component("Rigidbody2D")
 {
 }
 
-void Rigidbody2D::Awake()
+void Rigidbody2D::Start()
 {
+	m_Collider = m_GameObject->GetComponent<Collider>();
+
 	std::vector<std::vector<Point2f>> platforms;
 	SVGParser::GetVerticesFromSvgFile("HollowKnight/Environment/LevelCollision.svg", m_LevelBoundaries);
 	SVGParser::GetVerticesFromSvgFile("HollowKnight/Environment/PlatformCollision.svg", platforms);
 	m_LevelBoundaries.insert(m_LevelBoundaries.end(), platforms.begin(), platforms.end());
 }
 
-void Rigidbody2D::Start()
-{
-	Collider* collider = m_GameObject->GetComponent<Collider>();
-	m_Collider = collider == nullptr ? m_GameObject->AddComponent(new Collider) : collider;
-}
-
 void Rigidbody2D::Update(const float& deltaTime)
 {
 	if (m_IsStatic) return;
 
-	CheckForCollision();
+	HandleEntityCollisions();
 
 	DecayVelocity(deltaTime);
 
@@ -45,12 +41,16 @@ void Rigidbody2D::Update(const float& deltaTime)
 
 void Rigidbody2D::DecayVelocity(const float& deltaTime)
 {
+	if (m_IsStatic) return;
+
 	m_Velocity.x *= HorizontalDrag;
 }
 
 void Rigidbody2D::SimulateGravity(const float& deltaTime)
 {
+	if (m_IsStatic) return;
 	if (!m_GravityEnabled) return;
+
 	AddForce(Vector2(0, GRAVITY * deltaTime));
 }
 
@@ -73,7 +73,7 @@ void Rigidbody2D::AddForce(const Vector2& force)
 //----------------------------------------------------
 
 #pragma region Handling
-void Rigidbody2D::CheckForCollision()
+void Rigidbody2D::HandleEntityCollisions()
 {
 	// Initialize flags to false
 	m_Grounded = false;

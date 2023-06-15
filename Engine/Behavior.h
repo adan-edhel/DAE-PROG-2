@@ -7,7 +7,13 @@
 
 class Behavior : public Component
 {
+public:
+	Behavior(const Behavior& other) = delete;
+	Behavior& operator=(const Behavior& other) = delete;
+	Behavior(Behavior&& other) noexcept = delete;
+	Behavior& operator=(Behavior&& other) noexcept = delete;
+
 protected:
 	Behavior(const std::string& name = "");
-	virtual ~Behavior() override = default;
+	~Behavior() override = default;
 };

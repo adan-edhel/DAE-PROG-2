@@ -32,7 +32,7 @@ SpriteLibrary::SpriteLibrary()
 
 SpriteLibrary::~SpriteLibrary()
 {
-	for (const auto& sprite : s_Sprites)
+	for (const std::pair<const Sprite, Texture*>& sprite : s_Sprites)
 	{
 		delete sprite.second;
 	}

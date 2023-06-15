@@ -13,24 +13,27 @@ public:
 	float m_PlaybackSpeed{ 1 };
 
 	Animator();
-	Animator(const Animator& other)					= delete;	// copy constructor
-	Animator(Animator&& other) noexcept				= delete;	// move constructor
-	Animator& operator=(const Animator& other)		= delete;	// copy operator
-	Animator& operator=(Animator&& other) noexcept	= delete;	// move operator
+	~Animator() override = default;
+	Animator(const Animator& other) = delete;				
+	Animator(Animator&& other) noexcept = delete;			
+	Animator& operator=(const Animator& other) = delete;	
+	Animator& operator=(Animator&& other) noexcept = delete;
 
 	void Start() override;
+
+	// Returns currently playing animation
 	Animation* Current() const;
+	// Plays given animation, if available
 	void Play(const std::string& name);
+	// Assigns clips to the animator
 	void AssignClips(std::map<std::string, Animation*>* anims);
+	// Returns whether the animator has clips loaded
 	bool IsLoaded() const;
 
 private:
-	Animation* m_CurrentAnim{};
-	SpriteRenderer* m_SpriteRend{};
+	Animation* m_CurrentAnimPtr{};
+	SpriteRenderer* m_SpriteRendererPtr{};
 	std::map<std::string, Animation*>* m_Clips{};
-
-	~Animator() override = default;
-
 
 	void Update(const float& deltaTime) override;
 };

@@ -23,21 +23,18 @@ void Camera::SetLevelBoundaries(const Rectf& levelBoundaries)
 
 void Camera::Update(const float& deltaTime)
 {
-	if (m_ShakeActive)
+	if (IsShaking())
 	{
-		m_ShakeTimer += deltaTime;
-		if (m_ShakeTimer < m_ShakeDuration)
-		{
-			const float offsetX{ RandomRange(-m_ShakeMagnitude, m_ShakeMagnitude) };
-			const float offsetY{ RandomRange(-m_ShakeMagnitude, m_ShakeMagnitude) };
+		m_ShakeTimer -= deltaTime;
 
-			m_ShakeOffset = Vector2(offsetX, offsetY);
-		}
-		else
-		{
-			m_ShakeActive = false;
-			m_ShakeOffset = Vector2{};
-		}
+		const float offsetX{ RandomRange(-m_ShakeMagnitude, m_ShakeMagnitude) };
+		const float offsetY{ RandomRange(-m_ShakeMagnitude, m_ShakeMagnitude) };
+
+		m_ShakeOffset = Vector2(offsetX, offsetY);
+	}
+	else
+	{
+		m_ShakeOffset = Vector2{};
 	}
 }
 
@@ -86,9 +83,6 @@ Vector2 Camera::GetPosition(const float& offset) const
 
 void Camera::SetShake(float magnitude, float duration)
 {
-	m_ShakeActive = true;
 	m_ShakeMagnitude = magnitude;
-	m_ShakeDuration = duration;
-	m_ShakeTimer = 0.0f;
-	m_ShakeOffset = Vector2{};
+	m_ShakeTimer = duration;
 }

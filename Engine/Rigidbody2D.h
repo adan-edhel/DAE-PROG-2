@@ -15,6 +15,12 @@ public:
 	Collider* m_Collider{};
 
 	Rigidbody2D();
+	~Rigidbody2D() override = default;
+	Rigidbody2D(const Rigidbody2D& other) = delete;
+	Rigidbody2D(Rigidbody2D&& other) noexcept = delete;
+	Rigidbody2D& operator=(const Rigidbody2D& other) = delete;
+	Rigidbody2D& operator=(Rigidbody2D&& other) noexcept = delete;
+
 	void SetVelocity(const float& xVelocity, const float& yVelocity);
 	void SetVelocity(const Vector2& velocity);
 	void AddForce(const float& xForce, const float& yForce);
@@ -33,24 +39,33 @@ private:
 	const float m_Bounciness{ -0.75f };
 	const float m_CollisionTolerance{ 10 };
 
-	~Rigidbody2D() override = default;
-	void Awake() override;
 	void Start() override;
 	void Update(const float& deltaTime) override;
+	// Decays velocity over time.
 	void DecayVelocity(const float& deltaTime);
+	// Simulates gravity on object
 	void SimulateGravity(const float& deltaTime);
 
-	// Collisions
-	void CheckForCollision();
+	// -- Collisions --
+	// Handles collisions between entities
+	void HandleEntityCollisions();
+	// Handles collisions with the floor
 	void HandleFloorCollision(const Rectf& collider, Vector2& velocity, const float& floorPos);
+	// Handles collisions with the ceiling
 	void HandleCeilingCollision(const Rectf& collider, Vector2& velocity, const float& ceilingPos);
+	// Handles collisions with the walls
 	void HandleWallCollision(const Rectf& collider, Vector2& velocity, const float& wallPos, const float& wallHeight);
+	// Handles collisions with level boundaries
 	//void HandleBoundaryCollision(const Rectf& collider, Vector2& velocity) const; //TODO: Needs rework
 
-	// Assist Functions
+	// --Assist Functions--
+	// Checks for line intersections
 	bool IntersectsLine(const Rectf& rect, const Vector2& start, const Vector2& end, float& intersectMin, float& intersectMax);
+	// Checks for collisions with ground
 	bool GroundCollision(const Rectf& rect, const float& floorPos, const float& tolerance) const;
+	// Checks for collisions with ceilings
 	bool CeilingCollision(const Rectf& rect, const float& ceilingPos, const float& tolerance) const;
+	// Checks for collisions with walls
 	bool WallCollision(const Rectf& rect, const float& wallHeight, const float& tolerance) const;
 
 	// Debug

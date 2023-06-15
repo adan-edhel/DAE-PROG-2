@@ -101,7 +101,9 @@ void AnimLibrary::DeleteClips(map<string, Animation*>& dictionary)
 {
 	// Delete animations
 	for (auto it = dictionary.begin(); it != dictionary.end(); ++it)
+	{
 		delete it->second;
+	}
 
 	// Clean dictionary
 	dictionary.clear();
@@ -109,10 +111,10 @@ void AnimLibrary::DeleteClips(map<string, Animation*>& dictionary)
 
 void AnimLibrary::KnightSetup()
 {
-	const auto* sprite = SpriteLibrary::GetSprite(Sprite::Knight);
+	const Texture* sprite = SpriteLibrary::GetSprite(Sprite::Knight);
 	const Vector2 gridCount{ 12,12 };
 
-	auto* currentClip = new Animation("Idle", sprite, gridCount, 1);
+	Animation* currentClip = new Animation("Idle", sprite, gridCount, 1);
 	currentClip->MoveStartFrame(Vector2(1, 9));
 	m_KnightClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
@@ -139,10 +141,10 @@ void AnimLibrary::KnightSetup()
 
 void AnimLibrary::CrawlidSetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
+	const Texture* sprite = SpriteLibrary::GetSprite(Sprite::Crawlid);
 	const Vector2 gridCount{ 4,4 };
 
-	auto* currentClip = new Animation("Walk", sprite, gridCount, 4);
+	Animation* currentClip = new Animation("Walk", sprite, gridCount, 4);
 	currentClip->MoveStartFrame(Vector2(1, 1));
 	m_CrawlidClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------
@@ -158,10 +160,10 @@ void AnimLibrary::CrawlidSetup()
 
 void AnimLibrary::VengeflySetup()
 {
-	const auto sprite = SpriteLibrary::GetSprite(Sprite::Vengelfy);
+	const Texture* sprite = SpriteLibrary::GetSprite(Sprite::Vengelfy);
 	const Vector2 gridCount{ 5,5 };
 
-	auto* currentClip = new Animation("Fly", sprite, gridCount, 5, .15f, true);
+	Animation* currentClip = new Animation("Fly", sprite, gridCount, 5, .15f, true);
 	currentClip->MoveStartFrame(Vector2(1, 1));
 	m_VengeflyClips[currentClip->m_Name] = currentClip;
 	// ----------------------------------------------

@@ -6,10 +6,6 @@
 #include "Transform.h"
 #include "GameObject.h"
 
-Collider::Collider() : Component("Collider")
-{
-}
-
 void Collider::OnEnable()
 {
 	s_AllColliders.push_back(this);

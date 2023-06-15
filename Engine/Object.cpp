@@ -12,7 +12,7 @@ bool Object::CompareTag(Tag other) const
 
 void Object::Destroy(const Object& GameObject, const Object* object)
 {
-	// delete component
+	// Delete component
 	if (object != nullptr)
 	{
 		if (!object->m_Name.empty() && !GameObject.m_Name.empty())

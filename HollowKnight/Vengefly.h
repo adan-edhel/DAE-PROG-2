@@ -20,7 +20,9 @@ public:
 	Vengefly();
 	~Vengefly() override;
 	Vengefly(const Vengefly& other) = delete;
+	Vengefly(Vengefly&& other) noexcept = delete;
 	Vengefly& operator=(const Vengefly& other) = delete;
+	Vengefly& operator=(Vengefly&& other) noexcept = delete;
 
 private:
 	std::vector<SoundEffect*> m_StartleSounds;

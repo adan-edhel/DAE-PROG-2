@@ -1,6 +1,7 @@
 #include "GameObject.h"
 
 #include "AmrothUtils.h"
+#include "CORE.h"
 #include "Transform.h"
 
 GameObject::GameObject(const std::string& name) : Object(name)
@@ -16,23 +17,27 @@ GameObject::GameObject(const std::string& name) : Object(name)
 
 GameObject::~GameObject()
 {
-	if (!m_Name.empty())
+	if (CORE::s_DebugMode)
 	{
-		Print("(x) ", TextColor::Red);
-		Print(m_Name, TextColor::Yellow);
-		Print(" destroyed \n", TextColor::Red);
+		if (!m_Name.empty())
+		{
+			Print("(x) ", TextColor::Red);
+			Print(m_Name, TextColor::Yellow);
+			Print(" destroyed \n", TextColor::Red);
+		}
 	}
-
-	if (components.empty()) return;
 
 	SetActive(false);
 
-	for (Component* component : components)
+	if (!components.empty())
 	{
-		if (component != nullptr)
+		for (Component* component : components)
 		{
-			component->OnDestroy();
-			Destroy(*this, component);
+			if (component != nullptr)
+			{
+				component->OnDestroy();
+				Destroy(*this, component);
+			}
 		}
 	}
 }
@@ -43,19 +48,23 @@ void GameObject::SetActive(const bool& active)
 	if (active == m_IsActive) return;
 
 	m_IsActive = active;
-	if (active == true)
+
+	if (!components.empty())
 	{
-		for (const auto& component : components)
+		if (active == true)
 		{
-			component->Awake();
-			component->Start();
+			for (const auto& component : components)
+			{
+				component->Awake();
+				component->Start();
+			}
 		}
-	}
-	else
-	{
-		for (const auto& component : components)
+		else
 		{
-			component->OnDisable();
+			for (const auto& component : components)
+			{
+				component->OnDisable();
+			}
 		}
 	}
 }
@@ -64,11 +73,14 @@ void GameObject::Update(const float& deltaTime)
 {
 	if (!m_IsActive) return;
 
-	for ( const auto component : components)
+	if (!components.empty())
 	{
-		if (component->m_IsEnabled)
+		for (const auto component : components)
 		{
-			component->Update(deltaTime);
+			if (component->m_IsEnabled)
+			{
+				component->Update(deltaTime);
+			}
 		}
 	}
 }

@@ -74,7 +74,7 @@ private:
 	void Attack();
 
 	// Animation Functions
-	void AnimationConditions(const float& deltaTime);
+	void HandleConditions(const float& deltaTime);
 	void UpdateAnimation() const;
 
 	// Helper Functions

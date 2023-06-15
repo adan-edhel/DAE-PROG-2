@@ -29,9 +29,9 @@ public:
 		if (m_ArrFunctionList[layer].empty()) return;
 
 		// Invoke all functions inside list
-		for (IDrawable* func : m_ArrFunctionList[layer])
+		for (size_t i = 0; i < m_ArrFunctionList[layer].size(); i++)
 		{
-			(func->*function)(std::forward<Args>(args)...);
+			(m_ArrFunctionList[layer][i]->*function)(std::forward<Args>(args)...);
 		}
 	}
 
@@ -45,9 +45,9 @@ public:
 			if (m_ArrFunctionList[layer].empty()) continue;
 
 			// Invoke all functions inside list
-			for (IDrawable* func : m_ArrFunctionList[layer])
+			for (size_t i = 0; i < m_ArrFunctionList[layer].size(); i++)
 			{
-				(func->*function)(std::forward<Args>(args)...);
+				(m_ArrFunctionList[layer][i]->*function)(std::forward<Args>(args)...);
 			}
 		}
 	}
@@ -60,7 +60,7 @@ public:
 	virtual int GetLayer() const { return m_OrderInLayer; }
 	virtual void SetLayer(const int& layer)
 	{
-		RemoveFromVector();
+		RemoveInstance();
 		m_OrderInLayer = layer;
 		m_ArrFunctionList[m_OrderInLayer].push_back(this);
 	}
@@ -73,14 +73,14 @@ protected:
 
 	virtual ~IDrawable()
 	{
-		RemoveFromVector();
+		RemoveInstance();
 	}
 
 private:
 	int m_OrderInLayer;
 	inline static std::array<vector<IDrawable*>, m_TotalLayerCount> m_ArrFunctionList{};
 
-	void RemoveFromVector()
+	void RemoveInstance()
 	{
 		m_ArrFunctionList[m_OrderInLayer].erase(std::remove
 		(m_ArrFunctionList[m_OrderInLayer].begin(),

@@ -22,10 +22,10 @@ class AnimLibrary final
 public:
 	AnimLibrary();
 	~AnimLibrary();
-	AnimLibrary(const AnimLibrary& other) = delete;					// copy constructor
-	AnimLibrary(AnimLibrary&& other) noexcept = delete;				// move constructor
-	AnimLibrary& operator=(const AnimLibrary& other) = delete;		// copy operator
-	AnimLibrary& operator=(AnimLibrary&& other) noexcept = delete;	// move operator
+	AnimLibrary(const AnimLibrary& other) = delete;
+	AnimLibrary(AnimLibrary&& other) noexcept = delete;
+	AnimLibrary& operator=(const AnimLibrary& other) = delete;
+	AnimLibrary& operator=(AnimLibrary&& other) noexcept = delete;
 
 	static Animation* GetAnimation(AnimType animType, const string& clipName);
 	static map<string, Animation*>* GetAnimations(AnimType animType);

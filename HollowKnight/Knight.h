@@ -12,17 +12,18 @@ public:
 
 	Knight();
 	~Knight() override;
-	Knight(const Knight& other) = default;
-	Knight& operator=(const Knight& other) = default;
+	Knight(const Knight& other) = delete;
+	Knight(Knight&& other) noexcept = delete;
+	Knight& operator=(const Knight& other) = delete;
+	Knight& operator=(Knight&& other) noexcept = delete;
 
 private:
-	// Component pointers
 	Rigidbody2D* m_RigidbodyPtr;
 	AudioSource* m_FootStepSource{};
 	AudioSource* m_AudioSource{};
 
 	const float m_VelocityUpdateInterval{ 0.001f };
-	float m_VelocityUpdateCounter{};
+	float m_VelocityUpdateTimer{};
 	Vector2 m_StoredVelocity{};
 
 	Vector2 m_SpawnPosition{ 2200, 3150 };

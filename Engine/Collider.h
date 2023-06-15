@@ -1,7 +1,6 @@
 #pragma once
 #include "Component.h"
 #include "IDrawable.h"
-#include "IUpdatable.h"
 #include "Vector2.h"
 
 class Collider final : public Component, IDrawable
@@ -12,12 +11,12 @@ class Collider final : public Component, IDrawable
 	friend Rigidbody2D;
 
 public:
-	Collider();
-	~Collider() override							= default;
-	Collider(const Collider& other)					= delete;	// copy constructor
-	Collider(Collider&& other) noexcept				= delete;	// move constructor
-	Collider& operator=(const Collider& other)		= delete;	// copy operator
-	Collider& operator=(Collider&& other) noexcept	= delete;	// move operator
+	Collider() = default;
+	~Collider() override = default;
+	Collider(const Collider& other)	= delete;
+	Collider(Collider&& other) noexcept = delete;
+	Collider& operator=(const Collider& other) = delete;
+	Collider& operator=(Collider&& other) noexcept = delete;
 
 	void SetSize(const float& sizeX, const float& sizeY);
 	void SetSize(const Vector2& size);

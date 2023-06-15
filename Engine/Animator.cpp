@@ -10,12 +10,12 @@ Animator::Animator() : Component("Animator")
 
 void Animator::Start()
 {
-	m_SpriteRend = m_GameObject->GetComponent<SpriteRenderer>();
+	m_SpriteRendererPtr = m_GameObject->GetComponent<SpriteRenderer>();
 }
 
 Animation* Animator::Current() const
 {
-	return m_CurrentAnim;
+	return m_CurrentAnimPtr;
 }
 
 void Animator::Play(const std::string& name)
@@ -24,26 +24,26 @@ void Animator::Play(const std::string& name)
 	if (m_Clips == nullptr) return;
 
 	// Find given animation in clips
-	const auto it = m_Clips->find(name);
+	const std::map<string, Animation*>::iterator it = m_Clips->find(name);
 
 	// Check if animation is valid
 	if (!it->first.empty())
 	{
 		// Check if there is already an animation playing
-		if (m_CurrentAnim != nullptr)
+		if (m_CurrentAnimPtr != nullptr)
 		{
 			// Return if current animation is the same as given clip
-			if (m_CurrentAnim == m_Clips->find(name)->second) return;
+			if (m_CurrentAnimPtr == m_Clips->find(name)->second) return;
 
 			// Reset current animation
-			m_CurrentAnim->ResetAnim();
+			m_CurrentAnimPtr->ResetAnim();
 		}
 
 		// AssignClips new clip as current animation
-		m_CurrentAnim = it->second;
-		m_CurrentAnim->ResetAnim();
-		m_SpriteRend->m_Rows = m_CurrentAnim->GridSize().x;
-		m_SpriteRend->m_Columns = m_CurrentAnim->GridSize().y;
+		m_CurrentAnimPtr = it->second;
+		m_CurrentAnimPtr->ResetAnim();
+		m_SpriteRendererPtr->m_Rows = m_CurrentAnimPtr->GridSize().x;
+		m_SpriteRendererPtr->m_Columns = m_CurrentAnimPtr->GridSize().y;
 	}
 }
 
@@ -60,9 +60,9 @@ bool Animator::IsLoaded() const
 void Animator::Update(const float& deltaTime)
 {
 	// If there is a current animation
-	if (m_CurrentAnim != nullptr)
+	if (m_CurrentAnimPtr != nullptr)
 	{
 		// Update SpriteRenderer to current frame
-		m_SpriteRend->Slice(m_CurrentAnim->Update(deltaTime, m_PlaybackSpeed));
+		m_SpriteRendererPtr->Slice(m_CurrentAnimPtr->Update(deltaTime, m_PlaybackSpeed));
 	}
 }

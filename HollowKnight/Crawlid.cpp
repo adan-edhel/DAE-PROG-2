@@ -39,7 +39,7 @@ void Crawlid::Start()
 	m_GameObject->GetComponent<Collider>()->SetSize(m_ColliderSize);
 
 	// Assign audio clip
-	m_AudioSourcePtr->SetClip(&m_FootSteps);
+	m_AudioSourcePtr->AssignClip(&m_FootSteps);
 }
 
 void Crawlid::Update(const float& deltaTime)

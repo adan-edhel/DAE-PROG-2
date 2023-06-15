@@ -48,7 +48,7 @@ void Vengefly::Start()
 	// Set rigidbody to static
 	m_RigidbodyPtr->m_GravityEnabled = false;
 
-	m_FlySourcePtr->SetClip(&m_WingSounds);
+	m_FlySourcePtr->AssignClip(&m_WingSounds);
 }
 
 void Vengefly::Update(const float& deltaTime)
@@ -71,7 +71,6 @@ void Vengefly::OnDeath()
 	HandleAnimation();
 	m_FlySourcePtr->Stop();
 	m_RigidbodyPtr->m_GravityEnabled = true;
-	m_GameObject->GetComponent<Collider>()->m_IsEnabled = false;
 }
 
 void Vengefly::Fly(const float& deltaTime) const
@@ -119,7 +118,7 @@ void Vengefly::HandleStates(const float& deltaTime)
 		m_FlySourcePtr->Pause();
 		if (!m_StartleSourcePtr->IsPlaying())
 		{
-			m_StartleSourcePtr->SetClip(GetRandomStartleSound());
+			m_StartleSourcePtr->AssignClip(GetRandomStartleSound());
 		}
 		m_State = State::Startled;
 		m_Hostile = true;

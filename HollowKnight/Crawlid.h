@@ -18,7 +18,9 @@ public:
 	Crawlid();
 	~Crawlid() override = default;
 	Crawlid(const Crawlid& other) = delete;
+	Crawlid(Crawlid&& other) noexcept = delete;
 	Crawlid& operator=(const Crawlid& other) = delete;
+	Crawlid& operator=(Crawlid&& other) noexcept = delete;
 
 private:
 	State m_State{State::Walking};

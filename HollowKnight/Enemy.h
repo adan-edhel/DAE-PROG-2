@@ -10,7 +10,9 @@ public:
 	Enemy();
 	~Enemy() override = default;
 	Enemy(const Enemy& other) = delete;
+	Enemy(Enemy&& other) noexcept = delete;
 	Enemy& operator=(const Enemy& other) = delete;
+	Enemy& operator=(Enemy&& other) noexcept = delete;
 
 protected:
 	enum class Direction

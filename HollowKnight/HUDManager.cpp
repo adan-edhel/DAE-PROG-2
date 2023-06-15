@@ -4,10 +4,6 @@
 #include "CORE.h"
 #include "GameSettings.h"
 
-HUDManager::HUDManager()
-{
-}
-
 void HUDManager::UpdatePositionText(const Vector2& position)
 {
 	if (position != m_PlayerPosition)
@@ -39,10 +35,9 @@ void HUDManager::UIDraw() const
 		m_AncientMasks[i].Draw(Vector2(offsetPosX, m_MasksPositionsOrigin.y));
 	}
 
-	// Draw player position
 	if (!CORE::s_DebugMode)
 	{
-		//TODO: Remove for release
+		// Draws player position on screen for debug purposes || TODO: Remove for release
 		//DrawString(m_PlayerPosition.ToRoundedString(), Vector2(0, -350));
 	}
 }
