@@ -1,11 +1,13 @@
 #include "pch.h"
 #include "Game.h"
 
+#include <SoundEffect.h>
+#include <IInputEvent.h>
+#include <Camera.h>
+
+#include "CORE.h"
 #include "SceneManager.h"
 #include "GameSettings.h"
-#include <SoundEffect.h>
-#include "IInputEvent.h"
-#include "Camera.h"
 #include "Level.h"
 
 Game::Game(const Window& window)
@@ -70,9 +72,15 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	IInputEvent::Invoke(&IInputEvent::OnKeyDown, e);
 
-#pragma region Print Controls
-	if (e.keysym.sym == SDLK_i)
+	switch (e.keysym.sym)
 	{
+	case SDLK_F1:			// TOGGLE DEBUG
+		CORE::s_DebugMode = !CORE::s_DebugMode;
+		break;
+	case SDLK_F5:			// Clear Console
+		ClearConsole();
+		break;
+	case SDLK_i:			// Print Controls
 		Print("___________________________________\n");
 		Print("|             CONTROLS            |\n");
 		Print("|_________________________________|\n");
@@ -101,9 +109,19 @@ void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 		Print("|_________________________________|\n");
 		Print("| F5             | Clear Console  |\n");
 		Print("|_________________________________|\n");
+		break;
+	case SDLK_ESCAPE:			// Exit
+		switch (SceneManager::GetCurrentScene())
+		{
+		case Scene::Menu:
+			SceneManager::Quit();
+			break;
+		case Scene::Game:
+			SceneManager::LoadScene(Scene::Menu);
+			break;
+		}
+		break;
 	}
-#pragma endregion
-
 }
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {

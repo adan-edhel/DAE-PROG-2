@@ -7,8 +7,10 @@ public:
 	template<typename... Args>
 	static void Invoke(void(IInputEvent::* function)(Args...), Args&&... args)
 	{
-		for (IInputEvent* eventPtr : m_pEvents)
-			(eventPtr->*function)(std::forward<Args>(args)...);
+		for (size_t i = 0; i < m_pEvents.size(); i++)
+		{
+			(m_pEvents[i]->*function)(std::forward<Args>(args)...);
+		}
 	}
 
 	virtual void OnKeyHeld(const SDL_KeyboardEvent& e) {}

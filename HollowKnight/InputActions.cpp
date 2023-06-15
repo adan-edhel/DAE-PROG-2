@@ -165,11 +165,6 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		break;
 	case SDLK_a:			// FOCUS / CAST
 		break;
-	case SDLK_ESCAPE:		// QUIT TO MENU
-		SceneManager::LoadScene(Scene::Menu);
-		break;
-	case SDLK_F1:			// TOGGLE DEBUG
-		CORE::s_DebugMode = !CORE::s_DebugMode;
 	case SDLK_F2:			// PRINT PLAYER POSITION
 		Print(m_Transform->position.ToString() + "\n");
 		break;
@@ -177,9 +172,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		m_RigidbodyPtr->m_IsStatic = !m_RigidbodyPtr->m_IsStatic;
 		m_RigidbodyPtr->SetVelocity(0, 0);
 		break;
-	case SDLK_F5:			// Clear Console
-		ClearConsole();
-		break;
+
 	}
 }
 
