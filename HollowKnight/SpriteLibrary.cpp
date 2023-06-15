@@ -25,8 +25,9 @@ SpriteLibrary::SpriteLibrary()
 	// Menu
 	Load(Sprite::MenuBackground, "Menu/Background.png");
 	Load(Sprite::MenuTitle, "Menu/Title.png");
+	Load(Sprite::Pointer, "Menu/Pointer/pointer_10.png");
 
-	Load(Font::TrajanPro, "Fonts/Trajan Pro Regular.ttf");
+	Load(Font::TrajanPro, "Fonts/Trajan Pro Bold.ttf");
 }
 
 SpriteLibrary::~SpriteLibrary()

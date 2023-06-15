@@ -27,7 +27,8 @@ enum class Sprite
 
 	// Menu
 	MenuBackground,
-	MenuTitle
+	MenuTitle,
+	Pointer,
 };
 
 enum class Font
