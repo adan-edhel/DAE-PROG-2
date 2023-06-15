@@ -5,6 +5,7 @@
 
 #include <GameObject.h>
 
+class Knight;
 class Animator;
 class AudioSource;
 class SpriteRenderer;
@@ -36,6 +37,9 @@ private:
 	const Uint8* KBStatesPtr{};
 	Vector2 m_MousePos{};
 
+	// Healing
+	const int m_ShardsToHeal{ 4 };
+
 	// Movement fields
 	const float m_JumpResetThreshold;
 ;	const float m_WalkSpeed;
@@ -63,7 +67,6 @@ private:
 	void OnKeyDown(const SDL_KeyboardEvent& e) override;
 	void OnKeyUp(const SDL_KeyboardEvent& e) override;
 	void OnMouseDown(const SDL_MouseButtonEvent& e) override;
-	void OnMouseUp(const SDL_MouseButtonEvent& e) override;
 	void OnMouseMotion(const SDL_MouseMotionEvent& e) override;
 
 	// Action Functions
@@ -71,6 +74,7 @@ private:
 	void Jump() const;
 	void CutJump() const;
 	void Dash() const;
+	void Heal() const;
 	void Attack();
 
 	// Animation Functions

@@ -135,11 +135,16 @@ void Knight::OnDamage()
 
 void Knight::OnDeath()
 {
-	//TODO: remove coins
-
 	m_RigidbodyPtr->SetVelocity(0, 0);
 	m_Transform->position = m_SpawnPosition;
+	m_CollectedShards = 0;
 	Heal(m_MaxHealth);
+}
+
+void Knight::Heal(const int& health)
+{
+	Actor::Heal(health);
+	HUDManager::GetInstance().UpdateHealthBar(GetHealth());
 }
 
 void Knight::OnCollisionEnter(const Collision& collision)
@@ -154,7 +159,7 @@ void Knight::OnCollisionEnter(const Collision& collision)
 	}
 	if (collision.m_GameObject->CompareTag(Tag::Coin))
 	{
-		//TODO: Earn coins
+		m_CollectedShards++;
 		m_AudioSource->AssignClip(AudioLibrary::GetClip(Audio::SoulPickup));
 		delete collision.m_GameObject;
 	}

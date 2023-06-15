@@ -15,7 +15,7 @@ public:
 	// Returns actor health.
 	int GetHealth() const { return m_Health; }
 	// Heals actor.
-	void Heal(const int& health);
+	virtual void Heal(const int& health);
 	// Adds damage to actor.
 	virtual void OnDamage();
 	// Returns whether actor is alive.

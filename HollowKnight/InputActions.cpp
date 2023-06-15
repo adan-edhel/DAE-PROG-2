@@ -13,9 +13,9 @@
 #include <SpriteRenderer.h>
 
 #include "AnimLibrary.h"
-#include "SceneManager.h"
 #include "AttackCollider.h"
 #include "AudioLibrary.h"
+#include "Knight.h"
 
 InputActions::InputActions() :
 	m_State{ State::Falling },
@@ -164,6 +164,7 @@ void InputActions::OnKeyDown(const SDL_KeyboardEvent& e)
 		}
 		break;
 	case SDLK_a:			// FOCUS / CAST
+		Heal();
 		break;
 	case SDLK_F2:			// PRINT PLAYER POSITION
 		Print(m_Transform->position.ToString() + "\n");
@@ -195,11 +196,6 @@ void InputActions::OnMouseDown(const SDL_MouseButtonEvent& e)
 	}
 }
 
-void InputActions::OnMouseUp(const SDL_MouseButtonEvent& e)
-{
-	
-}
-
 void InputActions::OnMouseMotion(const SDL_MouseMotionEvent& e)
 {
 	m_MousePos = Vector2(static_cast<float>(e.x),
@@ -216,6 +212,17 @@ void InputActions::Walk(const float& speed) const
 void InputActions::Dash() const
 {
 	m_RigidbodyPtr->SetVelocity(m_DashVelocity * float(m_RendererPtr->m_FlipX ? -1 : 1), 0);
+}
+
+void InputActions::Heal() const
+{
+	Knight* knight{ Knight::m_Instance };
+
+	if (knight->m_CollectedShards >= m_ShardsToHeal)
+	{
+		knight->m_CollectedShards -= m_ShardsToHeal;
+		knight->Heal(1);
+	}
 }
 
 void InputActions::Jump() const

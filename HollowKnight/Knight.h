@@ -9,6 +9,7 @@ class Knight final : public Actor
 {
 public:
 	inline static Knight* m_Instance{};
+	int m_CollectedShards{};
 
 	Knight();
 	~Knight() override;
@@ -16,6 +17,8 @@ public:
 	Knight(Knight&& other) noexcept = delete;
 	Knight& operator=(const Knight& other) = delete;
 	Knight& operator=(Knight&& other) noexcept = delete;
+
+	void Heal(const int& health) override;
 
 private:
 	Rigidbody2D* m_RigidbodyPtr;
