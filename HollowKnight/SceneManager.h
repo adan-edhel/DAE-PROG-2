@@ -42,6 +42,7 @@ public:
 
 	// Reloads level with a fresh instance
 	static void LoadScene(const Scene& scene);
+	static void Quit();
 
 private:
 	// Dynamic state of the game

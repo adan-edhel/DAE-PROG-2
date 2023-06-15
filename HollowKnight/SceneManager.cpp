@@ -38,6 +38,20 @@ void SceneManager::LoadScene(const Scene& scene)
 	}
 }
 
+void SceneManager::Quit()
+{
+	SDL_Event quit{};
+	quit.type = SDL_QUIT;
+	SDL_PushEvent(&quit);
+	Print("###################################\n");
+	Print("#     THANK YOU FOR PLAYING!      #\n");
+	Print("###################################\n");
+	Print("#          HOLLOW KNIGHT          #\n");
+	Print("###################################\n");
+	Print("#        (Re)Made by Mort         #\n");
+	Print("###################################\n");
+}
+
 void SceneManager::UnloadLevels()
 {
 	delete s_KingsPassPtr;
