@@ -43,7 +43,7 @@ void HUDManager::UIDraw() const
 	if (!CORE::s_DebugMode)
 	{
 		//TODO: Remove for release
-		DrawString(m_PlayerPosition.ToRoundedString(), Vector2(0, -350));
+		//DrawString(m_PlayerPosition.ToRoundedString(), Vector2(0, -350));
 	}
 }
 
